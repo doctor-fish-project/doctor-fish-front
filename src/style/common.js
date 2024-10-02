@@ -45,4 +45,22 @@ export const reset = css`
         background-color: transparent;
         cursor: default;
     }
+
+    @keyframes userModalOpen {
+        from {
+            inset: auto 0px -650px;
+        }
+        to {
+            inset: auto 0px 0px;
+        }
+    }
+
+    @keyframes userModalClose {
+        from {
+            inset: auto 0px 0px;
+        }
+        to {
+            inset: auto 0px -650px;
+        }
+    }
 `;

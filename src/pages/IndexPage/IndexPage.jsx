@@ -5,8 +5,15 @@ import MainContainer from '../../components/usercomponents/MainContainer/MainCon
 import MainLayout from '../../components/usercomponents/MainLayout/MainLayout';
 import { RiHome2Line } from "react-icons/ri";
 import Loading from '../../components/usercomponents/Loading/Loading';
+import { useSetRecoilState } from 'recoil';
+import { adminSigninModalAtom, signinModalAtom, signupModalAtom } from '../../atoms/modalAtoms';
 
 function IndexPage(props) {
+
+    const setSigninModalState = useSetRecoilState(signinModalAtom);
+    const setSignupModalState = useSetRecoilState(signupModalAtom);
+    const setAdminSigninModalState = useSetRecoilState(adminSigninModalAtom);
+
     const [isLoading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -14,7 +21,19 @@ function IndexPage(props) {
             setLoading(false);
         }, 3000);
     }, [])
-    
+
+    const handleSigninModalOnClick = () => {
+        setSigninModalState(true)
+    }
+
+    const handleSignupModalOnClick = () => {
+        setSignupModalState(true)
+    }
+
+    const handleAdminSigninModalOnClick = () => {
+        setAdminSigninModalState(true)
+    }
+
     return (
         <MainLayout>
             <MainContainer>
@@ -43,9 +62,9 @@ function IndexPage(props) {
                                 <p>로그인 & 회원가입</p>
                             </div>
                             <div css={s.loginButtonBox}>
-                                <button>로그인</button>
-                                <button>회원가입</button>
-                                <button>관리자 로그인</button>
+                                <button onClick={handleSigninModalOnClick}>로그인</button>
+                                <button onClick={handleSignupModalOnClick}>회원가입</button>
+                                <button onClick={handleAdminSigninModalOnClick}>관리자 로그인</button>
                             </div>
                         </div>
                     </div>

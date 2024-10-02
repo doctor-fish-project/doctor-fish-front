@@ -1,7 +1,8 @@
 import React from 'react';
 /** @jsxImportSource @emotion/react */
 import * as s from './style';
-import { useNavigate } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
+import DashBoard from '../../../pages/userpage/DashBoard/DashBoard';
 
 function SubContainer({ children }) {
     const nav = useNavigate();
@@ -37,10 +38,10 @@ function SubContainer({ children }) {
             </div>
             <Routes>
                 <Route path='/dashboard' element={<DashBoard />} />
-                <Route path='/reservation' element={<ReservationPage />} />
-                <Route path='/reservationlist' element={<ReservationListPage />} />
-                <Route path='/review' element={<ReviewPage />} />
-                <Route path='/settings' element={<SettingsPage />} />
+                {/* <Route path='/reservation' element={<ReservationPage />} /> */}
+                {/* <Route path='/reservationlist' element={<ReservationListPage />} /> */}
+                {/* <Route path='/review' element={<ReviewPage />} /> */}
+                {/* <Route path='/settings' element={<SettingsPage />} /> */}
             </Routes>
         </div>
     );

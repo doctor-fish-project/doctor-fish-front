@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from 'react';
 /** @jsxImportSource @emotion/react */
 import * as s from './style';
-import MainContainer from '../../components/usercomponents/MainContainer/MainContainer';
-import MainLayout from '../../components/usercomponents/MainLayout/MainLayout';
+import MainContainer from '../../../components/usercomponents/MainContainer/MainContainer';
+import MainLayout from '../../../components/usercomponents/MainLayout/MainLayout';
 import { RiHome2Line } from "react-icons/ri";
-import Loading from '../../components/usercomponents/Loading/Loading';
+import Loading from '../../../components/usercomponents/Loading/Loading';
 import { useSetRecoilState } from 'recoil';
-import { adminSigninModalAtom, signinModalAtom, signupModalAtom } from '../../atoms/modalAtoms';
+import { adminSigninModalAtom, signinModalAtom, signupModalAtom } from '../../../atoms/modalAtoms';
+import { Route, Routes, useNavigate } from 'react-router-dom';
+import DashBoard from '../DashBoard/DashBoard';
 
-function IndexPage(props) {
+function IndexPage(props) { 
+    const nav = useNavigate();
+    
 
     const setSigninModalState = useSetRecoilState(signinModalAtom);
     const setSignupModalState = useSetRecoilState(signupModalAtom);
@@ -23,7 +27,8 @@ function IndexPage(props) {
     }, [])
 
     const handleSigninModalOnClick = () => {
-        setSigninModalState(true)
+        // setSigninModalState(true)
+        nav("/dashboard");
     }
 
     const handleSignupModalOnClick = () => {
@@ -70,6 +75,9 @@ function IndexPage(props) {
                     </div>
                 }
             </MainContainer>
+            <Routes>
+                <Route path='/dashboard/*' element={<DashBoard />} />
+            </Routes>
         </MainLayout>
     );
 }

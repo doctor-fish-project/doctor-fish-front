@@ -22,10 +22,7 @@ function SubContainer({ children }) {
     const handleReviewOnClick = () => {
         nav("/dashboard/review")
     }
-
-    const handleSettingsOnClick = () => {
-        nav("/dashboard/settings")
-    }
+    
     return (
         <div css={s.layout}>
             {children}
@@ -33,8 +30,7 @@ function SubContainer({ children }) {
                 <button onClick={handleDashboardOnClick}>홈</button>
                 <button onClick={handleReservationOnClick}>예약 하기</button>
                 <button onClick={handleReservationListOnClick}>예약 조회</button>
-                <button onClick={handleReviewOnClick}>리뷰 쓰기 및 조회</button>
-                <button onClick={handleSettingsOnClick}>설정</button>
+                <button onClick={handleReviewOnClick}>리뷰</button>
             </div>
             <Routes>
                 <Route path='/dashboard' element={<DashBoard />} />

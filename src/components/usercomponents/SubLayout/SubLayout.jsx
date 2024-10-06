@@ -1,10 +1,10 @@
 import React from 'react';
 /** @jsxImportSource @emotion/react */
-import * as s from './style';
+import * as s from "./style";
 
-function SubLayout({ children }) {
+function SubLayout({ isShow, children}) {
     return (
-        <div css={s.layout}>
+        <div css={s.layout(isShow)}>
             {children}
         </div>
     );

@@ -8,7 +8,7 @@ export const layout = css`
     padding-top: 45px;
     height: 100%;
     background-color: #ffffff;
-    overflow-y: scroll;
+    overflow: auto;
     &::-webkit-scrollbar {
         display: none;
     }
@@ -23,5 +23,6 @@ export const footer = css`
     border: 1px solid #dbdbdb;
     width: 100%;
     height: 60px;
+    box-shadow: 3px 0px 5px #dbdbdb;
 
 `;

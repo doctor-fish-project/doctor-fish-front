@@ -13,7 +13,6 @@ import DashBoard from '../DashBoard/DashBoard';
 function IndexPage(props) { 
     const nav = useNavigate();
     
-
     const setSigninModalState = useSetRecoilState(signinModalAtom);
     const setSignupModalState = useSetRecoilState(signupModalAtom);
     const setAdminSigninModalState = useSetRecoilState(adminSigninModalAtom);
@@ -26,9 +25,12 @@ function IndexPage(props) {
         }, 3000);
     }, [])
 
+    const handleDashboardOnClick = () => {
+        nav("/dashboard")
+    }
+
     const handleSigninModalOnClick = () => {
-        // setSigninModalState(true)
-        nav("/dashboard");
+        setSigninModalState(true)
     }
 
     const handleSignupModalOnClick = () => {
@@ -56,7 +58,7 @@ function IndexPage(props) {
                             </div>
                             <div css={s.buttonBox}>
                                 <RiHome2Line />
-                                <button>메인화면 바로가기</button>
+                                <button onClick={handleDashboardOnClick}>메인화면 바로가기</button>
                             </div>
                             <div css={s.imgBox}>
                                 <img src="/cloud.png" alt="" />
@@ -75,9 +77,6 @@ function IndexPage(props) {
                     </div>
                 }
             </MainContainer>
-            <Routes>
-                <Route path='/dashboard/*' element={<DashBoard />} />
-            </Routes>
         </MainLayout>
     );
 }

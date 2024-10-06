@@ -3,53 +3,53 @@ import React from 'react';
 import * as s from "./style";
 import { AiFillSound } from "react-icons/ai"
 import { FaUser } from "react-icons/fa";
-import { CiCircleChevRight } from "react-icons/ci";
-import SubLayout from '../../../components/usercomponents/SubLayout/SubLayout';
+import { IoIosArrowForward } from "react-icons/io";
 import SubContainer from '../../../components/usercomponents/SubContainer/SubContainer';
-import DashBoardTopBar from '../../../components/usercomponents/DashBoardTopBar/DashBoardTopBar';
+import MainLayout from '../../../components/usercomponents/MainLayout/MainLayout';
+import { Route, Routes, useNavigate } from 'react-router-dom';
+import YearBox from '../../../components/usercomponents/reservationListPage/YearBox/YearBox';
+import DashBoardTopBar from '../../../components/usercomponents/dashBoard/DashBoardTopBar/DashBoardTopBar';
+import MyProfile from '../../../components/usercomponents/dashBoard/MyProfile/MyProfile';
 
 function DashBoard(props) {
+    const nav = useNavigate();
+    
+    const handleReservationListOnClick = () => {
+        nav("/dashboard/reservationlist")
+    }
+
+    const handleMyProfileOnClick = () => {
+        nav("/dashboard/myprofile")
+    }
+
     return (
-        <SubLayout>
+        <MainLayout>
             <SubContainer>
-                <DashBoardTopBar>
-                    <div css={s.layout}>
-                        <div css={s.reviewBox}>
-                            <div css={s.reviewIcon}><AiFillSound /></div>
-                            <div css={s.reviewTitle}>안녕하세요</div>
-                        </div>
-                        <div css={s.userInfoContainer}>
-                            <div css={s.userInfoBox}>
-                                <div css={s.userBox}>
-                                    <div>홍길동 님</div>
-                                </div>
-                                <div css={s.userButtonBox}>
-                                    <button><FaUser />내정보</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div css={s.planTitleBox}>
-                            <p>내일정</p>
-                            <div css={s.planButtonBox}>
-                                <button>전체보기<CiCircleChevRight /></button>
-                            </div>
-                        </div>
-                        <div css={s.planContentContainer}>
-                            <div css={s.dateBox}>
-                                <div>
-                                    <p>2024년 10월 04일 금요일</p>
-                                    <p>오전 10:10</p>
-                                </div>
-                                <div css={s.buttonBox}>예약완료</div>
-                            </div>
-                            <div css={s.doctorBox}>
-                                의사정보
-                            </div>
+                <DashBoardTopBar/>
+                <div css={s.layout}>
+                    <div css={s.noticeBox}>
+                        <AiFillSound />안녕하세요
+                    </div>
+                    <div css={s.userInfoBox}>
+                        <p>홍길동 님</p>
+                        <div css={s.userButtonBox}>
+                            <button onClick={handleMyProfileOnClick}><FaUser />내정보</button>
                         </div>
                     </div>
-                </DashBoardTopBar>
+                    <div css={s.reservationBox}>
+                        <p>예약 일정</p>
+                        <button onClick={handleReservationListOnClick}>전체보기<IoIosArrowForward /></button>
+                    </div>
+                    <YearBox year={2024}/>
+                    <div css={s.doctorBox}>
+                        각각의 의사 정보 컴포넌트로 빼기
+                    </div>
+                </div>
             </SubContainer>
-        </SubLayout>
+            <Routes>
+                <Route path='/myprofile' element={<MyProfile />}/>
+            </Routes>
+        </MainLayout>
     );
 }
 

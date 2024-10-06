@@ -1,77 +1,60 @@
 import { css } from "@emotion/react";
 
 export const layout = css`
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 0px 10px;
     width: 100%;
-    height: 100%;
 `;
 
-export const reviewBox = css`
+export const noticeBox = css`
     position: relative;
     box-sizing: border-box;
     display: flex;
-    justify-content: center;
+    align-items: center;
     border: 1px solid #dbdbdb;
-    border-radius: 20px;
-    width: 90%;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    padding-left: 30px ;
+    width: 100%;
     height: 40px;
     cursor: pointer;
-`;
-
-export const reviewIcon = css`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 13%;
 
     & > svg {
+        position: absolute;
+        top: 25%;
+        left: 5px;
         font-size: 18px;
     }
-`;
-
-export const reviewTitle = css`
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    width: 100%;
-`;
-
-export const userInfoContainer = css`
-    box-sizing: border-box;
-    display: flex;
-    margin: 20px 0px 20px 0px;
-    border: 1px solid #dbdbdb;
-    border-radius: 20px;
-    width: 90%;
-    height: 90px;
 `;
 
 export const userInfoBox = css`
     box-sizing: border-box;
     display: flex;
-    padding: 20px 20px;
-    width: 100%;
-    height: 100%;
-`;
-
-export const userBox = css`
-    display: flex;
+    justify-content: space-between;
     align-items: center;
-    font-size: 20px;
+    border: 1px solid #dbdbdb;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    padding: 20px;
     width: 100%;
-    height: 100%;
+    height: 90px;
+    font-size: 20px;
+    font-weight: 600;
 `;
 
 export const userButtonBox = css`
+    box-sizing: border-box;
     display: flex;
     border-radius: 20px;
-    width: 50%;
-    height: 100%;
+    width: 150px;
+    height: 50px;
     background-color: #1E3A5F;
 
     & button {
+        box-sizing: border-box;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -80,73 +63,34 @@ export const userButtonBox = css`
         height: 100%;
         font-size: 16px;
         color: white;
+
+        & > svg {
+            margin-bottom: 3px;
+        }
     }
 `;
 
-export const planTitleBox = css`
+export const reservationBox = css`
+    box-sizing: border-box;
     display: flex;
     justify-content: space-between;
-    width: 90%;
+    margin-bottom: 10px;
+    width: 100%;
     height: 19px;
-`;
+    font-size: 18px;
 
-export const planButtonBox = css`
-    display: flex;
-    align-items: flex-end;
-    width: 80px;
-
-    & button {
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
-        font-size: 14px;
-        width: 100%;
-        height: 100%;
+    & > button {
+        font-size: 18px;
     }
-`;
-
-export const planContentContainer = css`
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    margin-top: 10px;
-    border-radius: 20px;
-    padding: 20px 20px;
-    width: 90%;
-    height: 180px;
-    background-color: #1E3A5F;
-    color: white;
-`;
-
-export const dateBox = css`
-    box-sizing: border-box;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 40px;
-`;
-
-export const buttonBox = css`
-    box-sizing: border-box;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 20px;
-    width: 70px;
-    height: 100%;
-    background-color: white;
-    color: black;
 `;
 
 export const doctorBox = css`
+    box-sizing: border-box;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 10px;
-    border-radius: 20px;
+    flex-direction: column;
+    border: 1px solid #dbdbdb;
+    border-radius: 10px;
+    padding: 0px 5px;
     width: 100%;
-    height: 100%;
-    background-color: white;
-    color: black;
-    font-size: 20px;
+    height: 200px;
 `;

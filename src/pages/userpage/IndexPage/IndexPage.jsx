@@ -64,15 +64,8 @@ function IndexPage(props) {
                                 <img src="/cloud.png" alt="" />
                             </div>
                         </div>
-                        <div css={s.loginContainer}>
-                            <div css={s.loginTitle}>
-                                <p>로그인 & 회원가입</p>
-                            </div>
-                            <div css={s.loginButtonBox}>
-                                <button onClick={handleSigninModalOnClick}>로그인</button>
-                                <button onClick={handleSignupModalOnClick}>회원가입</button>
-                                <button onClick={handleAdminSigninModalOnClick}>관리자 로그인</button>
-                            </div>
+                        <div css={s.loginButtonBox}>
+                            <button onClick={handleSigninModalOnClick}>로그인 & 회원가입</button>
                         </div>
                     </div>
                 }

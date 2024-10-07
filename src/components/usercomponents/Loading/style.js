@@ -5,7 +5,7 @@ export const layout = css`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(137deg, rgba(255,115,115,1) 0%, rgba(115,166,255,1) 100%);
+    background: #2E5984;
     width: 100%;
     height: 100%;
 `;

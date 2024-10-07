@@ -25,7 +25,7 @@ function DashBoard(props) {
     return (
         <MainLayout>
             <SubContainer>
-                <DashBoardTopBar/>
+                <DashBoardTopBar title={"MEDIBOOK"}/>   
                 <div css={s.layout}>
                     <div css={s.noticeBox}>
                         <AiFillSound />안녕하세요

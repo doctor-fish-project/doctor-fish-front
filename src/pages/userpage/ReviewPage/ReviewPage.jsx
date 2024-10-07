@@ -6,6 +6,7 @@ import MainLayout from '../../../components/usercomponents/MainLayout/MainLayout
 import ReviewBox from '../../../components/usercomponents/reviewPage/ReviewBox/ReviewBox';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import ReviewWrite from '../../../components/usercomponents/reviewPage/ReviewWrite/ReviewWrite';
+import DashBoardTopBar from '../../../components/usercomponents/dashBoard/DashBoardTopBar/DashBoardTopBar';
 
 function ReviewPage(props) {
     const nav = useNavigate();
@@ -17,10 +18,8 @@ function ReviewPage(props) {
     return (
         <MainLayout>
             <SubContainer>
+                <DashBoardTopBar title={"리뷰"} icon={"create"} click={handleReviewWriteOnClick} /> 
                 <div css={s.layout}>
-                    <div css={s.writeButtonBox}>
-                        <button onClick={handleReviewWriteOnClick}>작성하기</button>
-                    </div>
                     <div css={s.reviewContainer}> 
                         <ReviewBox  title={"testTitle"} name={"testName"} registerDate={"2024-10-04"} likeCount={10}/>
                         <ReviewBox  title={"testTitle1"} name={"testName1"} registerDate={"2024-10-04"} likeCount={9}/>

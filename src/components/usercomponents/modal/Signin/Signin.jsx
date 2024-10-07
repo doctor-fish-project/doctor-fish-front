@@ -5,6 +5,7 @@ import ModalLayout from '../ModalLayout/ModalLayout';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { signinModalAtom, signupModalAtom } from '../../../../atoms/modalAtoms';
 import { IoIosClose } from "react-icons/io"
+import { Link } from 'react-router-dom';
 
 function Signin({ containerRef }) {
     const [ signinOpen, setSigninOpen ] = useRecoilState(signinModalAtom);
@@ -49,22 +50,24 @@ function Signin({ containerRef }) {
                 <div css={s.cancelButtonBox}>
                     <button onClick={closeModal}><IoIosClose /></button>
                 </div>
-                <p>로그인</p>
-                <div css={s.inputBox}>
-                    <input type="text" name='email' onChange={handleInputOnChange} value={input.emial}/>
-                    <input type="password" name='password' onChange={handleInputOnChange} value={input.password}/>
+                <div css={s.logoBox}>
+                    <h2>MEDIBOOK</h2>
                 </div>
-                <div css={s.submitButtonBox}>
-                    <button onClick={handleSigninOnClick}>로그인</button>
-                    <button onClick={handleSignupOnClick}>회원가입</button>
-                </div>
-                <div css={s.andBox}>
-                    또는
-                </div>
-                <div css={s.oAuthBox}>
-                    <button>구글</button>
-                    <button>네이버</button>
-                    <button>카카오</button>
+                <div css={s.inputContainer}>
+                    <div css={s.inputBox}>
+                        <p>이메일</p>
+                        <input type="text" placeholder='아이디' name='email' onChange={handleInputOnChange} value={input.email} />
+                        <p>비밀번호</p>
+                        <input type="text" placeholder='비밀번호' name='password' onChange={handleInputOnChange} value={input.password} />
+                        <p>패스워드를 잊어버리셨나요?</p>
+                    </div>
+                    <div css={s.buttonBox}>
+                        <button onClick={handleSigninOnClick}>로그인</button>
+                    </div>
+                    <div css={s.signupBox}>
+                        <p>계정이 없으신가요?</p>
+                        <button onClick={handleSignupOnClick}>회원가입</button>
+                    </div>
                 </div>
             </div>
         </ModalLayout>

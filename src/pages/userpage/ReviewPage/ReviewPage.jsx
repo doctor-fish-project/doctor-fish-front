@@ -18,7 +18,7 @@ function ReviewPage(props) {
     return (
         <MainLayout>
             <SubContainer>
-                <DashBoardTopBar title={"리뷰"} icon={"create"} click={handleReviewWriteOnClick} /> 
+                <DashBoardTopBar title={"리뷰"} icon={"create"} onClick={handleReviewWriteOnClick} /> 
                 <div css={s.layout}>
                     <div css={s.reviewContainer}> 
                         <ReviewBox  title={"testTitle"} name={"testName"} registerDate={"2024-10-04"} likeCount={10}/>
@@ -31,7 +31,6 @@ function ReviewPage(props) {
                 <Route path='/write' element={<ReviewWrite />}/>
             </Routes>
         </MainLayout>
-
     );
 }
 

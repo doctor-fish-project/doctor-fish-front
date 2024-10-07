@@ -66,6 +66,7 @@ export const inputBox = css`
             display: flex;
             justify-content: end;
             margin-bottom: 3px;
+            font-size: 12px;
             width: 100%;
             color: red;
         }

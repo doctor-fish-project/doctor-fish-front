@@ -4,19 +4,17 @@ import * as s from "./style";
 import { FaRegBell } from "react-icons/fa";
 import { BsPencilSquare } from 'react-icons/bs';
 
-function DashBoardTopBar({ title, icon, click }) {
+function DashBoardTopBar({ title, icon, onClick }) {
     return (
         <div css={s.layout}>
-            <div css={s.topBar}>
-                <p>{title}</p>
-                {
-                    icon == 'create' 
+            <p>{title}</p>
+            {
+                icon == 'create'
                     ?
-                    <BsPencilSquare onClick={click} />
+                    <BsPencilSquare onClick={onClick} />
                     :
                     <FaRegBell />
-                }
-            </div>
+            }
         </div>
     );
 }

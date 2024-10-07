@@ -15,7 +15,7 @@ function DashBoard(props) {
     const nav = useNavigate();
     
     const handleReservationListOnClick = () => {
-        nav("/dashboard/reservationlist")
+        nav("/reservationlist")
     }
 
     const handleMyProfileOnClick = () => {

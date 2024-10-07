@@ -6,17 +6,20 @@ import DashBoard from "./pages/userpage/DashBoard/DashBoard";
 import ReservationPage from "./pages/userpage/ReservationPage/ReservationPage";
 import ReservationListPage from "./pages/userpage/ReservationListPage/ReservationListPage";
 import ReviewPage from "./pages/userpage/ReviewPage/ReviewPage";
+import AuthHook from "./hooks/AuthHook";
 
 function App() {
+    AuthHook()
     return (
         <>
             <Global styles={reset} />
             <Routes>
                 <Route path="/*" element={<IndexPage />} />
                 <Route path="/dashboard/*" element={<DashBoard />} />
-                <Route path="/dashboard/reservation" element={<ReservationPage />}/>
-                <Route path="/dashboard/reservationlist" element={<ReservationListPage />}/>
-                <Route path="/dashboard/review/*" element={<ReviewPage />}/>
+                <Route path="/reservation" element={<ReservationPage />}/>
+                <Route path="/reservationlist" element={<ReservationListPage />}/>
+                <Route path="/review/*" element={<ReviewPage />}/>
+
             </Routes>
         </>
     );

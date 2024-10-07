@@ -12,7 +12,7 @@ function ReviewPage(props) {
     const nav = useNavigate();
 
     const handleReviewWriteOnClick = () => {
-        nav("/dashboard/review/write")
+        nav("/review/write")
     }
 
     return (

@@ -9,7 +9,7 @@ import ReviewPage from "./pages/userpage/ReviewPage/ReviewPage";
 import AuthHook from "./hooks/AuthHook";
 
 function App() {
-    AuthHook()
+    // AuthHook()
     return (
         <>
             <Global styles={reset} />

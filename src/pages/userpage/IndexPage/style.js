@@ -13,14 +13,14 @@ export const container = css`
     flex-direction: column;
     justify-content: space-around;
     border-radius: 0px 0px 0px 20%;
-    background: linear-gradient(137deg, rgba(255,115,115,1) 0%, rgba(115,166,255,1) 100%);
+    background: #2E5984;
     width: 100%;
     height: 70%;
 `;
 
 export const titleBox = css`
     display: flex;
-    padding-left: 50px;
+    padding-left: 25px;
     & h1 {
         font-size: 30px;
         color: white;
@@ -71,31 +71,20 @@ export const imgBox = css`
     }
 `;
 
-export const loginContainer = css`
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    height: 30%;
-`;
 
-export const loginTitle = css`
+export const loginButtonBox = css`
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
     height: 30%;
-`;
-
-export const loginButtonBox = css`
-    display: flex;
-    justify-content: space-around;
-    width: 100%;
-    height: 50%;
     & button {
-        border-radius: 50%;
-        background: linear-gradient(137deg, rgba(255,115,115,1) 0%, rgba(115,166,255,1) 100%);
-        width: 80px;                                                                
-        height: 80px;
+        border-radius: 10px;
+        background: #2E5984;
+        width: 90%;                                                                
+        height: 70px;
+        font-size: 25px;
+        font-weight: 900;
         color: white;
     }
 `;

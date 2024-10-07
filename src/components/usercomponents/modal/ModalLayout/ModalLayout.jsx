@@ -11,7 +11,7 @@ function ModalLayout({ children, isOpen, closeModal, containerRef, ani }) {
                     borderRadius: "10px",
                     padding: "0",
                     width: "100%",
-                    height: "70%",
+                    height: "80%",
                     zIndex: "50",
                     animation: `${ani} 0.6s 1`,
 

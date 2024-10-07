@@ -19,6 +19,7 @@ export const reset = css`
         margin: 0;
         padding: 0;
         font-family: 'Freesentation-9Black';
+        cursor: default;
     }
 
     input {

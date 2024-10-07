@@ -51,7 +51,7 @@ export const userButtonBox = css`
     border-radius: 20px;
     width: 150px;
     height: 50px;
-    background-color: #1E3A5F;
+    background-color: #2E5984;
 
     & button {
         box-sizing: border-box;
@@ -80,6 +80,9 @@ export const reservationBox = css`
     font-size: 18px;
 
     & > button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
         font-size: 18px;
     }
 `;

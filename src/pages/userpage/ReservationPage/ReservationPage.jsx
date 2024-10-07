@@ -7,6 +7,7 @@ import ReservationCalendar from '../../../components/usercomponents/reservationP
 import DoctorBox from '../../../components/usercomponents/reservationPage/DoctorBox/DoctorBox';
 import TimeBox from '../../../components/usercomponents/reservationPage/TimeBox/TimeBox';
 import { useNavigate } from 'react-router-dom';
+import DashBoardTopBar from '../../../components/usercomponents/dashBoard/DashBoardTopBar/DashBoardTopBar';
 
 function ReservationPage(props) {
     const nav = useNavigate();
@@ -42,6 +43,7 @@ function ReservationPage(props) {
     return (
         <MainLayout>
             <SubContainer>
+                <DashBoardTopBar title={"예약하기"} />
                 <ReservationCalendar date={reservationDate} setReservationDate={setReservationDate}/>
                 <div css={s.doctorContainer}>
                     <DoctorBox id={1} name={"이름"} depart={"부서"} doctorId={doctorId} setDoctorId={setDoctorId} setReservationTime={setReservationTime}/>

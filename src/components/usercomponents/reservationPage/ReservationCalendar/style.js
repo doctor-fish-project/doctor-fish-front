@@ -11,6 +11,11 @@ export const layout = css`
     height: 250px;
     box-shadow: 3px 0px 3px #dbdbdb;
 
+    .react-calendar__tile--select {
+        background-color: #1E3A5F;
+        color: #ffffff;
+    }
+
     .sunday {
         color: #ff0000;
     }

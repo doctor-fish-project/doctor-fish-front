@@ -6,19 +6,43 @@ import { useRecoilState, useSetRecoilState } from 'recoil';
 import { signinModalAtom, signupModalAtom } from '../../../../atoms/modalAtoms';
 import { IoIosClose } from "react-icons/io"
 import { Link } from 'react-router-dom';
+import { useMutation } from 'react-query';
+import { instance } from '../../../../apis/utils/instance';
 
 function Signin({ containerRef }) {
-    const [ signinOpen, setSigninOpen ] = useRecoilState(signinModalAtom);
+    const [signinOpen, setSigninOpen] = useRecoilState(signinModalAtom);
     const setSignupOpen = useSetRecoilState(signupModalAtom);
 
-    const [ ani, setAni ] = useState("userModalOpen")
-    const [ input, setInput] = useState({
+    const [ani, setAni] = useState("userModalOpen")
+    const [input, setInput] = useState({
         email: "",
         password: ""
     })
 
+    const [fieldErrorMessages, setFieldErrorMessages] = useState({
+        email: <></>,
+        password: <></>,
+    });
+
+    const signin = useMutation(
+        async () => {
+            return await instance.post("/auth/signin", input)
+        }, {
+        onSuccess: response => {
+            console.log(response)
+        },
+        onError: error => {
+            const response = error.response;
+            if (response.status === 400) {
+                const fieldErrors = response.data.map(fieldError => ({ field: fieldError.field, defaultMessage: fieldError.defaultMessage }))
+                showFieldErrorMessage(fieldErrors);
+                return
+            }
+        }
+    })
+
     const handleSigninOnClick = () => {
-        console.log(input)
+        signin.mutateAsync().catch(() => {})
     }
 
     const handleSignupOnClick = () => {
@@ -36,12 +60,28 @@ function Signin({ containerRef }) {
         }))
     }
 
+    const showFieldErrorMessage = (fieldErrors) => {
+        let EmptyFieldErros = {
+            email: <></>,
+            password: <></>,
+        };
+
+        for (let fieldError of fieldErrors) {
+            EmptyFieldErros = {
+                ...EmptyFieldErros,
+                [fieldError.field]: <p>{fieldError.defaultMessage}</p>
+            }
+        }
+
+        setFieldErrorMessages(EmptyFieldErros);
+    }
+
     const closeModal = () => {
         setAni("userModalClose")
         setTimeout(() => {
             setAni("userModalOpen");
             setSigninOpen(false);
-        }, 500)  
+        }, 500)
     }
 
     return (
@@ -53,21 +93,30 @@ function Signin({ containerRef }) {
                 <div css={s.logoBox}>
                     <h2>MEDIBOOK</h2>
                 </div>
-                <div css={s.inputContainer}>
-                    <div css={s.inputBox}>
-                        <p>이메일</p>
-                        <input type="text" placeholder='아이디' name='email' onChange={handleInputOnChange} value={input.email} />
-                        <p>비밀번호</p>
-                        <input type="text" placeholder='비밀번호' name='password' onChange={handleInputOnChange} value={input.password} />
-                        <p>패스워드를 잊어버리셨나요?</p>
-                    </div>
-                    <div css={s.buttonBox}>
-                        <button onClick={handleSigninOnClick}>로그인</button>
-                    </div>
-                    <div css={s.signupBox}>
-                        <p>계정이 없으신가요?</p>
-                        <button onClick={handleSignupOnClick}>회원가입</button>
-                    </div>
+                <div css={s.inputBox}>
+                    <p>이메일</p>
+                    <input type="text" placeholder='아이디' name='email' onChange={handleInputOnChange} value={input.email} />
+                    {
+                        fieldErrorMessages.email !== "" ? fieldErrorMessages.email : <></>
+                    }
+                </div>
+                <div css={s.inputBox}>
+                    <p>비밀번호</p>
+                    <input type="text" placeholder='비밀번호' name='password' onChange={handleInputOnChange} value={input.password} />
+                    {
+                        fieldErrorMessages.password !== "" ? fieldErrorMessages.password : <></>
+                    }
+                </div>
+                <div css={s.buttonBox}>
+                    <button onClick={handleSigninOnClick}>로그인</button>
+                </div>
+                <div css={s.findBox}>
+                    <p>패스워드를 잊어버리셨나요?</p>
+                    <button>패스워드 찾기</button>    
+                </div>
+                <div css={s.findBox}>
+                    <p>계정이 없으신가요?</p>
+                    <button onClick={handleSignupOnClick}>회원가입</button>
                 </div>
             </div>
         </ModalLayout>

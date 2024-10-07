@@ -159,6 +159,7 @@ export const buttonBox = css`
     justify-content: end;
     align-items: center;
     padding-bottom: 62px;
+    width: 100%;
 
     & button {
         width: 100%;

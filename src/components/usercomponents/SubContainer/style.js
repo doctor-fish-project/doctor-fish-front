@@ -5,6 +5,7 @@ export const layout = css`
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
+    align-items: center;
     padding-top: 45px;
     height: 100%;
     background-color: #ffffff;

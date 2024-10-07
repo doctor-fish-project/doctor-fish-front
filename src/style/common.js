@@ -1,24 +1,21 @@
 import { css } from "@emotion/react";
 
 export const reset = css`
-    @font-face {
-        font-family: 'Freesentation-9Black';
-        src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2404@1.0/Freesentation-9Black.woff2') format('woff2');
-        font-weight: 900;
-        font-style: normal;
+    @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@100;200;300;400;500;600;700&display=swap');
+
+    * {
+        font-family: "IBM Plex Sans KR", sans-serif;
     }
 
     html, body, #root {
         margin: 0;
         padding: 0;
         height: 100%;
-        font-family: 'Freesentation-9Black';
     }
     
     h1, h2, h3, ul, p {
         margin: 0;
         padding: 0;
-        font-family: 'Freesentation-9Black';
         cursor: default;
     }
 
@@ -31,8 +28,8 @@ export const reset = css`
         padding: 0;
         color: #000000;
         background-color: transparent;
-        font-family: 'Freesentation-9Black';
         outline: none;
+        font-weight: 500;
         cursor: pointer;
     }
 

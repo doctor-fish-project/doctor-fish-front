@@ -80,6 +80,7 @@ export const submitButtonBox = css`
     justify-content: flex-end;
     align-items: center;
     padding-bottom: 20px;
+    font-weight: 100;
     width: 90%;
     
     & button {
@@ -87,6 +88,7 @@ export const submitButtonBox = css`
         border-radius: 10px;
         width: 100%;
         height: 40px;
+        
         font-size: 20px;
         background-color: #2E5984;
         color: white;

@@ -41,7 +41,7 @@ export const inputBox = css`
     display: flex;
     flex-direction: column;
     width: 90%;
-    height: 80px;
+    height: 90px;
 
     & input {
         box-sizing: border-box;
@@ -60,10 +60,15 @@ export const inputBox = css`
             font-size: 15px;
             font-weight: 600;
         }
-    }
 
-    & :not(:nth-last-of-type(1)) {
-        margin-bottom: 5px;
+        & + p {
+            box-sizing: border-box;
+            display: flex;
+            justify-content: end;
+            margin-bottom: 3px;
+            width: 100%;
+            color: red;
+        }
     }
 `;
 

@@ -44,7 +44,7 @@ function ReservationPage(props) {
         <MainLayout>
             <SubContainer>
                 <DashBoardTopBar title={"예약하기"} />
-                <ReservationCalendar date={reservationDate} setReservationDate={setReservationDate}/>
+                <ReservationCalendar reservationDate={reservationDate} setReservationDate={setReservationDate}/>
                 <div css={s.doctorContainer}>
                     <DoctorBox id={1} name={"이름"} depart={"부서"} doctorId={doctorId} setDoctorId={setDoctorId} setReservationTime={setReservationTime}/>
                     <DoctorBox id={2} name={"이름1"} depart={"부서1"} doctorId={doctorId} setDoctorId={setDoctorId} setReservationTime={setReservationTime}/>

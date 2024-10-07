@@ -4,7 +4,6 @@ export const layout = css`
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
     width: 100%;
     height: 100%;
@@ -40,62 +39,69 @@ export const inputContainer = css`
 `;
 
 export const inputBox = css`
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    width: 100%;
-    height: 50%;
-    
+    width: 90%;
+    height: 90px;
+
     & input {
         box-sizing: border-box;
-        margin: 10px 0px;
         border: none;
         border-radius: 10px;
+        margin-top: 5px;
         padding: 0px 10px;
-        background-color: #f0f0f0da;
         width: 100%;
         height: 40px;
-        font-size: 16px;
-
+        font-size: 18px;
+        background-color: #efefef;
+        outline: none;
+        font-weight: 600;
+        
         ::placeholder {
             font-size: 15px;
             font-weight: 600;
         }
-    }
 
-    & > p {
-        font-weight: 400;
-    }
-
-    & :nth-last-of-type(1) {
-        display: flex;
-        justify-content: flex-end;
-        cursor: pointer;
+        & + p {
+            box-sizing: border-box;
+            display: flex;
+            justify-content: end;
+            margin-bottom: 3px;
+            width: 100%;
+            color: red;
+        }
     }
 `;
 
-export const buttonBox = css`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 10px;
-    width: 100%;
-    height: 40px;
-    background-color: #2E5984;
 
+
+export const buttonBox = css`
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    padding-bottom: 20px;
+    width: 90%;
+    
     & button {
+        box-sizing: border-box;
+        border-radius: 10px;
         width: 100%;
-        height: 100%;
+        height: 40px;
+        font-size: 20px;
+        background-color: #2E5984;
         color: white;
     }
 `;
 
-export const signupBox = css`
+export const findBox = css`
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-bottom: 3px;
     width: 100%;
-    height: 60px;
 
     & button {
         margin-left: 10px;

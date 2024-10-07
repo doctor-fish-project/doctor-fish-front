@@ -4,13 +4,17 @@ import * as s from './style';
 import Calendar from 'react-calendar';
 import { useSearchParams } from 'react-router-dom';
 
-function ReservationCalendar({ date, setReservationDate }) {
+function ReservationCalendar({ reservationDate, setReservationDate }) {
 
     const handleReservationDateOnChange = (value) => {
         setReservationDate(value)
     }
 
     const tileClassName = ({ date, view }) => {
+        if(date.toDateString() === reservationDate.toDateString()) {
+            return 'react-calendar__tile--select';
+        }
+
         if (view === 'month') {
             const day = date.getDay();
             if (day === 0) {
@@ -28,7 +32,7 @@ function ReservationCalendar({ date, setReservationDate }) {
             <Calendar
                 tileClassName={tileClassName}
                 onChange={handleReservationDateOnChange}
-                value={date}
+                value={reservationDate}
                 locale='ko'
                 formatDay={(locale, ReservationDate) => ReservationDate.getDate()}
                 calendarType='gregory'

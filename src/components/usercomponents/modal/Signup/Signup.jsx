@@ -2,14 +2,16 @@ import React, { useState } from 'react';
 /** @jsxImportSource @emotion/react */
 import * as s from './style';
 import ModalLayout from '../ModalLayout/ModalLayout';
-import { useRecoilState } from 'recoil';
-import { signupModalAtom } from '../../../../atoms/modalAtoms';
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import { signinModalAtom, signupModalAtom } from '../../../../atoms/modalAtoms';
 import { IoIosClose } from "react-icons/io"
 import { useMutation } from 'react-query';
 import { instance } from '../../../../apis/utils/instance';
 
 function Signup({ containerRef }) {
+
     const [signupOpen, setSignupOpen] = useRecoilState(signupModalAtom);
+    const setSigninOpen = useSetRecoilState(signinModalAtom);
 
     const [ani, setAni] = useState("userModalOpen")
     const [input, setInput] = useState({
@@ -33,15 +35,15 @@ function Signup({ containerRef }) {
             return await instance.post("/auth/signup", input)
         }, {
         onSuccess: response => {
-            console.log(response)
+            alert("인증메일을 전송하였습니다.");
+            openModal();
         },
         onError: error => {
             const response = error.response;
-            if (response.status === 400) {
-                const fieldErrors = response.data.map(fieldError => ({ field: fieldError.field, defaultMessage: fieldError.defaultMessage }))
-                showFieldErrorMessage(fieldErrors);
-                return
-            }
+            console.log(response)
+            const fieldErrors = response.data.map(fieldError => ({ field: fieldError.field, defaultMessage: fieldError.defaultMessage }))
+            showFieldErrorMessage(fieldErrors);
+            return
         }
     })
 
@@ -81,6 +83,27 @@ function Signup({ containerRef }) {
             setAni("userModalOpen");
             setSignupOpen(false);
         }, 500)
+        setFieldErrorMessages({
+            email: <></>,
+            password: <></>,
+            checkPassword: <></>,
+            name: <></>,
+            phoneNumber: <></>
+        })
+        setInput({
+            email: "",
+            password: "",
+            checkPassword: "",
+            name: "",
+            phoneNumber: ""
+        })
+    }
+
+    const openModal = () => {
+        closeModal();
+        setTimeout(() => {
+            setSigninOpen(true);
+        }, 400)
     }
     return (
         <ModalLayout containerRef={containerRef} isOpen={signupOpen} closeModal={closeModal} ani={ani}>

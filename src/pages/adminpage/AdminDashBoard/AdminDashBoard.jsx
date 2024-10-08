@@ -1,37 +1,45 @@
 import React from 'react';
 /** @jsxImportSource @emotion/react */
 import * as s from './style';
-import { FaUserLock } from "react-icons/fa6";
+import AdminMainLayout from '../../../components/admincomponents/AdminMainLayout/AdminMainLayout';
+import AdminContainer from '../../../components/admincomponents/AdminContainer/AdminContainer';
+import { Route, Routes } from 'react-router-dom';
+import AdminUsers from '../../../components/admincomponents/AdminUsers/AdminUsers';
+import AdminReservation from '../../../components/admincomponents/AdminReservation/AdminReservation';
+import AdminReservationAll from '../../../components/admincomponents/AdminReservationAll/AdminReservationAll';
+import AdminReview from '../../../components/admincomponents/AdminReview/AdminReview';
+import AdminNotice from '../../../components/admincomponents/AdminNotice/AdminNotice';
+import AdminSetting from '../../../components/admincomponents/AdminSetting/AdminSetting';
+import AdminChartBar from '../../../components/admincomponents/AdminChartBar/AdminChartBar';
 
 function AdminDashBoard(props) {
     return (
-        <div css={s.layout}>
-            <div css={s.container}>
-                <div css={s.sideBar}>
-                    <div css={s.titleBox}>
-                        <h2>MEDIBOOK</h2>
+
+        <AdminMainLayout >
+            <AdminContainer>
+                <div css={s.layout}>
+                    <div css={s.container}>
+                        <div>
+                            <AdminChartBar />
+                        </div>
+                        <div>
+                            <AdminChartBar />
+                        </div>
                     </div>
-                    <div css={s.categoryBox}>
-                        <button><FaUserLock />회원정보</button>
-                    </div>
-                    <div css={s.categoryBox}>
-                        <button><FaUserLock />예약관리</button>
-                    </div>
-                    <div css={s.categoryBox}>
-                        <button><FaUserLock />실시간 예약 현황</button>
-                    </div>
-                    <div css={s.categoryBox}>
-                        <button><FaUserLock />리뷰 및 댓글 관리</button>
-                    </div>
-                    <div css={s.categoryBox}>
-                        <button><FaUserLock />공지사항</button>
-                    </div>
-                    <div css={s.categoryBox}>
-                        <button><FaUserLock />설정</button>
+                    <div css={s.container}>
+                        <div>
+                            <AdminChartBar />
+                        </div>
+                        <div>
+                            <AdminChartBar />
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
+            </AdminContainer>
+        </AdminMainLayout>
+
+
+
     );
 }
 

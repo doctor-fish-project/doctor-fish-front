@@ -8,12 +8,10 @@ function MonthBox({ month, DateOfReservationsData}) {
     return (
         <div css={s.layout}>
             <p>{month}월</p>
-            {/* {
+            {
                 entriesOfReservationsData?.map(([date, reservations]) =>
-                    <DayBox key={year + month} date={date} reservations={reservations} />)
-            } */}
-            <DayBox date={"05"} reservationInfo={"예약 정보: 시간, 의사, 부서, 예약 상태 "}/>
-            <DayBox date={"05"} reservationInfo={"예약 정보: 시간, 의사, 부서, 예약 상태 "}/>
+                    <DayBox key={date} date={date} reservations={reservations} />)
+            }
         </div>
     );
 }

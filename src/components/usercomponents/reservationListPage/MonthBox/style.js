@@ -10,6 +10,8 @@ export const layout = css`
     background-color: #ffffff;
 
     & > p {
+        display: flex;
+        align-items: center;
         margin-bottom: 5px;
         font-size: 20px;
         font-weight: 600;

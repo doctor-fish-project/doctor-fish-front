@@ -118,6 +118,7 @@ export const layout = css`
 export const doctorContainer = css`
     box-sizing: border-box;
     display: flex;
+    flex-direction: column;
     border-bottom: 1px solid #dbdbdb;
     margin-bottom: 10px;
     padding: 0px 5px;

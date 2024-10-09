@@ -137,14 +137,14 @@ function Signup({ containerRef }) {
                 </div>
                 <div css={s.inputBox}>
                     <p>이름</p>
-                    <input type="password" name='name' onChange={handleInputOnChange} value={input.name} placeholder='본인 이름' />
+                    <input type="text" name='name' onChange={handleInputOnChange} value={input.name} placeholder='본인 이름' />
                     {
                         fieldErrorMessages.name !== "" ? fieldErrorMessages.name : <></>
                     }
                 </div>
                 <div css={s.inputBox}>
                     <p>휴대폰 번호</p>
-                    <input type="password" name='phoneNumber' onChange={handleInputOnChange} value={input.phoneNumber} placeholder='사용자 핸드폰 번호' />
+                    <input type="text" name='phoneNumber' onChange={handleInputOnChange} value={input.phoneNumber} placeholder='사용자 핸드폰 번호' />
                     {
                         fieldErrorMessages.phoneNumber !== "" ? fieldErrorMessages.phoneNumber : <></>
                     }

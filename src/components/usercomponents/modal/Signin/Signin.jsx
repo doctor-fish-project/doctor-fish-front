@@ -31,8 +31,7 @@ function Signin({ containerRef }) {
             return await instance.post("/auth/signin", input)
         }, {
         onSuccess: response => {
-            localStorage.setItem("accessToken", "Bearer " + response.token);
-
+            localStorage.setItem("accessToken", "Bearer " + response.data.accessToken);
             instance.interceptors.request.use(config => {
                 config.headers["Authorization"] = localStorage.getItem("accessToken");
                 return config;
@@ -133,7 +132,7 @@ function Signin({ containerRef }) {
                 </div>
                 <div css={s.inputBox}>
                     <p>비밀번호</p>
-                    <input type="text" placeholder='비밀번호' name='password' onChange={handleInputOnChange} value={input.password} />
+                    <input type="password" placeholder='비밀번호' name='password' onChange={handleInputOnChange} value={input.password} />
                     {
                         fieldErrorMessages.password !== "" ? fieldErrorMessages.password : <></>
                     }

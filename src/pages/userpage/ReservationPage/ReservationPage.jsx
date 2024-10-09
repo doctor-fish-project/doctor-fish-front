@@ -8,6 +8,8 @@ import DoctorBox from '../../../components/usercomponents/reservationPage/Doctor
 import TimeBox from '../../../components/usercomponents/reservationPage/TimeBox/TimeBox';
 import { useNavigate } from 'react-router-dom';
 import DashBoardTopBar from '../../../components/usercomponents/dashBoard/DashBoardTopBar/DashBoardTopBar';
+import { useMutation } from 'react-query';
+import { instance } from '../../../apis/utils/instance';
 
 function ReservationPage(props) {
     const nav = useNavigate();
@@ -31,14 +33,22 @@ function ReservationPage(props) {
 
         setReservationData(reservationData => ({
             ...reservationData,
-            reserveData: `${year}-${month}-${day}T${time}:00`
+            reserveData: `${year}-${month}-${day}T${time}:00`,
+            doctorId: doctorId
         }))
-    }, [reservationDate, reservationTime])
+    }, [reservationDate, reservationTime, doctorId])
 
-    const handleReservationSubmitButton = () => {
-        nav("/dashboard/reservationlist")
-        console.log(reservationData)
-    }
+    const reservation = useMutation(
+        async () => await instance.post("/reservation", reservationData),
+        {
+            onSuccess: response => {
+                nav("/reservationlist")
+            },
+            onError: error => {
+                alert("예약 중 오류 발생")
+            }
+        }
+    )
 
     return (
         <MainLayout>
@@ -60,7 +70,7 @@ function ReservationPage(props) {
                         </div>
                 }
                 <div css={s.buttonBox}>
-                    <button onClick={handleReservationSubmitButton}>예약하기</button>
+                    <button onClick={() => reservation.mutateAsync().catch(() => {})}>예약하기</button>
                 </div>
             </SubContainer>
         </MainLayout>

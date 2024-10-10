@@ -1,34 +1,31 @@
-import { FaUserLock } from "react-icons/fa";
+
+import { IoHomeOutline, IoCalendarOutline, IoCalendarNumberOutline, IoClipboardOutline, IoNotificationsOutline, IoSettingsOutline  } from "react-icons/io5";
+import { LuUser2 } from "react-icons/lu";
 
 export const categorys = [
     {
-        name: "회원정보",
-        icon: <FaUserLock />,
-        link: "/admin/users"
+        name: "홈",
+        icon: <IoHomeOutline />,
+        link: "/admin/dashboard"
     },
     {
         name: "예약관리",
-        icon: <FaUserLock />,
+        icon: <IoCalendarOutline />,
         link: "/admin/reservation"
     },
     {
         name: "예약현황",
-        icon: <FaUserLock />,
+        icon: <IoCalendarNumberOutline />,
         link: "/admin/reservationnow"
     },
     {
         name: "리뷰 및 댓글관리",
-        icon: <FaUserLock />,
+        icon: <IoClipboardOutline  />,
         link: "/admin/review"
     },
     {
-        name: "공지사항",
-        icon: <FaUserLock />,
-        link: "/admin/notice"
-    },
-    {
-        name: "설정",
-        icon: <FaUserLock />,
-        link: "/admin/setting"
-    },
+        name: "회원관리",
+        icon: <LuUser2 />,
+        link: "/admin/users"
+    }
 ]

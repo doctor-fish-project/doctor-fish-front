@@ -7,7 +7,6 @@ import {
     Title,
     Tooltip,
     Legend,
-    scales,
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
 
@@ -52,12 +51,12 @@ export default function AdminChartBar() {
         labels,
         datasets: [
             {
-                label: '분류 1',
+                label: '1번의사',
                 data: [1, 2, 3, 4, 5, 6, 7],
                 backgroundColor: 'rgba(255, 99, 132, 0.5)',
             },
             {
-                label: '분류 2',
+                label: '2번의사',
                 data: [2, 3, 4, 5, 4, 7, 8],
                 backgroundColor: 'rgba(53, 162, 235, 0.5)',
             },
@@ -65,11 +64,19 @@ export default function AdminChartBar() {
     };
     return (
         <div style={{
-            paddingLeft: "10px",
-            width: "600px",
-            height: "300px"
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            width: "100%",
+            height: "100%"
         }}>
-            <Bar options={options} data={data} />
+            <div style={{
+                paddingLeft: "10px",
+                width: "600px",
+                height: "300px"
+            }}>
+                <Bar options={options} data={data} />
+            </div>
         </div>
     );
 }

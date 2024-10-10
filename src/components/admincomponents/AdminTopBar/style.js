@@ -3,39 +3,20 @@ import { css } from "@emotion/react";
 export const layout = css`
     box-sizing: border-box;
     display: flex;
-    border-bottom: 1px solid #c5c5c5;
+    padding: 0px 30px;
     width: 100%;
-    height: 100px;
-`;
+    background-color: #b8b8b8;
 
-export const titleBox = css`
-    box-sizing: border-box;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-right: 1px solid #c5c5c5;
-    width: 320px;
-    height: 100px;
+    & > div {
+        box-sizing: border-box;
+        display: flex;
+        align-items: center;
+        width: 100%;
+        height: 60px;
+        font-weight: 500;
 
-    & h2 {
-        cursor: pointer;
+        & > svg {
+            padding-right: 10px;
+        }
     }
-`;
-
-export const userInfoContainer = css`
-    box-sizing: border-box;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    flex-grow: 1;
-    height: 100px;
-`;
-
-export const userInfoBox = css`
-    width: fit-content;
-    height: fit-content;
-`;
-
-export const buttonBox = css`
-    padding: 0px 10px;
 `;

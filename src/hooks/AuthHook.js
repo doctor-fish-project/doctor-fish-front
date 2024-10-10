@@ -37,7 +37,7 @@ function AuthHook(props) {
                 for(let permitPath of permitPaths) {
                     if(location.pathname === permitPath) {
                         alert("로그아웃 후 이용해주세요");
-                        nav("/");
+                        nav("/dashboard");
                         break;
                     }
                 }

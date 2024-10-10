@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 /** @jsxImportSource @emotion/react */
 import * as s from "./style";
-import SubContainer from '../../SubContainer/SubContainer';
-import SubLayout from '../../SubLayout/SubLayout';
-import BackButton from '../../BackButton/BackButton';
+import SubContainer from '../../../components/usercomponents/SubContainer/SubContainer';
+import SubLayout from '../../../components/usercomponents/SubLayout/SubLayout';
+import BackButton from '../../../components/usercomponents/BackButton/BackButton';
 import { useQueryClient } from 'react-query';
 
-function MyProfile(props) {
+function MyProfilePage(props) {
     const [isShow, setShow] = useState(true);
 
     const queryClient = useQueryClient()
@@ -23,4 +23,4 @@ function MyProfile(props) {
     );
 }
 
-export default MyProfile;
+export default MyProfilePage;

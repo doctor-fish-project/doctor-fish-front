@@ -10,15 +10,18 @@ function ReservationBox({ reservation }) {
                 <p>{reservation?.reservationDate.slice(11, 16)}</p>
                 {
                     reservation?.status === 1
-                    ? <p>예약 진행 중</p>
-                    : reservation?.status === 2 
-                    ? <p>예약 완료</p>
-                    : <p>예약 취소</p>
+                        ? <p>진행 중</p>
+                        : reservation?.status === 2
+                            ? <p>완료</p>
+                            : <p>취소</p>
                 }
             </div>
             <div css={s.body}>
-                <p>{reservation.doctor?.name}</p>
-                <p>{reservation.doctor?.depart}</p>
+                <div css={s.doctorInfoBox}>
+                    <p>부서 : {reservation.doctor?.depart}</p>
+                    <p>의사명 : {reservation.doctor?.name}</p>
+                </div>
+                <p>{reservation.registerDate.slice(0, 10)}</p>
             </div>
         </div>
     );

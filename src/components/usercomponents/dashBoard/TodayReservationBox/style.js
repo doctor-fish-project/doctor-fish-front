@@ -4,12 +4,29 @@ export const layout = css`
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    padding: 10px;
+    width: 100%;
+    background-color: #2E5984;
+
+    & > p {
+        margin-bottom: 5px;
+        color: #ffffff;
+        font-size: 25px;
+        font-weight: 600;
+    }
+`;
+
+export const container = css`
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
     padding: 5px;
     width: 100%;
-
-    :not(:nth-last-of-type(1)) {
-        border-bottom: 1px solid #dbdbdb;
-    }
+    background-color: #ffffff;
 `;
 
 export const header = css`
@@ -36,7 +53,7 @@ export const header = css`
 `;
 
 export const body = css`
-    box-sizing: border-box;
+     box-sizing: border-box;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -62,3 +79,4 @@ export const doctorInfoBox = css`
     padding: 5px;
     background-color: #dbdbdb;
 `;
+

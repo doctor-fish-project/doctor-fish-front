@@ -123,7 +123,6 @@ export const doctorContainer = css`
     margin-bottom: 10px;
     padding: 0px 5px;
     width: 100%;
-    height: 120px;
     box-shadow: 3px 0px 3px #dbdbdb;
     overflow-x: auto;
     ::-webkit-scrollbar {

@@ -7,6 +7,7 @@ export const layout = css`
     align-items: center;
     padding: 0px 10px;
     width: 100%;
+    height: 672px;
 `;
 
 export const noticeBox = css`
@@ -93,7 +94,10 @@ export const doctorBox = css`
     flex-direction: column;
     border: 1px solid #dbdbdb;
     border-radius: 10px;
-    padding: 0px 5px;
     width: 100%;
     height: 200px;
+
+    & > div:not(:nth-last-of-type(1)) {
+        border-bottom: 1px solid #dbdbdb;
+    }
 `;

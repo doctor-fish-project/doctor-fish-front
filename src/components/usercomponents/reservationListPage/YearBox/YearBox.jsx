@@ -3,11 +3,16 @@ import React from 'react';
 import * as s from './style';
 import MonthBox from '../MonthBox/MonthBox';
 
-function YearBox({ year, monthGroup }) {
+function YearBox({ year, monthOfReservationsData }) {
+    const entriesOfReservationsData = Object.entries(monthOfReservationsData);
+
     return (
         <div css={s.layout}>
             <p>{year}</p>
-            <MonthBox month={10}/>
+            {
+                entriesOfReservationsData?.map(([month, DateOfReservationsData]) =>
+                    <MonthBox key={year + month} month={month} DateOfReservationsData={DateOfReservationsData} />)
+            }
         </div>
     );
 }

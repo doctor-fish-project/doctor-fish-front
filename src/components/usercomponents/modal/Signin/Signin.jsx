@@ -5,11 +5,13 @@ import ModalLayout from '../ModalLayout/ModalLayout';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { signinModalAtom, signupModalAtom } from '../../../../atoms/modalAtoms';
 import { IoIosClose } from "react-icons/io"
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useMutation } from 'react-query';
 import { instance } from '../../../../apis/utils/instance';
 
 function Signin({ containerRef }) {
+    const nav = useNavigate();
+
     const [signinOpen, setSigninOpen] = useRecoilState(signinModalAtom);
     const setSignupOpen = useSetRecoilState(signupModalAtom);
 
@@ -29,20 +31,41 @@ function Signin({ containerRef }) {
             return await instance.post("/auth/signin", input)
         }, {
         onSuccess: response => {
-            console.log(response)
+            localStorage.setItem("accessToken", "Bearer " + response.data.accessToken);
+            instance.interceptors.request.use(config => {
+                config.headers["Authorization"] = localStorage.getItem("accessToken");
+                return config;
+            });
+            alert("로그인에 성공하셨습니다.")
+            closeModal()
+            setTimeout(() => {
+                nav("/dashboard", { replace: true })
+            }, 500)
         },
         onError: error => {
             const response = error.response;
+            if (typeof (response.data) === 'string') {
+                alert(response.data);
+                return
+            }
             if (response.status === 400) {
                 const fieldErrors = response.data.map(fieldError => ({ field: fieldError.field, defaultMessage: fieldError.defaultMessage }))
                 showFieldErrorMessage(fieldErrors);
+                return
+            }
+            if (response.status === 401) {
+                alert(response.data);
+                setInput({
+                    email: "",
+                    password: ""
+                })
                 return
             }
         }
     })
 
     const handleSigninOnClick = () => {
-        signin.mutateAsync().catch(() => {})
+        signin.mutateAsync().catch(() => { })
     }
 
     const handleSignupOnClick = () => {
@@ -51,7 +74,6 @@ function Signin({ containerRef }) {
             setSignupOpen(true)
         }, 400)
     }
-
 
     const handleInputOnChange = (e) => {
         setInput(input => ({
@@ -82,6 +104,14 @@ function Signin({ containerRef }) {
             setAni("userModalOpen");
             setSigninOpen(false);
         }, 500)
+        setFieldErrorMessages({
+            email: <></>,
+            password: <></>,
+        })
+        setInput({
+            email: "",
+            password: ""
+        })
     }
 
     return (
@@ -102,7 +132,7 @@ function Signin({ containerRef }) {
                 </div>
                 <div css={s.inputBox}>
                     <p>비밀번호</p>
-                    <input type="text" placeholder='비밀번호' name='password' onChange={handleInputOnChange} value={input.password} />
+                    <input type="password" placeholder='비밀번호' name='password' onChange={handleInputOnChange} value={input.password} />
                     {
                         fieldErrorMessages.password !== "" ? fieldErrorMessages.password : <></>
                     }
@@ -112,7 +142,7 @@ function Signin({ containerRef }) {
                 </div>
                 <div css={s.findBox}>
                     <p>패스워드를 잊어버리셨나요?</p>
-                    <button>패스워드 찾기</button>    
+                    <button>패스워드 찾기</button>
                 </div>
                 <div css={s.findBox}>
                     <p>계정이 없으신가요?</p>

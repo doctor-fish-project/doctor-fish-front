@@ -118,11 +118,11 @@ export const layout = css`
 export const doctorContainer = css`
     box-sizing: border-box;
     display: flex;
+    flex-direction: column;
     border-bottom: 1px solid #dbdbdb;
     margin-bottom: 10px;
     padding: 0px 5px;
     width: 100%;
-    height: 120px;
     box-shadow: 3px 0px 3px #dbdbdb;
     overflow-x: auto;
     ::-webkit-scrollbar {
@@ -159,6 +159,7 @@ export const buttonBox = css`
     justify-content: end;
     align-items: center;
     padding-bottom: 62px;
+    width: 100%;
 
     & button {
         width: 100%;

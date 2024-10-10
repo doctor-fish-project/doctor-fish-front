@@ -14,8 +14,10 @@ import AdminReservationAll from "./components/admincomponents/AdminReservationAl
 import AdminReview from "./components/admincomponents/AdminReview/AdminReview";
 import AdminNotice from "./components/admincomponents/AdminNotice/AdminNotice";
 import AdminSetting from "./components/admincomponents/AdminSetting/AdminSetting";
+import AuthHook from "./hooks/AuthHook";
 
 function App() {
+    AuthHook()
     return (
         <>
             <Global styles={reset} />
@@ -35,6 +37,9 @@ function App() {
                 <Route path='/admin/review' element={<AdminReview />} />
                 <Route path='/admin/notice' element={<AdminNotice />} />
                 <Route path='/admin/setting' element={<AdminSetting />} />
+                <Route path="/reservation" element={<ReservationPage />}/>
+                <Route path="/reservationlist" element={<ReservationListPage />}/>
+                <Route path="/review/*" element={<ReviewPage />}/>
             </Routes>
         </>
         

@@ -7,4 +7,9 @@ export const layout = css`
     align-items: center;
     padding: 10px;
     width: 100%;
+    height: 668px;
+    overflow-y: auto;
+    &::-webkit-scrollbar {
+        display: none;
+    }
 `;

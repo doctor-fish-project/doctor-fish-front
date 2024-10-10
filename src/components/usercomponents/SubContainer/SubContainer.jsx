@@ -11,15 +11,15 @@ function SubContainer({ children }) {
     }
 
     const handleReservationOnClick = () => {
-        nav("/dashboard/reservation")
+        nav("/reservation")
     }
 
     const handleReservationListOnClick = () => {
-        nav("/dashboard/reservationlist")
+        nav("/reservationlist")
     }
 
     const handleReviewOnClick = () => {
-        nav("/dashboard/review")
+        nav("/review")
     }
     
     return (

@@ -1,10 +1,22 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 /** @jsxImportSource @emotion/react */
 import * as s from './style';
 import { useNavigate } from 'react-router-dom';
+import ReservationCalendarModal from '../modal/ReservationCalendarModal/ReservationCalendarModal';
 
 function SubContainer({ children }) {
     const nav = useNavigate();
+
+    const containerRef = useRef();
+
+    const [ reservationCalendarModalElement, setReservationCalendarModalElement ] = useState(<></>);
+
+    useEffect(() => {
+        if(!!containerRef) {
+            setReservationCalendarModalElement(<ReservationCalendarModal containerRef={containerRef} />)
+            
+        }
+    }, [containerRef])
 
     const handleDashboardOnClick = () => {
         nav("/dashboard")
@@ -23,7 +35,8 @@ function SubContainer({ children }) {
     }
     
     return (
-        <div css={s.layout}>
+        <div css={s.layout} ref={containerRef}>
+            {reservationCalendarModalElement}
             {children}
             <div css={s.footer}>
                 <button onClick={handleDashboardOnClick}>홈</button>

@@ -14,3 +14,8 @@ export const adminSigninModalAtom = atom({
     key: "adminSigninModalAtom",
     default: false
 })
+
+export const reservationCalendarModalAtom = atom({
+    key: "reservationCalendarModalAtom",
+    default: false
+})

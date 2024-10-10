@@ -23,6 +23,16 @@ export const layout = css`
         font-size: 25px;
         cursor: pointer;
     }
+
+    & > button {
+        box-sizing: border-box;
+        border-radius: 10px;
+        width: 40px;
+        height: 30px;
+        text-align: center;
+        color: #ffffff;
+        background-color: #1E3A5F;
+    }
 `;
 
 export const nameAndDepartBox = css`

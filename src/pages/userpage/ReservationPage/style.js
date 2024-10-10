@@ -129,8 +129,9 @@ export const doctorContainer = css`
         display: none;
     }
 
-    & div:not(:nth-last-of-type(1)) {
+    & > div:not(:nth-last-of-type(1)) {
         margin-right: 5px;
+        border-bottom: 1px solid #dbdbdb;
     }
 `;
 

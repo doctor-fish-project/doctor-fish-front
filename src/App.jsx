@@ -10,6 +10,7 @@ import AuthHook from "./hooks/AuthHook";
 
 function App() {
     AuthHook()
+    
     return (
         <>
             <Global styles={reset} />

@@ -4,8 +4,7 @@ import * as s from './style';
 
 function TimeBox({ time, reservationTime, setReservationTime }) {
 
-    const handleReservationTimeOnClick = (e, time) => {
-        e.stopPropagation();
+    const handleReservationTimeOnClick = (time) => {
         setReservationTime(time === reservationTime ? "" : time)
     }
 

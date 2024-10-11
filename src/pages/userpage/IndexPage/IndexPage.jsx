@@ -14,8 +14,6 @@ function IndexPage(props) {
     const nav = useNavigate();
     
     const setSigninModalState = useSetRecoilState(signinModalAtom);
-    const setSignupModalState = useSetRecoilState(signupModalAtom);
-    const setAdminSigninModalState = useSetRecoilState(adminSigninModalAtom);
 
     const [isLoading, setLoading] = useState(true);
 
@@ -31,14 +29,6 @@ function IndexPage(props) {
 
     const handleSigninModalOnClick = () => {
         setSigninModalState(true)
-    }
-
-    const handleSignupModalOnClick = () => {
-        setSignupModalState(true)
-    }
-
-    const handleAdminSigninModalOnClick = () => {
-        setAdminSigninModalState(true)
     }
 
     return (

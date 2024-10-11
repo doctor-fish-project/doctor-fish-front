@@ -1,19 +1,18 @@
 import { css } from "@emotion/react";
 
-export const layout = (time, reservationTime) => css`
+export const layout = (reservationTime, time) => css`
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 9.5px;
     border-radius: 10px;
-    width: 23%;
+    width: 87px;
     height: 50px;
-    background-color: ${time === reservationTime ? "#bbbbbb" : "#dbdbdb" };
+    color: ${time === reservationTime ? '#ffffff' : '#000000'};
+    background-color: ${time === reservationTime ? '#2E5984' : '#dbdbdb'};
     cursor: pointer;
 
-    :active {
-        color: #000000;
-        background-color: #bbbbbb;
-
+    :disabled {
+        color: gray;
+        background-color: #eeeeee;
     }
 `;

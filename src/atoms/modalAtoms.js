@@ -6,11 +6,11 @@ export const signupModalAtom = atom({
 })
 
 export const signinModalAtom = atom({
-    key: "signinModalAtom2",
+    key: "signinModalAtom",
     default: false
 })
 
-export const adminSigninModalAtom = atom({
-    key: "adminSigninModalAtom",
-    default: false
+export const reservationModalAtom = atom({
+    key: "reservationModalAtom",
+    default:false
 })

@@ -6,6 +6,10 @@ export const reset = css`
         font-family: "Noto Sans KR", sans-serif;
     }
 
+    * {
+        font-family: "Noto Sans KR", sans-serif;;
+    }
+
     html, body, #root {
         margin: 0;
         padding: 0;

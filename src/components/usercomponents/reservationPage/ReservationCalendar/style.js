@@ -12,7 +12,7 @@ export const layout = css`
     box-shadow: 3px 0px 3px #dbdbdb;
 
     .react-calendar__tile--select {
-        background-color: #1E3A5F;
+        background-color: #2E5984;
         color: #ffffff;
     }
 
@@ -81,12 +81,12 @@ export const layout = css`
     }
 
     .react-calendar__tile--now {
-        background-color: #1E3A5F;
+        background-color: #2E5984;
         color: #ffffff;
     }
 
     .react-calendar__tile--now:enabled:hover {
-        background-color: #1E3A5F;
+        background-color: #2E5984;
         color: #ffffff;
     }
 
@@ -96,17 +96,17 @@ export const layout = css`
     }
 
     .react-calendar__tile--now.react-calendar__tile--active {
-        background-color: #1E3A5F;
+        background-color: #2E5984;
         color: #ffffff;
     }
 
     .react-calendar__tile:hover {
-        background-color: #1E3A5F;
+        background-color: #2E5984;
         color: #ffffff;  
     }
 
     .react-calendar__tile:focus {
         color: #ffffff;
-        background-color: #1E3A5F;        
+        background-color: #2E5984;        
     }
 `;

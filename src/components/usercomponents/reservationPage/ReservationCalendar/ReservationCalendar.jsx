@@ -4,10 +4,11 @@ import * as s from './style';
 import Calendar from 'react-calendar';
 import { useSearchParams } from 'react-router-dom';
 
-function ReservationCalendar({ reservationDate, setReservationDate }) {
+function ReservationCalendar({ reservationDate, setReservationDate, setReservationTime }) {
 
     const handleReservationDateOnChange = (value) => {
-        setReservationDate(value)
+        setReservationTime("");
+        setReservationDate(value);
     }
 
     const tileClassName = ({ date, view }) => {

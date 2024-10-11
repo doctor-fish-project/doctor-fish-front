@@ -1,11 +1,10 @@
 import React from 'react';
 /** @jsxImportSource @emotion/react */
 import * as s from './style';
-import AdminSideBar from '../AdminSideBar/AdminSideBar';
-import AdminTopBar from '../AdminTopBar/AdminTopBar';
-import AdminDashBoard from '../../../pages/adminpage/AdminDashBoard/AdminDashBoard';
+import AdminSideBar from '../adminBar/AdminSideBar/AdminSideBar';
+import AdminTopBar from '../adminBar/AdminTopBar/AdminTopBar';
 
-function AdminContainer({ children, category }) {
+function AdminContainer({ children }) {
     return (
         <div css={s.layout}>
             <AdminSideBar />

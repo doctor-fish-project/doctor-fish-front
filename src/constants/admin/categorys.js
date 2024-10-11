@@ -9,12 +9,12 @@ export const categorys = [
         link: "/admin/dashboard"
     },
     {
-        name: "예약관리",
+        name: "전체예약",
         icon: <IoCalendarOutline />,
         link: "/admin/reservation"
     },
     {
-        name: "예약현황",
+        name: "당일예약",
         icon: <IoCalendarNumberOutline />,
         link: "/admin/reservationnow"
     },
@@ -27,5 +27,15 @@ export const categorys = [
         name: "회원관리",
         icon: <LuUser2 />,
         link: "/admin/users"
-    }
+    },
+    {
+        name: "공지사항",
+        icon: <IoNotificationsOutline />,
+        link: "/admin/notice"
+    },
+    {
+        name: "설정",
+        icon: <IoSettingsOutline />,
+        link: "/admin/setting"
+    },
 ]

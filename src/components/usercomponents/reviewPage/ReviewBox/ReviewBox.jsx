@@ -3,17 +3,18 @@ import React from 'react';
 import * as s from './style';
 import { FcLike } from "react-icons/fc";
 
-function ReviewBox({ title, name, registerDate, likeCount }) {
+function ReviewBox({ }) {
     return (
         <div css={s.layout}>
-            <div css={s.titleAndDate}>
-                <p>{title}sdfffffffffffffffffffffffffffff</p>
-                <p>{registerDate}</p>
+            <div css={s.nameBox}>
+                <p>이름</p>
             </div>
-            <div css={s.nameAndLike}>
-                <p>{name}</p>
-                <p><FcLike />{likeCount}</p>
-
+            <div css={s.imgBox}>
+                <img src="" alt="" />
+            </div>
+            <div css={s.dateAndLike}>
+                <p>날짜</p>
+                <p><FcLike />10</p>
             </div>
         </div>
     );

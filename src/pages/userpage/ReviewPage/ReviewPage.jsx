@@ -1,12 +1,15 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
 /** @jsxImportSource @emotion/react */
 import * as s from "./style";
 import SubContainer from '../../../components/usercomponents/SubContainer/SubContainer';
 import MainLayout from '../../../components/usercomponents/MainLayout/MainLayout';
 import ReviewBox from '../../../components/usercomponents/reviewPage/ReviewBox/ReviewBox';
 import { Route, Routes, useNavigate } from 'react-router-dom';
-import ReviewWrite from '../../../components/usercomponents/reviewPage/ReviewWrite/ReviewWrite';
 import DashBoardTopBar from '../../../components/usercomponents/dashBoard/DashBoardTopBar/DashBoardTopBar';
+import { BsPencilSquare } from 'react-icons/bs';
+import ReviewWritePage from '../ReviewWritePage/ReviewWritePage';
+import { useQuery } from 'react-query';
+import { instance } from '../../../apis/utils/instance';
 
 function ReviewPage(props) {
     const nav = useNavigate();
@@ -15,20 +18,29 @@ function ReviewPage(props) {
         nav("/review/write")
     }
 
+    const reviews = useQuery(
+        ["reviewsQuery"],
+        async () => await instance.get("/review/me"),
+        {
+            onSuccess: respone => {
+                console.log(respone)
+            },
+            onError: error => {
+                console.log(error)
+            }
+        }
+    )
+
     return (
         <MainLayout>
             <SubContainer>
-                <DashBoardTopBar title={"리뷰"} icon={"create"} onClick={handleReviewWriteOnClick} /> 
+                <DashBoardTopBar title={"리뷰"} icon={<BsPencilSquare />} onClick={handleReviewWriteOnClick} />
                 <div css={s.layout}>
-                    <div css={s.reviewContainer}> 
-                        <ReviewBox  title={"testTitle"} name={"testName"} registerDate={"2024-10-04"} likeCount={10}/>
-                        <ReviewBox  title={"testTitle1"} name={"testName1"} registerDate={"2024-10-04"} likeCount={9}/>
-                        <ReviewBox  title={"testTitle2"} name={"testName2"} registerDate={"2024-10-04"} likeCount={8}/>
-                    </div>
+                    <ReviewBox />
                 </div>
             </SubContainer>
             <Routes>
-                <Route path='/write' element={<ReviewWrite />}/>
+                <Route path='/write' element={<ReviewWritePage />} />
             </Routes>
         </MainLayout>
     );

@@ -7,6 +7,7 @@ export const layout = css`
     padding: 5px;
     width: 100%;
     height: 70px;
+    overflow-y: auto;
     cursor: pointer;
     
     & > img {
@@ -30,4 +31,5 @@ export const nameAndDepartBox = css`
     display: flex;
     flex-grow: 1;
     flex-direction: column;
+    justify-content: center;
 `;

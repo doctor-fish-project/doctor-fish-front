@@ -3,7 +3,6 @@ import React from 'react';
 import * as s from './style';
 
 function ReservationBox({ reservation }) {
-    console.log(reservation)
     return (
         <div css={s.layout}>
             <div css={s.header}>

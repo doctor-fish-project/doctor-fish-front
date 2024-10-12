@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 /** @jsxImportSource @emotion/react */
 import * as s from "./style";
 import { AiFillSound } from "react-icons/ai"
-import { FaUser } from "react-icons/fa";
+import { FaUser, FaRegBell } from "react-icons/fa";
 import { IoIosArrowForward } from "react-icons/io";
 import SubContainer from '../../../components/usercomponents/SubContainer/SubContainer';
 import MainLayout from '../../../components/usercomponents/MainLayout/MainLayout';
@@ -14,10 +14,15 @@ import TodayReservationBox from '../../../components/usercomponents/dashBoard/To
 import DoctorDetailPage from '../DoctorDetailPage/DoctorDetailPage';
 import DoctorBox from '../../../components/usercomponents/dashBoard/DoctorBox/DoctorBox';
 import MyProfilePage from '../MyProfilePage/MyProfilePage';
+import { useSetRecoilState } from 'recoil';
+import { signinModalAtom } from '../../../atoms/modalAtoms';
+import BoxTopBar from '../../../components/usercomponents/dashBoard/BoxTopBar/BoxTopBar';
 
 function DashBoard(props) {
 
     const nav = useNavigate();
+
+    const setSigninModalState = useSetRecoilState(signinModalAtom);
 
     const queryClient = useQueryClient();
     const authState = queryClient.getQueryState("accessTokenValidQuery");
@@ -44,16 +49,17 @@ function DashBoard(props) {
 
     const doctorsInfo = useQuery(
         ["doctorsInfoQuery"],
-        async () => await instance.get("/doctors"),
+        async () => await instance.get("/doctor/list"),
         {
             enabled: true,
             refetchOnWindowFocus: false,
             retry: 0
         }
     )
-    
-    const handleReservationListOnClick = () => {
-        nav("/reservationlist")
+
+    const handleSigninOnClick = () => {
+        nav("/");
+        setSigninModalState(true)
     }
 
     const handleMyProfileOnClick = () => {
@@ -67,34 +73,42 @@ function DashBoard(props) {
     return (
         <MainLayout>
             <SubContainer>
-                <DashBoardTopBar title={"MEDIBOOK"}/>   
+                <DashBoardTopBar title={"MEDIBOOK"} icon={<FaRegBell />} />
                 <div css={s.layout}>
                     <div css={s.noticeBox}>
                         <AiFillSound />안녕하세요
                     </div>
                     <div css={s.userInfoBox}>
-                        <p>{userInfo.data?.data?.name}</p>
-                        <div css={s.userButtonBox}>
-                            <button onClick={handleMyProfileOnClick}><FaUser />내정보</button>
-                        </div>
+                        {
+                            authState?.data?.data
+                                ?
+                                <>
+                                    <p>{userInfo.data?.data?.name}</p>
+                                    <button onClick={handleMyProfileOnClick}><FaUser />내정보</button>
+                                </>
+                                :
+                                <div css={s.defaultBox}>
+                                    <button onClickCapture={handleSigninOnClick}>로그인</button>
+                                </div>
+                        }
+
                     </div>
-                    <div css={s.reservationBox}>
-                        <p>예약 일정</p>
-                        <button onClick={handleReservationListOnClick}>전체보기<IoIosArrowForward /></button>
-                    </div>
+                    <BoxTopBar title1={"예약 일정"} title2={"전체 보기"} link={"/reservationlist"} icon={<IoIosArrowForward />}/>
                     <TodayReservationBox reservations={todayReservations?.data?.data?.reservations} />
+
+                    <BoxTopBar title1={"의료진 "} title2={""}/>    
                     <div css={s.doctorBox}>
                         {
-                            doctorsInfo?.data?.data?.map(doctor => 
-                                <DoctorBox doctor={doctor} onClick={handleDoctorProfileOnClick}/>
+                            doctorsInfo?.data?.data?.map(doctor =>
+                                <DoctorBox key={doctor.id} doctor={doctor} onClick={handleDoctorProfileOnClick} />
                             )
                         }
                     </div>
                 </div>
             </SubContainer>
             <Routes>
-                <Route path='/myprofile' element={<MyProfilePage />}/>
-                <Route path='/doctor/:doctorId' element={<DoctorDetailPage />}/>
+                <Route path='/myprofile' element={<MyProfilePage />} />
+                <Route path='/doctor/:doctorId' element={<DoctorDetailPage />} />
             </Routes>
         </MainLayout>
     );

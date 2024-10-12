@@ -9,17 +9,13 @@ export const layout = css`
     border-radius: 10px;
     padding: 5px;
     width: 100%;
-    font-size: 18px;
-    font-weight: 600;
-
+    
     & > p {
         box-sizing: border-box;
         display: flex;
         align-items: center;
         width: 100%;
-    }
-
-    :not(:nth-last-of-type(1)) {
-        border-bottom: 1px solid #dbdbdb;
+        font-size: 18px;
+        font-weight: 600;
     }
 `;

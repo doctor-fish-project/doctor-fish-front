@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from 'react';
 /** @jsxImportSource @emotion/react */
 import * as s from './style';
 import Calendar from 'react-calendar';
-import { useSearchParams } from 'react-router-dom';
 
 function ReservationCalendar({ reservationDate, setReservationDate, setReservationTime }) {
 

@@ -5,14 +5,11 @@ export const reset = css`
     * {
         font-family: "Noto Sans KR", sans-serif;
     }
-
-    * {
-        font-family: "Noto Sans KR", sans-serif;;
-    }
-
+    
     html, body, #root {
         margin: 0;
         padding: 0;
+        width: 100%;
         height: 100%;
     }
     
@@ -45,6 +42,73 @@ export const reset = css`
         color: #eeeeee;
         background-color: transparent;
         cursor: default;
+    }
+
+    .container {
+        box-sizing: border-box;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0px auto;
+        border: none;
+        border-radius: 40px;
+        padding: 0px;
+        width: 375px;
+        height: 812px;
+    }
+
+    .custom-auth-swal {
+        padding: 10px;
+        border-radius: 10px;
+        width: 300px;
+        height: 200px;
+       
+        & > div {
+            margin: 0px auto;
+            padding: 0px;
+            font-size: 14px;
+            height: fit-content;
+
+            :where(.swal2-icon).swal2-info {
+                border-color: #2E5984;
+                color: #2E5984;
+            }
+        }
+
+        & > h2 {
+            padding: 0px;
+            font-size: 14px;
+        }
+    }
+
+    .custom-signin-swal {
+        padding: 10px;
+        border-radius: 20px;
+        width: 300px;
+        height: 200px;
+
+        & div { 
+            margin: auto;
+            overflow: hidden;
+        };
+    }
+
+    .custom-signup-swal {
+        padding: 10px;
+        border-radius: 10px;
+        width: 300px;
+        height: 200px;
+
+        & div { 
+            margin: auto;
+            overflow: hidden;
+
+        };
+    }
+
+    .confirmButton {
+        color: #ffffff;
+        background-color: #2E5984;
     }
 
     @keyframes userModalOpen {

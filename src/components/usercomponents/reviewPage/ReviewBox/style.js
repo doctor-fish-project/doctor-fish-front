@@ -9,20 +9,14 @@ export const layout = css`
     border-radius: 10px;
     padding: 10px;
     width: 100%;
-    height: 80px;
     cursor: pointer;
-    box-shadow: 0px 0px 3px #dbdbdb;
-
-    :active {
-        box-shadow: inset 0px 0px 3px #dbdbdb;
-    }
 
     :not(:nth-last-of-type(1)) {
         margin-bottom: 10px;
     }
 `
 
-export const titleAndDate = css`
+export const nameBox = css`
     box-sizing: border-box;
     display: flex;
     justify-content: space-between;
@@ -44,14 +38,30 @@ export const titleAndDate = css`
     }
 `;
 
-export const nameAndLike = css`
+export const imgBox = css`
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 200px;
+
+    & img {
+        box-sizing: border-box;
+        height: 100%;
+        overflow: hidden;
+    }
+`;
+
+export const dateAndLike = css`
     box-sizing: border-box;
     display: flex;
     justify-content: space-between;
-    align-items: color;
     align-items: center;
-    padding-left: 10px;
-    font-weight: 600;
+    
+    & p {
+        font-size: 14px;
+    }
 
     & svg {
         margin-right: 3px;

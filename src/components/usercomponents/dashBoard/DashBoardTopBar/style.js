@@ -11,10 +11,25 @@ export const layout = css`
     height: 30px;
 
     & > p {
+        box-sizing: border-box;
+        width: fit-content;
+        height: 100%;
         font-size: 20px;
+        font-weight: 600;
     }
 
-    & svg {
+    
+`;
+
+export const iconBox = css`
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: fit-content;
+    height: 100%;
+
+    & > svg {
         font-size: 25px;
         cursor: pointer;
     }

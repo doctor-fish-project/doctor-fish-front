@@ -14,6 +14,7 @@ export const layout = css`
         width: 100%;
         height: 50px;
         font-size: 20px;
+        font-weight: 600;
         background-color: #2E5984;
         color: white;
     }
@@ -23,11 +24,18 @@ export const cancelButtonBox = css`
     box-sizing: border-box;
     display: flex;
     justify-content: end;
+    align-items: center;
     padding: 5px 10px;
     width: 100%;
 
-    & svg {
-        font-size: 35px;
+    & > button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        & > svg {
+            font-size: 35px;
+        }
     }
 `;
 
@@ -39,6 +47,10 @@ export const doctorInfoBox = css`
     margin-bottom: 5px;
     width: 100%;
     height: 30px;
+
+    & > h3 {
+        font-size: 18px
+    }
 `;
 
 export const timeBox = css`

@@ -16,7 +16,7 @@ export const header = css`
     box-sizing: border-box;
     display: flex;
     align-items: center;
-    margin-bottom: 5px;
+    margin-bottom: 3px;
     height: 30px;
     justify-content: space-between;
 
@@ -48,8 +48,8 @@ export const body = css`
         justify-content: end;
         align-items: center;
         border-radius: 10px;
-        padding: 0px 5px;
         width: 100%;
+        font-size: 14px;
         color: #bbbbbb;
         background-color: transparent;
     }
@@ -59,6 +59,6 @@ export const doctorInfoBox = css`
     display: flex;
     flex-direction: column;
     border-radius: 10px;
-    padding: 5px;
-    background-color: #dbdbdb;
+    padding: 5px 10px;
+    background-color: #eeeeee;
 `;

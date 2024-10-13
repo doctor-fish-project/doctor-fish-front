@@ -6,7 +6,7 @@ export const layout = (reservationTime, time) => css`
     justify-content: center;
     align-items: center;
     border-radius: 10px;
-    width: 87px;
+    width: 85px;
     height: 50px;
     font-size: 14px;
     font-weight: 600;

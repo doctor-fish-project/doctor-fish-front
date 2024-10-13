@@ -64,6 +64,4 @@ export const timeBox = css`
     & :not(button:nth-of-type(4n)) {
         margin-right: 5px;
     }
-
-    
 `;

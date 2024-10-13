@@ -14,8 +14,7 @@ export const reservationBox = css`
         display: flex;
         justify-content: center;
         align-items: center;
-        font-size: 18px;
-        font-weight: 600;
+        font-size: 16px;
 
         & > svg {
             transform: translateY(2px);

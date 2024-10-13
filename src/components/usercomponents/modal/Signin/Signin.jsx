@@ -64,7 +64,7 @@ function Signin({ containerRef }) {
                     showConfirmButton: false,
                     timer: 1000,
                     customClass: {
-                        popup: 'custom-signin-swal',
+                        popup: 'custom-timer-swal',
                         container: 'container',
                     }
                 })

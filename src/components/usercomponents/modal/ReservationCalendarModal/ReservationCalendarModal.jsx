@@ -103,6 +103,24 @@ function ReservationCalendarModal({ containerRef }) {
         }
     )
 
+    const handleReservationOnClick = () => {
+        if(reservationTime === "") {
+            Swal.fire({
+                icon: 'error',
+                text: '예약 시간을 선택하여 주세요',
+                backdrop: false,
+                showConfirmButton: false,
+                timer: 1000,
+                customClass: {
+                    popup: 'custom-timer-swal',
+                    container: 'container'
+                }
+            })
+            return;
+        }
+        reservation.mutateAsync().catch(() => {})
+    }
+
     const closeModal = () => {
         setAni("userModalClose")
         setTimeout(() => {
@@ -130,7 +148,7 @@ function ReservationCalendarModal({ containerRef }) {
                         )
                     }
                 </div>
-                <button onClick={() => reservation.mutateAsync().catch(() => {})}>예약하기</button>
+                <button onClick={handleReservationOnClick}>예약하기</button>
             </div>
         </ModalLayout>
     );

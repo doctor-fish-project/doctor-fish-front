@@ -12,6 +12,7 @@ export const layout = css`
 export const container = css`
     box-sizing: border-box;
     display: flex;
+    flex-direction: column;
     border-radius: 10px;
     padding: 30px;
     width: 100%;
@@ -24,6 +25,7 @@ export const titleAndInput = css`
     box-sizing: border-box;
     display: flex;
     justify-content: space-between;
+    margin-bottom: 15px;
     width: 100%;
     height: 40px;
     font-size: 18px;

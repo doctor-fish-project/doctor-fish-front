@@ -8,6 +8,7 @@ export const layout = css`
     width: 100%;
 
     :not(:nth-last-of-type(1)) {
+        margin-bottom: 5px;
         border-bottom: 1px solid #dbdbdb;
     }
 `;

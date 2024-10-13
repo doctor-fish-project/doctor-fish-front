@@ -39,6 +39,7 @@ function Signin({ containerRef }) {
             });
             Swal.fire({
                 icon: 'success',
+                text: '로그인 성공',
                 backdrop: false,
                 showConfirmButton: false,
                 timer: 1000,
@@ -47,7 +48,7 @@ function Signin({ containerRef }) {
                     nav("/dashboard", { replace: true })
                 },
                 customClass: {
-                    popup: 'custom-signin-swal',
+                    popup: 'custom-timer-swal',
                     container: 'container'
                 }
             })
@@ -64,7 +65,7 @@ function Signin({ containerRef }) {
                     timer: 1000,
                     customClass: {
                         popup: 'custom-signin-swal',
-                        container: 'container'
+                        container: 'container',
                     }
                 })
                 return

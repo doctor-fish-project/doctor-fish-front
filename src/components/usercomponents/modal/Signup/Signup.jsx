@@ -47,7 +47,7 @@ function Signup({ containerRef }) {
                     setSigninOpen(true)
                 },
                 customClass: {
-                    popup: 'custom-signup-swal',
+                    popup: 'custom-timer-swal',
                     container: 'container'
                 }
             })

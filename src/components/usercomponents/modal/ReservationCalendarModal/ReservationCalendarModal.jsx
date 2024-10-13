@@ -11,6 +11,7 @@ import { instance } from '../../../../apis/utils/instance';
 import ReservationCalendar from '../../reservationPage/ReservationCalendar/ReservationCalendar';
 import { doctorInfoAtom } from '../../../../atoms/doctorAtoms';
 import TimeBox from '../../reservationPage/TimeBox/TimeBox';
+import Swal from 'sweetalert2';
 
 function ReservationCalendarModal({ containerRef }) {
     const nav = useNavigate();
@@ -70,14 +71,34 @@ function ReservationCalendarModal({ containerRef }) {
         async () => await instance.post("/reservation", reservationData),
         {
             onSuccess: response => {
-                closeModal()
-                alert("예약 신청이 완료되었습니다.")
-                setTimeout(() => {
-                    nav("/reservationlist")
-                }, 500)
+                Swal.fire({
+                    icon: 'success',
+                    text: '예약 완료',
+                    backdrop: false,
+                    showConfirmButton: false,
+                    timer: 1000,
+                    willClose: () => {
+                        setReservationOpen(false)
+                        nav("/reservationlist", { replace: true })
+                    },
+                    customClass: {
+                        popup: 'custom-timer-swal',
+                        container: 'container'
+                    }
+                })
             },
             onError: error => {
-                alert("예약 중 오류 발생")
+                Swal.fire({
+                    icon: 'error',
+                    text: '예약 중 오류 발생',
+                    backdrop: false,
+                    showConfirmButton: false,
+                    timer: 1000,
+                    customClass: {
+                        popup: 'custom-timer-swal',
+                        container: 'container'
+                    }
+                })
             }
         }
     )

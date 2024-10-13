@@ -81,28 +81,19 @@ export const reset = css`
         }
     }
 
-    .custom-signin-swal {
-        padding: 10px;
-        border-radius: 20px;
-        width: 300px;
-        height: 200px;
-
-        & div { 
-            margin: auto;
-            overflow: hidden;
-        };
-    }
-
-    .custom-signup-swal {
+    .custom-timer-swal {
         padding: 10px;
         border-radius: 10px;
         width: 300px;
-        height: 200px;
+        height: fit-content;
 
-        & div { 
+        & > div { 
             margin: auto;
+            margin-bottom: 5px;
+            padding: 0px;
             overflow: hidden;
-
+            font-size: 14px;
+            font-weight: 600;
         };
     }
 

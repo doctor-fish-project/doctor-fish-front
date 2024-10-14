@@ -24,3 +24,42 @@ export const layout = css`
         }
     }
 `;
+
+export const modalContainer = css`
+    position: absolute;
+    transform: translate(50%, -50%);
+    top: 50%;
+    left: 25%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 500px;
+    height: 800px;
+    border: 1px solid #dbdbdb;
+    border-radius: 10px;
+    box-shadow: 1px 1px 2px #00000066;
+    z-index: 98;
+    background-color: #ffffff;
+
+    & > div {
+        box-sizing: border-box;
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+        font-size: 14px;
+        border-radius: 10px;
+        color: #444444;
+        padding: 10px;
+        cursor: pointer;
+        &:hover {
+            background-color: #f3f3f3;
+        }
+        &:active {
+            background-color: #efefef;
+        }
+    }
+    
+`;

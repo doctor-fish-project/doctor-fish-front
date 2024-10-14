@@ -13,6 +13,7 @@ function AdminListPagination({location}) {
         console.log(location);
         nav(`${location.pathname}?page=${e.selected + 1}`);
     }
+    
     return (
         <div css={s.paginateContainer}>
             <ReactPaginate

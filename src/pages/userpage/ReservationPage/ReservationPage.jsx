@@ -3,13 +3,10 @@ import React, { useEffect, useRef, useState } from 'react';
 import * as s from "./style";
 import SubContainer from '../../../components/usercomponents/SubContainer/SubContainer';
 import MainLayout from '../../../components/usercomponents/MainLayout/MainLayout';
-import ReservationCalendar from '../../../components/usercomponents/reservationPage/ReservationCalendar/ReservationCalendar';
 import DoctorBox from '../../../components/usercomponents/reservationPage/DoctorBox/DoctorBox';
-import TimeBox from '../../../components/usercomponents/reservationPage/TimeBox/TimeBox';
-import { useNavigate } from 'react-router-dom';
 import DashBoardTopBar from '../../../components/usercomponents/dashBoard/DashBoardTopBar/DashBoardTopBar';
-import { useMutation, useQuery } from 'react-query';
 import { instance } from '../../../apis/utils/instance';
+import { useQuery } from 'react-query';
 
 function ReservationPage(props) {
 
@@ -27,10 +24,10 @@ function ReservationPage(props) {
         <MainLayout>
             <SubContainer>
                 <DashBoardTopBar title={"예약하기"} />
-                <div css={s.doctorContainer}>
+                <div css={s.layout}>
                     {
                         doctorsInfo?.data?.data?.map(doctor => 
-                            <DoctorBox key={doctor.id} doctor={doctor} />
+                            <DoctorBox key={doctor.id} doctor={doctor}/>
                         )
                     }
                 </div>

@@ -1,6 +1,6 @@
 import { atom } from "recoil";
 
-export const doctorIdAtom = atom({
-    key: "doctorIdAtom",
-    default: 0
+export const doctorInfoAtom = atom({
+    key: "doctorInfoAtom",
+    default: {}
 })

@@ -46,7 +46,7 @@ function DashBoard(props) {
         ["doctorsInfoQuery"],
         async () => await instance.get("/doctors"),
         {
-            enabled: authState.data?.data,
+            enabled: true,
             refetchOnWindowFocus: false,
             retry: 0
         }

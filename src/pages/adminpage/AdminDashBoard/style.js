@@ -13,52 +13,32 @@ export const container = css`
     box-sizing: border-box;
     display: flex;
     flex-grow: 1;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
     width: 100%;
+    
+    &:nth-of-type(1) {
+        margin-bottom: 30px;
+    }
     
     & > div {
         box-sizing: border-box;
         display: flex;
         flex-direction: column;
         border-radius: 10px;
-        width: 750px;
-        height: 380px;
+        flex-grow: 1;
+        height: 100%;
         background-color: white;
     }
-`;
-
-export const reservationBox = css`
-    box-sizing: border-box;
-    display: flex;
-    justify-content: space-between;
-    padding: 30px;
-    font-size: 18px;
-`;
-
-export const reservationInfoBox = css`
-    box-sizing: border-box;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid #c5c5c5;
-    width: 100%;
-    height: 37px;
-
-    & span {
-        color: #b2b2b2;
+    & > div:nth-of-type(1) {
+        margin-right: 15px;
     }
-
-    & div:nth-last-of-type(1) {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 60px;
-        height: 27px;
-        font-size: 15px;
-        background-color: #dfe3eb;
+    & > div:nth-of-type(2) {
+        margin-left: 15px;
     }
 `;
+
+
 
 export const buttonBox = css`
     display: flex;

@@ -26,7 +26,20 @@ export const container = css`
     border-radius: 10px;
     padding: 5px;
     width: 100%;
+    min-height: 100px;
     background-color: #ffffff;
+
+`;
+
+export const defaultBox = css`
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100px;
+    background-color: transparent;
 `;
 
 export const header = css`

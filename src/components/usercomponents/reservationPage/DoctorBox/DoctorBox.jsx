@@ -1,19 +1,18 @@
-import React, { useState } from 'react';
+import React from 'react';
 /** @jsxImportSource @emotion/react */
 import * as s from './style';
-import { IoIosArrowForward } from "react-icons/io";
 import { useSetRecoilState } from 'recoil';
-import { reservationCalendarModalAtom } from '../../../../atoms/modalAtoms';
-import { doctorIdAtom } from '../../../../atoms/doctorAtoms';
+import { reservationModalAtom } from '../../../../atoms/modalAtoms';
+import { doctorInfoAtom } from '../../../../atoms/doctorAtoms';
 
 function DoctorBox({ doctor }) {
 
-    const setReservationCalendar = useSetRecoilState(reservationCalendarModalAtom);
-    const setDoctorId = useSetRecoilState(doctorIdAtom);
+    const setReservationOpen = useSetRecoilState(reservationModalAtom);
+    const setDoctorInfo = useSetRecoilState(doctorInfoAtom)
 
-    const handleDoctorIdOnClick = () => {
-        setReservationCalendar(true);
-        setDoctorId(doctor.id)
+    const handleReservationModalOnClick = () => {
+        setDoctorInfo(doctor)
+        setReservationOpen(true);
     }
     
     return (
@@ -23,7 +22,7 @@ function DoctorBox({ doctor }) {
                 <div>{doctor.name}</div>
                 <div>{doctor.depart}</div>
             </div>
-            <button onClick={handleDoctorIdOnClick}>예약</button>
+            <button onClick={handleReservationModalOnClick}>예약</button>
         </div>
 
     );

@@ -7,14 +7,13 @@ import ReservationCalendarModal from '../modal/ReservationCalendarModal/Reservat
 function SubContainer({ children }) {
     const nav = useNavigate();
 
+    const [reservationModalElement, serReservationModalElement] = useState(<></>);
+
     const containerRef = useRef();
 
-    const [ reservationCalendarModalElement, setReservationCalendarModalElement ] = useState(<></>);
-
     useEffect(() => {
-        if(!!containerRef) {
-            setReservationCalendarModalElement(<ReservationCalendarModal containerRef={containerRef} />)
-            
+        if (!!containerRef) {
+            serReservationModalElement(<ReservationCalendarModal containerRef={containerRef} />)
         }
     }, [containerRef])
 
@@ -33,10 +32,10 @@ function SubContainer({ children }) {
     const handleReviewOnClick = () => {
         nav("/review")
     }
-    
+
     return (
         <div css={s.layout} ref={containerRef}>
-            {reservationCalendarModalElement}
+            {reservationModalElement}
             {children}
             <div css={s.footer}>
                 <button onClick={handleDashboardOnClick}>홈</button>

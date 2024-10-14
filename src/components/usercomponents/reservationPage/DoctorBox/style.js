@@ -7,7 +7,6 @@ export const layout = css`
     padding: 5px;
     width: 100%;
     height: 70px;
-    cursor: pointer;
     
     & > img {
         box-sizing: border-box;
@@ -21,7 +20,15 @@ export const layout = css`
 
     & > svg {
         font-size: 25px;
-        cursor: pointer;
+    }
+
+    & > button {
+        box-sizing: border-box;
+        border-radius: 5px;
+        width: 40px;
+        height: 30px;
+        color: #ffffff;
+        background-color: #2E5984;
     }
 
     & > button {

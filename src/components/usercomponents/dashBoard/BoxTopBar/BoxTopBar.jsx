@@ -1,7 +1,6 @@
 import React from 'react';
 /** @jsxImportSource @emotion/react */
 import * as s from "./style";
-import { IoIosArrowForward } from "react-icons/io";
 import { useNavigate } from 'react-router-dom';
 
 function BoxTopBar({title1, title2, link, icon}) {

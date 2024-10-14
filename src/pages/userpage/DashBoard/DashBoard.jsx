@@ -47,8 +47,8 @@ function DashBoard(props) {
         }
     )
 
-    const doctorsInfo = useQuery(
-        ["doctorsInfoQuery"],
+    const doctors = useQuery(
+        ["doctorsQuery"],
         async () => await instance.get("/doctor/list"),
         {
             enabled: true,
@@ -96,10 +96,10 @@ function DashBoard(props) {
                     <BoxTopBar title1={"예약 일정"} title2={"전체 보기"} link={"/reservationlist"} icon={<IoIosArrowForward />}/>
                     <TodayReservationBox reservations={todayReservations?.data?.data?.reservations} />
 
-                    <BoxTopBar title1={"의료진 "} title2={""}/>    
+                    <BoxTopBar title1={"의료진"}/>    
                     <div css={s.doctorBox}>
                         {
-                            doctorsInfo?.data?.data?.map(doctor =>
+                            doctors?.data?.data?.doctors.map(doctor =>
                                 <DoctorBox key={doctor.id} doctor={doctor} onClick={handleDoctorProfileOnClick} />
                             )
                         }
@@ -107,7 +107,7 @@ function DashBoard(props) {
                 </div>
             </SubContainer>
             <Routes>
-                <Route path='/myprofile' element={<MyProfilePage />} />
+                <Route path='/myprofile/*' element={<MyProfilePage />} />
                 <Route path='/doctor/:doctorId' element={<DoctorDetailPage />} />
             </Routes>
         </MainLayout>

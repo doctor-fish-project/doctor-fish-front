@@ -10,9 +10,9 @@ import { useQuery } from 'react-query';
 
 function ReservationPage(props) {
 
-    const doctorsInfo = useQuery(
-        ["doctorsInfoQuery"],
-        async () => await instance.get("/doctors"),
+    const doctors = useQuery(
+        ["doctorsQuery"],
+        async () => await instance.get("/doctor/list"),
         {
             enabled: true,
             refetchOnWindowFocus: false,
@@ -26,7 +26,7 @@ function ReservationPage(props) {
                 <DashBoardTopBar title={"예약하기"} />
                 <div css={s.layout}>
                     {
-                        doctorsInfo?.data?.data?.map(doctor => 
+                        doctors?.data?.data?.doctors.map(doctor => 
                             <DoctorBox key={doctor.id} doctor={doctor}/>
                         )
                     }

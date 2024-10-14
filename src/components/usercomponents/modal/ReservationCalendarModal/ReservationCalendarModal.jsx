@@ -138,7 +138,7 @@ function ReservationCalendarModal({ containerRef }) {
                     <button onClick={closeModal}><IoIosClose /></button>
                 </div>
                 <div css={s.doctorInfoBox}>
-                    <p>{doctorInfo.depart}: {doctorInfo.name}의 예약 진료 현황</p>
+                    <p>{doctorInfo?.depart?.name}: {doctorInfo.name}의 예약 진료 현황</p>
                 </div>
                 <ReservationCalendar reservationDate={reservationDate} setReservationDate={setReservationDate} setReservationTime={setReservationTime} />
                 <div css={s.timeBox}>

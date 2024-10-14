@@ -5,17 +5,16 @@ export const layout = css`
     display: flex;
     align-items: center;
     border-bottom: 1px solid #dbdbdb;
-    padding: 5px 10px;
+    padding: 5px 10px 5px 5px;
     width: 100%;
-    height: 70px;
+    height: 80px;
     
     & > img {
         box-sizing: border-box;
         margin-right: 5px;
-        border: 1px solid #dbdbdb;
-        border-radius: 50%;
-        width: 50px;
-        height: 50px;
+        width: 70px;
+        height: 70px;
+        object-fit: contain;
         overflow: hidden;
     }
 

@@ -5,10 +5,16 @@ import SubLayout from '../../../components/usercomponents/SubLayout/SubLayout';
 import SubContainer from '../../../components/usercomponents/SubContainer/SubContainer';
 import BackButton from '../../../components/usercomponents/BackButton/BackButton';
 import { useParams } from 'react-router-dom';
+import { useQueryClient } from 'react-query';
 
 function DoctorDetailPage(props) {
     const params = useParams();
     const doctorId = params.doctorId;
+
+    const queryClient = useQueryClient();
+    const doctors = queryClient.getQueryData("doctorsQuery")
+    const doctor = doctors?.data?.doctors.find(doctor => doctor.id === parseInt(doctorId));
+    console.log(doctor)
     const [isShow, setShow] = useState(true);
 
     return (
@@ -16,13 +22,13 @@ function DoctorDetailPage(props) {
             <SubContainer>
                 <BackButton setShow={setShow} />
                 <div css={s.layout}>
-                    <img src="https://firebasestorage.googleapis.com/v0/b/userprofile-9dd9e.appspot.com/o/user%2Fdoctor-character-man.png?alt=media&token=aa1dea01-8235-472e-8b87-3b520e6b05b1" alt="" />
+                    <img src={doctor.img} alt="" />
                     <div css={s.header}>
-                        <p>이름</p>
-                        <p>부서</p>
+                        <p>이름: {doctor.name}</p>
+                        <p>부서: {doctor.depart.name}</p>
                     </div>
                     <div css={s.body}>
-                        <p>이력</p>
+                        <p>{doctor.record}</p>
                     </div>
                 </div>
             </SubContainer>

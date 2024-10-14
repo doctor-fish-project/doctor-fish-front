@@ -19,6 +19,10 @@ export const reset = css`
         cursor: default;
     }
 
+    td, th {
+        padding: 0;
+    }
+
     input {
         outline: none;
     }

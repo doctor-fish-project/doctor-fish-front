@@ -4,13 +4,15 @@ import * as s from "./style";
 
 function AdminListHeader({ manageList }) {
     return (
-        <div css={s.layout}>
-            {
-                manageList.map((management, index) => (
-                    <div key={index}>{management}</div>
-                ))
-            }
-        </div>
+        <thead css={s.layout(manageList.length)}>
+            <tr>
+                {
+                    manageList.map((management, index) => (
+                        <th key={index}>{management}</th>
+                    ))
+                }
+            </tr>
+        </thead>
     );
 }
 

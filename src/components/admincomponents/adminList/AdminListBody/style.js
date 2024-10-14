@@ -2,25 +2,25 @@ import { css } from "@emotion/react";
 
 export const layout = css`
     box-sizing: border-box;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     border-bottom: 1px solid #dbdbdb;
     padding: 0px 40px;
     width: 100%;
     height: 50px;
 
-    & div {
+    & > tr {
+        box-sizing: border-box;
         display: flex;
-        justify-content: center;
+        justify-content: space-between;
         align-items: center;
-        width: fit-content;
-    }
+        width: 100%;
+        height: 100%;
+        & > td {
+            text-align: center;
+            width:${1440 / 4}px;
+        }
 
-    & button {
-        width: 60px;
-        height: 30px;
-        background-color: #52b6c6;
-        color: white;
+        & > td:nth-of-type(1) {
+            width: 40px;
+        }
     }
 `;

@@ -4,12 +4,26 @@ import * as s from './style';
 import { IoClose } from "react-icons/io5";
 import { deleteObject, ref } from 'firebase/storage';
 import { storage } from '../../../../firebase/firebase';
+import Swal from 'sweetalert2';
 
 function ImgBox({ url, deleteButtonState, setDeleteButtonState, imgs, setImgs}) {
 
     const handleDeleteImageOnClick = () => {
-        if (window.confirm("리뷰 사진을 삭제하시겠습니까?")) {
-           const imageRef = ref(storage, url);
+        Swal.fire({
+            icon: 'question',
+            text: '삭제하시겠습니까?',
+            backdrop: false,
+            showCancelButton: true,
+            confirmButtonText: '확인',
+            cancelButtonText: '취소',
+            customClass: {
+                popup: 'custom-confirm-swal',
+                container: 'container',
+                confirmButton: 'confirmButton',
+            }
+        }).then(result => {
+            if(result.isConfirmed) {
+                const imageRef = ref(storage, url);
 
            deleteObject(imageRef)
              .then(() => {
@@ -19,7 +33,8 @@ function ImgBox({ url, deleteButtonState, setDeleteButtonState, imgs, setImgs}) 
              .catch((error) => {
                alert("삭제중 오류 발생")
              });
-        }
+            }
+        })
     }
 
     const handleDeleteOnMouseOver = () => {

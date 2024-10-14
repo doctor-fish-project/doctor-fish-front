@@ -5,11 +5,11 @@ import { IoIosArrowForward } from "react-icons/io";
 function DoctorBox({ doctor, onClick }) {
 
     return (
-        <div key={doctor.id} css={s.layout} onClick={() => onClick(doctor.id)}>
-            <img src="doctor-character-man.png" alt="" />
+        <div css={s.layout} onClick={() => onClick(doctor.id)}>
+            <img src={doctor.img} alt="" />
             <div css={s.nameAndDepartBox}>
                 <div>{doctor.name}</div>
-                <div>{doctor.depart}</div>
+                <div>{doctor.depart.name}</div>
             </div>
             <IoIosArrowForward />
         </div>

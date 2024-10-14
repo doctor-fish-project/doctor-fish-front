@@ -10,12 +10,7 @@ import { instance } from '../../../apis/utils/instance';
 import { IoFilterOutline } from "react-icons/io5";
 
 function ReservationListPage(props) {
-
     const [reservations, setReservations] = useState({});
-
-    const handleSelectOnClick = () => {
-        
-    }
 
     const reservationList = useQuery(
         ["reservationListQuery"],

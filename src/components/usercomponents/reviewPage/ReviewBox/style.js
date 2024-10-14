@@ -20,7 +20,6 @@ export const nameBox = css`
     box-sizing: border-box;
     display: flex;
     align-items: center;
-    border-bottom: 1px solid #dbdbdb;
     width: 100%;
     font-size: 20px;
     font-weight: 600;
@@ -29,6 +28,7 @@ export const nameBox = css`
         box-sizing: border-box;
         margin-bottom: 3px;
         margin-right: 5px;
+        
         border-radius: 50%;
         width: 40px;
         height: 40px;
@@ -54,14 +54,17 @@ export const imgBox = css`
     display: flex;
     justify-content: center;
     align-items: center;
+    border: 1px solid #dbdbdb;
+    border-radius: 10px;
     width: 100%;
-    height: 200px;
+    height: 300px;
     overflow: hidden;
 
     & img {
         box-sizing: border-box;
         width: 100%;
-        overflow: auto;
+        height: 100%;
+        object-fit: contain;
     }
 `;
 
@@ -74,7 +77,7 @@ export const preButton = css`
     align-items: center;
 
     & > svg {
-        font-size: 18px;
+        font-size: 20px;
         color: gray;
     }
 `;
@@ -88,7 +91,7 @@ export const nextButton = css`
     align-items: center;
 
     & > svg {
-        font-size: 18px;
+        font-size: 20px;
         color: gray;
     }
 `;
@@ -98,6 +101,8 @@ export const dateAndLike = css`
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
+    height: 25px;
     
     & p {
         font-size: 14px;

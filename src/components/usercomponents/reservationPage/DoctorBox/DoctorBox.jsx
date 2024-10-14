@@ -17,10 +17,10 @@ function DoctorBox({ doctor }) {
     
     return (
         <div css={s.layout}>
-            <img src="https://firebasestorage.googleapis.com/v0/b/userprofile-9dd9e.appspot.com/o/user%2Fdefault.png?alt=media&token=caad563b-86be-48bb-a70a-a717042d870f" alt="" />
+            <img src={doctor.img} alt="" />
             <div css={s.nameAndDepartBox}>
                 <div>{doctor.name}</div>
-                <div>{doctor.depart}</div>
+                <div>{doctor.depart.name}</div>
             </div>
             <button onClick={handleReservationModalOnClick}>예약</button>
         </div>

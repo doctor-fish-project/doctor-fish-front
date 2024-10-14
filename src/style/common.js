@@ -12,10 +12,6 @@ export const reset = css`
         width: 100%;
         height: 100%;
     }
-
-    body.swal2-no-backdrop.swal2-container.swal2-modal {
-        box-shadow: none;
-    }
     
     h1, h2, h3, ul, p {
         margin: 0;
@@ -28,6 +24,7 @@ export const reset = css`
     }
 
     input {
+        border: none;
         outline: none;
     }
 
@@ -110,6 +107,7 @@ export const reset = css`
         border-radius: 10px;
         width: 150px;
         height: fit-content;
+        box-shadow: none;
 
         & > div { 
             margin: auto;

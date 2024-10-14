@@ -22,16 +22,11 @@ function ReviewPage(props) {
         ["reviewsQuery"],
         async () => await instance.get("/review/me"),
         {
-            onSuccess: respone => {
-
-            },
-            onError: error => {
-
-            }
+            enabled: true,
+            refetchOnWindowFocus: false,
+            retry: 0,
         }
     )
-
-    console.log(reviews?.data?.data?.reviews)
 
     return (
         <MainLayout>

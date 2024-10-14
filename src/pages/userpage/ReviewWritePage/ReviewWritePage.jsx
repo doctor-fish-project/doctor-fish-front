@@ -12,8 +12,11 @@ import Swal from 'sweetalert2';
 import ImgBox from '../../../components/usercomponents/reviewWritePage/ImgBox/ImgBox';
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import { storage } from '../../../firebase/firebase';
+import { useNavigate } from 'react-router-dom';
 
 function ReviewWritePage(props) {
+    const nav = useNavigate();
+
     const [isShow, setShow] = useState(true);
     const [deleteButtonState, setDeleteButtonState] = useState(false);
 
@@ -35,31 +38,42 @@ function ReviewWritePage(props) {
         async () => await instance.post("/review", review),
         {
             onSuccess: response => {
-                console.log("작성 완료")
+                Swal.fire({
+                    icon: 'success',
+                    text: "작성 성공",
+                    backdrop: false,
+                    timer: 1000,
+                    willClose: () => {
+                        window.location.replace("/dashboard/review")
+                    },
+                    showConfirmButton: false,
+                    customClass: {
+                        popup: 'custom-timer-swal',
+                        container: 'container'
+                    }
+                })
+                
             },
             onError: error => {
-
+                const errorMessage = error?.response?.data[0].defaultMessage
+                Swal.fire({
+                    icon: 'warning',
+                    text: errorMessage,
+                    backdrop: false,
+                    timer: 1000,
+                    showConfirmButton: false,
+                    customClass: {
+                        popup: 'custom-timer-swal',
+                        container: 'container'
+                    }
+                })
+                setReview(review => ({
+                    ...review,
+                    content: ""
+                }))
             }
         }
     )
-
-    const handleReviewOnClick = () => {
-        if(review.content.trim() === "") {
-            Swal.fire({
-                icon: 'warning',
-                text: '리뷰 내용은 공백일 수 없습니다.',
-                backdrop: false,
-                timer: 1000,
-                showConfirmButton: false,
-                customClass: {
-                    popup: 'custom-timer-swal',
-                    container: 'container'
-                }
-            })
-            return;
-        }
-        writeReview.mutateAsync().catch(() => {})
-    }
 
     const handleAddImageOnClick = () => {
         Swal.fire({
@@ -144,7 +158,7 @@ function ReviewWritePage(props) {
             <SubContainer>
                 <div css={s.buttonBox}>
                     <BackButton setShow={setShow} />
-                    <button onClick={handleReviewOnClick}>작성하기</button>
+                    <button onClick={() => writeReview.mutateAsync().catch(() => { })}>작성하기</button>
                 </div>
                 <div css={s.imgContainer}>
                     <div css={s.imgBox}>

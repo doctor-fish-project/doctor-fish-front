@@ -19,17 +19,18 @@ function ReviewBox({ review }) {
         setMouseOverState(false)
     }
 
+    const preImgOnClick = (index) => {
+        if (index > 0 && index < reviewImgs.length) {
+            setIndex(index - 1)
+        }
+    }
+
     const nextImgOnClick = (index) => {
         if (index === 0 || index < reviewImgs.length) {
             setIndex(index + 1)
         }
     }
 
-    const preImgOnClick = (index) => {
-        if (index > 0 && index < reviewImgs.length) {
-            setIndex(index - 1)
-        }
-    }
 
     return (
         <div css={s.layout}>
@@ -41,16 +42,15 @@ function ReviewBox({ review }) {
                 reviewImgs === null ? <></> :
                     <div css={s.imgBox} onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
                         {
-                            !!mouseOverState && index !== 0 && <button css={s.preButton} onClick={() => preImgOnClick(index)}><IoIosArrowBack /></button>
+                            !!mouseOverState &&
+                                index !== 0 ? <button css={s.preButton} onClick={() => preImgOnClick(index)}><IoIosArrowBack /></button>
+                                : index < reviewImgs.length - 1 && <button css={s.nextButton} onClick={() => nextImgOnClick(index)}><IoIosArrowForward /></button>
                         }
-                           <img src={reviewImgs[index]} alt="" />
-                        {
-                            !!mouseOverState && index === 0 && <button css={s.nextButton} onClick={() => nextImgOnClick(index)}><IoIosArrowForward /></button>
-                        }
+                        <img src={reviewImgs[index]} alt="" />
                     </div>
             }
             <div css={s.dateAndLike}>
-                <p>{review.registerDate}</p>
+                <p>{review?.registerDate?.slice(0, 10)}</p>
                 <p><FcLike />10</p>
             </div>
             <div css={s.contentBox}>

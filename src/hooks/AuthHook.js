@@ -58,7 +58,7 @@ function AuthHook(props) {
                             confirmButtonText: '확인',
                             cancelButtonText: '취소',
                             customClass: {
-                                popup: 'custom-auth-swal',
+                                popup: 'custom-confirm-swal',
                                 container: 'container',
                                 confirmButton: 'confirmButton',
                             }

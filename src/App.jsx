@@ -18,6 +18,7 @@ import AdminUsersPage from "./pages/adminpage/AdminUsersPage/AdminUsersPage";
 
 function App() {
     AuthHook()
+    
     return (
         <>
             <Global styles={reset} />

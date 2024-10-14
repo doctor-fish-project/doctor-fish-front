@@ -111,7 +111,7 @@ export const body = css`
     }
 `;
 
-export const doctorInfoBox = css`
+export const doctorInfoBox = () => css`
     display: flex;
     flex-direction: column;
     border-radius: 10px;

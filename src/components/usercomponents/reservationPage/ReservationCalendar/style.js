@@ -9,7 +9,6 @@ export const layout = css`
     border-bottom: 1px solid #dbdbdb;
     width: 100%;
     height: 250px;
-    box-shadow: 3px 0px 3px #dbdbdb;
 
     .react-calendar__tile--select {
         background-color: #2E5984;

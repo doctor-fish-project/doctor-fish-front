@@ -19,11 +19,21 @@ export const layout = css`
 export const nameBox = css`
     box-sizing: border-box;
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    border-bottom: 1px solid #dbdbdb;
     width: 100%;
     font-size: 20px;
     font-weight: 600;
+
+    & > img {
+        box-sizing: border-box;
+        margin-bottom: 3px;
+        margin-right: 5px;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        overflow: hidden;
+    }
 
     & p:nth-of-type(1) {
         width: 230px;
@@ -39,17 +49,47 @@ export const nameBox = css`
 `;
 
 export const imgBox = css`
+    position: relative;
     box-sizing: border-box;
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
     height: 200px;
+    overflow: hidden;
 
     & img {
         box-sizing: border-box;
-        height: 100%;
-        overflow: hidden;
+        width: 100%;
+        overflow: auto;
+    }
+`;
+
+export const preButton = css`
+    position: absolute;
+    top: 50%;
+    left: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    & > svg {
+        font-size: 18px;
+        color: gray;
+    }
+`;
+
+export const nextButton = css`
+    position: absolute;
+    top: 50%;
+    right: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    & > svg {
+        font-size: 18px;
+        color: gray;
     }
 `;
 
@@ -68,4 +108,13 @@ export const dateAndLike = css`
         transform: translateY(3px);
         font-size: 18px;
     }
+`;
+
+export const contentBox = css`
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 10px;
+    width: 100%;
 `;

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 /** @jsxImportSource @emotion/react */
 import * as s from './style';
 import { useSetRecoilState } from 'recoil';
@@ -14,7 +14,7 @@ function DoctorBox({ doctor }) {
         setDoctorInfo(doctor)
         setReservationOpen(true);
     }
-
+    
     return (
         <div css={s.layout}>
             <img src="https://firebasestorage.googleapis.com/v0/b/userprofile-9dd9e.appspot.com/o/user%2Fdefault.png?alt=media&token=caad563b-86be-48bb-a70a-a717042d870f" alt="" />

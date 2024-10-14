@@ -23,20 +23,26 @@ function ReviewPage(props) {
         async () => await instance.get("/review/me"),
         {
             onSuccess: respone => {
-                console.log(respone)
+
             },
             onError: error => {
-                console.log(error)
+
             }
         }
     )
+
+    console.log(reviews?.data?.data?.reviews)
 
     return (
         <MainLayout>
             <SubContainer>
                 <DashBoardTopBar title={"리뷰"} icon={<BsPencilSquare />} onClick={handleReviewWriteOnClick} />
                 <div css={s.layout}>
-                    <ReviewBox />
+                    {
+                        reviews?.data?.data?.reviews?.map(review =>
+                            <ReviewBox review={review}/>
+                        )
+                    }
                 </div>
             </SubContainer>
             <Routes>

@@ -12,6 +12,10 @@ export const reset = css`
         width: 100%;
         height: 100%;
     }
+
+    body.swal2-no-backdrop.swal2-container.swal2-modal {
+        box-shadow: none;
+    }
     
     h1, h2, h3, ul, p {
         margin: 0;
@@ -61,7 +65,7 @@ export const reset = css`
         height: 812px;
     }
 
-    .custom-auth-swal {
+    .custom-confirm-swal {
         padding: 10px;
         border-radius: 10px;
         width: 300px;
@@ -98,6 +102,20 @@ export const reset = css`
             overflow: hidden;
             font-size: 14px;
             font-weight: 600;
+        };
+    }
+
+    .custom-loading-swal {
+        padding: 10px;
+        border-radius: 10px;
+        width: 150px;
+        height: fit-content;
+
+        & > div { 
+            margin: auto;
+            margin-bottom: 5px;
+            padding: 0px;
+            overflow: hidden;
         };
     }
 

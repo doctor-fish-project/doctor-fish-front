@@ -11,7 +11,7 @@ export const layout = css`
     background-color: #2E5984;
 
     & > p {
-        margin-bottom: 5px;
+        margin-bottom: 3px;
         color: #ffffff;
         font-size: 25px;
         font-weight: 600;

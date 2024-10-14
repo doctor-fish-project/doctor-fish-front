@@ -7,10 +7,15 @@ import YearBox from '../../../components/usercomponents/reservationListPage/Year
 import DashBoardTopBar from '../../../components/usercomponents/dashBoard/DashBoardTopBar/DashBoardTopBar';
 import { useQuery } from 'react-query';
 import { instance } from '../../../apis/utils/instance';
+import { IoFilterOutline } from "react-icons/io5";
 
 function ReservationListPage(props) {
 
     const [reservations, setReservations] = useState({});
+
+    const handleSelectOnClick = () => {
+        
+    }
 
     const reservationList = useQuery(
         ["reservationListQuery"],
@@ -46,7 +51,7 @@ function ReservationListPage(props) {
                 setReservations(tempReservationDate);
             },
             onError: error => {
-                console.log("정보 조회 실패")
+                
             }
         }
     )
@@ -56,7 +61,7 @@ function ReservationListPage(props) {
     return (
         <MainLayout>
             <SubContainer>
-                <DashBoardTopBar title={"예약조회"} />
+                <DashBoardTopBar title={"예약조회"} icon={<IoFilterOutline />} />
                 <div css={s.layout}>
                     {
                         entriesOfReservationsData?.map(([year, monthOfReservationsData]) =>

@@ -42,16 +42,16 @@ export const layout = css`
     .react-calendar__navigation {
         display: flex;
         align-self: center;
-        margin-bottom: 10px;
         width: fit-content;
     }
 
     .react-calendar__navigation__label {
-        font-size: 30px;
+        font-size: 25px;
+        font-weight: 600;
     }
 
     .react-calendar__navigation__arrow {
-        font-size: 30px;
+        font-size: 25px;
     }
 
     .react-calendar__navigation__arrow.react-calendar__navigation__next2-button {
@@ -66,17 +66,14 @@ export const layout = css`
     .react-calendar__month-view__weekdays {
         align-self: center;
         text-align: center;
-        font-size: 20px;   
+        font-size: 18px;
+        font-weight: 600;   
     }
 
     .react-calendar__month-view__weekdays__weekday {
         & * {
             text-decoration: none;
         }
-    }
-
-    .react-calendar__month-view__days {
-        font-size: 20px;
     }
 
     .react-calendar__tile--now {

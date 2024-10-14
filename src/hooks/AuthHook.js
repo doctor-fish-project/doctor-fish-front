@@ -3,17 +3,21 @@ import { useState } from "react";
 import { useQuery } from "react-query";
 import { useLocation, useNavigate } from "react-router-dom";
 import { instance } from "../apis/utils/instance";
-
-
+import { useSetRecoilState } from 'recoil';
+import { signinModalAtom } from '../atoms/modalAtoms';
+import Swal from 'sweetalert2';
 
 function AuthHook(props) {
     const nav = useNavigate();
     const location = useLocation();
 
-    const [ ref, setRef ] = useState(true);
+    const setSigninModalState = useSetRecoilState(signinModalAtom);
+
+    const [ref, setRef] = useState(true);
+
 
     useEffect(() => {
-        if(!ref) {
+        if (!ref) {
             setRef(true);
         }
     }, [location.pathname]);
@@ -34,19 +38,38 @@ function AuthHook(props) {
             retry: 0,
             onSuccess: response => {
                 const permitPaths = ["/"];
-                for(let permitPath of permitPaths) {
-                    if(location.pathname === permitPath) {
-                        nav("/dashboard");
+                for (let permitPath of permitPaths) {
+                    if (location.pathname === permitPath) {
+                        nav("/dashboard", { replace: true });
                         break;
                     }
                 }
             },
             onError: error => {
-                const authPaths = ["/reservation", "/reservationlist", "/review"];
-                for(let authPath of authPaths) {
-                    if(location.pathname.startsWith(authPath)) {
-                        alert("로그인 후 이용해주세요");
-                        nav("/");
+                const authPaths = ["/reservation", "/reservationlist", "/review/write"];
+                for (let authPath of authPaths) {
+                    if (location.pathname.startsWith(authPath)) {
+                        Swal.fire({
+                            icon: 'info',
+                            title: '사용자 전용 페이지',
+                            text: '로그인 하시겠습니까?',
+                            backdrop: false,
+                            showCancelButton: true,
+                            confirmButtonText: '확인',
+                            cancelButtonText: '취소',
+                            customClass: {
+                                popup: 'custom-confirm-swal',
+                                container: 'container',
+                                confirmButton: 'confirmButton',
+                            }
+                        }).then(result => {
+                            if (result.isConfirmed) {
+                                nav("/")
+                                setSigninModalState(true);
+                            } else if (result.isDismissed) {
+                                nav("/dashboard")
+                            }
+                        })
                         break;
                     }
                 }

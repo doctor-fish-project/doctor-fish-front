@@ -7,6 +7,7 @@ function TimeBox({ time, reservationTime  ,setReservationTime, disabled }) {
     const handleReservationTimeOnClick = (time) => {
         setReservationTime(time)
     }
+    
     return (
         <button css={s.layout(reservationTime, time.time)} value={time.time} disabled={disabled} onClick={() => handleReservationTimeOnClick(time.time)}>
             {time.time}

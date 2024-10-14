@@ -23,7 +23,7 @@ function TodayReservationBox({ reservations }) {
                             <p>진료 예약이 없습니다.</p>
                         </div> : 
                         reservations?.map(reservation =>
-                            <div key={reservation.id}>
+                            <div css={s.reservationBox} key={reservation.id}>
                                 <div css={s.header}>
                                     <p>{reservation?.reservationDate.slice(11, 16)}</p>
                                     {
@@ -46,7 +46,6 @@ function TodayReservationBox({ reservations }) {
                         :
                         <div css={s.defaultBox}>
                             <p>로그인 후 이용가능합니다.</p>
-                            <button>로그인</button>
                         </div>
                 }
             </div>

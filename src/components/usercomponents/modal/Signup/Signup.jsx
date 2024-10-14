@@ -7,6 +7,7 @@ import { signinModalAtom, signupModalAtom } from '../../../../atoms/modalAtoms';
 import { IoIosClose } from "react-icons/io"
 import { useMutation } from 'react-query';
 import { instance } from '../../../../apis/utils/instance';
+import Swal from 'sweetalert2';
 
 function Signup({ containerRef }) {
 
@@ -35,21 +36,29 @@ function Signup({ containerRef }) {
             return await instance.post("/auth/signup", input)
         }, {
         onSuccess: response => {
-            alert("인증메일을 전송하였습니다.");
-            openModal();
+            Swal.fire({
+                icon: 'info',
+                text: '인증메일을 전송하였습니다.',
+                backdrop: false,
+                showConfirmButton: false,
+                timer: 1000,
+                willClose: () => {
+                    setSignupOpen(false)
+                    setSigninOpen(true)
+                },
+                customClass: {
+                    popup: 'custom-timer-swal',
+                    container: 'container'
+                }
+            })
         },
         onError: error => {
             const response = error.response;
-            console.log(response)
             const fieldErrors = response.data.map(fieldError => ({ field: fieldError.field, defaultMessage: fieldError.defaultMessage }))
             showFieldErrorMessage(fieldErrors);
             return
         }
     })
-
-    const handleSignupOnClick = () => {
-        signup.mutateAsync().catch(() => { });
-    }
 
     const handleInputOnChange = (e) => {
         setInput(input => ({
@@ -99,12 +108,6 @@ function Signup({ containerRef }) {
         })
     }
 
-    const openModal = () => {
-        closeModal();
-        setTimeout(() => {
-            setSigninOpen(true);
-        }, 400)
-    }
     return (
         <ModalLayout containerRef={containerRef} isOpen={signupOpen} closeModal={closeModal} ani={ani}>
             <div css={s.layout}>
@@ -150,7 +153,7 @@ function Signup({ containerRef }) {
                     }
                 </div>
                 <div css={s.submitButtonBox}>
-                    <button onClick={handleSignupOnClick}>회원가입</button>
+                    <button onClick={() => signup.mutateAsync().catch(() => {})}>회원가입</button>
                 </div>
             </div>
         </ModalLayout>

@@ -13,11 +13,18 @@ export const cancelButtonBox = css`
     box-sizing: border-box;
     display: flex;
     justify-content: end;
+    align-items: center;
     padding: 5px 10px;
     width: 100%;
 
-    & svg {
-        font-size: 35px;
+    & > button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        & > svg {
+            font-size: 35px;
+        }
     }
 `;
 
@@ -69,6 +76,7 @@ export const inputBox = css`
             justify-content: end;
             margin-bottom: 3px;
             width: 100%;
+            font-size: 14px;
             color: red;
         }
     }

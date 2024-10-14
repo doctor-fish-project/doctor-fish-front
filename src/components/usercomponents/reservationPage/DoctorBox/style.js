@@ -4,7 +4,8 @@ export const layout = css`
     box-sizing: border-box;
     display: flex;
     align-items: center;
-    padding: 5px;
+    border-bottom: 1px solid #dbdbdb;
+    padding: 5px 10px;
     width: 100%;
     height: 70px;
     
@@ -18,33 +19,20 @@ export const layout = css`
         overflow: hidden;
     }
 
-    & > svg {
-        font-size: 25px;
-    }
-
-    & > button {
-        box-sizing: border-box;
-        border-radius: 5px;
-        width: 40px;
-        height: 30px;
-        color: #ffffff;
-        background-color: #2E5984;
-    }
-
     & > button {
         box-sizing: border-box;
         border-radius: 10px;
-        width: 40px;
-        height: 30px;
-        text-align: center;
+        width: 50px;
+        height: 40px;
         color: #ffffff;
-        background-color: #1E3A5F;
+        background-color: #2E5984;
     }
 `;
 
 export const nameAndDepartBox = css`
     box-sizing: border-box;
     display: flex;
-    flex-grow: 1;
     flex-direction: column;
+    flex-grow: 1;
+    justify-content: center;
 `;

@@ -6,11 +6,11 @@ export const layout = css`
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-top: 45px;
+    padding: 45px 0px 60px 0px;
     width: 100%;
     height: 100%;
     background-color: #ffffff;
-    overflow: auto;
+    overflow-y: auto;
     &::-webkit-scrollbar {
         display: none;
     }
@@ -25,4 +25,13 @@ export const footer = css`
     width: 100%;
     height: 60px;
     box-shadow: 0px 0px 2px #dbdbdb;
+
+    & button {
+        box-sizing: border-box;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 25%;
+        height: 100%;
+    }
 `;

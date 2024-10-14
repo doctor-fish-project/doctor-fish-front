@@ -8,6 +8,7 @@ import { IoIosClose } from "react-icons/io"
 import { useNavigate } from 'react-router-dom';
 import { useMutation } from 'react-query';
 import { instance } from '../../../../apis/utils/instance';
+import Swal from 'sweetalert2';
 
 function Signin({ containerRef }) {
     const nav = useNavigate();
@@ -36,16 +37,37 @@ function Signin({ containerRef }) {
                 config.headers["Authorization"] = localStorage.getItem("accessToken");
                 return config;
             });
-            alert("로그인에 성공하셨습니다.")
-            closeModal()
-            setTimeout(() => {
-                nav("/dashboard", { replace: true })
-            }, 500)
+            Swal.fire({
+                icon: 'success',
+                text: '로그인 성공',
+                backdrop: false,
+                showConfirmButton: false,
+                timer: 1000,
+                willClose: () => {
+                    setSigninOpen(false)
+                    nav("/dashboard", { replace: true })
+                },
+                customClass: {
+                    popup: 'custom-timer-swal',
+                    container: 'container'
+                }
+            })
         },
         onError: error => {
             const response = error.response;
+            console.log(response)
             if (typeof (response.data) === 'string') {
-                alert(response.data);
+                Swal.fire({
+                    icon: 'error',
+                    text: response.data,
+                    backdrop: false,
+                    showConfirmButton: false,
+                    timer: 1000,
+                    customClass: {
+                        popup: 'custom-timer-swal',
+                        container: 'container',
+                    }
+                })
                 return
             }
             if (response.status === 400) {

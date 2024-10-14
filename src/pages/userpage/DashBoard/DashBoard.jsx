@@ -47,6 +47,8 @@ function DashBoard(props) {
         }
     )
 
+    console.log(todayReservations?.data?.data?.reservations)
+
     const doctors = useQuery(
         ["doctorsQuery"],
         async () => await instance.get("/doctor/list"),

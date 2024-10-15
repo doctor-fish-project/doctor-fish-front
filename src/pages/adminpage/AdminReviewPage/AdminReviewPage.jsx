@@ -8,6 +8,7 @@ import { REVIEW_MANAGEMENT } from '../../../constants/admin/Management';
 import AdminListTable from '../../../components/admincomponents/adminList/AdminListTable/AdminListTable';
 import AdminListPagination from '../../../components/admincomponents/adminList/AdminListPagination/AdminListPagination';
 import { useLocation } from 'react-router-dom';
+import AdminModalLayout from '../../../components/admincomponents/adminModal/AdminModalLayout/AdminModalLayout';
 
 function AdminReviewPage(props) {
     const location = useLocation();
@@ -18,7 +19,7 @@ function AdminReviewPage(props) {
                 <AdminPageContainer title={"리뷰 및 댓글관리"}>
                     <AdminListTable>
                         <AdminListHeader manageList={REVIEW_MANAGEMENT} />
-                        <AdminListBody />
+                        <AdminListBody isShow={true}/>
                     </AdminListTable>
                     <AdminListPagination location={location} />
                 </AdminPageContainer>

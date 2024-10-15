@@ -86,6 +86,30 @@ export const reset = css`
         }
     }
 
+    .custom-cancel-swal {
+        padding: 10px;
+        border-radius: 10px;
+        width: 300px;
+        height: 200px;
+       
+        & > div {
+            margin: 0px auto;
+            padding: 0px;
+            font-size: 14px;
+            height: fit-content;
+
+            :where(.swal2-icon).swal2-question {
+                border-color: #FF9999;
+                color: #FF9999;
+            }
+        }
+
+        & > h2 {
+            padding: 0px;
+            font-size: 14px;
+        }
+    }
+
     .custom-timer-swal {
         padding: 10px;
         border-radius: 10px;

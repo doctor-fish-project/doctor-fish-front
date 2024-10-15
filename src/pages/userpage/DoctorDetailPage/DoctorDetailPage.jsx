@@ -10,21 +10,21 @@ import { useQueryClient } from 'react-query';
 function DoctorDetailPage(props) {
     const params = useParams();
     const doctorId = params.doctorId;
+    
+    const [isShow, setShow] = useState(true);
 
     const queryClient = useQueryClient();
     const doctors = queryClient.getQueryData("doctorsQuery")
     const doctor = doctors?.data?.doctors.find(doctor => doctor.id === parseInt(doctorId));
-    console.log(doctor)
-    const [isShow, setShow] = useState(true);
 
     return (
         <SubLayout isShow={isShow}>
             <SubContainer>
                 <BackButton setShow={setShow} />
                 <div css={s.layout}>
-                    <img src={doctor.img} alt="" />
+                    <img src={doctor.user.img} alt="" />
                     <div css={s.header}>
-                        <p>이름: {doctor.name}</p>
+                        <p>이름: {doctor.user.name}</p>
                         <p>부서: {doctor.depart.name}</p>
                     </div>
                     <div css={s.body}>

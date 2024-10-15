@@ -4,8 +4,8 @@ import * as s from './style';
 import { FcLike } from "react-icons/fc";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 
-function ReviewBox({ review }) {
-    const reviewImgs = JSON.parse(review?.img)
+function ReviewBox({ review, onClick }) {
+    const reviewImgs = JSON.parse(review.img)
 
     const [mouseOverState, setMouseOverState] = useState(false);
 
@@ -33,7 +33,7 @@ function ReviewBox({ review }) {
 
 
     return (
-        <div css={s.layout}>
+        <div css={s.layout} onClick={onClick}>
             <div css={s.nameBox}>
                 <img src='https://firebasestorage.googleapis.com/v0/b/userprofile-9dd9e.appspot.com/o/user%2Fdefault.png?alt=media&token=caad563b-86be-48bb-a70a-a717042d870f' alt="" />
                 <p>{review.userName}</p>

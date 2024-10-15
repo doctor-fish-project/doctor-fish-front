@@ -1,17 +1,37 @@
 import { css } from "@emotion/react";
 
+
+
 export const buttonBox = css`
     box-sizing: border-box;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 10px;
     width: 100%;
 
-    & > button {
+    & > div {
         box-sizing: border-box;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
         width: 100px;
+        
+        & > button {
+            box-sizing: border-box;
+            width: 50%;
+            height: 100%;
+        }
     }
+
+`;
+
+export const container = css`
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    width: 100%;
+    height: 100%;
 `;
 
 export const imgContainer = css`
@@ -45,24 +65,6 @@ export const imgBox = css`
     }
 `;
 
-export const defaultBox = css`
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-
-    & > p {
-        font-size: 18px;
-    }
-
-    & svg {
-        font-size: 30px;
-    }
-`;
-
 export const contentBox = css`
     box-sizing: border-box;
     display: flex;
@@ -81,18 +83,4 @@ export const contentBox = css`
         resize: none;
         outline: none;
     }
-`;
-
-export const loadingLayout = css`
-    position: absolute;
-    left: 0;
-    top: 0;
-    z-index: 99;
-    box-sizing: border-box;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-    background-color: #00000033;
 `;

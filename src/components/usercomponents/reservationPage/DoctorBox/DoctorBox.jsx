@@ -17,9 +17,9 @@ function DoctorBox({ doctor }) {
     
     return (
         <div css={s.layout}>
-            <img src={doctor.img} alt="" />
+            <img src={doctor.user.img} alt="" />
             <div css={s.nameAndDepartBox}>
-                <div>{doctor.name}</div>
+                <div>{doctor.user.name}</div>
                 <div>{doctor.depart.name}</div>
             </div>
             <button onClick={handleReservationModalOnClick}>예약</button>

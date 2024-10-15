@@ -18,7 +18,7 @@ function ReservationBox({ reservation }) {
             <div css={s.body}>
                 <div css={s.doctorInfoBox}>
                     <p>부서 : {reservation.doctor?.depart?.name}</p>
-                    <p>의사명 : {reservation.doctor?.name}</p>
+                    <p>의사명 : {reservation.doctor?.user?.name}</p>
                 </div>
                 <p>{reservation.registerDate.slice(0, 10)}</p>
             </div>

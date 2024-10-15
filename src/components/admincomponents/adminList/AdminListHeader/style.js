@@ -14,13 +14,12 @@ export const layout = (length) => css`
 
     & > tr {
         box-sizing: border-box;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        width: 100%;
-        height: 100%;
+        
         & > th {
+            vertical-align: middle;
+            /* line-height: 60px; */
             width:${1440 / (length - 1)}px;
+            height: 68px;
         }
 
         & > th:nth-of-type(1) {

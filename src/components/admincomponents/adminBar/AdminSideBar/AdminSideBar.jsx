@@ -1,16 +1,27 @@
 import React from 'react';
 /** @jsxImportSource @emotion/react */
 import * as s from './style';
-import { categorys } from '../../../../constants/admin/categorys';
 import { useNavigate } from 'react-router-dom';
-import { IoNotificationsOutline, IoSettingsOutline } from 'react-icons/io5';
+import { useQuery } from 'react-query';
+import { instance } from '../../../../apis/utils/instance';
+import { ICONS } from '../../../../constants/admin/categoryicons';
 
-function AdminSideBar({ category }) {
+function AdminSideBar(props) {
     const nav = useNavigate();
 
-    const handleOnClick = (category) => {
-        nav(category.link);
+    const handleLinkOnClick = (link) => {
+        nav(link);
     }
+
+    const categorys = useQuery(
+        ["categorysQuery"],
+        async () => await instance.get("/category"),
+        {
+            enabled: true,
+            refetchOnWindowFocus: false,
+            retry: 0
+        },
+    )
 
     return (
         <div css={s.layout}>
@@ -30,16 +41,9 @@ function AdminSideBar({ category }) {
             </div>
             <div css={s.categoryBox}>
                 {
-                    categorys.slice(0, 5).map((category, index) => (
-                        <button key={index} onClick={() => handleOnClick(category)} category={category.name}>{category.icon}{category.name}</button>
-                    ))
-                }
-            </div>
-            <div css={s.settingBox}>
-                {
-                    categorys.slice(5).map((category, index) => (
-                        <button key={index} onClick={() => handleOnClick(category)} category={category.name}>{category.icon}{category.name}</button>
-                    ))
+                    categorys?.data?.data.map(category =>
+                        <button key={category.id} onClick={() => handleLinkOnClick(category.link)}>{ICONS[category.icon]}{category.name} </button>
+                    )
                 }
             </div>
         </div>

@@ -68,6 +68,7 @@ export const nameBox = css`
     font-size: 20px;
     width: 100%;
 
+
     & > div {
         display: flex;
         justify-content: center;
@@ -86,15 +87,16 @@ export const nameBox = css`
 `;
 
 export const categoryBox = css`
+    position: relative;
     box-sizing: border-box;
     display: flex;
+    flex-grow: 1;
     flex-direction: column;
-    border-bottom: 1px solid #c5c5c5;
     padding: 20px;
     width: 100%;
-    height: 500px;
 
     & > button {
+        box-sizing: border-box;
         display: flex;
         align-items: center;
         font-size: 15px;
@@ -106,6 +108,20 @@ export const categoryBox = css`
             font-size: 22px;
         }
     }
+
+    & > button:nth-last-of-type(2) {
+        position: absolute;
+        bottom: 50px;
+        box-sizing: border-box;
+    }
+
+    & > button:nth-last-of-type(1) {
+        position: absolute;
+        bottom: 20px;
+        box-sizing: border-box;
+        
+    }
+
 `;
 
 export const settingBox = css`

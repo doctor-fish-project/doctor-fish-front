@@ -25,22 +25,19 @@ function App() {
             <Routes>
                 <Route path="/" element={<IndexPage />} />
                 <Route path="/dashboard/*" element={<DashBoard />} />
-                <Route path="/dashboard/reservation" element={<ReservationPage />}/>
-                <Route path="/dashboard/reservationlist" element={<ReservationListPage />}/>
-                <Route path="/dashboard/review/*" element={<ReviewPage />}/>
+                <Route path="/reservation" element={<ReservationPage />}/>
+                <Route path="/reservationlist" element={<ReservationListPage />}/>
+                <Route path="/review/*" element={<ReviewPage />}/>
 
                 <Route path="/admin/signin" element={<AdminSigninPage />} />
                 <Route path="/admin/dashboard/*" element={<AdminDashBoard />} />
-
                 <Route path='/admin/users' element={<AdminUsersPage />} />
                 <Route path='/admin/reservation' element={<AdminReservationAllPage />} />
                 <Route path='/admin/reservationnow' element={<AdminReservationTodayPage />} />
                 <Route path='/admin/review' element={<AdminReviewPage />} />
                 <Route path='/admin/notice' element={<AdminNoticePage />} />
                 <Route path='/admin/setting' element={<AdminSettingPage />} />
-                <Route path="/reservation" element={<ReservationPage />}/>
-                <Route path="/reservationlist" element={<ReservationListPage />}/>
-                <Route path="/review/*" element={<ReviewPage />}/>
+                <Route path= "/admin/*" element={<AdminSigninPage />} />
             </Routes>
         </>
         

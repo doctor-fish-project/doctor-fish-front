@@ -20,3 +20,10 @@ export const REVIEW_MANAGEMENT = [
     "댓글개수",
     "작성날짜"
 ]
+export const NOTICE_MANAGEMENT = [
+    "No.",
+    "제목",
+    "작성자",
+    "작성일자",
+    "수정/삭제"
+]

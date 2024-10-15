@@ -9,11 +9,7 @@ export const layout = css`
     
     & > tr {
         box-sizing: border-box;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        width: 100%;
-        height: 100%;
+
         & > td {
             text-align: center;
             width:${1440 / 4}px;

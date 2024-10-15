@@ -6,6 +6,7 @@ import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 
 function ReviewBox({ review, onClick }) {
     const reviewImgs = JSON.parse(review.img)
+    
 
     const [mouseOverState, setMouseOverState] = useState(false);
 
@@ -39,12 +40,12 @@ function ReviewBox({ review, onClick }) {
                 <p>{review.userName}</p>
             </div>
             {
-                reviewImgs.length === 0 ? <></> :
+                reviewImgs === null ? <></> : reviewImgs.length === 0 ? <></> :
                     <div css={s.imgBox} onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
                         {
                             !!mouseOverState &&
                                 index !== 0 ? <button css={s.preButton} onClick={() => preImgOnClick(index)}><IoIosArrowBack /></button>
-                                : index < reviewImgs.length - 1 && <button css={s.nextButton} onClick={() => nextImgOnClick(index)}><IoIosArrowForward /></button>
+                                : index < reviewImgs?.length - 1 && <button css={s.nextButton} onClick={() => nextImgOnClick(index)}><IoIosArrowForward /></button>
                         }
                         <img src={reviewImgs[index]} alt="" />
                     </div>

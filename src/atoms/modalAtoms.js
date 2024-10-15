@@ -15,7 +15,12 @@ export const reservationModalAtom = atom({
     default:false
 })
 
-export const adminModalAtom = atom({
-    key: "adminModalAtom",
+export const adminReviewModalAtom = atom({
+    key: "adminReviewModalAtom",
+    default: false
+})
+
+export const adminNoticeModalAtom = atom({
+    key: "adminNoticeModalAtom",
     default: false
 })

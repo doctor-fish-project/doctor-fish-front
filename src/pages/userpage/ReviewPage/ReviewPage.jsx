@@ -40,7 +40,6 @@ function ReviewPage(props) {
                 <div css={s.layout}>
                     {
                         reviews?.data?.data?.reviews?.map(review =>
-                            // console.log(review)
                             <ReviewBox key={review.id} review={review} onClick={() => handleReviewDetailOnClick(review.id)}/>
                         )
                     }

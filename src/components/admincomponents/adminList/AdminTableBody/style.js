@@ -9,6 +9,7 @@ export const layout = css`
     
     & > tr {
         box-sizing: border-box;
+        cursor: pointer;
 
         & > td {
             text-align: center;

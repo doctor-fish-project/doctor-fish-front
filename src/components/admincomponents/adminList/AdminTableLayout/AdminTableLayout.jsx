@@ -2,7 +2,7 @@ import React from 'react';
 /** @jsxImportSource @emotion/react */
 import * as s from './style';
 
-function AdminListTable({ children }) {
+function AdminTableLayout({ children }) {
     return (
         <table css={s.layout}>
             {children}
@@ -10,4 +10,4 @@ function AdminListTable({ children }) {
     );
 }
 
-export default AdminListTable;
+export default AdminTableLayout;

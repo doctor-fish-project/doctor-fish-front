@@ -33,7 +33,7 @@ function App() {
                 <Route path="/admin/dashboard/*" element={<AdminDashBoard />} />
                 <Route path='/admin/users' element={<AdminUsersPage />} />
                 <Route path='/admin/reservation' element={<AdminReservationAllPage />} />
-                <Route path='/admin/reservationnow' element={<AdminReservationTodayPage />} />
+                <Route path='/admin/reservationtoday' element={<AdminReservationTodayPage />} />
                 <Route path='/admin/review' element={<AdminReviewPage />} />
                 <Route path='/admin/notice' element={<AdminNoticePage />} />
                 <Route path='/admin/setting' element={<AdminSettingPage />} />

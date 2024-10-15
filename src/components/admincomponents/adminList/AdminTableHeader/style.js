@@ -2,28 +2,26 @@ import { css } from "@emotion/react";
 
 export const layout = (length) => css`
     box-sizing: border-box;
-    display: flex;
     border-top: 1px solid #dbdbdb;
     border-bottom: 1px solid #dbdbdb;
     padding: 0px 40px;
     width: 100%;
-    height: 70px;
     font-size: 18px;
     font-weight: 500;
     background-color: #f2f3f8;
 
     & > tr {
         box-sizing: border-box;
+        width: 100%;
+        height: 50px;
         
-        & > th {
-            vertical-align: middle;
-            /* line-height: 60px; */
-            width:${1440 / (length - 1)}px;
-            height: 68px;
+        & > :not(th:nth-of-type(1)) {
+            text-align: center;
+            width: ${978 / (length - 1)}px;
         }
 
         & > th:nth-of-type(1) {
-            width: 40px;
+            width: 30px;
         }
     }
 `;

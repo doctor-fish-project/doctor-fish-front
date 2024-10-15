@@ -6,7 +6,6 @@ import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 
 function ReviewBox({ review, onClick }) {
     const reviewImgs = JSON.parse(review.img)
-    
 
     const [mouseOverState, setMouseOverState] = useState(false);
 

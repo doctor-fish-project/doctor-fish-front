@@ -17,7 +17,7 @@ function Signin({ containerRef }) {
     const setSignupOpen = useSetRecoilState(signupModalAtom);
 
     const [ani, setAni] = useState("userModalOpen")
-    const [input, setInput] = useState({
+    const [userInput, setUserInput] = useState({
         email: "",
         password: ""
     })
@@ -29,7 +29,7 @@ function Signin({ containerRef }) {
 
     const signin = useMutation(
         async () => {
-            return await instance.post("/auth/signin", input)
+            return await instance.post("/auth/signin", userInput)
         }, {
         onSuccess: response => {
             localStorage.setItem("accessToken", "Bearer " + response.data.accessToken);
@@ -77,7 +77,7 @@ function Signin({ containerRef }) {
             }
             if (response.status === 401) {
                 alert(response.data);
-                setInput({
+                setUserInput({
                     email: "",
                     password: ""
                 })
@@ -85,10 +85,6 @@ function Signin({ containerRef }) {
             }
         }
     })
-
-    const handleSigninOnClick = () => {
-        signin.mutateAsync().catch(() => { })
-    }
 
     const handleSignupOnClick = () => {
         closeModal();
@@ -98,8 +94,8 @@ function Signin({ containerRef }) {
     }
 
     const handleInputOnChange = (e) => {
-        setInput(input => ({
-            ...input,
+        setUserInput(userInput => ({
+            ...userInput,
             [e.target.name]: e.target.value
         }))
     }
@@ -130,7 +126,7 @@ function Signin({ containerRef }) {
             email: <></>,
             password: <></>,
         })
-        setInput({
+        setUserInput({
             email: "",
             password: ""
         })
@@ -147,20 +143,20 @@ function Signin({ containerRef }) {
                 </div>
                 <div css={s.inputBox}>
                     <p>이메일</p>
-                    <input type="text" placeholder='아이디' name='email' onChange={handleInputOnChange} value={input.email} />
+                    <input type="text" placeholder='아이디' name='email' onChange={handleInputOnChange} value={userInput.email} />
                     {
                         fieldErrorMessages.email !== "" ? fieldErrorMessages.email : <></>
                     }
                 </div>
                 <div css={s.inputBox}>
                     <p>비밀번호</p>
-                    <input type="password" placeholder='비밀번호' name='password' onChange={handleInputOnChange} value={input.password} />
+                    <input type="password" placeholder='비밀번호' name='password' onChange={handleInputOnChange} value={userInput.password} />
                     {
                         fieldErrorMessages.password !== "" ? fieldErrorMessages.password : <></>
                     }
                 </div>
                 <div css={s.buttonBox}>
-                    <button onClick={handleSigninOnClick}>로그인</button>
+                    <button onClick={() => signin.mutateAsync().catch(() => { })}>로그인</button>
                 </div>
                 <div css={s.findBox}>
                     <p>패스워드를 잊어버리셨나요?</p>

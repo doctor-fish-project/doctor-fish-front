@@ -4,6 +4,7 @@ export const layout = css`
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     padding: 30px;
     width: 100%;
     height: 100%;
@@ -16,6 +17,7 @@ export const container = css`
     justify-content: space-between;
     align-items: center;
     width: 100%;
+    height: 50%;
     
     &:nth-of-type(1) {
         margin-bottom: 30px;

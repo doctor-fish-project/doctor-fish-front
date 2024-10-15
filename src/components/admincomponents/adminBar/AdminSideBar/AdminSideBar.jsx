@@ -5,11 +5,16 @@ import { useNavigate } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import { instance } from '../../../../apis/utils/instance';
 import { ICONS } from '../../../../constants/admin/categoryicons';
+import { useSetRecoilState } from 'recoil';
+import { categoryIdAtom } from '../../../../atoms/adminAtoms';
 
 function AdminSideBar(props) {
     const nav = useNavigate();
 
-    const handleLinkOnClick = (link) => {
+    const setCategoryId = useSetRecoilState(categoryIdAtom);
+
+    const handleLinkOnClick = (categoryId, link) => {
+        setCategoryId(categoryId)
         nav(link);
     }
 
@@ -41,8 +46,8 @@ function AdminSideBar(props) {
             </div>
             <div css={s.categoryBox}>
                 {
-                    categorys?.data?.data.map(category =>
-                        <button key={category.id} onClick={() => handleLinkOnClick(category.link)}>{ICONS[category.icon]}{category.name} </button>
+                    categorys?.data?.data?.map(category =>
+                        <button key={category.categoryId} onClick={() => handleLinkOnClick(category.categoryId, category.link)}>{ICONS[category.icon]}{category.name} </button>
                     )
                 }
             </div>

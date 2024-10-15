@@ -8,6 +8,7 @@ export const layout = css`
     align-items: center;
     width: 49%;
     height: 49%;
+    z-index: 98;
     overflow: hidden;
     cursor: pointer;
 
@@ -16,20 +17,12 @@ export const layout = css`
         height: 100%;
     }
 
-    & svg {
+    & > svg {
         position: absolute;
         top: 0px;
         left: 0px;
-        width: 30px;
-        height: 30px;
+        font-size: 25px;
         z-index: 99;
-        font-size: 30px;
-        font-weight: 600;
-        color: #ffffff;
-    }
-
-    & button {
-       
-
+        color: gray;
     }
 `;

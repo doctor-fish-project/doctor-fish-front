@@ -14,11 +14,28 @@ function MyProfilePage(props) {
     const nav = useNavigate();
 
     const [isShow, setShow] = useState(true);
+    const [inputState, setInputState] = useState(true);
+
 
     const queryClient = useQueryClient()
     const userInfo = queryClient.getQueryData("userInfoQuery")
 
     const [user, setUser] = useState(userInfo?.data)
+
+    const handleUserOnChange = (e) => {
+        setUser(user => ({
+            ...user,
+            [e.target.name]: e.target.value
+        }))
+    }
+
+    const handleChangeStateOnClick = () => {
+        setInputState(!inputState);
+        setUser({
+            name: userInfo?.data?.name,
+            phoneNumber: userInfo?.data?.phoneNumber
+        });
+    }
 
     const handleMyReviewsOnClick = () => {
         nav("/dashboard/myprofile/myreviews")
@@ -45,7 +62,7 @@ function MyProfilePage(props) {
             if (result.isConfirmed) {
                 localStorage.removeItem("accessToken");
                 window.location.replace("/");
-            } 
+            }
         })
     }
 
@@ -54,15 +71,28 @@ function MyProfilePage(props) {
             <SubContainer>
                 <BackButton setShow={setShow} />
                 <div css={s.layout}>
+                    <p>마이 페이지</p>
                     <img src="" alt="" />
                     <div css={s.userInfo}>
+                        <p>개인 정보</p>
                         <input type="text" name="email" id="" value={user?.email} readOnly />
-                        <input type="text" name="name" id="" value={user?.name} />
-                        <input type="text" name="address" id="" value={user?.address} placeholder='주소' />
-                        <input type="text" name="phoneNumber" id="" value={user?.phoneNumber} />
+                        <input type="text" name="name" onChange={handleUserOnChange} value={user?.name} disabled={inputState} />
+                        <input type="text" name="phoneNumber" onChange={handleUserOnChange} value={user?.phoneNumber} disabled={inputState} />
                         <div css={s.userInfoBox}>
-                            <button>회원정보 변경</button>
-                            <button>비밀번호 변경</button>
+                            {
+                                !inputState ?
+                                    <>
+                                        <button >확인</button>
+                                        <button onClick={handleChangeStateOnClick}>취소</button>
+                                    </>
+                                    :
+                                    <>
+                                        <button onClick={handleChangeStateOnClick}>회원정보 변경</button>
+                                        <button>비밀번호 변경</button>
+
+                                    </>
+                            }
+
                         </div>
                     </div>
                     <div css={s.userRecord}>

@@ -9,6 +9,12 @@ export const layout = css`
     width: 100%;
     height: 100%;
 
+    & > p {
+        box-sizing: border-box;
+        display: flex;
+        width: 100%;
+    }
+
     & > img {
         box-sizing: border-box;
         display: flex;
@@ -35,6 +41,12 @@ export const userInfo = css`
     border-radius: 10px;
     padding: 5px;
     width: 100%;
+
+    & > p {
+        box-sizing: border-box;
+        display: flex;
+        width: 100%;
+    }
 
     & > input {
         box-sizing: border-box;

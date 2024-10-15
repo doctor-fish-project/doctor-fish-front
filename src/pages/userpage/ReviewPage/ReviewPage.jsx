@@ -10,9 +10,14 @@ import { BsPencilSquare } from 'react-icons/bs';
 import ReviewWritePage from '../ReviewWritePage/ReviewWritePage';
 import { useQuery } from 'react-query';
 import { instance } from '../../../apis/utils/instance';
+import ReviewDetailPage from '../ReviewDetailPage/ReviewDetailPage';
 
 function ReviewPage(props) {
     const nav = useNavigate();
+
+    const handleReviewDetailOnClick = (reviewId) => {
+        nav(`/review/${reviewId}`)
+    }
 
     const handleReviewWriteOnClick = () => {
         nav("/review/write")
@@ -35,13 +40,14 @@ function ReviewPage(props) {
                 <div css={s.layout}>
                     {
                         reviews?.data?.data?.reviews?.map(review =>
-                            <ReviewBox review={review}/>
+                            <ReviewBox key={review.id} review={review} onClick={() => handleReviewDetailOnClick(review.id)}/>
                         )
                     }
                 </div>
             </SubContainer>
             <Routes>
                 <Route path='/write' element={<ReviewWritePage />} />
+                <Route path='/:reviewId' element={<ReviewDetailPage />}/>
             </Routes>
         </MainLayout>
     );

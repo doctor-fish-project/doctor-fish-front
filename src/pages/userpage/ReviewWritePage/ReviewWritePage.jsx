@@ -12,11 +12,8 @@ import Swal from 'sweetalert2';
 import ImgBox from '../../../components/usercomponents/reviewWritePage/ImgBox/ImgBox';
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import { storage } from '../../../firebase/firebase';
-import { useNavigate } from 'react-router-dom';
 
 function ReviewWritePage(props) {
-    const nav = useNavigate();
-
     const [isShow, setShow] = useState(true);
     const [deleteButtonState, setDeleteButtonState] = useState(false);
 
@@ -98,7 +95,7 @@ function ReviewWritePage(props) {
 
                 fileInput.onchange = (e) => {
                     const reviewImages = Array.from(e.target.files);
-                    if (reviewImages.length > 4) {
+                    if (imgs.length + reviewImages.length > 4) {
                         Swal.fire({
                             icon: 'warning',
                             text: '사진은 4장까지 업로드 가능합니다.',
@@ -119,6 +116,7 @@ function ReviewWritePage(props) {
                             "state_changed",
                             (snapshot) => {
                                 Swal.fire({
+                                    text: '사진 등록 중...',
                                     backdrop: false,
                                     allowOutsideClick: false,
                                     didOpen: () => {
@@ -137,6 +135,7 @@ function ReviewWritePage(props) {
                                 Swal.close();
                                 const url = await getDownloadURL(storageRef);
                                 setImgs(imgs => [...imgs, url])
+                                
                             }
                         );
                     })
@@ -161,11 +160,11 @@ function ReviewWritePage(props) {
                     <button onClick={() => writeReview.mutateAsync().catch(() => { })}>작성하기</button>
                 </div>
                 <div css={s.imgContainer}>
-                    <div css={s.imgBox}>
+                    <div css={s.imgBox} onClick={handleAddImageOnClick}>
                         {
                             imgs.length === 0
                                 ?
-                                <div css={s.defaultBox}>
+                                <div css={s.defaultBox} >
                                     <p>이미지를 추가하세요</p>
                                     <button onClick={handleAddImageOnClick}><MdOutlineAddPhotoAlternate /></button>
                                 </div>
@@ -178,7 +177,7 @@ function ReviewWritePage(props) {
                     </div>
                 </div>
                 <div css={s.contentBox}>
-                    <textarea name="content" value={review.content} onChange={handleReviewOnChange}></textarea>
+                    <textarea name="content" value={review.content} onChange={handleReviewOnChange} placeholder='리뷰 내용을 입력해 주세요...'></textarea>
                 </div>
             </SubContainer>
         </SubLayout>

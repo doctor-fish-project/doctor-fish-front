@@ -6,9 +6,10 @@ import { deleteObject, ref } from 'firebase/storage';
 import { storage } from '../../../../firebase/firebase';
 import Swal from 'sweetalert2';
 
-function ImgBox({ url, deleteButtonState, setDeleteButtonState, imgs, setImgs}) {
+function ImgBox({ url, deleteButtonState, setDeleteButtonState, imgs, setImgs }) {
 
-    const handleDeleteImageOnClick = () => {
+    const handleDeleteImageOnClick = (e) => {
+        e.stopPropagation();
         Swal.fire({
             icon: 'question',
             text: '삭제하시겠습니까?',
@@ -17,22 +18,22 @@ function ImgBox({ url, deleteButtonState, setDeleteButtonState, imgs, setImgs}) 
             confirmButtonText: '확인',
             cancelButtonText: '취소',
             customClass: {
-                popup: 'custom-confirm-swal',
+                popup: 'custom-cancel-swal',
                 container: 'container',
                 confirmButton: 'confirmButton',
             }
         }).then(result => {
-            if(result.isConfirmed) {
+            if (result.isConfirmed) {
                 const imageRef = ref(storage, url);
 
-           deleteObject(imageRef)
-             .then(() => {
-                const filterImgs = imgs.filter(imgUrl => imgUrl !== url)
-                setImgs(filterImgs)
-             })
-             .catch((error) => {
-               alert("삭제중 오류 발생")
-             });
+                deleteObject(imageRef)
+                    .then(() => {
+                        const filterImgs = imgs.filter(imgUrl => imgUrl !== url)
+                        setImgs(filterImgs)
+                    })
+                    .catch((error) => {
+
+                    });
             }
         })
     }
@@ -47,9 +48,9 @@ function ImgBox({ url, deleteButtonState, setDeleteButtonState, imgs, setImgs}) 
 
 
     return (
-        <div css={s.layout} onMouseOver={handleDeleteOnMouseOver} onMouseOut={handleDeleteOnMouseOut}>
+        <div css={s.layout} onClick={handleDeleteImageOnClick} onMouseOver={handleDeleteOnMouseOver} onMouseOut={handleDeleteOnMouseOut}>
             {
-                deleteButtonState ? <IoClose onClick={handleDeleteImageOnClick}/> : <></> 
+                deleteButtonState ? <IoClose onClick={handleDeleteImageOnClick} /> : <></>
             }
             <img src={url} alt="" />
         </div>

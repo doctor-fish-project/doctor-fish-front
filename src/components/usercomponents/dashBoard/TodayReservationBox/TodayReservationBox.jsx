@@ -12,6 +12,8 @@ function TodayReservationBox({ reservations }) {
     const month = now.getMonth();
     const date = now.getDate();
 
+    console.log(reservations)
+
     return (
         <div css={s.layout}>
             <p>{year}년 {month}월 {date}일</p>
@@ -36,8 +38,8 @@ function TodayReservationBox({ reservations }) {
                                 </div>
                                 <div css={s.body}>
                                     <div css={s.doctorInfoBox}>
-                                        <p>부서 : {reservation.doctor?.depart?.name}</p>
-                                        <p>의사명 : {reservation.doctor?.name}</p>
+                                        <p>부서 : {reservation?.doctor?.depart?.name}</p>
+                                        <p>의사명 : {reservation?.doctor?.user?.name}</p>
                                     </div>
                                     <p>{reservation.registerDate.slice(0, 10)}</p>
                                 </div>

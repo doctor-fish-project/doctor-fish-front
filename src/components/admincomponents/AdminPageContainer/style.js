@@ -18,6 +18,28 @@ export const container = css`
     width: 100%;
     height: 100%;
     background-color: white;
+    overflow-y: hidden;
+
+    & > button {
+        position: absolute;
+        box-sizing: border-box;
+        border: 1px solid #52b6c6;
+        border-radius: 10px;
+        width: 60px;
+        height: 30px;
+        right: 60px;
+        bottom: 67px;
+        font-size: 14px;
+        color: #52b6c6;
+        
+        :hover {
+            background-color: #52b6c520;
+        }
+
+        :active {
+            background-color: #52b6c550;
+        }
+    }
 `;
 
 export const titleAndInput = css`

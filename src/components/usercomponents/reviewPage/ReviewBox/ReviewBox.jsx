@@ -39,7 +39,7 @@ function ReviewBox({ review }) {
                 <p>{review.userName}</p>
             </div>
             {
-                reviewImgs === null ? <></> :
+                reviewImgs.length === 0 ? <></> :
                     <div css={s.imgBox} onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
                         {
                             !!mouseOverState &&

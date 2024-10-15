@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import * as s from "./style";
 import AdminModalLayout from '../../adminModal/AdminModalLayout/AdminModalLayout';
 import { FcLike } from 'react-icons/fc';
+import { TESTS } from '../../../../constants/admin/test3';
 
 function AdminListBody({ isShow }) {
     const [reviewModal, setReviewModal] = useState(false);
@@ -12,15 +13,20 @@ function AdminListBody({ isShow }) {
     }
     return (
         <>
-            <tbody css={s.layout}>
-                <tr onClick={handleModalOpen}>
-                    <td>1</td>
-                    <td>ffhjkl1230@naver.com</td>
-                    <td>백승주</td>
-                    <td>010-8704-0537</td>
-                    <td>2024-10-14</td>
-                </tr>
-            </tbody>
+            {
+                TESTS.map(test => (
+                    <tbody key={test} css={s.layout}>
+                        <tr onClick={handleModalOpen}>
+                            <td>{test.no}</td>
+                            <td>{test.eamil}</td>
+                            <td>{test.name}</td>
+                            <td>{test.phoneNumber}</td>
+                            <td>{test.date}</td>
+                        </tr>
+                    </tbody>
+                ))
+            }
+
             {
                 isShow &&
                 <AdminModalLayout isOpen={reviewModal} onRequestClose={() => setReviewModal(false)}>

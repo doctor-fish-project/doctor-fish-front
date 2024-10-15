@@ -5,8 +5,8 @@ export const layout = css`
     border-bottom: 1px solid #dbdbdb;
     padding: 0px 40px;
     width: 100%;
-    height: 50px;
-
+    height: 60px;
+    
     & > tr {
         box-sizing: border-box;
         display: flex;

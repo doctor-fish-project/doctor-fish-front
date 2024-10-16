@@ -1,12 +1,12 @@
 import { css } from "@emotion/react";
 
 export const layout = css`
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
     align-items: center;
     border-right: none;
     width: 240px;
-    height: 100%;
     background-color: white;
 
     & > p {
@@ -35,8 +35,6 @@ export const adminInfoBox = css`
         box-sizing: border-box;
         border: 1px solid #dbdbdb;
         border-radius: 10px;
-        width: 80px;
-        height: 30px;
     }
 `;
 
@@ -99,9 +97,7 @@ export const categoryBox = css`
         box-sizing: border-box;
         display: flex;
         align-items: center;
-        font-size: 15px;
-        width: 200px;
-        height: 40px;
+        font-size: 16px;
 
         & > svg {
             margin-right: 20px;
@@ -111,7 +107,7 @@ export const categoryBox = css`
 
     & > button:nth-last-of-type(2) {
         position: absolute;
-        bottom: 50px;
+        bottom: 54px;
         box-sizing: border-box;
     }
 

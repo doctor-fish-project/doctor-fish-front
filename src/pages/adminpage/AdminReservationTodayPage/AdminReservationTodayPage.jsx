@@ -1,4 +1,6 @@
 import React from 'react';
+/** @jsxImportSource @emotion/react */
+import * as s from './style';
 import AdminMainLayout from '../../../components/admincomponents/AdminMainLayout/AdminMainLayout';
 import AdminContainer from '../../../components/admincomponents/AdminContainer/AdminContainer';
 import AdminPageContainer from '../../../components/admincomponents/AdminPageContainer/AdminPageContainer';
@@ -24,10 +26,10 @@ function AdminReservationTodayPage(props) {
                 categoryId
             }
         }),
-        {   
+        {
             enabled: true,
             refetchOnWindowFocus: false,
-            retry: 0    
+            retry: 0
         }
     )
 
@@ -36,10 +38,28 @@ function AdminReservationTodayPage(props) {
             <AdminContainer>
                 <AdminPageContainer title={"당일예약"}>
                     <AdminTableLayout>
-                        <AdminTableHeader tableheaders={reservationToday?.data?.data} />
-                        <AdminTableBody />
+                        <thead css={s.headLayout}>
+                            <tr>
+                                <th>1</th>
+                                <th>1254</th>
+                                <th>125</th>
+                                <th>125</th>
+                                <th>125</th>
+                            </tr>
+                        </thead>
+                        <tbody css={s.bodyLayout}>
+                            <tr>
+                                <td>1</td>
+                                <td>215</td>
+                                <td>125</td>
+                                <td>512</td>
+                                <td>215</td>
+                            </tr>
+                        </tbody>
                     </AdminTableLayout>
-                    <AdminListPagination location={location} />
+                    <div css={s.paginationBox}>
+                        <AdminListPagination location={location} />
+                    </div>
                 </AdminPageContainer>
             </AdminContainer>
         </AdminMainLayout>

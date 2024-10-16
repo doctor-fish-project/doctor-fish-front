@@ -27,10 +27,10 @@ function AdminSideBar(props) {
             retry: 0
         },
     )
-
+    console.log(categorys.data);
     return (
         <div css={s.layout}>
-            <p>MEDIBOOK 관리자</p>
+            <p>MEDIBOOK 관리자 페이지</p>
             <div css={s.adminInfoBox}>
                 <div css={s.profileBox}>
                     <img src="" alt="" />

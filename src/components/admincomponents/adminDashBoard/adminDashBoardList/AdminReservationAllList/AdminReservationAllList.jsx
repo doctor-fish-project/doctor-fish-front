@@ -10,7 +10,7 @@ function AdminReservationAllList(props) {
     return (
         <AdminDashBoardLayout>
             <AdminContainerTitle title={"전체예약"} />
-            <div>
+            <div css={s.layout}>
                 <AdminDashBoardAllDay />
             </div>
             <AdminDashBoardButton />

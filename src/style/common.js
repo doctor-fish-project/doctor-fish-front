@@ -30,7 +30,7 @@ export const reset = css`
 
     button {
         border: none;
-        padding: 0;
+        padding: 5px 10px;
         color: #000000;
         background-color: transparent;
         outline: none;

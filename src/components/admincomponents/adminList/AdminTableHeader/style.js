@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
 
-export const layout = (length) => css`
+export const headLayout = (length) => css`
     box-sizing: border-box;
     border-top: 1px solid #dbdbdb;
     border-bottom: 1px solid #dbdbdb;
@@ -17,11 +17,7 @@ export const layout = (length) => css`
         
         & > :not(th:nth-of-type(1)) {
             text-align: center;
-            width: ${978 / (length - 1)}px;
-        }
-
-        & > th:nth-of-type(1) {
-            width: 30px;
+            width: ${90 / (length - 1)}%;
         }
     }
 `;

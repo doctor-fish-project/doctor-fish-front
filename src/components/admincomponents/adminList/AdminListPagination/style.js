@@ -1,6 +1,8 @@
 import { css } from "@emotion/react";
 
-export const paginateContainer = css`
+export const layout = css`
+    box-sizing: border-box;
+
     & > ul {
         list-style-type: none;
         display: flex;

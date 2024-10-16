@@ -15,9 +15,9 @@ function AdminListPagination({location}) {
     }
     
     return (
-        <div css={s.paginateContainer}>
+        <div css={s.layout}>
             <ReactPaginate
-                pageCount={30}
+                pageCount={18}
                 marginPagesDisplayed={1}
                 pageRangeDisplayed={10}
                 previousLabel={<><FaAngleLeft /></>}

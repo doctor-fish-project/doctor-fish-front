@@ -5,7 +5,7 @@ import * as s from "./style";
 function AdminTableHeader({ tableheaders }) {
 
     return (
-        <thead css={s.layout(tableheaders?.length)}>
+        <thead css={s.headLayout(tableheaders?.length)}>
             <tr>
                 {
                     tableheaders?.map(tableheader => (

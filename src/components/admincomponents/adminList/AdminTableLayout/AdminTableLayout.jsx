@@ -4,9 +4,11 @@ import * as s from './style';
 
 function AdminTableLayout({ children }) {
     return (
-        <table css={s.layout}>
-            {children}
-        </table>
+        <div css={s.layout}>
+            <table css={s.container}>
+                {children}
+            </table>
+        </div>
     );
 }
 

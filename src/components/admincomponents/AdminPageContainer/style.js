@@ -1,6 +1,7 @@
 import { css } from "@emotion/react";
 
 export const layout = css`
+    position: relative;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -25,8 +26,6 @@ export const container = css`
         box-sizing: border-box;
         border: 1px solid #52b6c6;
         border-radius: 10px;
-        width: 60px;
-        height: 30px;
         right: 60px;
         bottom: 67px;
         font-size: 14px;

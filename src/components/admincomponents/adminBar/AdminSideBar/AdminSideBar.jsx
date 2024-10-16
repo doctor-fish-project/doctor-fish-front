@@ -31,6 +31,8 @@ function AdminSideBar(props) {
         },
     )
 
+    console.log(categorys.data);
+
     const handleLinkOnClick = (categoryId, link) => {
         setCategoryId(categoryId)
         nav(link);
@@ -38,7 +40,7 @@ function AdminSideBar(props) {
 
     return (
         <div css={s.layout}>
-            <p>MEDIBOOK 관리자</p>
+            <p>MEDIBOOK 관리자 페이지</p>
             <div css={s.adminInfoBox}>
                 <div css={s.profileBox}>
                     <img src="" alt="" />

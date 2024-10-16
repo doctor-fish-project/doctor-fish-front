@@ -17,7 +17,12 @@ export const headLayout = (length) => css`
         
         & > :not(th:nth-of-type(1)) {
             text-align: center;
-            width: ${90 / (length - 1)}%;
+            width: ${1480 / (length - 1)}px;
+        }
+
+        & > th:nth-of-type(1) {
+            width: 40px;
+
         }
     }
 `;

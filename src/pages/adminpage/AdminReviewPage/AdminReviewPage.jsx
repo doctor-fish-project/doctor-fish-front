@@ -12,6 +12,7 @@ import { instance } from '../../../apis/utils/instance';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { categoryIdAtom, reviewIdAtom } from '../../../atoms/adminAtoms';
 import { adminReviewModalAtom } from '../../../atoms/modalAtoms';
+import { logDOM } from '@testing-library/react';
 
 function AdminReviewPage({ }) {
     const location = useLocation();
@@ -27,12 +28,8 @@ function AdminReviewPage({ }) {
     }
 
     const reviewTableHeaders = useQuery(
-        ["reviewTalbeHeadersQuery", categoryId],
-        async () => await instance.get("/tableheader", {
-            params: {
-                categoryId
-            }
-        }),
+        ["reviewTalbeHeadersQuery"],
+        async () => await instance.get(`/tableheader?pathName=${location.pathname}`),
         {
             enabled: true,
             refetchOnWindowFocus: false,

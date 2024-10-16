@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -22,7 +22,14 @@ ChartJS.register(
     Legend
 );
 
-export default function AdminChartBar() {
+export default function AdminChartBar({ monthList, reservationMonths }) {
+    const [ datas, setDatas ] = useState([]);
+    const [ doctor, setDoctor ] = useState({
+        label: "",
+        data: [],
+        backgroundColor: ""
+    })
+
     const options = {
         maintainAspectRatio: false,
         scales: {
@@ -31,6 +38,10 @@ export default function AdminChartBar() {
             },
             x: {
                 beginAtZero: true,
+                ticks: {
+                    autoSkip: true,
+                    stepSize: 4,
+                }
             },
         },
         responsive: true,
@@ -38,21 +49,21 @@ export default function AdminChartBar() {
             legend: {
                 position: 'top',
             },
-            title: {
-                display: true,
-                text: '월 예약 횟수',
-            },
+            // title: {
+            //     display: true,
+            //     text: '월 예약 횟수',
+            // },
         },
     };
 
-    const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+    const labels = monthList;
 
     const data = {
         labels,
         datasets: [
             {
                 label: '1번의사',
-                data: [1, 2, 3, 4, 5, 6, 7],
+                data: [1, 2, 3, 0, 5, 6, 7],
                 backgroundColor: 'rgba(255, 99, 132, 0.5)',
             },
             {
@@ -71,9 +82,8 @@ export default function AdminChartBar() {
             height: "100%"
         }}>
             <div style={{
-                paddingLeft: "10px",
-                width: "600px",
-                height: "280px"
+                width: "90%",
+                height: "90%"
             }}>
                 <Bar options={options} data={data} />
             </div>

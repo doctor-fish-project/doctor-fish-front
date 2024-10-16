@@ -9,24 +9,15 @@ import { useLocation } from 'react-router-dom';
 import AdminTableLayout from '../../../components/admincomponents/adminList/AdminTableLayout/AdminTableLayout';
 import AdminTableHeader from '../../../components/admincomponents/adminList/AdminTableHeader/AdminTableHeader';
 import AdminTableBody from '../../../components/admincomponents/adminList/AdminTableBody/AdminTableBody';
-import { categoryIdAtom } from '../../../atoms/adminAtoms';
-import { useRecoilValue } from 'recoil';
 import { useQuery } from 'react-query';
 import { instance } from '../../../apis/utils/instance';
 
 function AdminReservationTodayPage(props) {
     const location = useLocation();
 
-    const categoryId = useRecoilValue(categoryIdAtom)
-
     const reservationToday = useQuery(
-        ["reservationTodayQuery", categoryId],
-        async () => await instance.get("/tableheader", {
-            params: {
-                categoryId
-            }
-        }),
-        {
+        async () => await instance.get(`/tableheader?pathName=${location.pathname}`),
+        {   
             enabled: true,
             refetchOnWindowFocus: false,
             retry: 0

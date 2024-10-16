@@ -39,8 +39,8 @@ export const bodyLayout = (length) => css`
         & > td {
             text-align: center;
             border-bottom: 1px solid #444444;
-            width: ${1430 / (length - 1)}px;
             padding: 10px 0px;
+            width: ${1480 / (length - 1)}px;
         }
 
         & > td:nth-of-type(1) {

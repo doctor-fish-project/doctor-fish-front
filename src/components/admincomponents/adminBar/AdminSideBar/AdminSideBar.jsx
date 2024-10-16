@@ -1,25 +1,13 @@
 import React, { useEffect } from 'react';
 /** @jsxImportSource @emotion/react */
 import * as s from './style';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import { instance } from '../../../../apis/utils/instance';
 import { ICONS } from '../../../../constants/admin/categoryicons';
-import { useRecoilState, useSetRecoilState } from 'recoil';
-import { categoryIdAtom } from '../../../../atoms/adminAtoms';
 
 function AdminSideBar(props) {
     const nav = useNavigate();
-    const location = useLocation();
-
-    const [categoryId, setCategoryId] = useRecoilState(categoryIdAtom);
-
-    useEffect(() => {
-        const result = categorys?.data?.data?.find(category => category.link === location.pathname)
-        if(result) {
-            setCategoryId(result.id)
-        }
-    }, [location.pathname])
 
     const categorys = useQuery(
         ["categorysQuery"],
@@ -31,10 +19,7 @@ function AdminSideBar(props) {
         },
     )
 
-    console.log(categorys.data);
-
-    const handleLinkOnClick = (categoryId, link) => {
-        setCategoryId(categoryId)
+    const handleLinkOnClick = (link) => {
         nav(link);
     }
 
@@ -57,7 +42,7 @@ function AdminSideBar(props) {
             <div css={s.categoryBox}>
                 {
                     categorys?.data?.data?.map(category =>
-                        <button key={category.categoryId} onClick={() => handleLinkOnClick(category.categoryId, category.link)}>{ICONS[category.icon]}{category.name} </button>
+                        <button key={category.categoryId} onClick={() => handleLinkOnClick(category.link)}>{ICONS[category.icon]}{category.name}</button>
                     )
                 }
             </div>

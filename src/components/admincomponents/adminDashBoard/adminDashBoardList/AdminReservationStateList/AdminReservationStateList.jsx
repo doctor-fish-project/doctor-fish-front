@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import AdminChartBar from '../../adminDashBoardComponents/AdminChartBar/AdminChartBar';
 /** @jsxImportSource @emotion/react */
 import AdminContainerTitle from '../../adminDashBoardComponents/AdminDashBoardTitle/AdminDashBoardTitle';
@@ -10,6 +10,8 @@ function AdminReservationStateList(props) {
 
     const year = '2024'
 
+    const [ reservations, setReservations] = useState([])
+
     const graphs = useQuery(
         ["graphsQuery"],
         async () => await instance.get(`/reservation/list/month/${year}`),
@@ -19,8 +21,7 @@ function AdminReservationStateList(props) {
             retry: 0
         }
     )
-    
-    // console.log(graphs.data.data)
+
     return (
         <AdminDashBoardLayout>
             <AdminContainerTitle title={"예약통계"} />

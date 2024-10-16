@@ -7,22 +7,21 @@ export const headLayout = (length) => css`
     padding: 0px 40px;
     width: 100%;
     font-size: 18px;
-    font-weight: 500;
     background-color: #f2f3f8;
 
     & > tr {
         box-sizing: border-box;
         width: 100%;
         height: 50px;
+
+        & > th:nth-of-type(1) {
+            padding-left: 40px;
+            min-width: 50px;
+        }
         
         & > :not(th:nth-of-type(1)) {
             text-align: center;
-            width: ${1480 / (length - 1)}px;
-        }
-
-        & > th:nth-of-type(1) {
-            width: 40px;
-
+            width: ${1430 / (length - 1)}px;
         }
     }
 `;

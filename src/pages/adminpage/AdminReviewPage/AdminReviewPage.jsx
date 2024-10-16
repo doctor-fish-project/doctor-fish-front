@@ -34,9 +34,7 @@ function AdminReviewPage({ }) {
             enabled: true,
             refetchOnWindowFocus: false,
             retry: 0,
-
             onSuccess: response => {
-
                 response.data.map((th, index) => (
                     setTheader(theader => ({
                         ...theader,
@@ -46,7 +44,7 @@ function AdminReviewPage({ }) {
             }
         }
     )
-    console.log(theader);
+
     const reviews = useQuery(
         ["reviewsQuery"],
         async () => await instance.get("/review"),

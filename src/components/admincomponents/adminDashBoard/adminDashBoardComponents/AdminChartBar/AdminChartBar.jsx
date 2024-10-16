@@ -9,6 +9,7 @@ import {
     Legend,
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
+import { TESTS } from '../../../../../constants/admin/test3';
 
 //기본 Bar 차트
 //https://react-chartjs-2.js.org/components/bar
@@ -23,13 +24,7 @@ ChartJS.register(
 );
 
 export default function AdminChartBar({ monthList, reservationMonths }) {
-    const [ datas, setDatas ] = useState([]);
-    const [ doctor, setDoctor ] = useState({
-        label: "",
-        data: [],
-        backgroundColor: ""
-    })
-
+    
     const options = {
         maintainAspectRatio: false,
         scales: {
@@ -49,10 +44,6 @@ export default function AdminChartBar({ monthList, reservationMonths }) {
             legend: {
                 position: 'top',
             },
-            // title: {
-            //     display: true,
-            //     text: '월 예약 횟수',
-            // },
         },
     };
 
@@ -60,19 +51,12 @@ export default function AdminChartBar({ monthList, reservationMonths }) {
 
     const data = {
         labels,
-        datasets: [
-            {
-                label: '1번의사',
-                data: [1, 2, 3, 0, 5, 6, 7],
-                backgroundColor: 'rgba(255, 99, 132, 0.5)',
-            },
-            {
-                label: '2번의사',
-                data: [2, 3, 4, 5, 4, 7, 8],
-                backgroundColor: 'rgba(53, 162, 235, 0.5)',
-            },
-        ],
+        datasets: reservationMonths?.map((reserve, index) => ({
+            ...reserve,
+            backgroundColor: TESTS[index]
+        }))
     };
+
     return (
         <div style={{
             display: "flex",

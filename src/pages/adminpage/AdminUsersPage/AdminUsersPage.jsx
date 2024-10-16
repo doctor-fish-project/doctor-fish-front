@@ -9,23 +9,15 @@ import { useLocation } from 'react-router-dom';
 import AdminTableHeader from '../../../components/admincomponents/adminList/AdminTableHeader/AdminTableHeader';
 import AdminTableBody from '../../../components/admincomponents/adminList/AdminTableBody/AdminTableBody';
 import AdminTableLayout from '../../../components/admincomponents/adminList/AdminTableLayout/AdminTableLayout';
-import { useRecoilValue } from 'recoil';
-import { categoryIdAtom } from '../../../atoms/adminAtoms';
 import { instance } from '../../../apis/utils/instance';
 import { useQuery } from 'react-query';
 
 function AdminUsersPage(props) {
     const location = useLocation();
 
-    const categoryId = useRecoilValue(categoryIdAtom)
-
     const users = useQuery(
-        ["usersQuery", categoryId],
-        async () => await instance.get("/tableheader", {
-            params: {
-                categoryId
-            }
-        }),
+        ["usersQuery"],
+        async () => await instance.get(`/tableheader?pathName=${location.pathname}`),
         {   
             enabled: true,
             refetchOnWindowFocus: false,

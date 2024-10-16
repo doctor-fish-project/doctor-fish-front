@@ -17,11 +17,11 @@ export const layout = (length) => css`
         
         & > :not(th:nth-of-type(1)) {
             text-align: center;
-            width: ${978 / (length - 1)}px;
+            width: ${1480 / (length - 1)}px;
         }
 
         & > th:nth-of-type(1) {
-            width: 30px;
+            width: 40px;
         }
     }
 `;

@@ -3,6 +3,7 @@ import React from 'react';
 import * as s from './style';
 
 function AdminMainLayout({ children }) {
+    
     return (
         <div css={s.layout}>
             {children}

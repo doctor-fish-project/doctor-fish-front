@@ -1,22 +1,25 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 /** @jsxImportSource @emotion/react */
 import * as s from './style';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import { instance } from '../../../../apis/utils/instance';
 import { ICONS } from '../../../../constants/admin/categoryicons';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import { categoryIdAtom } from '../../../../atoms/adminAtoms';
 
 function AdminSideBar(props) {
     const nav = useNavigate();
+    const location = useLocation();
 
-    const setCategoryId = useSetRecoilState(categoryIdAtom);
+    const [categoryId, setCategoryId] = useRecoilState(categoryIdAtom);
 
-    const handleLinkOnClick = (categoryId, link) => {
-        setCategoryId(categoryId)
-        nav(link);
-    }
+    useEffect(() => {
+        const result = categorys?.data?.data?.find(category => category.link === location.pathname)
+        if(result) {
+            setCategoryId(result.id)
+        }
+    }, [location.pathname])
 
     const categorys = useQuery(
         ["categorysQuery"],
@@ -27,6 +30,11 @@ function AdminSideBar(props) {
             retry: 0
         },
     )
+
+    const handleLinkOnClick = (categoryId, link) => {
+        setCategoryId(categoryId)
+        nav(link);
+    }
 
     return (
         <div css={s.layout}>

@@ -14,7 +14,7 @@ export const layout = (length) => css`
 
         & > td {
             text-align: center;
-            width: ${978 / (length - 1)}px;
+            width: ${1480 / (length - 1)}px;
         }
 
         & > td:nth-of-type(1) {

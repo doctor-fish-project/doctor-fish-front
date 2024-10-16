@@ -1,6 +1,6 @@
 import { Global } from "@emotion/react";
 import { reset } from "./style/common";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import IndexPage from "./pages/userpage/IndexPage/IndexPage";
 import DashBoard from "./pages/userpage/DashBoard/DashBoard";
 import ReservationPage from "./pages/userpage/ReservationPage/ReservationPage";
@@ -15,10 +15,38 @@ import AdminReviewPage from "./pages/adminpage/AdminReviewPage/AdminReviewPage";
 import AdminNoticePage from "./pages/adminpage/AdminNoticePage/AdminNoticePage";
 import AdminSettingPage from "./pages/adminpage/AdminSettingPage/AdminSettingPage";
 import AdminUsersPage from "./pages/adminpage/AdminUsersPage/AdminUsersPage";
+import { useRecoilState } from "recoil";
+import { categoryIdAtom } from "./atoms/adminAtoms";
+import { useEffect } from "react";
+import { useQuery } from "react-query";
+import { instance } from "./apis/utils/instance";
 
 function App() {
     AuthHook()
-    
+    // const location = useLocation();
+
+    // const [categoryId, setCategoryId] = useRecoilState(categoryIdAtom);
+
+    // useEffect(() => {
+    //     categorys?.data?.data?.map(category => {
+    //         console.log(location.pathname)
+    //         if(location.pathname === category.link) {
+    //             setCategoryId(category.id)
+    //             return
+    //         }  
+    //     })
+    // }, [])
+
+    // const categorys = useQuery(
+    //     ["categorysQuery"],
+    //     async () => await instance.get("/category"),
+    //     {
+    //         enabled: true,
+    //         refetchOnWindowFocus: false,
+    //         retry: 0
+    //     },
+    // )
+    // console.log(categoryId)
     return (
         <>
             <Global styles={reset} />

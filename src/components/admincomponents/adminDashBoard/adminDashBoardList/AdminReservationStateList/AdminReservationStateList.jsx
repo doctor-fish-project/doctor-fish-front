@@ -10,20 +10,11 @@ function AdminReservationStateList(props) {
 
     const year = '2024'
 
-    const graphs = useQuery(
-        ["graphsQuery"],
-        async () => await instance.get(`/reservation/list/month/${year}`),
-        {
-            enabled: true,
-            refetchOnWindowFocus: false,
-            retry: 0
-        }
-    )
-
+    
     return (
         <AdminDashBoardLayout>
             <AdminContainerTitle title={"예약통계"} />
-            <AdminChartBar monthList={graphs?.data?.data?.months?.map(i => i.month)} reservationMonths={graphs?.data?.data?.getReservationMonths}/>
+            <AdminChartBar />
 
         </AdminDashBoardLayout>
     );

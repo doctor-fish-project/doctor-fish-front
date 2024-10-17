@@ -9,9 +9,12 @@ import AdminTableHeader from '../../../components/admincomponents/adminList/Admi
 import AdminTableBody from '../../../components/admincomponents/adminList/AdminTableBody/AdminTableBody';
 import { useQuery } from 'react-query';
 import { instance } from '../../../apis/utils/instance';
+import { useSetRecoilState } from 'recoil';
+import { adminNoticeModalAtom } from '../../../atoms/modalAtoms';
 
 function AdminNoticePage(props) {
     const location = useLocation();
+    const setNoticeOpen = useSetRecoilState(adminNoticeModalAtom);
 
     const notice = useQuery(
         ["noticeTalbeHeaderQuery"],
@@ -23,13 +26,17 @@ function AdminNoticePage(props) {
         }
     )
     
+    const handleReviewModalOnClick = () => {
+        setNoticeOpen(true)
+    }
+
     return (
         <AdminMainLayout>
             <AdminContainer>
                 <AdminPageContainer title={"공지사항"}>
                     <AdminTableLayout>
                         <AdminTableHeader tableheaders={notice?.data?.data} />
-                        <AdminTableBody />
+                        <AdminTableBody onClick={handleReviewModalOnClick} />
                     </AdminTableLayout>
                     <AdminListPagination location={location} />
                 </AdminPageContainer>

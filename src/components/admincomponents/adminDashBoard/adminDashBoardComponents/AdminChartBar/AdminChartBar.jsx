@@ -10,6 +10,8 @@ import {
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
 import { TESTS } from '../../../../../constants/admin/test3';
+import { useQuery, useQueryClient } from 'react-query';
+import { instance } from '../../../../../apis/utils/instance';
 
 //기본 Bar 차트
 //https://react-chartjs-2.js.org/components/bar
@@ -23,8 +25,21 @@ ChartJS.register(
     Legend
 );
 
-export default function AdminChartBar({ monthList, reservationMonths }) {
+export default function AdminChartBar(props) {
+
+    const year = "2024"
+
+    const graphs = useQuery(
+        ["graphsQuery"],
+        async () => await instance.get(`/reservation/list/month/${year}`),
+        {
+            enabled: true,
+            refetchOnWindowFocus: false,
+            retry: 0
+        }
+    )
     
+    console.log(graphs)
     const options = {
         maintainAspectRatio: false,
         scales: {
@@ -47,14 +62,11 @@ export default function AdminChartBar({ monthList, reservationMonths }) {
         },
     };
 
-    const labels = monthList;
+    const labels = graphs?.data?.data?.months?.map(i => i.month)
 
     const data = {
         labels,
-        datasets: reservationMonths?.map((reserve, index) => ({
-            ...reserve,
-            backgroundColor: TESTS[index]
-        }))
+        datasets: graphs.isSuccess ? graphs?.data?.data?.getReservationMonths : []
     };
 
     return (

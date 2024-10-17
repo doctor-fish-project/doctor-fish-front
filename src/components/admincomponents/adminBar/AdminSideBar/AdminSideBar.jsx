@@ -23,12 +23,16 @@ function AdminSideBar(props) {
         nav(link);
     }
 
+    const handleProfileOnClick = () => {
+        nav("/admin/profile")
+    }
+
     return (
         <div css={s.layout}>
             <p>MEDIBOOK 관리자 페이지</p>
             <div css={s.adminInfoBox}>
-                <div css={s.profileBox}>
-                    <img src="" alt="" />
+                <div css={s.profileBox} onClick={handleProfileOnClick}>
+                    <img src="" alt=""/>
                 </div>
                 <div css={s.nameBox}>
                     <p>name</p>

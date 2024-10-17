@@ -15,38 +15,11 @@ import AdminReviewPage from "./pages/adminpage/AdminReviewPage/AdminReviewPage";
 import AdminNoticePage from "./pages/adminpage/AdminNoticePage/AdminNoticePage";
 import AdminSettingPage from "./pages/adminpage/AdminSettingPage/AdminSettingPage";
 import AdminUsersPage from "./pages/adminpage/AdminUsersPage/AdminUsersPage";
-import { useRecoilState } from "recoil";
-import { categoryIdAtom } from "./atoms/adminAtoms";
-import { useEffect } from "react";
-import { useQuery } from "react-query";
-import { instance } from "./apis/utils/instance";
+import AdminAddPage from "./pages/adminpage/AdminAddPage/AdminAddPage";
+import AdminProfilePage from "./pages/adminpage/AdminProfilePage/AdminProfilePage";
 
 function App() {
     AuthHook()
-    // const location = useLocation();
-
-    // const [categoryId, setCategoryId] = useRecoilState(categoryIdAtom);
-
-    // useEffect(() => {
-    //     categorys?.data?.data?.map(category => {
-    //         console.log(location.pathname)
-    //         if(location.pathname === category.link) {
-    //             setCategoryId(category.id)
-    //             return
-    //         }  
-    //     })
-    // }, [])
-
-    // const categorys = useQuery(
-    //     ["categorysQuery"],
-    //     async () => await instance.get("/category"),
-    //     {
-    //         enabled: true,
-    //         refetchOnWindowFocus: false,
-    //         retry: 0
-    //     },
-    // )
-    // console.log(categoryId)
     return (
         <>
             <Global styles={reset} />
@@ -65,6 +38,8 @@ function App() {
                 <Route path='/admin/review' element={<AdminReviewPage />} />
                 <Route path='/admin/notice' element={<AdminNoticePage />} />
                 <Route path='/admin/setting' element={<AdminSettingPage />} />
+                <Route path='/admin/add' element={<AdminAddPage />} />
+                <Route path='/admin/profile' element={<AdminProfilePage />} />
                 <Route path= "/admin/*" element={<AdminSigninPage />} />
             </Routes>
         </>

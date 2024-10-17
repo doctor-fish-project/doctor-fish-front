@@ -1,4 +1,4 @@
-import { IoHomeOutline, IoCalendarOutline, IoCalendarNumberOutline, IoClipboardOutline, IoNotificationsOutline, IoSettingsOutline  } from "react-icons/io5";
+import { IoHomeOutline, IoCalendarOutline, IoCalendarNumberOutline, IoClipboardOutline, IoNotificationsOutline, IoSettingsOutline, IoPersonAddOutline  } from "react-icons/io5";
 import { LuUser2 } from "react-icons/lu";
 
 export const ICONS = {
@@ -9,6 +9,7 @@ export const ICONS = {
     LuUser2 : <LuUser2 />,
     IoNotificationsOutline : <IoNotificationsOutline />,
     IoSettingsOutline : <IoSettingsOutline />,
+    IoPersonAddOutline: <IoPersonAddOutline />
 }
 
 

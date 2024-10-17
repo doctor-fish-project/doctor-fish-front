@@ -10,7 +10,7 @@ export const layout = (length) => css`
     & > tr {
         box-sizing: border-box;
         width: 100%;
-        height: 50px;
+        height: 51px;
         cursor: pointer;
 
         & > td {

@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
 /** @jsxImportSource @emotion/react */
 import * as s from './style';
+import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
+import { instance } from '../../../apis/utils/instance';
+import { useMutation, useQuery } from 'react-query';
 import AdminMainLayout from '../../../components/admincomponents/AdminMainLayout/AdminMainLayout';
 import AdminContainer from '../../../components/admincomponents/AdminContainer/AdminContainer';
 import AdminPageContainer from '../../../components/admincomponents/AdminPageContainer/AdminPageContainer';
-import AdminListPagination from '../../../components/admincomponents/adminList/AdminListPagination/AdminListPagination';
-import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import AdminTableLayout from '../../../components/admincomponents/adminList/AdminTableLayout/AdminTableLayout';
 import AdminTableHeader from '../../../components/admincomponents/adminList/AdminTableHeader/AdminTableHeader';
-import { instance } from '../../../apis/utils/instance';
-import { useMutation, useQuery } from 'react-query';
+import AdminListPagination from '../../../components/admincomponents/AdminListPagination/AdminListPagination';
 
 function AdminReservationAllPage(props) {
     const nav = useNavigate();
@@ -19,10 +19,10 @@ function AdminReservationAllPage(props) {
     const [reservationId, setReservationId] = useState(0)
     const [totalPageCount, setTotalPageCount] = useState(1);
 
-    const limit = 15;
+    const limit = 14;
 
     useEffect(() => {
-        if(!searchParams.get("page")) {
+        if(!searchParams?.get("page")) {
             setSearchParams(searchParams => ({
                 ...searchParams,
                 page: 1
@@ -40,7 +40,7 @@ function AdminReservationAllPage(props) {
         }
     )
 
-    const reservations = useQuery(
+    const reservationAll = useQuery(
         ["reservationAllQuery", searchParams.get("page")],
         async () => await instance.get(`/reservation/all?page=${searchParams.get("page")}&limit=${limit}`),
         {
@@ -48,7 +48,6 @@ function AdminReservationAllPage(props) {
             refetchOnWindowFocus: false,
             retry: 0,
             onSuccess: response => {
-                console.log(response.data)
                 setTotalPageCount(
                     response.data.totalCount % limit === 0
                         ? response.data.totalCount / limit
@@ -66,7 +65,7 @@ function AdminReservationAllPage(props) {
         {
             onSuccess: response => {
                 setReservationId(0)
-                reservations.refetch()
+                reservationAll.refetch()
             },
             onError: error => {
                 alert("예약 확인 실패")
@@ -79,7 +78,7 @@ function AdminReservationAllPage(props) {
         {
             onSuccess: response => {
                 setReservationId(0)
-                reservations.refetch()
+                reservationAll.refetch()
             },
             onError: error => {
                 alert("예약 취소 실패")
@@ -108,12 +107,12 @@ function AdminReservationAllPage(props) {
     return (
         <AdminMainLayout>
             <AdminContainer>
-                <AdminPageContainer title={"전체예약"} count={reservations?.data?.data?.totalCount}>
+                <AdminPageContainer title={"전체예약"} count={reservationAll?.data?.data?.totalCount}>
                     <AdminTableLayout>
                         <AdminTableHeader tableheaders={reservationAllTableHeaders?.data?.data} />
                         <tbody css={s.layout(reservationAllTableHeaders?.data?.data?.length)}>
                             {
-                                reservations?.data?.data?.reservations?.map((reservation, idx) =>
+                                reservationAll?.data?.data?.reservations?.map((reservation, idx) =>
                                     <tr key={reservation.id} >
                                         <td>{idx + 1}</td>
                                         <td>{reservation?.registerDate.slice(0, 10)}</td>

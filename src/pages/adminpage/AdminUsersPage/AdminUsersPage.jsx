@@ -4,7 +4,7 @@ import * as s from './style';
 import AdminMainLayout from '../../../components/admincomponents/AdminMainLayout/AdminMainLayout';
 import AdminContainer from '../../../components/admincomponents/AdminContainer/AdminContainer';
 import AdminPageContainer from '../../../components/admincomponents/AdminPageContainer/AdminPageContainer';
-import AdminListPagination from '../../../components/admincomponents/adminList/AdminListPagination/AdminListPagination';
+import AdminListPagination from '../../../components/admincomponents/AdminListPagination/AdminListPagination';
 import { useLocation } from 'react-router-dom';
 import AdminTableHeader from '../../../components/admincomponents/adminList/AdminTableHeader/AdminTableHeader';
 import AdminTableLayout from '../../../components/admincomponents/adminList/AdminTableLayout/AdminTableLayout';

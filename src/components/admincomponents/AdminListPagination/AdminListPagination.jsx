@@ -14,7 +14,7 @@ function AdminListPagination({ count, onChange, searchParams }) {
                 pageRangeDisplayed={10}
                 previousLabel={<><FaAngleLeft /></>}
                 nextLabel={<><FaAngleRight /></>}
-                renderOnZeroPageCount={null}
+                renderOnZeroPageCount={() => null}
                 onPageChange={onChange}
                 activeClassName='active'
                 forcePage={parseInt(searchParams.get("page")) - 1}

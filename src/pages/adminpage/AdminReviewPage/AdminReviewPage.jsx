@@ -30,7 +30,7 @@ function AdminReviewPage({ }) {
     const limit = 14;
 
     useEffect(() => {
-        if(!searchParams?.get("page")) {
+        if (!searchParams?.get("page")) {
             setSearchParams(searchParams => ({
                 ...searchParams,
                 page: 1
@@ -65,9 +65,9 @@ function AdminReviewPage({ }) {
             retry: 0,
             onSuccess: response => {
                 setTotalPageCount(
-                    response.data.totalCount % limit === 0
-                        ? response.data.totalCount / limit
-                        : Math.floor(response.data.totalCount / limit) + 1)
+                    response.data.reviewCount % limit === 0
+                        ? response.data.reviewCount / limit
+                        : Math.floor(response.data.reviewCount / limit) + 1)
             }
         }
     )
@@ -97,9 +97,9 @@ function AdminReviewPage({ }) {
                         </thead>
                         <tbody css={s.bodyLayout(reviewTableHeaders?.data?.data?.length)}>
                             {
-                                reviews?.data?.data?.reviews.map(review =>
+                                reviews?.data?.data?.reviews.map((review, idx) =>
                                     <tr key={review.id} onClick={() => handleReviewModalOnClick(review.id)}>
-                                        <td>{review.id}</td>
+                                        <td>{idx + 1}</td>
                                         <td>{review.userName}</td>
                                         <td>{review.content}</td>
                                         <td>{reviews?.data?.data?.reviewCount}</td>

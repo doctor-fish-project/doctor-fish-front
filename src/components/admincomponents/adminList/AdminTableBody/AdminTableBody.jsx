@@ -6,20 +6,15 @@ import { useSetRecoilState } from 'recoil';
 import { adminReviewModalAtom } from '../../../../atoms/modalAtoms';
 import { reviewIdAtom } from '../../../../atoms/adminAtoms';
 
-function AdminTableBody({ tdList }) {
+function AdminTableBody({ onClick }) {
 
-    const setAdminReviewOpen = useSetRecoilState(adminReviewModalAtom)
-    const setReviewId = useSetRecoilState(reviewIdAtom);
 
-    const handleReviewModalOnClick = () => {
-        setAdminReviewOpen(true)
-    }
 
     return (
         <tbody css={s.layout}>
             {
                 TESTS?.map(test =>
-                    <tr onClick={handleReviewModalOnClick}>
+                    <tr onClick={onClick}>
                         <td>{test.no}</td>
                         <td>{test.eamil}</td>
                         <td>{test.name}</td>

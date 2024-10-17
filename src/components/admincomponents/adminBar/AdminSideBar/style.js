@@ -6,7 +6,7 @@ export const layout = css`
     flex-direction: column;
     align-items: center;
     border-right: none;
-    width: 240px;
+    width: 15%;
     background-color: white;
 
     & > p {

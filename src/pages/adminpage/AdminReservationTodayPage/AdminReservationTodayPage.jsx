@@ -48,9 +48,6 @@ function AdminReservationTodayPage(props) {
                             </tr>
                         </tbody>
                     </AdminTableLayout>
-                    <div css={s.paginationBox}>
-                        <AdminListPagination location={location} />
-                    </div>
                 </AdminPageContainer>
             </AdminContainer>
         </AdminMainLayout>

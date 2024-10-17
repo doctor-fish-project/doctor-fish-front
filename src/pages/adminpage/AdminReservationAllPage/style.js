@@ -16,9 +16,21 @@ export const layout = (length) => css`
         & > td {
             text-align: center;
             width: ${1480 / (length - 1)}px;
+
+            & > button {
+                border-radius: 5px;
+                color: #ffffff;
+                background-color: #c5c5c5;
+            }
+
+            & > button:nth-of-type(1) {
+                margin-right: 5px;
+            }
+
         }
 
         & > td:nth-of-type(1) {
+            padding-left: 40px;
             width: 30px;
         }
     }

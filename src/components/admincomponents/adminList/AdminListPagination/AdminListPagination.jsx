@@ -3,28 +3,21 @@ import ReactPaginate from 'react-paginate';
 /** @jsxImportSource @emotion/react */
 import * as s from './style';
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
-import { useNavigate } from 'react-router-dom';
 
-function AdminListPagination({location}) {
-    const nav = useNavigate();
+function AdminListPagination({ count, onChange, searchParams }) {
 
-
-    const handlePageOnChange = (e) => {
-        console.log(location);
-        nav(`${location.pathname}?page=${e.selected + 1}`);
-    }
-    
     return (
         <div css={s.layout}>
             <ReactPaginate
-                pageCount={18}
+                pageCount={count}
                 marginPagesDisplayed={1}
                 pageRangeDisplayed={10}
                 previousLabel={<><FaAngleLeft /></>}
                 nextLabel={<><FaAngleRight /></>}
                 renderOnZeroPageCount={null}
-                onPageChange={handlePageOnChange}
+                onPageChange={onChange}
                 activeClassName='active'
+                forcePage={parseInt(searchParams.get("page")) - 1}
             />
         </div>
     );

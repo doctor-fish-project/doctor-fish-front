@@ -47,8 +47,8 @@ function IndexPage(props) {
                                 <p>예약 사이트 어플</p>
                             </div>
                             <div css={s.buttonBox}>
-                                <RiHome2Line />
-                                <button onClick={handleDashboardOnClick}>메인화면 바로가기</button>
+                                
+                                <button onClick={handleDashboardOnClick}><RiHome2Line />메인화면 바로가기</button>
                             </div>
                             <div css={s.imgBox}>
                                 <img src="/cloud.png" alt="" />

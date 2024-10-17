@@ -32,6 +32,7 @@ export const contentBox = css`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    
     & p {
         font-size: 30px;
         color: white;
@@ -39,26 +40,25 @@ export const contentBox = css`
 `;
 
 export const buttonBox = css`
-    position: relative;
     display: flex;
     margin-left: 20px;
-    width: 80%;
+    width: fit-content;
     height: 40px;
     background-color: #FFFFFF;
     border-radius: 10px;
+    
     & button {
+        display: flex;
+        align-items: center;
         font-size: 23px;
         font-weight: 600;
-        width: 100%;
-        height: 100%;
+
+        & > svg {
+            margin-right: 5px;
+            font-size: 30px;
+        }
     }
-    & svg {
-        position: absolute;
-        top: 5px;
-        left: 20px;
-        width: 30px;
-        height: 30px;
-    }
+    
 `;
 
 export const imgBox = css`

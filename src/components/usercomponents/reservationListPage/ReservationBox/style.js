@@ -22,15 +22,22 @@ export const header = css`
     justify-content: space-between;
 
     & p {
+        box-sizing: border-box;
         display: flex;
         justify-content: center;
         align-items: center;
     }
 
     & > p:nth-of-type(2) {
+        box-sizing: border-box;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         border-radius: 10px;
-        width: 70px;
+        padding: 0px 5px;
+        width: fit-content;
         height: 100%;
+        font-size: 13px;
         color: #ffffff;
         background-color: #2E5984;
     }

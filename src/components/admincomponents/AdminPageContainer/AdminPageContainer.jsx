@@ -6,7 +6,7 @@ import AdminReview from '../adminModal/AdminReview/AdminReview';
 import AdminNotice from '../adminModal/AdminNotice/AdminNotice';
 import { useLocation } from 'react-router-dom';
 
-function AdminPageContainer({ title, children }) {
+function AdminPageContainer({ title, count, children }) {
     const location = useLocation();
     const [reviewModalElement, setReviewModalElement] = useState(<></>);
     const [noticeModalElement, setNoticeModalElement] = useState(<></>);
@@ -26,7 +26,7 @@ function AdminPageContainer({ title, children }) {
             <div css={s.titleAndInput}>
                 <div>
                     <p>{title}</p>
-                    <p>총 124건</p>
+                    <p>총 {count}건</p>
                 </div>
                 {
                     (location.pathname !== "/admin/add" && location.pathname !== "/admin/profile") &&

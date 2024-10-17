@@ -19,13 +19,15 @@ function ReviewBox({ review, onClick }) {
         setMouseOverState(false)
     }
 
-    const preImgOnClick = (index) => {
+    const preImgOnClick = (e, index) => {
+        e.stopPropagation();
         if (index > 0 && index < reviewImgs.length) {
             setIndex(index - 1)
         }
     }
 
-    const nextImgOnClick = (index) => {
+    const nextImgOnClick = (e, index) => {
+        e.stopPropagation();
         if (index === 0 || index < reviewImgs.length) {
             setIndex(index + 1)
         }
@@ -43,8 +45,8 @@ function ReviewBox({ review, onClick }) {
                     <div css={s.imgBox} onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
                         {
                             !!mouseOverState &&
-                                index !== 0 ? <button css={s.preButton} onClick={() => preImgOnClick(index)}><IoIosArrowBack /></button>
-                                : index < reviewImgs?.length - 1 && <button css={s.nextButton} onClick={() => nextImgOnClick(index)}><IoIosArrowForward /></button>
+                                index !== 0 ? <button css={s.preButton} onClick={(e) => preImgOnClick(e, index)}><IoIosArrowBack /></button>
+                                : index < reviewImgs?.length - 1 && <button css={s.nextButton} onClick={(e) => nextImgOnClick(e, index)}><IoIosArrowForward /></button>
                         }
                         <img src={reviewImgs[index]} alt="" />
                     </div>

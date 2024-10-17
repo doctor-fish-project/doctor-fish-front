@@ -28,7 +28,6 @@ export const nameBox = css`
         box-sizing: border-box;
         margin-bottom: 3px;
         margin-right: 5px;
-        
         border-radius: 50%;
         width: 40px;
         height: 40px;

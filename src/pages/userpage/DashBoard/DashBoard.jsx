@@ -31,7 +31,7 @@ function DashBoard(props) {
         ["userInfoQuery"],
         async () => await instance.get("/user/me"),
         {
-            enabled: authState.data?.data,
+            enabled: authState?.data?.data,
             refetchOnWindowFocus: false,
             retry: 0
         }
@@ -41,7 +41,7 @@ function DashBoard(props) {
         ["todayReservationsQuery"],
         async () => await instance.get("/reservation/user"),
         {
-            enabled: authState.data?.data,
+            enabled: authState?.data?.data,
             refetchOnWindowFocus: false,
             retry: 0
         }
@@ -101,7 +101,7 @@ function DashBoard(props) {
                     <BoxTopBar title1={"의료진"}/>    
                     <div css={s.doctorBox}>
                         {
-                            doctors?.data?.data?.doctors.map(doctor =>
+                            doctors?.data?.data?.doctors?.map(doctor =>
                                 <DoctorBox key={doctor.id} doctor={doctor} onClick={handleDoctorProfileOnClick} />
                             )
                         }

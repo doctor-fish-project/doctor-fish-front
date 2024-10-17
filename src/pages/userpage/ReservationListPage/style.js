@@ -12,4 +12,8 @@ export const layout = css`
     &::-webkit-scrollbar {
         display: none;
     }
+
+    & :not(:nth-last-of-type(1)) {
+        margin-bottom: 5px;
+    }
 `;

@@ -1,7 +1,7 @@
 import React from 'react';
 /** @jsxImportSource @emotion/react */
 import * as s from './style';
-import AdminSideBar from '../adminBar/AdminSideBar/AdminSideBar';
+import AdminSideBar from '../AdminSideBar/AdminSideBar';
 
 function AdminMainLayout({ children }) {
     

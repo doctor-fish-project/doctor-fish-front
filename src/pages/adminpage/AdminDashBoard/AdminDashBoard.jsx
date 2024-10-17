@@ -3,24 +3,20 @@ import React from 'react';
 import * as s from './style';
 import AdminMainLayout from '../../../components/admincomponents/AdminMainLayout/AdminMainLayout';
 import AdminContainer from '../../../components/admincomponents/AdminContainer/AdminContainer';
-import AdminNoticeList from '../../../components/admincomponents/adminDashBoard/adminDashBoardList/AdminNoticeList/AdminNoticeList';
-import AdminReservationStateList from '../../../components/admincomponents/adminDashBoard/adminDashBoardList/AdminReservationStateList/AdminReservationStateList';
-import AdminReservationTodayList from '../../../components/admincomponents/adminDashBoard/adminDashBoardList/AdminReservationTodayList/AdminReservationTodayList';
-import AdminReservationAllList from '../../../components/admincomponents/adminDashBoard/adminDashBoardList/AdminReservationAllList/AdminReservationAllList';
+import AdminNoticeBox from '../../../components/admincomponents/adminDashBoard/adminDashBoardBox/AdminNoticeBox/AdminNoticeBox';
+import AdminReservationGraphsBox from '../../../components/admincomponents/adminDashBoard/adminDashBoardBox/AdminReservationGraphsBox/AdminReservationGraphsBox';
+import AdminReservationTodayBox from '../../../components/admincomponents/adminDashBoard/adminDashBoardBox/AdminReservationTodayBox/AdminReservationTodayBox';
+import AdminReservationAllBox from '../../../components/admincomponents/adminDashBoard/adminDashBoardBox/AdminReservationAllBox/AdminReservationAllBox';
 
 function AdminDashBoard(props) {
     return (
         <AdminMainLayout >
             <AdminContainer>
                 <div css={s.layout}>
-                    <div css={s.container}>
-                        <AdminReservationStateList />
-                        <AdminNoticeList />
-                    </div>
-                    <div css={s.container}>
-                        <AdminReservationTodayList/>
-                        <AdminReservationAllList />
-                    </div>
+                    <AdminReservationGraphsBox />
+                    <AdminNoticeBox />
+                    <AdminReservationTodayBox />
+                    <AdminReservationAllBox />
                 </div>
             </AdminContainer>
         </AdminMainLayout>

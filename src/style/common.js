@@ -62,6 +62,15 @@ export const reset = css`
         height: 812px;
     }
 
+    .htmlContainer {
+        box-sizing: border-box;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid #dbdbdb;
+        border-radius: 10px;
+    }
+
     .custom-confirm-swal {
         padding: 10px;
         border-radius: 10px;

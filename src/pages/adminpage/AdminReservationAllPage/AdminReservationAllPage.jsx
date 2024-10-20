@@ -28,7 +28,7 @@ function AdminReservationAllPage(props) {
                 page: 1
             }))
         }
-    }, [])
+    }, [searchParams, setSearchParams])
 
     const reservationAllTableHeaders = useQuery(
         ["reservationAllTableHeaderQuery"],

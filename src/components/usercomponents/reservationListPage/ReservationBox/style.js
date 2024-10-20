@@ -6,6 +6,7 @@ export const layout = css`
     flex-direction: column;
     padding: 5px;
     width: 100%;
+    cursor: pointer;
 
     :not(:nth-last-of-type(1)) {
         margin-bottom: 5px;
@@ -69,4 +70,14 @@ export const doctorInfoBox = css`
     border-radius: 10px;
     padding: 5px 10px;
     background-color: #eeeeee;
+    cursor: pointer;
+`;
+
+export const htmlContainer = css`
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #dbdbdb;
+    border-radius: 10px;
 `;

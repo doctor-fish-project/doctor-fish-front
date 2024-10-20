@@ -7,6 +7,8 @@ import { useRecoilState } from 'recoil';
 import { reviewIdAtom } from '../../../../atoms/adminAtoms';
 import { IoIosArrowBack, IoIosArrowForward, IoIosClose } from "react-icons/io"
 import { FcLike } from 'react-icons/fc';
+import { useQuery } from 'react-query';
+import { instance } from '../../../../apis/utils/instance';
 
 
 function AdminReview({ containerRef }) {
@@ -17,6 +19,16 @@ function AdminReview({ containerRef }) {
         setReviewOpen(false)
         setReviewId(0)
     }
+
+    const reviewByreviewId = useQuery(
+        ["reviewByreviewIdQuery"],
+        async () => await instance.get(`/${reviewId}`),
+        {
+            enabled: true,
+            refetchOnWindowFocus: false,
+            retry: 0
+        }
+    )
 
     return (
         <AdminModalLayout containerRef={containerRef} isOpen={reviewOpen} closeModal={closeModal}>

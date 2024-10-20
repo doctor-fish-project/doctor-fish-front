@@ -1,20 +1,34 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 /** @jsxImportSource @emotion/react */
 import * as s from './style';
 import AdminMainLayout from '../../../components/admincomponents/AdminMainLayout/AdminMainLayout';
 import AdminContainer from '../../../components/admincomponents/AdminContainer/AdminContainer';
 import AdminPageContainer from '../../../components/admincomponents/AdminPageContainer/AdminPageContainer';
-import AdminListPagination from '../../../components/admincomponents/AdminListPagination/AdminListPagination';
-import { useLocation } from 'react-router-dom';
-import AdminTableHeader from '../../../components/admincomponents/adminList/AdminTableHeader/AdminTableHeader';
+import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import AdminTableLayout from '../../../components/admincomponents/adminList/AdminTableLayout/AdminTableLayout';
 import { instance } from '../../../apis/utils/instance';
 import { useQuery } from 'react-query';
+import AdminListPagination from '../../../components/admincomponents/AdminListPagination/AdminListPagination';
 
 function AdminUsersPage(props) {
+    const nav = useNavigate();
     const location = useLocation();
+    const [searchParams, setSearchParams] = useSearchParams();
 
+    const [totalPageCount, setTotalPageCount] = useState(1);
     const [theader, setTheader] = useState({});
+
+    const limit = 14
+
+
+    useEffect(() => {
+        if(!searchParams?.get("page")) {
+            setSearchParams(searchParams => ({
+                ...searchParams,
+                page: 1
+            }))
+        }
+    }, [searchParams, setSearchParams])
 
     const userTableHeaders = useQuery(
         ["usersTableHeadersQuery"],
@@ -35,21 +49,31 @@ function AdminUsersPage(props) {
     )
 
     const users = useQuery(
-        ["usersQuery"],
-        async () => await instance.get("/user/list"),
+        ["usersQuery", searchParams.get("page")],
+        async () => await instance.get(`/user/list?page=${searchParams.get("page")}&limit=${limit}`),
         {
             enabled: true,
             refetchOnWindowFocus: false,
-            retry: 0
+            retry: 0,
+            onSuccess: response => {
+                setTotalPageCount(
+                    response.data.totalCount % limit === 0
+                        ? response.data.totalCount / limit
+                        : Math.floor(response.data.totalCount / limit) + 1)
+            }
         }
     )
-    console.log(users.data.data)
+
+    const handlePageOnChange = (e) => {
+        nav(`/admin/users?page=${e.selected + 1}`);
+    }
+
     return (
         <AdminMainLayout>
             <AdminContainer>
-                <AdminPageContainer title={"회원관리"}>
+                <AdminPageContainer title={"회원관리"} count={users?.data?.data?.userCount}>
                     <AdminTableLayout>
-                    <thead css={s.headLayout(userTableHeaders?.data?.data?.length)}>
+                    <thead css={s.headLayout(userTableHeaders?.data?.data?.length)}> 
                             <tr>
                                 <th>{theader[0]}</th>
                                 <th>{theader[1]}</th>
@@ -72,7 +96,7 @@ function AdminUsersPage(props) {
                             } */}
                         </tbody>
                     </AdminTableLayout>
-                    <AdminListPagination location={location}/>
+                    <AdminListPagination searchParams={searchParams} count={totalPageCount} onChange={handlePageOnChange} />
                 </AdminPageContainer>
             </AdminContainer>
         </AdminMainLayout>

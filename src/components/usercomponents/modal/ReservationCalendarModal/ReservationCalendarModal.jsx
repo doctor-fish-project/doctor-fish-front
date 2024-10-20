@@ -144,7 +144,9 @@ function ReservationCalendarModal({ containerRef }) {
                 <div css={s.timeBox}>
                     {
                         times?.data?.data?.map(time =>
-                            <TimeBox key={time.id} time={time} disabled={!!reservedTimes?.data?.data.filter(reservedTime => reservedTime.time === time.time).length} reservationTime={reservationTime} setReservationTime={setReservationTime} />
+                            <TimeBox key={time.id} time={time} reservationTime={reservationTime} setReservationTime={setReservationTime}
+                            disabled={!!reservedTimes?.data?.data.filter(reservedTime => reservedTime.time === time.time).length || reservationDate.getDay() === 6 ||reservationDate.getDay() === 0}
+                             />
                         )
                     }
                 </div>

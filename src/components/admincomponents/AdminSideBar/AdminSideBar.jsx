@@ -27,6 +27,13 @@ function AdminSideBar(props) {
         nav("/admin/profile")
     }
 
+    const handleSignoutOnClick = () => {
+        if (window.confirm("로그아웃 하시겠습니까?")) {
+            localStorage.removeItem("accessToken");
+            window.location.replace("/admin/signin");
+        }
+    }
+
     return (
         <div css={s.layout}>
             <p>MEDIBOOK 관리자 페이지</p>
@@ -41,7 +48,7 @@ function AdminSideBar(props) {
                         <p>총괄팀장</p>
                     </div>
                 </div>
-                <button>로그아웃</button>
+                <button onClick={handleSignoutOnClick}>로그아웃</button>
             </div>
             <div css={s.categoryBox}>
                 {

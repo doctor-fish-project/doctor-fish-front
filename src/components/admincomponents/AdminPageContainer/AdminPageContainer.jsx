@@ -26,7 +26,10 @@ function AdminPageContainer({ title, count, children }) {
             <div css={s.titleAndInput}>
                 <div>
                     <p>{title}</p>
-                    <p>총 {count}건</p>
+                    {
+                        (location.pathname === "/admin/profile" || location.pathname === "/admin/add") ? <></> :
+                        <p>총 {count}건</p>
+                    }
                 </div>
                 {
                     (location.pathname !== "/admin/add" && location.pathname !== "/admin/profile") &&

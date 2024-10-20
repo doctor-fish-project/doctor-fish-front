@@ -14,10 +14,12 @@ function DoctorBox({ doctor }) {
         setDoctorInfo(doctor)
         setReservationOpen(true);
     }
-    
+
     return (
         <div css={s.layout}>
-            <img src={doctor.user.img} alt="" />
+            <div css={s.imgBox}>
+                <img src={doctor.user.img} alt="" />
+            </div>
             <div css={s.nameAndDepartBox}>
                 <div>{doctor.user.name}</div>
                 <div>{doctor.depart.name}</div>

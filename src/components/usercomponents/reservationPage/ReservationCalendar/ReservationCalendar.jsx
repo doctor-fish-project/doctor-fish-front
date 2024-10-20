@@ -1,17 +1,27 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
 /** @jsxImportSource @emotion/react */
 import * as s from './style';
 import Calendar from 'react-calendar';
 
 function ReservationCalendar({ reservationDate, setReservationDate, setReservationTime }) {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
 
     const handleReservationDateOnChange = (value) => {
         setReservationTime("");
         setReservationDate(value);
     }
 
+    function tileDisabled({ date, view }) {
+        return view === 'month' && date < today
+    }
+
     const tileClassName = ({ date, view }) => {
-        if(date.toDateString() === reservationDate.toDateString()) {
+        if (view === 'month' && date < today) {
+            return 'disabled-date';
+        }
+
+        if (date.toDateString() === reservationDate.toDateString()) {
             return 'react-calendar__tile--select';
         }
 
@@ -31,6 +41,7 @@ function ReservationCalendar({ reservationDate, setReservationDate, setReservati
         <div css={s.layout}>
             <Calendar
                 tileClassName={tileClassName}
+                tileDisabled={tileDisabled}
                 onChange={handleReservationDateOnChange}
                 value={reservationDate}
                 locale='ko'

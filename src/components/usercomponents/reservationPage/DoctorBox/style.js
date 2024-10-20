@@ -9,14 +9,7 @@ export const layout = css`
     width: 100%;
     height: 80px;
     
-    & > img {
-        box-sizing: border-box;
-        margin-right: 5px;
-        width: 70px;
-        height: 70px;
-        object-fit: contain;
-        overflow: hidden;
-    }
+   
 
     & > button {
         box-sizing: border-box;
@@ -27,6 +20,23 @@ export const layout = css`
         background-color: #2E5984;
     }
 `;
+
+export const imgBox = css`
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 70px;
+    height: 70px;
+    overflow: hidden;
+
+    & > img {
+        box-sizing: border-box;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+`
 
 export const nameAndDepartBox = css`
     box-sizing: border-box;

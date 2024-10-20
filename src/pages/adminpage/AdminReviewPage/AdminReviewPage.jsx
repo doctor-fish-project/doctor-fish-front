@@ -23,7 +23,6 @@ function AdminReviewPage({ }) {
     const setAdminReviewOpen = useSetRecoilState(adminReviewModalAtom)
     const setReviewId = useSetRecoilState(reviewIdAtom);
 
-    const [reservationId, setReservationId] = useState(0)
     const [totalPageCount, setTotalPageCount] = useState(1);
     const [theader, setTheader] = useState({});
 
@@ -36,7 +35,7 @@ function AdminReviewPage({ }) {
                 page: 1
             }))
         }
-    }, [])
+    }, [searchParams, setSearchParams])
 
     const reviewTableHeaders = useQuery(
         ["reviewTalbeHeadersQuery"],
@@ -73,7 +72,7 @@ function AdminReviewPage({ }) {
     )
 
     const handlePageOnChange = (e) => {
-        nav(`/admin/reservation?page=${e.selected + 1}`);
+        nav(`/admin/review?page=${e.selected + 1}`);
     }
 
     const handleReviewModalOnClick = (reveiwId) => {

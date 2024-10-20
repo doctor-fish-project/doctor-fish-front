@@ -23,6 +23,20 @@ export const layout = css`
         color: #1087ff;
     }
 
+    .sunday.react-calendar__tile--now:not(.react-calendar__tile--active) {
+        color: #ff0000;
+    }
+
+    .saturday.react-calendar__tile--now:not(.react-calendar__tile--active) {
+        color: #1087ff;
+    }
+
+    
+
+    .disabled-date {
+        color: #dbdbdb;
+    }
+
     button {
         border: none;
         border-radius: 5px;
@@ -62,7 +76,6 @@ export const layout = css`
         display: none;
     }
 
-
     .react-calendar__month-view__weekdays {
         align-self: center;
         text-align: center;
@@ -81,11 +94,6 @@ export const layout = css`
         color: #ffffff;
     }
 
-    .react-calendar__tile--now:enabled:hover {
-        background-color: #2E5984;
-        color: #ffffff;
-    }
-
     .react-calendar__tile--now:not(.react-calendar__tile--active) {
         background-color: transparent;
         color: #000000;
@@ -94,11 +102,6 @@ export const layout = css`
     .react-calendar__tile--now.react-calendar__tile--active {
         background-color: #2E5984;
         color: #ffffff;
-    }
-
-    .react-calendar__tile:hover {
-        background-color: #2E5984;
-        color: #ffffff;  
     }
 
     .react-calendar__tile:focus {

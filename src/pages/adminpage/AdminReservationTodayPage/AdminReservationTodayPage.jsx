@@ -28,7 +28,7 @@ function AdminReservationTodayPage(props) {
                 page: 1
             }))
         }
-    }, [])
+    }, [searchParams, setSearchParams])
 
     const reservationsTodayTableHeaders = useQuery(
         ["reservationTodayTableHeaderQuery"],

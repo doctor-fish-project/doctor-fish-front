@@ -1,13 +1,13 @@
 import React from 'react';
 /** @jsxImportSource @emotion/react */
 import * as s from './style';
-import AdminSideBar from '../AdminSideBar/AdminSideBar';
+import AdminAuthHook from '../../../hooks/AdminAuthHook';
 
 function AdminMainLayout({ children }) {
+    AdminAuthHook();
     
     return (
         <div css={s.layout}>
-            <AdminSideBar />
             {children}
         </div>
     );

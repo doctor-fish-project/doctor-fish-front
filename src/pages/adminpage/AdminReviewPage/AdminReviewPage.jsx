@@ -1,19 +1,18 @@
 import React, { useEffect, useState } from 'react';
 /** @jsxImportSource @emotion/react */
 import * as s from "./style";
-import AdminMainLayout from '../../../components/admincomponents/AdminMainLayout/AdminMainLayout';
 import AdminContainer from '../../../components/admincomponents/AdminContainer/AdminContainer';
-import AdminPageContainer from '../../../components/admincomponents/AdminPageContainer/AdminPageContainer';
 import AdminListPagination from '../../../components/admincomponents/AdminListPagination/AdminListPagination';
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import AdminTableLayout from '../../../components/admincomponents/adminList/AdminTableLayout/AdminTableLayout';
 import { useQuery } from 'react-query';
 import { instance } from '../../../apis/utils/instance';
-import { useSetRecoilState } from 'recoil';
-import { reviewIdAtom } from '../../../atoms/adminAtoms';
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import {reviewIdAtom } from '../../../atoms/adminAtoms';
 import { adminReviewModalAtom } from '../../../atoms/modalAtoms';
+import AdminPageLayout from '../../../components/admincomponents/AdminPageLayout/AdminPageLayout';
 
-function AdminReviewPage({ }) {
+function AdminReviewPage(props) {
     const nav = useNavigate();
 
     const location = useLocation();
@@ -21,12 +20,12 @@ function AdminReviewPage({ }) {
     const [searchParams, setSearchParams] = useSearchParams();
 
     const setAdminReviewOpen = useSetRecoilState(adminReviewModalAtom)
-    const setReviewId = useSetRecoilState(reviewIdAtom);
+    const [reviewId, setReviewId] = useRecoilState(reviewIdAtom);
 
     const [totalPageCount, setTotalPageCount] = useState(1);
     const [theader, setTheader] = useState({});
 
-    const limit = 14;
+    const limit = 13;
 
     useEffect(() => {
         if (!searchParams?.get("page")) {
@@ -35,7 +34,7 @@ function AdminReviewPage({ }) {
                 page: 1
             }))
         }
-    }, [searchParams, setSearchParams])
+    }, [searchParams])
 
     const reviewTableHeaders = useQuery(
         ["reviewTalbeHeadersQuery"],
@@ -81,9 +80,8 @@ function AdminReviewPage({ }) {
     }
 
     return (
-        <AdminMainLayout>
             <AdminContainer>
-                <AdminPageContainer title={"리뷰 및 댓글관리"} count={reviews?.data?.data?.reviewCount}>
+                <AdminPageLayout title={"리뷰 및 댓글관리"} count={reviews?.data?.data?.reviewCount}>
                     <AdminTableLayout>
                         <thead css={s.headLayout(reviewTableHeaders?.data?.data?.length)}>
                             <tr>
@@ -109,9 +107,8 @@ function AdminReviewPage({ }) {
                         </tbody>
                     </AdminTableLayout>
                     <AdminListPagination searchParams={searchParams} count={totalPageCount} onChange={handlePageOnChange} />
-                </AdminPageContainer>
+                </AdminPageLayout>
             </AdminContainer>
-        </AdminMainLayout>
     );
 }
 

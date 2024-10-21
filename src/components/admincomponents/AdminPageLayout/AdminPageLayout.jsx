@@ -6,7 +6,7 @@ import AdminReview from '../adminModal/AdminReview/AdminReview';
 import AdminNotice from '../adminModal/AdminNotice/AdminNotice';
 import { useLocation } from 'react-router-dom';
 
-function AdminPageContainer({ title, count, children }) {
+function AdminPageLayout({ title, count, children, onClick }) {
     const location = useLocation();
     const [reviewModalElement, setReviewModalElement] = useState(<></>);
     const [noticeModalElement, setNoticeModalElement] = useState(<></>);
@@ -41,7 +41,7 @@ function AdminPageContainer({ title, count, children }) {
                 {
                     (location.pathname === "/admin/profile" || location.pathname === "/admin/add") &&
                     <div css={s.buttonBox}>
-                        <button>확인</button>
+                        <button onClick={onClick}>확인</button>
                         <button>취소</button>
                     </div>
                 }
@@ -51,4 +51,4 @@ function AdminPageContainer({ title, count, children }) {
     );
 
 }
-export default AdminPageContainer;
+export default AdminPageLayout;

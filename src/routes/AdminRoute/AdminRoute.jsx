@@ -12,9 +12,10 @@ import AdminAddPage from "../../pages/adminpage/AdminAddPage/AdminAddPage";
 import AdminProfilePage from "../../pages/adminpage/AdminProfilePage/AdminProfilePage";
 import AdminAuthHook from '../../hooks/AdminAuthHook';
 import AdminMainLayout from '../../components/admincomponents/AdminMainLayout/AdminMainLayout';
+import AdminLeaveAddPage from '../../pages/adminpage/AdminLeaveAddPage/AdminLeaveAddPage';
 
 function AdminRoute(props) {
-    AdminAuthHook();
+    // AdminAuthHook();
     return (
         <AdminMainLayout>
             <Routes>
@@ -28,6 +29,7 @@ function AdminRoute(props) {
                 <Route path='/setting' element={<AdminSettingPage />} />
                 <Route path='/add' element={<AdminAddPage />} />
                 <Route path='/profile' element={<AdminProfilePage />} />
+                <Route path='/leave' element={<AdminLeaveAddPage />} />
                 <Route path='/*' element={<AdminSigninPage />} />
             </Routes>
         </AdminMainLayout>

@@ -27,19 +27,19 @@ function AdminPageLayout({ title, count, children, onClick }) {
                 <div>
                     <p>{title}</p>
                     {
-                        (location.pathname === "/admin/profile" || location.pathname === "/admin/add") ? <></> :
+                        (location.pathname === "/admin/profile" || location.pathname === "/admin/add" || location.pathname === "/admin/leave") ? <></> :
                         <p>총 {count}건</p>
                     }
                 </div>
                 {
-                    (location.pathname !== "/admin/add" && location.pathname !== "/admin/profile") &&
+                    (location.pathname !== "/admin/add" && location.pathname !== "/admin/profile" && location.pathname !== "/admin/leave") &&
                     <>
                         <input type="text" placeholder='검색어를 입력해주세요' />
                         <button><IoSearchOutline /></button>
                     </>
                 }
                 {
-                    (location.pathname === "/admin/profile" || location.pathname === "/admin/add") &&
+                    (location.pathname === "/admin/profile" || location.pathname === "/admin/add" || location.pathname === "/admin/leave") &&
                     <div css={s.buttonBox}>
                         <button onClick={onClick}>확인</button>
                         <button>취소</button>

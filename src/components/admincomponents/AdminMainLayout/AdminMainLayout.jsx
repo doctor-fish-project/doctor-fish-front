@@ -4,8 +4,6 @@ import * as s from './style';
 import AdminAuthHook from '../../../hooks/AdminAuthHook';
 
 function AdminMainLayout({ children }) {
-    AdminAuthHook();
-    
     return (
         <div css={s.layout}>
             {children}

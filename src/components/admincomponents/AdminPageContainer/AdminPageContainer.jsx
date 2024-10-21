@@ -24,10 +24,17 @@ function AdminPageContainer({ title, count, children }) {
             {reviewModalElement}
             {noticeModalElement}
             <div css={s.titleAndInput}>
-                <div>
-                    <p>{title}</p>
-                    <p>총 {count}건</p>
-                </div>
+                {
+                    (location.pathname !== "/admin/add" && location.pathname !== "/admin/profile") ?
+                    <div>
+                        <p>{title}</p>
+                        <p>총 {count}건</p>
+                    </div>
+                    :
+                    <div>
+                        <p>{title}</p>
+                    </div>
+                }
                 {
                     (location.pathname !== "/admin/add" && location.pathname !== "/admin/profile") &&
                     <>

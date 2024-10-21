@@ -43,7 +43,6 @@ function AdminUsersPage(props) {
             retry: 0
         }
     )
-    console.log(users.data.data)
     return (
         <AdminMainLayout>
             <AdminContainer>

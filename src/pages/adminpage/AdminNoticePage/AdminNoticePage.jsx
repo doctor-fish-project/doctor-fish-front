@@ -6,7 +6,7 @@ import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import AdminTableLayout from '../../../components/admincomponents/adminList/AdminTableLayout/AdminTableLayout';
 import AdminTableHeader from '../../../components/admincomponents/adminList/AdminTableHeader/AdminTableHeader';
 import { useQuery } from 'react-query';
-import { instance } from '../../../apis/utils/instance';
+import { adminInstance } from '../../../apis/utils/instance';
 import { useSetRecoilState } from 'recoil';
 import { adminNoticeModalAtom } from '../../../atoms/modalAtoms';
 import AdminListPagination from '../../../components/admincomponents/AdminListPagination/AdminListPagination';
@@ -30,11 +30,11 @@ function AdminNoticePage(props) {
                 page: 1
             }))
         }
-    }, [searchParams, setSearchParams])
+    }, [searchParams])
 
     const noticeTableHeader = useQuery(
         ["noticeTalbeHeaderQuery"],
-        async () => await instance.get(`/tableheader?pathName=${location.pathname}`),
+        async () => await adminInstance.get(`/tableheader?pathName=${location.pathname}`),
         {
             enabled: true,
             refetchOnWindowFocus: false,
@@ -44,7 +44,7 @@ function AdminNoticePage(props) {
 
     const notices = useQuery(
         ["noticesQuery", searchParams.get("page")],
-        async () => await instance.get(`/announce/list?page=${searchParams.get("page")}&limit=${limit}`),
+        async () => await adminInstance.get(`/announce/list?page=${searchParams.get("page")}&limit=${limit}`),
         {
             enabled: true,
             refetchOnWindowFocus: false,
@@ -57,8 +57,6 @@ function AdminNoticePage(props) {
             }
         }
     )
-
-    console.log(totalPageCount)
 
     const handlePageOnChange = (e) => {
         nav(`/admin/reservation?page=${e.selected + 1}`);

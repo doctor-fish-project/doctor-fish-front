@@ -3,8 +3,7 @@ import React, { useState } from 'react';
 import * as s from './style';
 import { FaUser, FaLock } from "react-icons/fa6";
 import { useMutation } from 'react-query';
-import { instance } from '../../../apis/utils/instance';
-import Swal from 'sweetalert2';
+import { adminInstance } from '../../../apis/utils/instance';
 import { useNavigate } from 'react-router-dom';
 
 function AdminSigninPage(props) {
@@ -21,11 +20,11 @@ function AdminSigninPage(props) {
     });
 
     const adminSignin = useMutation(
-        async () => await instance.post("/admin/signin", userInput),
+        async () => await adminInstance.post("/admin/signin", userInput),
         {
             onSuccess: response => {
                 localStorage.setItem("adminAccessToken", "Bearer " + response.data.accessToken);
-                instance.interceptors.request.use(config => {
+                adminInstance.interceptors.request.use(config => {
                     config.headers["Authorization"] = localStorage.getItem("adminAccessToken");
                     return config;
                 });

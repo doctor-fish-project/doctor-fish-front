@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { instance } from '../apis/utils/instance';
+import { adminInstance, instance } from '../apis/utils/instance';
 
 function AdminAuthHook(props) {
 
@@ -20,7 +20,7 @@ function AdminAuthHook(props) {
         ["accessAdminTokenValidQuery"],
         async () => {
             setRef(false);
-            return await instance.get("/admin/auth/access", {
+            return await adminInstance.get("/admin/auth/access", {
                 params: {
                     adminAccessToken: localStorage.getItem("adminAccessToken")
                 }

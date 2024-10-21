@@ -2,8 +2,6 @@ import React from 'react';
 import AdminDashBoardLayout from '../../AdminDashBoardLayout/AdminDashBoardLayout';
 import AdminDashBoardTitle from '../../AdminDashBoardTitle/AdminDashBoardTitle';
 import AdminChartBar from '../../AdminChartBar/AdminChartBar';
-/** @jsxImportSource @emotion/react */
-
 
 function AdminReservationGraphsBox(props) {
     

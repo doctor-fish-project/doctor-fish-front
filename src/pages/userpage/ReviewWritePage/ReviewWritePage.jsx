@@ -135,7 +135,6 @@ function ReviewWritePage(props) {
                                 Swal.close();
                                 const url = await getDownloadURL(storageRef);
                                 setImgs(imgs => [...imgs, url])
-                                
                             }
                         );
                     })

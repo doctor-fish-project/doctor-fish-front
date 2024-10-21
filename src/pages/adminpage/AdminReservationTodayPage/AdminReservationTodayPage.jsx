@@ -5,7 +5,7 @@ import AdminContainer from '../../../components/admincomponents/AdminContainer/A
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import AdminTableLayout from '../../../components/admincomponents/adminList/AdminTableLayout/AdminTableLayout';
 import { useMutation, useQuery } from 'react-query';
-import { instance } from '../../../apis/utils/instance';
+import { adminInstance } from '../../../apis/utils/instance';
 import AdminListPagination from '../../../components/admincomponents/AdminListPagination/AdminListPagination';
 import AdminTableHeader from '../../../components/admincomponents/adminList/AdminTableHeader/AdminTableHeader';
 import AdminPageLayout from '../../../components/admincomponents/AdminPageLayout/AdminPageLayout';
@@ -27,11 +27,11 @@ function AdminReservationTodayPage(props) {
                 page: 1
             }))
         }
-    }, [searchParams, setSearchParams])
+    }, [searchParams])
 
     const reservationsTodayTableHeaders = useQuery(
         ["reservationTodayTableHeaderQuery"],
-        async () => await instance.get(`/tableheader?pathName=${location.pathname}`),
+        async () => await adminInstance.get(`/tableheader?pathName=${location.pathname}`),
         {
             enabled: true,
             refetchOnWindowFocus: false,
@@ -41,9 +41,9 @@ function AdminReservationTodayPage(props) {
 
     const reservationToday = useQuery(
         ["reservationTodayQuery", searchParams.get("page")],
-        async () => await instance.get(`/reservation/today?page=${searchParams.get("page")}&limit=${limit}`),
+        async () => await adminInstance.get(`/reservation/today?page=${searchParams.get("page")}&limit=${limit}`),
         {
-            enabled: true,
+            enabled: !!searchParams.get("page"),
             refetchOnWindowFocus: false,
             retry: 0,
             onSuccess: response => {
@@ -56,7 +56,7 @@ function AdminReservationTodayPage(props) {
     )
 
     const checkReservation = useMutation(
-        async () => await instance.put(`/reservation/accept/${reservationId}`),
+        async () => await adminInstance.put(`/reservation/accept/${reservationId}`),
         {
             onSuccess: response => {
                 setReservationId(0)
@@ -69,7 +69,7 @@ function AdminReservationTodayPage(props) {
     )
 
     const cancelReservation = useMutation(
-        async () => await instance.put(`/reservation/cancel/${reservationId}`),
+        async () => await adminInstance.put(`/reservation/cancel/${reservationId}`),
         {
             onSuccess: response => {
                 setReservationId(0)

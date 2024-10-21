@@ -10,7 +10,7 @@ import {
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
 import { useQuery } from 'react-query';
-import { instance } from '../../../../apis/utils/instance';
+import { adminInstance } from '../../../../apis/utils/instance';
 import { COLORS } from '../../../../constants/admin/colors';
 
 //기본 Bar 차트
@@ -31,7 +31,7 @@ export default function AdminChartBar(props) {
 
     const graphs = useQuery(
         ["graphsQuery"],
-        async () => await instance.get(`/reservation/list/month/${year}`),
+        async () => await adminInstance.get(`/reservation/list/month/${year}`),
         {
             enabled: true,
             refetchOnWindowFocus: false,

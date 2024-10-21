@@ -3,15 +3,25 @@ import React, { useEffect } from 'react';
 import * as s from './style';
 import { useNavigate } from 'react-router-dom';
 import { useQuery } from 'react-query';
-import { instance } from '../../../apis/utils/instance';
+import { adminInstance } from '../../../apis/utils/instance';
 import { ICONS } from '../../../constants/admin/categoryicons';
 
 function AdminSideBar(props) {
     const nav = useNavigate();
 
+    const userInfo = useQuery(
+        ["userInfoQuery"],
+        async () => await adminInstance.get("/user/me"),
+        {
+            retry: 0,
+            refetchOnWindowFocus: false,
+            enabled: true
+        }
+    )
+
     const categorys = useQuery(
         ["categorysQuery"],
-        async () => await instance.get("/category"),
+        async () => await adminInstance.get("/category"),
         {
             enabled: true,
             refetchOnWindowFocus: false,
@@ -39,13 +49,13 @@ function AdminSideBar(props) {
             <p>MEDIBOOK 관리자 페이지</p>
             <div css={s.adminInfoBox}>
                 <div css={s.profileBox} onClick={handleProfileOnClick}>
-                    <img src="" alt=""/>
+                    <img src={userInfo?.data?.data?.img}/>
                 </div>
                 <div css={s.nameBox}>
-                    <p>name</p>
+                    <p>{userInfo?.data?.data?.name}</p>
                     <div>
                         <p>MEDIBOOK</p>
-                        <p>총괄팀장</p>
+                        <p>{userInfo?.data?.data?.roles[0]}</p>
                     </div>
                 </div>
                 <button onClick={handleSignoutOnClick}>로그아웃</button>

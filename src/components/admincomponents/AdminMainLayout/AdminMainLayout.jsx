@@ -3,7 +3,7 @@ import React from 'react';
 import * as s from './style';
 import AdminAuthHook from '../../../hooks/AdminAuthHook';
 
-function AdminMainLayout({ children }) {
+function AdminMainLayout({ children }) {    
     return (
         <div css={s.layout}>
             {children}

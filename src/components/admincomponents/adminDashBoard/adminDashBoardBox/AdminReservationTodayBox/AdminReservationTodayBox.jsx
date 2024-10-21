@@ -3,7 +3,7 @@ import React from 'react';
 import * as s from './style';
 import { useNavigate } from 'react-router-dom';
 import { useQuery } from 'react-query';
-import { instance } from '../../../../../apis/utils/instance';
+import { adminInstance, instance } from '../../../../../apis/utils/instance';
 import AdminDashBoardReservationBox from '../../AdminDashBoardReservationBox/AdminDashBoardReservationBox';
 import AdminDashBoardTitle from '../../AdminDashBoardTitle/AdminDashBoardTitle';
 import AdminDashBoardLayout from '../../AdminDashBoardLayout/AdminDashBoardLayout';
@@ -14,9 +14,9 @@ function AdminReservationTodayBox(props) {
 
     const reservationsToday = useQuery(
         ["reservationsTodayQuery"],
-        async () => await instance.get("/reservation/dashboard/today")
+        async () => await adminInstance.get("/reservation/dashboard/today")
     )
-    console.log(reservationsToday?.data?.data)
+
     const handleNavOnClick = () => {
         nav("/admin/reservationtoday")
     }

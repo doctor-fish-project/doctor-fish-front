@@ -6,7 +6,6 @@ import ReservationPage from "../../pages/userpage/ReservationPage/ReservationPag
 import ReservationListPage from "../../pages/userpage/ReservationListPage/ReservationListPage";
 import ReviewPage from "../../pages/userpage/ReviewPage/ReviewPage";
 import AuthHook from '../../hooks/AuthHook';
-import MainLayout from '../../components/usercomponents/UserMainLayout/UserMainLayout';
 import UserMainLayout from '../../components/usercomponents/UserMainLayout/UserMainLayout';
 
 function UserRoute(props) {
@@ -19,6 +18,7 @@ function UserRoute(props) {
                 <Route path="/reservation" element={<ReservationPage />}/>
                 <Route path="/reservationlist" element={<ReservationListPage />}/>
                 <Route path="/review/*" element={<ReviewPage />}/>
+                
             </Routes>  
         </UserMainLayout>
     );

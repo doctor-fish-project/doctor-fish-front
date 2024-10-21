@@ -19,6 +19,7 @@ function AdminPageLayout({ title, count, children, onClick }) {
             setNoticeModalElement(<AdminNotice containerRef={containerRef} />)
         }
     }, [containerRef])
+    
     return (
         <div css={s.layout} ref={containerRef}>
             {reviewModalElement}

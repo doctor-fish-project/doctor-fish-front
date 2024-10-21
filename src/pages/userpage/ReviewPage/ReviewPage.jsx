@@ -2,7 +2,6 @@ import React from 'react';
 /** @jsxImportSource @emotion/react */
 import * as s from "./style";
 import SubContainer from '../../../components/usercomponents/UserSubContainer/UserSubContainer';
-import MainLayout from '../../../components/usercomponents/UserMainLayout/UserMainLayout';
 import ReviewBox from '../../../components/usercomponents/reviewPage/ReviewBox/ReviewBox';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import DashBoardTopBar from '../../../components/usercomponents/dashBoard/DashBoardTopBar/DashBoardTopBar';

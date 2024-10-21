@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
 /** @jsxImportSource @emotion/react */
 import * as s from "./style";
 import DoctorBox from '../../../components/usercomponents/reservationPage/DoctorBox/DoctorBox';

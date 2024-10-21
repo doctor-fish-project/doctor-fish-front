@@ -3,9 +3,8 @@ import React from 'react';
 import * as s from './style';
 import { useNavigate } from 'react-router-dom';
 import { useQuery } from 'react-query';
-
 import AdminDashBoardReservationBox from '../../AdminDashBoardReservationBox/AdminDashBoardReservationBox';
-import { instance } from '../../../../../apis/utils/instance';
+import { adminInstance } from '../../../../../apis/utils/instance';
 import AdminDashBoardLayout from '../../AdminDashBoardLayout/AdminDashBoardLayout';
 import AdminDashBoardTitle from '../../AdminDashBoardTitle/AdminDashBoardTitle';
 import AdminDashBoardButton from '../../AdminDashBoardButton/AdminDashBoardButton';
@@ -19,7 +18,7 @@ function AdminReservationAllBox(props) {
 
     const reservationsAll = useQuery(
         ["reservationsAllQuery"],
-        async () => await instance.get("/reservation/dashboard/all")
+        async () => await adminInstance.get("/reservation/dashboard/all")
     )
 
     return (

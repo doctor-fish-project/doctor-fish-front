@@ -6,7 +6,7 @@ import AdminListPagination from '../../../components/admincomponents/AdminListPa
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import AdminTableLayout from '../../../components/admincomponents/adminList/AdminTableLayout/AdminTableLayout';
 import { useQuery } from 'react-query';
-import { instance } from '../../../apis/utils/instance';
+import { adminInstance } from '../../../apis/utils/instance';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import {reviewIdAtom } from '../../../atoms/adminAtoms';
 import { adminReviewModalAtom } from '../../../atoms/modalAtoms';
@@ -38,7 +38,7 @@ function AdminReviewPage(props) {
 
     const reviewTableHeaders = useQuery(
         ["reviewTalbeHeadersQuery"],
-        async () => await instance.get(`/tableheader?pathName=${location.pathname}`),
+        async () => await adminInstance.get(`/tableheader?pathName=${location.pathname}`),
         {
             enabled: true,
             refetchOnWindowFocus: false,
@@ -56,9 +56,9 @@ function AdminReviewPage(props) {
 
     const reviews = useQuery(
         ["reviewsQuery", searchParams.get("page")],
-        async () => await instance.get(`/admin/review?page=${searchParams.get("page")}&limit=${limit}`),
+        async () => await adminInstance.get(`/admin/review?page=${searchParams.get("page")}&limit=${limit}`),
         {
-            enabled: true,
+            enabled: !!searchParams.get("page"),
             refetchOnWindowFocus: false,
             retry: 0,
             onSuccess: response => {

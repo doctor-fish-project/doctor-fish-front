@@ -12,8 +12,6 @@ function TodayReservationBox({ reservations }) {
     const month = now.getMonth();
     const date = now.getDate();
 
-    console.log(reservations)
-
     return (
         <div css={s.layout}>
             <p>{year}년 {month}월 {date}일</p>

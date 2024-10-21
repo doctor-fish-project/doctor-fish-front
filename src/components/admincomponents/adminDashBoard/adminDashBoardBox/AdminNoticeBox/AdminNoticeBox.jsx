@@ -3,7 +3,7 @@ import React from 'react';
 import * as s from './style';
 
 import { useNavigate } from 'react-router-dom';
-import { instance } from '../../../../../apis/utils/instance';
+import { adminInstance } from '../../../../../apis/utils/instance';
 import { useQuery } from 'react-query';
 import AdminDashBoardLayout from '../../AdminDashBoardLayout/AdminDashBoardLayout';
 import AdminDashBoardTitle from '../../AdminDashBoardTitle/AdminDashBoardTitle';
@@ -18,7 +18,7 @@ function AdminNoticeBox(props) {
 
     const notices = useQuery(
         ["noticesQuery"],
-        async () => await instance.get("/announce/dashboard/list")
+        async () => await adminInstance.get("/announce/dashboard/list")
     )
 
     console.log(notices)

@@ -7,11 +7,13 @@ import { useRecoilState } from 'recoil';
 import { reviewIdAtom } from '../../../../atoms/adminAtoms';
 import { IoIosArrowBack, IoIosArrowForward, IoIosClose } from "react-icons/io"
 import { FcLike } from 'react-icons/fc';
-import { useQuery } from 'react-query';
+import { useQuery, useQueryClient } from 'react-query';
 import { instance } from '../../../../apis/utils/instance';
 
 
 function AdminReview({ containerRef }) {
+    const queryClient = useQueryClient();
+
     const [reviewOpen, setReviewOpen] = useRecoilState(adminReviewModalAtom);
     const [reviewId, setReviewId] = useRecoilState(reviewIdAtom);
 
@@ -27,9 +29,7 @@ function AdminReview({ containerRef }) {
             retry: 0
         }
     )
-
-    const reviewImgs = JSON.parse(reviewByreviewId?.data?.data?.img === undefined ? '[]' : reviewByreviewId?.data?.data?.img)
-
+    
     const comments = useQuery(
         ["commentsQuery"],
         async () => await instance.get(`/review/${reviewId}/comments`),
@@ -65,7 +65,10 @@ function AdminReview({ containerRef }) {
     const closeModal = () => {
         setReviewOpen(false)
         setReviewId(0)
+        reviewByreviewId.remove();
+        
     }
+    const reviewImgs = JSON.parse(reviewByreviewId?.data?.data?.img === undefined ? '[]' : reviewByreviewId?.data?.data?.img)
 
     return (
         <AdminModalLayout containerRef={containerRef} isOpen={reviewOpen} closeModal={closeModal}>
@@ -87,7 +90,7 @@ function AdminReview({ containerRef }) {
                                             index !== 0 ? <button css={s.preButton} onClick={(e) => preImgOnClick(e, index)}><IoIosArrowBack /></button>
                                             : index < reviewImgs?.length - 1 && <button css={s.nextButton} onClick={(e) => nextImgOnClick(e, index)}><IoIosArrowForward /></button>
                                     }
-                                    <img src={reviewImgs[index]} alt="" />
+                                    <img src={reviewByreviewId.isLoading ? [] : JSON.parse(reviewByreviewId?.data?.data?.img)} alt="" />
                                 </div>
                         }
                         <div css={s.dateAndLike}>

@@ -4,7 +4,7 @@ import * as s from './style';
 import AdminContainer from '../../../components/admincomponents/AdminContainer/AdminContainer';
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import AdminTableLayout from '../../../components/admincomponents/adminList/AdminTableLayout/AdminTableLayout';
-import { instance } from '../../../apis/utils/instance';
+import { adminInstance } from '../../../apis/utils/instance';
 import { useQuery } from 'react-query';
 import AdminListPagination from '../../../components/admincomponents/AdminListPagination/AdminListPagination';
 import AdminPageLayout from '../../../components/admincomponents/AdminPageLayout/AdminPageLayout';
@@ -26,11 +26,11 @@ function AdminUsersPage(props) {
                 page: 1
             }))
         }
-    }, [searchParams, setSearchParams])
+    }, [searchParams])
 
     const userTableHeaders = useQuery(
         ["usersTableHeadersQuery"],
-        async () => await instance.get(`/tableheader?pathName=${location.pathname}`),
+        async () => await adminInstance.get(`/tableheader?pathName=${location.pathname}`),
         {
             enabled: true,
             refetchOnWindowFocus: false,
@@ -48,9 +48,9 @@ function AdminUsersPage(props) {
 
     const users = useQuery(
         ["usersQuery", searchParams.get("page")],
-        async () => await instance.get(`admin/user/list?page=${searchParams.get("page")}&limit=${limit}`),
+        async () => await adminInstance.get(`admin/user/list?page=${searchParams.get("page")}&limit=${limit}`),
         {
-            enabled: true,
+            enabled: !!searchParams.get("page"),
             refetchOnWindowFocus: false,
             retry: 0,
             onSuccess: response => {

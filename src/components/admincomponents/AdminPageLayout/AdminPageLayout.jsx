@@ -39,7 +39,7 @@ function AdminPageLayout({ title, count, children, onClick }) {
                     </>
                 }
                 {
-                    (location.pathname === "/admin/profile" || location.pathname === "/admin/add") &&
+                    (location.pathname === "/admin/profile" || location.pathname === "/admin/add" || location.pathname === "/admin/leave") &&
                     <div css={s.buttonBox}>
                         <button onClick={onClick}>확인</button>
                         <button>취소</button>

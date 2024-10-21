@@ -10,3 +10,36 @@ export const TIMETEST = [
     { label: "17:00", value: 9},
     { label: "18:00", value: 10},
 ]
+
+export const TABLEHEADER = [
+    {
+        name: "No.",
+        // id: "1",
+        content: "1"
+    },
+    {
+        name: "이름",
+        // id: "2"
+        content: "백승주"
+    },
+    {
+        name: "연차사유",
+        // id: "3"
+        content: "개인사정"
+    },
+    {
+        name: "신청일",
+        // id: "4"
+        content: "2024-05-24"
+    },
+    {
+        name: "시작일",
+        // id: "5"
+        content: "2024-10-21"
+    },
+    {
+        name: "종료일",
+        // id: "6"
+        content: "2024-10-23"
+    },
+]

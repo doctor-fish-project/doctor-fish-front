@@ -26,7 +26,7 @@ function AuthHook(props) {
         ["accessTokenValidQuery"],
         async () => {
             setRef(false);
-            return await instance.get("/auth/access", {
+            return await instance.get("/user/auth/access", {
                 params: {
                     accessToken: localStorage.getItem("accessToken")
                 }

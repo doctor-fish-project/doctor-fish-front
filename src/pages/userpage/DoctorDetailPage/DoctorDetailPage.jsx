@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 /** @jsxImportSource @emotion/react */
 import * as s from "./style";
-import SubLayout from '../../../components/usercomponents/SubLayout/SubLayout';
-import SubContainer from '../../../components/usercomponents/SubContainer/SubContainer';
 import BackButton from '../../../components/usercomponents/BackButton/BackButton';
 import { useParams } from 'react-router-dom';
 import { useQueryClient } from 'react-query';
+import UserSubLayout from '../../../components/usercomponents/UserSubLayout/UserSubLayout';
+import UserSubContainer from '../../../components/usercomponents/UserSubContainer/UserSubContainer';
 
 function DoctorDetailPage(props) {
     const params = useParams();
@@ -18,8 +18,8 @@ function DoctorDetailPage(props) {
     const doctor = doctors?.data?.doctors.find(doctor => doctor.id === parseInt(doctorId));
 
     return (
-        <SubLayout isShow={isShow}>
-            <SubContainer>
+        <UserSubLayout isShow={isShow}>
+            <UserSubContainer>
                 <BackButton setShow={setShow} />
                 <div css={s.layout}>
                     <img src={doctor.user.img} alt="" />
@@ -31,8 +31,8 @@ function DoctorDetailPage(props) {
                         <p>{doctor.record}</p>
                     </div>
                 </div>
-            </SubContainer>
-        </SubLayout>
+            </UserSubContainer>
+        </UserSubLayout>
     );
 }
 

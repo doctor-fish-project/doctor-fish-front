@@ -17,6 +17,7 @@ import AdminSettingPage from "./pages/adminpage/AdminSettingPage/AdminSettingPag
 import AdminUsersPage from "./pages/adminpage/AdminUsersPage/AdminUsersPage";
 import AdminAddPage from "./pages/adminpage/AdminAddPage/AdminAddPage";
 import AdminProfilePage from "./pages/adminpage/AdminProfilePage/AdminProfilePage";
+import AdminLeaveAddPage from "./pages/adminpage/AdminLeaveAddPage/AdminLeaveAddPage";
 
 function App() {
     AuthHook()
@@ -40,6 +41,7 @@ function App() {
                 <Route path='/admin/setting' element={<AdminSettingPage />} />
                 <Route path='/admin/add' element={<AdminAddPage />} />
                 <Route path='/admin/profile' element={<AdminProfilePage />} />
+                <Route path='/admin/leave' element={<AdminLeaveAddPage />} />
                 <Route path= "/admin/*" element={<AdminSigninPage />} />
             </Routes>
         </>

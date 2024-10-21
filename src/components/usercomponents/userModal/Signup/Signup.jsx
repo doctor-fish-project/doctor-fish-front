@@ -4,10 +4,10 @@ import * as s from './style';
 import ModalLayout from '../ModalLayout/ModalLayout';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { signinModalAtom, signupModalAtom } from '../../../../atoms/modalAtoms';
-import { IoIosClose } from "react-icons/io"
 import { useMutation } from 'react-query';
 import { instance } from '../../../../apis/utils/instance';
 import Swal from 'sweetalert2';
+import CancelButton from '../CancelButton/CancelButton';
 
 function Signup({ containerRef }) {
 
@@ -111,9 +111,7 @@ function Signup({ containerRef }) {
     return (
         <ModalLayout containerRef={containerRef} isOpen={signupOpen} closeModal={closeModal} ani={ani}>
             <div css={s.layout}>
-                <div css={s.cancelButtonBox}>
-                    <button onClick={closeModal}><IoIosClose /></button>
-                </div>
+                <CancelButton onClick={closeModal} />
                 <div css={s.logoBox}>
                     <h2>MEDIBOOK</h2>
                 </div>

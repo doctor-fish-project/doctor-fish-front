@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react';
 /** @jsxImportSource @emotion/react */
 import * as s from './style';
-import AdminMainLayout from '../../../components/admincomponents/AdminMainLayout/AdminMainLayout';
 import AdminContainer from '../../../components/admincomponents/AdminContainer/AdminContainer';
-import AdminPageContainer from '../../../components/admincomponents/AdminPageContainer/AdminPageContainer';
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import AdminTableLayout from '../../../components/admincomponents/adminList/AdminTableLayout/AdminTableLayout';
 import AdminTableHeader from '../../../components/admincomponents/adminList/AdminTableHeader/AdminTableHeader';
@@ -12,6 +10,7 @@ import { instance } from '../../../apis/utils/instance';
 import { useSetRecoilState } from 'recoil';
 import { adminNoticeModalAtom } from '../../../atoms/modalAtoms';
 import AdminListPagination from '../../../components/admincomponents/AdminListPagination/AdminListPagination';
+import AdminPageLayout from '../../../components/admincomponents/AdminPageLayout/AdminPageLayout';
 
 function AdminNoticePage(props) {
     const nav = useNavigate();
@@ -66,29 +65,27 @@ function AdminNoticePage(props) {
     }
 
     return (
-        <AdminMainLayout>
-            <AdminContainer>
-                <AdminPageContainer title={"공지사항"} count={notices?.data?.data?.announceCount}>
-                    <AdminTableLayout>
-                        <AdminTableHeader tableheaders={noticeTableHeader?.data?.data}/>
-                        <tbody css={s.layout(noticeTableHeader?.data?.data?.length)}>
-                            {
-                                notices?.data?.data?.announcements?.map((announcement, idx) =>
-                                    <tr key={announcement.id} >
-                                        <td>{idx + 1}</td>
-                                        <td>{announcement?.title}</td>
-                                        <td>{announcement?.userId}</td>
-                                        <td>{announcement?.registerDate.slice(0, 10)}</td>
-                                        <td>수정/삭제</td>
-                                    </tr>
-                                )
-                            }
-                        </tbody>
-                    </AdminTableLayout>
-                    <AdminListPagination searchParams={searchParams} count={totalPageCount} onChange={handlePageOnChange} />
-                </AdminPageContainer>
-            </AdminContainer>
-        </AdminMainLayout>
+        <AdminContainer>
+            <AdminPageLayout title={"공지사항"} count={notices?.data?.data?.announceCount}>
+                <AdminTableLayout>
+                    <AdminTableHeader tableheaders={noticeTableHeader?.data?.data} />
+                    <tbody css={s.layout(noticeTableHeader?.data?.data?.length)}>
+                        {
+                            notices?.data?.data?.announcements?.map((announcement, idx) =>
+                                <tr key={announcement.id} >
+                                    <td>{idx + 1}</td>
+                                    <td>{announcement?.title}</td>
+                                    <td>{announcement?.userId}</td>
+                                    <td>{announcement?.registerDate.slice(0, 10)}</td>
+                                    <td>수정/삭제</td>
+                                </tr>
+                            )
+                        }
+                    </tbody>
+                </AdminTableLayout>
+                <AdminListPagination searchParams={searchParams} count={totalPageCount} onChange={handlePageOnChange} />
+            </AdminPageLayout>
+        </AdminContainer>
     );
 }
 

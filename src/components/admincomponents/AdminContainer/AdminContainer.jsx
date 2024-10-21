@@ -1,12 +1,16 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
 /** @jsxImportSource @emotion/react */
 import * as s from './style';
+import AdminSideBar from '../AdminSideBar/AdminSideBar';
 
 function AdminContainer({ children }) {
-    
+
     return (
         <div css={s.layout}>
-            {children}
+            <AdminSideBar />
+            <div css={s.container}>
+                {children}
+            </div>
         </div>
     );
 }

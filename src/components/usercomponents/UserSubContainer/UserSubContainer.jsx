@@ -2,10 +2,10 @@ import React, { useEffect, useRef, useState } from 'react';
 /** @jsxImportSource @emotion/react */
 import * as s from './style';
 import { useNavigate } from 'react-router-dom';
-import ReservationCalendarModal from '../modal/ReservationCalendarModal/ReservationCalendarModal';
-import ReservationDetail from '../modal/ReservationDetail/ReservationDetail';
+import ReservationCalendarModal from '../userModal/ReservationCalendarModal/ReservationCalendarModal';
+import ReservationDetail from '../userModal/ReservationDetail/ReservationDetail';
 
-function SubContainer({ children }) {
+function UserSubContainer({ children }) {
     const nav = useNavigate();
 
     const [reservationModalElement, serReservationModalElement] = useState(<></>);
@@ -51,4 +51,4 @@ function SubContainer({ children }) {
     );
 }
 
-export default SubContainer;
+export default UserSubContainer;

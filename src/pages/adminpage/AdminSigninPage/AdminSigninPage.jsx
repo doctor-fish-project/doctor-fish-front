@@ -21,44 +21,20 @@ function AdminSigninPage(props) {
     });
 
     const adminSignin = useMutation(
-        async () => await instance.post("/", userInput),
+        async () => await instance.post("/admin/signin", userInput),
         {
             onSuccess: response => {
-                localStorage.setItem("accessToken", "Bearer " + response.data.accessToken);
+                localStorage.setItem("adminAccessToken", "Bearer " + response.data.accessToken);
                 instance.interceptors.request.use(config => {
-                    config.headers["Authorization"] = localStorage.getItem("accessToken");
+                    config.headers["Authorization"] = localStorage.getItem("adminAccessToken");
                     return config;
                 });
-                Swal.fire({
-                    icon: 'success',
-                    text: '로그인 성공',
-                    backdrop: false,
-                    showConfirmButton: false,
-                    timer: 1000,
-                    willClose: () => {
-                        nav("/admin/dashboard", { replace: true })
-                    },
-                    customClass: {
-                        popup: 'custom-timer-swal',
-                        container: 'container'
-                    }
-                })
+                nav("/admin/dashboard", { replace: true })
             },
             onError: error => {
                 const response = error.response;
-                console.log(response)
                 if (typeof (response.data) === 'string') {
-                    Swal.fire({
-                        icon: 'error',
-                        text: response.data,
-                        backdrop: false,
-                        showConfirmButton: false,
-                        timer: 1000,
-                        customClass: {
-                            popup: 'custom-timer-swal',
-                            container: 'container',
-                        }
-                    })
+                    alert(response.data)
                     return
                 }
                 if (response.status === 400) {
@@ -101,25 +77,28 @@ function AdminSigninPage(props) {
         setFieldErrorMessages(EmptyFieldErros);
     }
 
-
     return (
         <div css={s.layout}>
             <div css={s.container}>
                 <h2>관리자 로그인</h2>
-                <div css={s.inputBox}>
-                    <FaUser />
-                    <input type="text" name='userName' onChange={handleUserInputOnChange} value={userInput.userName} placeholder='아이디' />
-                    {
-                        fieldErrorMessages.userName !== "" ? fieldErrorMessages.email : <></>
-                    }
-                    <FaLock />
-                    <input type="password" name='password' onChange={handleUserInputOnChange} value={userInput.password} placeholder='패스워드' />
-                    {
-                        fieldErrorMessages.password !== "" ? fieldErrorMessages.email : <></>
-                    }
+                <div css={s.inputContainer}>
+                    <div css={s.inputBox}>
+                        <FaUser />
+                        <input type="text" name='userName' onChange={handleUserInputOnChange} value={userInput.userName} placeholder='아이디' />
+                        {
+                            fieldErrorMessages.userName !== "" ? fieldErrorMessages.userName : <></>
+                        }
+                    </div>
+                    <div css={s.inputBox}>
+                        <FaLock />
+                        <input type="password" name='password' onChange={handleUserInputOnChange} value={userInput.password} placeholder='패스워드' />
+                        {
+                            fieldErrorMessages.password !== "" ? fieldErrorMessages.password : <></>
+                        }
+                    </div>
                 </div>
                 <div css={s.buttonBox}>
-                    <button>로그인</button>
+                    <button onClick={() => adminSignin.mutateAsync().catch(() => { })}>로그인</button>
                 </div>
             </div>
         </div>

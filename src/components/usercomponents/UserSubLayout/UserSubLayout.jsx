@@ -2,7 +2,7 @@ import React from 'react';
 /** @jsxImportSource @emotion/react */
 import * as s from "./style";
 
-function SubLayout({ isShow, children}) {
+function UserSubLayout({ isShow, children}) {
     return (
         <div css={s.layout(isShow)}>
             {children}
@@ -10,4 +10,4 @@ function SubLayout({ isShow, children}) {
     );
 }
 
-export default SubLayout;
+export default UserSubLayout;

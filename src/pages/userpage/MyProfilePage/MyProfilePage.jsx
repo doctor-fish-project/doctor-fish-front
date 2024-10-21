@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 /** @jsxImportSource @emotion/react */
 import * as s from "./style";
-import SubContainer from '../../../components/usercomponents/SubContainer/SubContainer';
-import SubLayout from '../../../components/usercomponents/SubLayout/SubLayout';
+import SubContainer from '../../../components/usercomponents/UserSubContainer/UserSubContainer';
+import SubLayout from '../../../components/usercomponents/UserSubLayout/UserSubLayout';
 import BackButton from '../../../components/usercomponents/BackButton/BackButton';
 import { useQueryClient } from 'react-query';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import MyReviewsPage from '../MyReviewsPage/MyReviewsPage';
 import MyCommentsPage from '../MyCommentsPage/MyCommentsPage';
 import Swal from 'sweetalert2';
+import UserSubLayout from '../../../components/usercomponents/UserSubLayout/UserSubLayout';
 
 function MyProfilePage(props) {
     const nav = useNavigate();
@@ -67,49 +68,50 @@ function MyProfilePage(props) {
     }
 
     return (
-        <SubLayout isShow={isShow}>
-            <SubContainer>
-                <BackButton setShow={setShow} />
-                <div css={s.layout}>
-                    <p>마이 페이지</p>
-                    <img src="" alt="" />
-                    <div css={s.userInfo}>
-                        <p>개인 정보</p>
-                        <input type="text" name="email" id="" value={user?.email} readOnly />
-                        <input type="text" name="name" onChange={handleUserOnChange} value={user?.name} disabled={inputState} />
-                        <input type="text" name="phoneNumber" onChange={handleUserOnChange} value={user?.phoneNumber} disabled={inputState} />
-                        <div css={s.userInfoBox}>
-                            {
-                                !inputState ?
-                                    <>
-                                        <button >확인</button>
-                                        <button onClick={handleChangeStateOnClick}>취소</button>
-                                    </>
-                                    :
-                                    <>
-                                        <button onClick={handleChangeStateOnClick}>회원정보 변경</button>
-                                        <button>비밀번호 변경</button>
+        <>
+            <UserSubLayout isShow={isShow}>
+                <SubContainer>
+                    <BackButton setShow={setShow} />
+                    <div css={s.layout}>
+                        <p>마이 페이지</p>
+                        <img src="" alt="" />
+                        <div css={s.userInfo}>
+                            <p>개인 정보</p>
+                            <input type="text" name="email" id="" value={user?.email} readOnly />
+                            <input type="text" name="name" onChange={handleUserOnChange} value={user?.name} disabled={inputState} />
+                            <input type="text" name="phoneNumber" onChange={handleUserOnChange} value={user?.phoneNumber} disabled={inputState} />
+                            <div css={s.userInfoBox}>
+                                {
+                                    !inputState ?
+                                        <>
+                                            <button >확인</button>
+                                            <button onClick={handleChangeStateOnClick}>취소</button>
+                                        </>
+                                        :
+                                        <>
+                                            <button onClick={handleChangeStateOnClick}>회원정보 변경</button>
+                                            <button>비밀번호 변경</button>
 
-                                    </>
-                            }
+                                        </>
+                                }
 
+                            </div>
+                        </div>
+                        <div css={s.userRecord}>
+                            <button onClick={handleMyReviewsOnClick}>내가 작성 한 리뷰</button>
+                            <button onClick={handleMyCommentsOnClick}>내가 작성 한 댓글</button>
+                        </div>
+                        <div css={s.logoutBox}>
+                            <button onClick={handleSignoutOnClick}>로그아웃</button>
                         </div>
                     </div>
-                    <div css={s.userRecord}>
-                        <button onClick={handleMyReviewsOnClick}>내가 작성 한 리뷰</button>
-                        <button onClick={handleMyCommentsOnClick}>내가 작성 한 댓글</button>
-                    </div>
-                    <div css={s.logoutBox}>
-                        <button onClick={handleSignoutOnClick}>로그아웃</button>
-                    </div>
-                </div>
-            </SubContainer>
+                </SubContainer>
+            </UserSubLayout>
             <Routes>
                 <Route path='/myreviews' element={<MyReviewsPage />} />
                 <Route path='/mycomments' element={<MyCommentsPage />} />
             </Routes>
-        </SubLayout>
-
+        </>
     );
 }
 

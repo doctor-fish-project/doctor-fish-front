@@ -29,7 +29,7 @@ function AdminSideBar(props) {
 
     const handleSignoutOnClick = () => {
         if (window.confirm("로그아웃 하시겠습니까?")) {
-            localStorage.removeItem("accessToken");
+            localStorage.removeItem("adminAccessToken");
             window.location.replace("/admin/signin");
         }
     }

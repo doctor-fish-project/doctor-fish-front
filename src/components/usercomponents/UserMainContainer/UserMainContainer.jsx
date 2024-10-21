@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 /** @jsxImportSource @emotion/react */
 import * as s from "./style";
-import Signup from '../modal/Signup/Signup';
-import Signin from '../modal/Signin/Signin';
+import Signup from '../userModal/Signup/Signup';
+import Signin from '../userModal/Signin/Signin';
 
-function MainContainer({ children }) {
+function UserMainContainer({ children }) {
     const [ signupModalElement, setSignupModalElement ] = useState(<></>);
     const [ signinModalElement, setSigninModalElement ] = useState(<></>);
 
@@ -26,4 +26,4 @@ function MainContainer({ children }) {
     );
 }
 
-export default MainContainer;
+export default UserMainContainer;

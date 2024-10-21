@@ -20,25 +20,6 @@ export const layout = css`
     }
 `;
 
-export const cancelButtonBox = css`
-    box-sizing: border-box;
-    display: flex;
-    justify-content: end;
-    align-items: center;
-    padding: 5px 10px;
-    width: 100%;
-
-    & > button {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-        & > svg {
-            font-size: 35px;
-        }
-    }
-`;
-
 export const doctorInfoBox = css`
     box-sizing: border-box;
     display: flex;

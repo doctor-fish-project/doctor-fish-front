@@ -4,7 +4,6 @@ export const layout = css`
     box-sizing: border-box;
     display: flex;
     justify-content: center;
-    align-items: center;
     width: 100%;
     height: 35px;
 
@@ -24,7 +23,7 @@ export const layout = css`
             align-items: center;
             padding: 0px 5px;
             min-width: 32px;
-            height: 32px;
+            height: 35px;
             font-size: 14px;
             font-weight: 600;
             cursor: pointer;

@@ -12,12 +12,12 @@ function AdminListPagination({ count, onChange, searchParams }) {
                 pageCount={count}
                 marginPagesDisplayed={1}
                 pageRangeDisplayed={10}
-                previousLabel={<><FaAngleLeft /></>}
-                nextLabel={<><FaAngleRight /></>}
+                previousLabel={!!count ? <><FaAngleLeft /></> : null}
+                nextLabel={!!count ? <><FaAngleRight /></> : null}
                 renderOnZeroPageCount={() => null}
                 onPageChange={onChange}
                 activeClassName='active'
-                forcePage={parseInt(searchParams.get("page")) - 1}
+                // forcePage={parseInt(searchParams.get("page")) + 1}
             />
         </div>
     );

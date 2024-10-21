@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 /** @jsxImportSource @emotion/react */
 import * as s from "./style";
-import SubLayout from '../../../components/usercomponents/SubLayout/SubLayout';
-import SubContainer from '../../../components/usercomponents/SubContainer/SubContainer';
+import SubLayout from '../../../components/usercomponents/UserSubLayout/UserSubLayout';
+import SubContainer from '../../../components/usercomponents/UserSubContainer/UserSubContainer';
 import BackButton from '../../../components/usercomponents/BackButton/BackButton';
 import ReviewBox from '../../../components/usercomponents/reviewPage/ReviewBox/ReviewBox';
 import { useQuery } from 'react-query';

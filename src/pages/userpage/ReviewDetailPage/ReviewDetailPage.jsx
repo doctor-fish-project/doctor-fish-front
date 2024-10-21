@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 /** @jsxImportSource @emotion/react */
 import * as s from './style';
-import SubLayout from '../../../components/usercomponents/SubLayout/SubLayout';
-import SubContainer from '../../../components/usercomponents/SubContainer/SubContainer';
 import { useParams } from 'react-router-dom';
 import BackButton from '../../../components/usercomponents/BackButton/BackButton';
 import { useQueryClient } from 'react-query';
 import ReviewBox from '../../../components/usercomponents/reviewPage/ReviewBox/ReviewBox';
+import UserSubLayout from '../../../components/usercomponents/UserSubLayout/UserSubLayout';
+import UserSubContainer from '../../../components/usercomponents/UserSubContainer/UserSubContainer';
 
 function ReviewDetailPage(props) {
     const params = useParams();
@@ -20,8 +20,8 @@ function ReviewDetailPage(props) {
     console.log(review)
 
     return (
-        <SubLayout isShow={isShow}>
-            <SubContainer>
+        <UserSubLayout isShow={isShow}>
+            <UserSubContainer>
                 <div css={s.buttonBox}>
                     <BackButton setShow={setShow} />
                     <div>
@@ -32,9 +32,8 @@ function ReviewDetailPage(props) {
                 <div css={s.container}>
                     <ReviewBox review={review} />
                 </div>
-
-            </SubContainer>
-        </SubLayout>
+            </UserSubContainer>
+        </UserSubLayout>
     );
 }
 

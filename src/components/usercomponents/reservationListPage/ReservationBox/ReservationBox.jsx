@@ -1,10 +1,22 @@
 import React from 'react';
 /** @jsxImportSource @emotion/react */
 import * as s from './style';
+import { useSetRecoilState } from 'recoil';
+import { reservationDetailModalAtom } from '../../../../atoms/modalAtoms';
+import { reservationAtom } from '../../../../atoms/reservations';
 
 function ReservationBox({ reservation }) {
+
+    const setReservationDetailOpen = useSetRecoilState(reservationDetailModalAtom);
+    const setReservation = useSetRecoilState(reservationAtom);
+
+    const handleReservationDetailOnClick = () => {
+        setReservationDetailOpen(true);
+        setReservation(reservation)
+    }
+
     return (
-        <div css={s.layout}>
+        <div css={s.layout} onClick={handleReservationDetailOnClick}>
             <div css={s.header}>
                 <p>{reservation?.reservationDate.slice(11, 16)}</p>
                 {

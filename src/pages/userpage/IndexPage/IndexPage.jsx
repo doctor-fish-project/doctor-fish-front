@@ -1,18 +1,16 @@
 import React, { useEffect, useState } from 'react';
 /** @jsxImportSource @emotion/react */
 import * as s from './style';
-import MainContainer from '../../../components/usercomponents/MainContainer/MainContainer';
-import MainLayout from '../../../components/usercomponents/MainLayout/MainLayout';
 import { RiHome2Line } from "react-icons/ri";
 import Loading from '../../../components/usercomponents/Loading/Loading';
 import { useSetRecoilState } from 'recoil';
-import { adminSigninModalAtom, signinModalAtom, signupModalAtom } from '../../../atoms/modalAtoms';
-import { Route, Routes, useNavigate } from 'react-router-dom';
-import DashBoard from '../DashBoard/DashBoard';
+import { signinModalAtom } from '../../../atoms/modalAtoms';
+import { useNavigate } from 'react-router-dom';
+import UserMainContainer from '../../../components/usercomponents/UserMainContainer/UserMainContainer';
 
-function IndexPage(props) { 
+function IndexPage(props) {
     const nav = useNavigate();
-    
+
     const setSigninModalState = useSetRecoilState(signinModalAtom);
 
     const [isLoading, setLoading] = useState(true);
@@ -32,10 +30,9 @@ function IndexPage(props) {
     }
 
     return (
-        <MainLayout>
-            <MainContainer>
-                {
-                    isLoading ? <Loading />
+        <UserMainContainer>
+            {
+                isLoading ? <Loading />
                     :
                     <div css={s.layout}>
                         <div css={s.container}>
@@ -47,7 +44,7 @@ function IndexPage(props) {
                                 <p>예약 사이트 어플</p>
                             </div>
                             <div css={s.buttonBox}>
-                                
+
                                 <button onClick={handleDashboardOnClick}><RiHome2Line />메인화면 바로가기</button>
                             </div>
                             <div css={s.imgBox}>
@@ -58,9 +55,8 @@ function IndexPage(props) {
                             <button onClick={handleSigninModalOnClick}>로그인 & 회원가입</button>
                         </div>
                     </div>
-                }
-            </MainContainer>
-        </MainLayout>
+            }
+        </UserMainContainer>
     );
 }
 

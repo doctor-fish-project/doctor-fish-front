@@ -3,6 +3,7 @@ import { css } from "@emotion/react";
 export const layout = (length) => css`
     box-sizing: border-box;
     padding: 0px 40px;
+    
     width: 100%;
     height: 100%;
     overflow: hidden;

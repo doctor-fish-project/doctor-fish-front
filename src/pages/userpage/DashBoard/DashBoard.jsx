@@ -4,8 +4,7 @@ import * as s from "./style";
 import { AiFillSound } from "react-icons/ai"
 import { FaUser, FaRegBell } from "react-icons/fa";
 import { IoIosArrowForward } from "react-icons/io";
-import SubContainer from '../../../components/usercomponents/SubContainer/SubContainer';
-import MainLayout from '../../../components/usercomponents/MainLayout/MainLayout';
+import SubContainer from '../../../components/usercomponents/UserSubContainer/UserSubContainer';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import DashBoardTopBar from '../../../components/usercomponents/dashBoard/DashBoardTopBar/DashBoardTopBar';
 import { useQuery, useQueryClient } from 'react-query';
@@ -19,7 +18,6 @@ import { signinModalAtom } from '../../../atoms/modalAtoms';
 import BoxTopBar from '../../../components/usercomponents/dashBoard/BoxTopBar/BoxTopBar';
 
 function DashBoard(props) {
-
     const nav = useNavigate();
 
     const setSigninModalState = useSetRecoilState(signinModalAtom);
@@ -57,8 +55,6 @@ function DashBoard(props) {
         }
     )
 
-    console.log(doctors)
-
     const handleSigninOnClick = () => {
         nav("/");
         setSigninModalState(true)
@@ -73,7 +69,7 @@ function DashBoard(props) {
     }
 
     return (
-        <MainLayout>
+        <>
             <SubContainer>
                 <DashBoardTopBar title={"MEDIBOOK"} icon={<FaRegBell />} />
                 <div css={s.layout}>
@@ -95,10 +91,10 @@ function DashBoard(props) {
                         }
 
                     </div>
-                    <BoxTopBar title1={"예약 일정"} title2={"전체 보기"} link={"/reservationlist"} icon={<IoIosArrowForward />}/>
+                    <BoxTopBar title1={"예약 일정"} title2={"전체 보기"} link={"/reservationlist"} icon={<IoIosArrowForward />} />
                     <TodayReservationBox reservations={todayReservations?.data?.data?.reservations} />
 
-                    <BoxTopBar title1={"의료진"}/>    
+                    <BoxTopBar title1={"의료진"} />
                     <div css={s.doctorBox}>
                         {
                             doctors?.data?.data?.doctors?.map(doctor =>
@@ -112,7 +108,8 @@ function DashBoard(props) {
                 <Route path='/myprofile/*' element={<MyProfilePage />} />
                 <Route path='/doctor/:doctorId' element={<DoctorDetailPage />} />
             </Routes>
-        </MainLayout>
+        </>
+
     );
 }
 

@@ -4,12 +4,11 @@ import * as s from './style';
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { instance } from '../../../apis/utils/instance';
 import { useMutation, useQuery } from 'react-query';
-import AdminMainLayout from '../../../components/admincomponents/AdminMainLayout/AdminMainLayout';
 import AdminContainer from '../../../components/admincomponents/AdminContainer/AdminContainer';
-import AdminPageContainer from '../../../components/admincomponents/AdminPageContainer/AdminPageContainer';
 import AdminTableLayout from '../../../components/admincomponents/adminList/AdminTableLayout/AdminTableLayout';
 import AdminTableHeader from '../../../components/admincomponents/adminList/AdminTableHeader/AdminTableHeader';
 import AdminListPagination from '../../../components/admincomponents/AdminListPagination/AdminListPagination';
+import AdminPageLayout from '../../../components/admincomponents/AdminPageLayout/AdminPageLayout';
 
 function AdminReservationAllPage(props) {
     const nav = useNavigate();
@@ -19,16 +18,16 @@ function AdminReservationAllPage(props) {
     const [reservationId, setReservationId] = useState(0)
     const [totalPageCount, setTotalPageCount] = useState(1);
 
-    const limit = 14;
+    const limit = 13;
 
     useEffect(() => {
-        if(!searchParams?.get("page")) {
+        if (!searchParams?.get("page")) {
             setSearchParams(searchParams => ({
                 ...searchParams,
                 page: 1
             }))
         }
-    }, [])
+    }, [searchParams, setSearchParams])
 
     const reservationAllTableHeaders = useQuery(
         ["reservationAllTableHeaderQuery"],
@@ -105,48 +104,47 @@ function AdminReservationAllPage(props) {
     }
 
     return (
-        <AdminMainLayout>
-            <AdminContainer>
-                <AdminPageContainer title={"전체예약"} count={reservationAll?.data?.data?.totalCount}>
-                    <AdminTableLayout>
-                        <AdminTableHeader tableheaders={reservationAllTableHeaders?.data?.data} />
-                        <tbody css={s.layout(reservationAllTableHeaders?.data?.data?.length)}>
-                            {
-                                reservationAll?.data?.data?.reservations?.map((reservation, idx) =>
-                                    <tr key={reservation.id} >
-                                        <td>{idx + 1}</td>
-                                        <td>{reservation?.registerDate.slice(0, 10)}</td>
-                                        <td>{reservation?.user?.name}</td>
-                                        <td>{reservation?.user?.phoneNumber}</td>
-                                        <td>{reservation?.reservationDate.slice(0, 10)}</td>
-                                        {
-                                            reservationId === reservation.id ?
-                                                <td onClick={() => handleCancelOrCheckOnClick(reservation.id)}>
-                                                    {
-                                                        reservation.status === 2 ? <></> : <button onClick={(e) => handleCheckOnClick(e)}>예약 확인</button>
-                                                    }
-                                                    {
-                                                        reservation.statis === 3 ? <></> : <button onClick={(e) => handleCancelOnClick(e)}>예약 취소</button>
-                                                    }
-                                                </td>
-                                                :
-                                                <td onClick={() => handleCancelOrCheckOnClick(reservation.id)}>
-                                                    {
-                                                        reservation.status === 1 ? "예약 진행 중"
-                                                            : reservation.status === 2 ? "예약 완료"
-                                                                : "예약 취소"
-                                                    }
-                                                </td>
-                                        }
-                                    </tr>
-                                )
-                            }
-                        </tbody>
-                    </AdminTableLayout>
-                    <AdminListPagination searchParams={searchParams} count={totalPageCount} onChange={handlePageOnChange} />
-                </AdminPageContainer>
-            </AdminContainer>
-        </AdminMainLayout>
+        <AdminContainer>
+            <AdminPageLayout title={"전체예약"} count={reservationAll?.data?.data?.totalCount}>
+                <AdminTableLayout>
+                    <AdminTableHeader tableheaders={reservationAllTableHeaders?.data?.data} />
+                    <tbody css={s.layout(reservationAllTableHeaders?.data?.data?.length)}>
+                        {
+                            reservationAll?.data?.data?.reservations?.map((reservation, idx) =>
+                                <tr key={reservation.id} >
+                                    <td>{idx + 1}</td>
+                                    <td>{reservation?.registerDate.slice(0, 10)}</td>
+                                    <td>{reservation?.user?.name}</td>
+                                    <td>{reservation?.user?.phoneNumber}</td>
+                                    <td>{reservation?.reservationDate.slice(0, 10)}</td>
+                                    {
+                                        reservationId === reservation.id ?
+                                            <td onClick={() => handleCancelOrCheckOnClick(reservation.id)}>
+                                                {
+                                                    reservation.status === 2 ? <></> : <button onClick={(e) => handleCheckOnClick(e)}>예약 확인</button>
+                                                }
+                                                {
+                                                    reservation.statis === 3 ? <></> : <button onClick={(e) => handleCancelOnClick(e)}>예약 취소</button>
+                                                }
+                                            </td>
+                                            :
+                                            <td onClick={() => handleCancelOrCheckOnClick(reservation.id)}>
+                                                {
+                                                    reservation.status === 1 ? "예약 진행 중"
+                                                        : reservation.status === 2 ? "예약 완료"
+                                                            : "예약 취소"
+                                                }
+                                            </td>
+                                    }
+                                </tr>
+                            )
+                        }
+                    </tbody>
+                </AdminTableLayout>
+                <AdminListPagination searchParams={searchParams} count={totalPageCount} onChange={handlePageOnChange} />
+            </AdminPageLayout>
+        </AdminContainer>
+
     );
 }
 

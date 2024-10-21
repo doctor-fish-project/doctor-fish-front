@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 /** @jsxImportSource @emotion/react */
 import * as s from './style';
 import AdminModalLayout from '../AdminModalLayout/AdminModalLayout';
@@ -7,11 +7,60 @@ import { useRecoilState } from 'recoil';
 import { reviewIdAtom } from '../../../../atoms/adminAtoms';
 import { IoIosArrowBack, IoIosArrowForward, IoIosClose } from "react-icons/io"
 import { FcLike } from 'react-icons/fc';
+import { useQuery } from 'react-query';
+import { instance } from '../../../../apis/utils/instance';
 
 
 function AdminReview({ containerRef }) {
     const [reviewOpen, setReviewOpen] = useRecoilState(adminReviewModalAtom);
     const [reviewId, setReviewId] = useRecoilState(reviewIdAtom);
+
+    const [mouseOverState, setMouseOverState] = useState(false);
+    const [index, setIndex] = useState(0);
+
+    const reviewByreviewId = useQuery(
+        ["reviewByreviewIdQuery"],
+        async () => await instance.get(`/admin/review/${reviewId}`),
+        {
+            enabled: reviewOpen,
+            refetchOnWindowFocus: false,
+            retry: 0
+        }
+    )
+
+    const reviewImgs = JSON.parse(reviewByreviewId?.data?.data?.img === undefined ? '[]' : reviewByreviewId?.data?.data?.img)
+
+    const comments = useQuery(
+        ["commentsQuery"],
+        async () => await instance.get(`/review/${reviewId}/comments`),
+        {
+            enabled: reviewOpen,
+            refetchOnWindowFocus: false,
+            retry: 0
+        }
+    )
+
+    const handleMouseOver = () => {
+        setMouseOverState(true)
+    }
+
+    const handleMouseOut = () => {
+        setMouseOverState(false)
+    }
+
+    const preImgOnClick = (e, index) => {
+        e.stopPropagation();
+        if (index > 0 && index < reviewImgs.length) {
+            setIndex(index - 1)
+        }
+    }
+
+    const nextImgOnClick = (e, index) => {
+        e.stopPropagation();
+        if (index === 0 || index < reviewImgs.length) {
+            setIndex(index + 1)
+        }
+    }
 
     const closeModal = () => {
         setReviewOpen(false)
@@ -27,24 +76,29 @@ function AdminReview({ containerRef }) {
                 <div css={s.container}>
                     <div css={s.reviewBox}>
                         <div css={s.nameBox}>
-                            <img src='https://firebasestorage.googleapis.com/v0/b/userprofile-9dd9e.appspot.com/o/user%2Fdefault.png?alt=media&token=caad563b-86be-48bb-a70a-a717042d870f' alt="" />
-                            <p>asdf</p>
+                            <img src={reviewByreviewId?.data?.data?.userImg} alt="" />
+                            <p>{reviewByreviewId?.data?.data?.userName}</p>
                         </div>
-                        <div css={s.imgBox}>
-                            <button css={s.preButton} ><IoIosArrowBack /></button>
-                            <button css={s.nextButton} ><IoIosArrowForward /></button>
-                            <img src="" alt="" />
-                        </div>
+                        {
+                            reviewImgs === null ? <></> : reviewImgs.length === 0 ? <></> :
+                                <div css={s.imgBox} onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
+                                    {
+                                        !!mouseOverState &&
+                                            index !== 0 ? <button css={s.preButton} onClick={(e) => preImgOnClick(e, index)}><IoIosArrowBack /></button>
+                                            : index < reviewImgs?.length - 1 && <button css={s.nextButton} onClick={(e) => nextImgOnClick(e, index)}><IoIosArrowForward /></button>
+                                    }
+                                    <img src={reviewImgs[index]} alt="" />
+                                </div>
+                        }
                         <div css={s.dateAndLike}>
-                            <p>2024-10-16</p>
+                            <p>{reviewByreviewId?.data?.data?.registerDate.slice(0, 10)}</p>
                             <p><FcLike />10</p>
                         </div>
                         <div css={s.contentBox}>
-                            asdfasdfasdfasdfasdfasdfasdf
+                            {reviewByreviewId?.data?.data?.content}
                         </div>
                     </div>
                     <div css={s.reviewBox}>
-
                     </div>
                 </div>
                 <div css={s.buttonBox}>

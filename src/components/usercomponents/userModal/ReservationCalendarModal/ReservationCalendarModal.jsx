@@ -4,7 +4,6 @@ import * as s from './style';
 import ModalLayout from '../ModalLayout/ModalLayout';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { reservationModalAtom } from '../../../../atoms/modalAtoms';
-import { IoIosClose } from "react-icons/io"
 import { useNavigate } from 'react-router-dom';
 import { useMutation, useQuery } from 'react-query';
 import { instance } from '../../../../apis/utils/instance';
@@ -12,6 +11,7 @@ import ReservationCalendar from '../../reservationPage/ReservationCalendar/Reser
 import { doctorInfoAtom } from '../../../../atoms/doctorAtoms';
 import TimeBox from '../../reservationPage/TimeBox/TimeBox';
 import Swal from 'sweetalert2';
+import CancelButton from '../CancelButton/CancelButton';
 
 function ReservationCalendarModal({ containerRef }) {
     const nav = useNavigate();
@@ -134,9 +134,7 @@ function ReservationCalendarModal({ containerRef }) {
     return (
         <ModalLayout containerRef={containerRef} isOpen={reservationOpen} closeModal={closeModal} ani={ani}>
             <div css={s.layout}>
-                <div css={s.cancelButtonBox}>
-                    <button onClick={closeModal}><IoIosClose /></button>
-                </div>
+                <CancelButton onClick={closeModal} />
                 <div css={s.doctorInfoBox}>
                     <p>{doctorInfo?.depart?.name}: {doctorInfo?.user?.name}의 예약 진료 현황</p>
                 </div>
@@ -144,7 +142,9 @@ function ReservationCalendarModal({ containerRef }) {
                 <div css={s.timeBox}>
                     {
                         times?.data?.data?.map(time =>
-                            <TimeBox key={time.id} time={time} disabled={!!reservedTimes?.data?.data.filter(reservedTime => reservedTime.time === time.time).length} reservationTime={reservationTime} setReservationTime={setReservationTime} />
+                            <TimeBox key={time.id} time={time} reservationTime={reservationTime} setReservationTime={setReservationTime}
+                            disabled={!!reservedTimes?.data?.data.filter(reservedTime => reservedTime.time === time.time).length || reservationDate.getDay() === 6 ||reservationDate.getDay() === 0}
+                             />
                         )
                     }
                 </div>

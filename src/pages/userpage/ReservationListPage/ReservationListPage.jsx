@@ -1,13 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
 /** @jsxImportSource @emotion/react */
 import * as s from "./style";
-import SubContainer from '../../../components/usercomponents/SubContainer/SubContainer';
-import MainLayout from '../../../components/usercomponents/MainLayout/MainLayout';
 import YearBox from '../../../components/usercomponents/reservationListPage/YearBox/YearBox';
 import DashBoardTopBar from '../../../components/usercomponents/dashBoard/DashBoardTopBar/DashBoardTopBar';
 import { useQuery } from 'react-query';
 import { instance } from '../../../apis/utils/instance';
 import { IoFilterOutline } from "react-icons/io5";
+import UserSubContainer from '../../../components/usercomponents/UserSubContainer/UserSubContainer';
 
 function ReservationListPage(props) {
     const [reservations, setReservations] = useState({});
@@ -46,25 +45,23 @@ function ReservationListPage(props) {
                 setReservations(tempReservationDate);
             },
             onError: error => {
-                
+
             }
         }
     )
 
     const entriesOfReservationsData = Object.entries(reservations);
-    
+
     return (
-        <MainLayout>
-            <SubContainer>
-                <DashBoardTopBar title={"예약조회"} icon={<IoFilterOutline />} />
-                <div css={s.layout}>
-                    {
-                        entriesOfReservationsData?.map(([year, monthOfReservationsData]) =>
-                            <YearBox key={year} year={year} monthOfReservationsData={monthOfReservationsData} />)
-                    }
-                </div>
-            </SubContainer>
-        </MainLayout>
+        <UserSubContainer>
+            <DashBoardTopBar title={"예약조회"} icon={<IoFilterOutline />} />
+            <div css={s.layout}>
+                {
+                    entriesOfReservationsData?.map(([year, monthOfReservationsData]) =>
+                        <YearBox key={year} year={year} monthOfReservationsData={monthOfReservationsData} />)
+                }
+            </div>
+        </UserSubContainer>
 
     );
 }

@@ -6,7 +6,7 @@ import AdminReview from '../adminModal/AdminReview/AdminReview';
 import AdminNotice from '../adminModal/AdminNotice/AdminNotice';
 import { useLocation } from 'react-router-dom';
 
-function AdminPageContainer({ title, count, children }) {
+function AdminPageLayout({ title, count, children, onClick }) {
     const location = useLocation();
     const [reviewModalElement, setReviewModalElement] = useState(<></>);
     const [noticeModalElement, setNoticeModalElement] = useState(<></>);
@@ -24,17 +24,13 @@ function AdminPageContainer({ title, count, children }) {
             {reviewModalElement}
             {noticeModalElement}
             <div css={s.titleAndInput}>
-                {
-                    (location.pathname !== "/admin/add" && location.pathname !== "/admin/profile") ?
-                    <div>
-                        <p>{title}</p>
+                <div>
+                    <p>{title}</p>
+                    {
+                        (location.pathname === "/admin/profile" || location.pathname === "/admin/add") ? <></> :
                         <p>총 {count}건</p>
-                    </div>
-                    :
-                    <div>
-                        <p>{title}</p>
-                    </div>
-                }
+                    }
+                </div>
                 {
                     (location.pathname !== "/admin/add" && location.pathname !== "/admin/profile") &&
                     <>
@@ -45,7 +41,7 @@ function AdminPageContainer({ title, count, children }) {
                 {
                     (location.pathname === "/admin/profile" || location.pathname === "/admin/add") &&
                     <div css={s.buttonBox}>
-                        <button>확인</button>
+                        <button onClick={onClick}>확인</button>
                         <button>취소</button>
                     </div>
                 }
@@ -55,4 +51,4 @@ function AdminPageContainer({ title, count, children }) {
     );
 
 }
-export default AdminPageContainer;
+export default AdminPageLayout;

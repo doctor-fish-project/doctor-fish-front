@@ -13,7 +13,7 @@ function ReviewSelectPage(props) {
     const [isShow, setIsShow] = useState(true);
 
     const handleReviewWriteOnClick = () => {
-        nav("/review/write")
+        nav("/review/select/write")
     }
 
     return (
@@ -24,14 +24,12 @@ function ReviewSelectPage(props) {
                         <BackButton setShow={setIsShow} />
                     </div>
                     <div css={s.layout}>
-                        <ReservationRecord onClick={handleReviewWriteOnClick}/>
+                        <ReservationRecord onClick={handleReviewWriteOnClick} />
                     </div>
                 </UserSubContainer>
             </UserSubLayout>
             <Routes>
-                <Route>
-                    <Route path='/write' element={<ReviewWritePage />} />
-                </Route>
+                <Route path='/write' element={<ReviewWritePage />} />
             </Routes>
         </>
     );

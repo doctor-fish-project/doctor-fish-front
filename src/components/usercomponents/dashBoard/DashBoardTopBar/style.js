@@ -8,7 +8,7 @@ export const layout = css`
     margin-bottom: 5px;
     padding: 0px 10px;
     width: 100%;
-    height: 30px;
+    min-height: 30px;
 
     & > p {
         box-sizing: border-box;

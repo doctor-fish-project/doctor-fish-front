@@ -27,7 +27,7 @@ function AdminLeaveAddPage(props) {
     })
 
     const [leaveInput, setLeaveInput] = useState({
-        doctorId: 0,
+        userId: 0,
         reason: "",
         leaveDate: "",
         endDate: ""
@@ -92,9 +92,14 @@ function AdminLeaveAddPage(props) {
 
     const leaves = useQuery(
         ["leavesQuery"],
-        async () => await adminInstance.get(`/leave/list/doctor/${doctorId}`)
+        async () => await adminInstance.get(`/admin/leave/list/${leaveInput.userId}`),
+        {
+            enabled: true,
+            refetchOnWindowFocus: false,
+            retry: 0
+        }
     )
-
+    console.log(leaves)
     const leave = useMutation(
         async () => await adminInstance.post("/admin/leave", leaveInput),
         {
@@ -106,7 +111,7 @@ function AdminLeaveAddPage(props) {
     )
 
     const handleResetLeaveOnClick = () => {
-       window.location.reload();
+        window.location.reload();
     }
 
     const handleLeaveInputOnChange = (e) => {
@@ -232,22 +237,26 @@ function AdminLeaveAddPage(props) {
                         </div>
                     </div>
                     <AdminTableLayout>
-                        <AdminTableHeader tableheaders={leaveTableHeaders?.data?.data}>
-                            {/* No, 이름, 연차사유, 신청일, 시작일, 종료일 */}
+                        <AdminTableHeader tableheaders={leaveTableHeaders?.data?.data} />
                             <tbody css={s.body}>
                                 {
-                                    TABLEHEADER.map((tableheader, idx) =>
-                                        <tr key={idx}>
-                                            <td>{tableheader.content}</td>
-                                            <td>{tableheader.content}</td>
-                                            <td>{tableheader.content}</td>
-                                            <td>{tableheader.content}</td>
-                                            <td>{tableheader.content}</td>
+                                    leaves?.data?.data?.leaves?.map((leave, idx) =>
+                                        <tr key={leave.id}>
+                                            <td>{idx + 1}</td>
+                                            <td>{leave?.registerDate.slice(0,16).replace("T", "-")}</td>
+                                            <td>{leave?.leaveDate.slice(0,16).replace("T", "-")}</td>
+                                            <td>{leave?.endDate.slice(0,16).replace("T", "-")}</td>
+                                            <td>{leave?.reason}</td>
+                                            <td>
+                                                {
+                                                    leave.status === 1 ? "진행 중"
+                                                    : leave.status === 2 ? "완료" : "취소"
+                                                }
+                                            </td>
                                         </tr>
                                     )
                                 }
                             </tbody>
-                        </AdminTableHeader>
                     </AdminTableLayout>
                 </div>
             </AdminPageLayout>

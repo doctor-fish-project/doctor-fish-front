@@ -55,9 +55,9 @@ function AdminUsersPage(props) {
             retry: 0,
             onSuccess: response => {
                 setTotalPageCount(
-                    response.data.totalCount % limit === 0
-                        ? response.data.totalCount / limit
-                        : Math.floor(response.data.totalCount / limit) + 1)
+                    response?.data?.userCount % limit === 0
+                        ? response.data.userCount / limit
+                        : Math.floor(response.data.userCount / limit) + 1)
             }
         }
     )
@@ -80,17 +80,17 @@ function AdminUsersPage(props) {
                         </tr>
                     </thead>
                     <tbody css={s.bodyLayout(userTableHeaders?.data?.data?.length)}>
-                        {/* {
-                                users?.data?.data?.users.map(user =>
-                                    <tr key={user.id}>
-                                        <td>{user.id}</td>
-                                        <td>{user.userName}</td>
-                                        <td>{user.content}</td>
-                                        <td>{user?.data?.data?.reviewCount}</td>
-                                        <td>{user.registerDate.slice(0, 10)}</td>
-                                    </tr>
-                                )
-                            } */}
+                        {
+                            users?.data?.data?.users.map((user, idx) =>
+                                <tr key={user.id}>
+                                    <td>{idx + 1}</td>
+                                    <td>{user.email}</td>
+                                    <td>{user.name}</td>
+                                    <td>{user.phoneNumber}</td>
+                                    <td>{user.registerDate.slice(0, 10)}</td>
+                                </tr>
+                            )
+                        }
                     </tbody>
                 </AdminTableLayout>
                 <AdminListPagination searchParams={searchParams} count={totalPageCount} onChange={handlePageOnChange} />

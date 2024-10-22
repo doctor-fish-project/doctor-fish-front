@@ -75,7 +75,7 @@ function AdminNoticePage(props) {
                                     <td>{announcement?.title}</td>
                                     <td>{announcement?.userId}</td>
                                     <td>{announcement?.registerDate.slice(0, 10)}</td>
-                                    <td>수정/삭제</td>
+                                    <td></td>
                                 </tr>
                             )
                         }

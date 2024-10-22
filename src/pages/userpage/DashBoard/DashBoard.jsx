@@ -37,7 +37,7 @@ function DashBoard(props) {
 
     const todayReservations = useQuery(
         ["todayReservationsQuery"],
-        async () => await instance.get("/reservation/user"),
+        async () => await instance.get("/reservation/today"),
         {
             enabled: authState?.data?.data,
             refetchOnWindowFocus: false,

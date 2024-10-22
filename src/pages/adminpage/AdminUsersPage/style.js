@@ -30,28 +30,34 @@ export const bodyLayout = (length) => css`
     box-sizing: border-box;
     padding: 0px 40px;
     width: 100%;
+    height: 100%;
+    overflow: hidden;
     
     & > tr {
         box-sizing: border-box;
         width: 100%;
+        height: 51px;
         cursor: pointer;
 
         & > td {
             text-align: center;
-            border-bottom: 1px solid #444444;
-            padding: 10px 0px;
             width: ${1480 / (length - 1)}px;
+
+            & > button {
+                border-radius: 5px;
+                color: #ffffff;
+                background-color: #c5c5c5;
+            }
+
+            & > button:nth-of-type(1) {
+                margin-right: 5px;
+            }
+
         }
 
         & > td:nth-of-type(1) {
             padding-left: 40px;
-            width: 50px;
+            width: 30px;
         }
     }
-`;
-
-export const paginationBox = css`
-    display: flex;
-    justify-content: center;
-    align-items: center;
 `;

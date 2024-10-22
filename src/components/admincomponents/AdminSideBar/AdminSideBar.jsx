@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import * as s from './style';
 import { useNavigate } from 'react-router-dom';
 import { useQuery } from 'react-query';
-import { adminInstance } from '../../../apis/utils/instance';
+import { adminInstance, instance } from '../../../apis/utils/instance';
 import { ICONS } from '../../../constants/admin/categoryicons';
 
 function AdminSideBar(props) {

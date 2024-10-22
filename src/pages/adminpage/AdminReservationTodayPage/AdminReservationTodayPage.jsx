@@ -41,7 +41,7 @@ function AdminReservationTodayPage(props) {
 
     const reservationToday = useQuery(
         ["reservationTodayQuery", searchParams.get("page")],
-        async () => await adminInstance.get(`/reservation/today?page=${searchParams.get("page")}&limit=${limit}`),
+        async () => await adminInstance.get(`/admin/reservation/today?page=${searchParams.get("page")}&limit=${limit}`),
         {
             enabled: !!searchParams.get("page"),
             refetchOnWindowFocus: false,

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import * as s from './style';
 import AdminContainer from '../../../components/admincomponents/AdminContainer/AdminContainer';
 import { useMutation, useQuery } from 'react-query';
-import { instance } from '../../../apis/utils/instance';
+import { adminInstance, instance } from '../../../apis/utils/instance';
 import AdminPageLayout from '../../../components/admincomponents/AdminPageLayout/AdminPageLayout';
 
 function AdminAddPage(props) {
@@ -21,7 +21,7 @@ function AdminAddPage(props) {
 
     const roles = useQuery(
         ["rolesQuery"],
-        async () => await instance.get("admin/roles"),
+        async () => await adminInstance.get("/admin/roles"),
         {
             enabled: true,
             refetchOnWindowFocus: false,
@@ -39,7 +39,7 @@ function AdminAddPage(props) {
 
     const departs = useQuery(
         ["departsQuery"],
-        async () => await instance.get("/admin/departs"),
+        async () => await adminInstance.get("/admin/departs"),
         {
             enabled: adminInput.roleId === '3' ? true : false,
             refetchOnWindowFocus: false,
@@ -56,7 +56,7 @@ function AdminAddPage(props) {
     }, [departs.isSuccess])
 
     const adminSignup = useMutation(
-        async () => await instance.post("/doctor/signup", adminInput),
+        async () => await adminInstance.post("/admin/doctor/signup", adminInput),
         {
             onSuccess: respone => {
                 console.log("성공")

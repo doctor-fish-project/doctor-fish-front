@@ -66,7 +66,6 @@ function ReservationCalendarModal({ containerRef }) {
             retry: 0
         }
     )
-
     const reservation = useMutation(
         async () => await instance.post("/reservation", reservationData),
         {

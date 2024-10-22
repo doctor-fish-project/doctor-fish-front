@@ -18,7 +18,7 @@ function AdminNoticeBox(props) {
 
     const notices = useQuery(
         ["noticesQuery"],
-        async () => await adminInstance.get("/announce/dashboard/list")
+        async () => await adminInstance.get("/admin/announce/dashboard/list")
     )
 
     console.log(notices)

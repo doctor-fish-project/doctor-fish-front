@@ -11,7 +11,7 @@ function BoxTopBar({title1, title2, link, icon}) {
     }
 
     return (
-        <div css={s.reservationBox}>
+        <div css={s.layout}>
             <p>{title1}</p>
             <button onClick={handleReservationListOnClick}>{title2}{icon}</button>
         </div>

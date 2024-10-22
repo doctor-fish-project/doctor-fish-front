@@ -70,7 +70,7 @@ function AdminAddPage(props) {
             [e.target.name]: e.target.value
         }))
     }
-    console.log(adminInput)
+
     return (
         <AdminContainer>
             <AdminPageLayout title={"관리자 추가"} onClick={() => adminSignup.mutateAsync().catch(() => { })}>

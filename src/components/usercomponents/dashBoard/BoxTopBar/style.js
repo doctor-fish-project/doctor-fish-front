@@ -1,12 +1,12 @@
 import { css } from "@emotion/react";
 
-export const reservationBox = css`
+export const layout = css`
     box-sizing: border-box;
     display: flex;
     justify-content: space-between;
     margin-bottom: 5px;
     width: 100%;
-    height: 30px;
+    min-height: 30px;
     font-size: 20px;
     font-weight: 600;
 

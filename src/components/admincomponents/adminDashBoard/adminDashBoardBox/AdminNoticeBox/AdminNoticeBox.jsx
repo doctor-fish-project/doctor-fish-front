@@ -21,8 +21,6 @@ function AdminNoticeBox(props) {
         async () => await adminInstance.get("/admin/announce/dashboard/list")
     )
 
-    console.log(notices)
-
     return (
         <AdminDashBoardLayout>
             <AdminDashBoardTitle title={"공지사항"} />

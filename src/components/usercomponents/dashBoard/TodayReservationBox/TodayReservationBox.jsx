@@ -18,7 +18,7 @@ function TodayReservationBox({ reservations }) {
             <div css={s.container}>
                 {   
                     authState?.data?.data ?
-                        reservations?.length === 0
+                        reservations?.length === 0 
                         ? <div css={s.defaultBox}>
                             <p>진료 예약이 없습니다.</p>
                         </div> : 

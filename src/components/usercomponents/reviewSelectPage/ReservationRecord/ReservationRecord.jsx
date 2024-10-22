@@ -11,7 +11,7 @@ function ReservationRecord({ onClick }) {
                         <p>2024-10-22</p>
                         <p>백승주 의사</p>
                     </div>
-                    <button>리뷰쓰기</button>
+                    <button onClick={onClick}>리뷰쓰기</button>
                 </div>
             </div>
         </div>

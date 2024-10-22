@@ -6,7 +6,6 @@ import ReviewBox from '../../../components/usercomponents/reviewPage/ReviewBox/R
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import DashBoardTopBar from '../../../components/usercomponents/dashBoard/DashBoardTopBar/DashBoardTopBar';
 import { BsPencilSquare } from 'react-icons/bs';
-import ReviewWritePage from '../ReviewWritePage/ReviewWritePage';
 import { useQuery } from 'react-query';
 import { instance } from '../../../apis/utils/instance';
 import ReviewDetailPage from '../ReviewDetailPage/ReviewDetailPage';
@@ -25,7 +24,7 @@ function ReviewPage(props) {
 
     const reviews = useQuery(
         ["reviewsQuery"],
-        async () => await instance.get("/review/me"),
+        async () => await instance.get("/review/list"),
         {
             enabled: true,
             refetchOnWindowFocus: false,
@@ -46,7 +45,7 @@ function ReviewPage(props) {
                 </div>
             </SubContainer>
             <Routes>
-                <Route path='/select' element={<ReviewSelectPage />} />
+                <Route path='/select/*' element={<ReviewSelectPage />} />
                 <Route path='/:reviewId' element={<ReviewDetailPage />} />
             </Routes>
         </>

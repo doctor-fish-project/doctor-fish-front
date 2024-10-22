@@ -24,7 +24,7 @@ export const noticeBox = css`
     margin-bottom: 5px;
     padding-left: 30px;
     width: 100%;
-    height: 30px;
+    min-height: 30px;
     font-size: 18px;
     font-weight: 600;
     cursor: pointer;

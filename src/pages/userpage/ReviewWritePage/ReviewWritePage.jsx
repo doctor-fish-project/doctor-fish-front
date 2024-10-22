@@ -12,6 +12,8 @@ import Swal from 'sweetalert2';
 import ImgBox from '../../../components/usercomponents/reviewWritePage/ImgBox/ImgBox';
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import { storage } from '../../../firebase/firebase';
+import UserSubLayout from '../../../components/usercomponents/UserSubLayout/UserSubLayout';
+import UserSubContainer from '../../../components/usercomponents/UserSubContainer/UserSubContainer';
 
 function ReviewWritePage(props) {
     const [isShow, setShow] = useState(true);
@@ -153,8 +155,8 @@ function ReviewWritePage(props) {
     }
 
     return (
-        <SubLayout isShow={isShow}>
-            <SubContainer>
+        <UserSubLayout isShow={isShow}>
+            <UserSubContainer>
                 <div css={s.buttonBox}>
                     <BackButton setShow={setShow} />
                     <button onClick={() => writeReview.mutateAsync().catch(() => { })}>작성하기</button>
@@ -179,8 +181,8 @@ function ReviewWritePage(props) {
                 <div css={s.contentBox}>
                     <textarea name="content" value={review.content} onChange={handleReviewOnChange} placeholder='리뷰 내용을 입력해 주세요...'></textarea>
                 </div>
-            </SubContainer>
-        </SubLayout>
+            </UserSubContainer>
+        </UserSubLayout>
     );
 }
 

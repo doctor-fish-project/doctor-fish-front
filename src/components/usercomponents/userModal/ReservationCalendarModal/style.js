@@ -12,7 +12,7 @@ export const layout = css`
         box-sizing: border-box;
         border-radius: 0px;
         width: 100%;
-        height: 50px;
+        padding: 10px 0;
         font-size: 20px;
         font-weight: 600;
         background-color: #2E5984;

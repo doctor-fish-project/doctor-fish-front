@@ -14,7 +14,7 @@ function ReservationListPage(props) {
     const reservationList = useQuery(
         ["reservationListQuery"],
         async () => {
-            return await instance.get("/reservation/list/user");
+            return await instance.get("/reservation/list");
         },
         {
             enabled: true,

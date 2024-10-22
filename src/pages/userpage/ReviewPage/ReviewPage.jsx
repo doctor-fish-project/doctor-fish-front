@@ -11,6 +11,7 @@ import ReviewWritePage from '../ReviewWritePage/ReviewWritePage';
 import { useQuery } from 'react-query';
 import { instance } from '../../../apis/utils/instance';
 import ReviewDetailPage from '../ReviewDetailPage/ReviewDetailPage';
+import ReviewSelectPage from '../ReviewSelectPage/ReviewSelectPage';
 
 function ReviewPage(props) {
     const nav = useNavigate();
@@ -19,8 +20,8 @@ function ReviewPage(props) {
         nav(`/review/${reviewId}`)
     }
 
-    const handleReviewWriteOnClick = () => {
-        nav("/review/write")
+    const handleReviewSelectOnClick = () => {
+        nav("/review/select");
     }
 
     const reviews = useQuery(
@@ -36,7 +37,7 @@ function ReviewPage(props) {
     return (
         <>
             <SubContainer>
-                <DashBoardTopBar title={"리뷰"} icon={<BsPencilSquare />} onClick={handleReviewWriteOnClick} />
+                <DashBoardTopBar title={"리뷰"} icon={<BsPencilSquare />} onClick={handleReviewSelectOnClick} />
                 <div css={s.layout}>
                     {
                         reviews?.data?.data?.reviews?.map(review =>
@@ -46,7 +47,7 @@ function ReviewPage(props) {
                 </div>
             </SubContainer>
             <Routes>
-                <Route path='/write' element={<ReviewWritePage />} />
+                <Route path='/select' element={<ReviewSelectPage />} />
                 <Route path='/:reviewId' element={<ReviewDetailPage />} />
             </Routes>
         </>

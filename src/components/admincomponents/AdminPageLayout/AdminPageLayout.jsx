@@ -6,7 +6,7 @@ import AdminReview from '../adminModal/AdminReview/AdminReview';
 import AdminNotice from '../adminModal/AdminNotice/AdminNotice';
 import { useLocation } from 'react-router-dom';
 
-function AdminPageLayout({ title, count, children, onClick }) {
+function AdminPageLayout({ title, count, children, onCheckClick, onCancelClick }) {
     const location = useLocation();
     const [reviewModalElement, setReviewModalElement] = useState(<></>);
     const [noticeModalElement, setNoticeModalElement] = useState(<></>);
@@ -42,8 +42,8 @@ function AdminPageLayout({ title, count, children, onClick }) {
                 {
                     (location.pathname === "/admin/profile" || location.pathname === "/admin/add" || location.pathname === "/admin/leave") &&
                     <div css={s.buttonBox}>
-                        <button onClick={onClick}>확인</button>
-                        <button>취소</button>
+                        <button onClick={onCheckClick}>확인</button>
+                        <button onClick={onCancelClick}>취소</button>
                     </div>
                 }
             </div>

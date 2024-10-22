@@ -8,7 +8,7 @@ import { reviewIdAtom } from '../../../../atoms/adminAtoms';
 import { IoIosArrowBack, IoIosArrowForward, IoIosClose } from "react-icons/io"
 import { FcLike } from 'react-icons/fc';
 import { useQuery, useQueryClient } from 'react-query';
-import { instance } from '../../../../apis/utils/instance';
+import { adminInstance, instance } from '../../../../apis/utils/instance';
 
 
 function AdminReview({ containerRef }) {
@@ -22,7 +22,7 @@ function AdminReview({ containerRef }) {
 
     const reviewByreviewId = useQuery(
         ["reviewByreviewIdQuery"],
-        async () => await instance.get(`/admin/review/${reviewId}`),
+        async () => await adminInstance.get(`/admin/review/${reviewId}`),
         {
             enabled: reviewOpen,
             refetchOnWindowFocus: false,
@@ -32,7 +32,7 @@ function AdminReview({ containerRef }) {
     
     const comments = useQuery(
         ["commentsQuery"],
-        async () => await instance.get(`/review/${reviewId}/comments`),
+        async () => await adminInstance.get(`/admin/review/${reviewId}/comments`),
         {
             enabled: reviewOpen,
             refetchOnWindowFocus: false,

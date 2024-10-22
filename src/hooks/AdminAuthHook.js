@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { adminInstance, instance } from '../apis/utils/instance';
+import { adminInstance } from '../apis/utils/instance';
 
 function AdminAuthHook(props) {
 

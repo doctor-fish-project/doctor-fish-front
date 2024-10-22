@@ -14,7 +14,7 @@ function AdminReservationTodayBox(props) {
 
     const reservationsToday = useQuery(
         ["reservationsTodayQuery"],
-        async () => await adminInstance.get("/reservation/dashboard/today")
+        async () => await adminInstance.get("/admin/reservation/dashboard/today")
     )
 
     const handleNavOnClick = () => {

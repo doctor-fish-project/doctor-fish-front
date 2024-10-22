@@ -15,7 +15,7 @@ import AdminMainLayout from '../../components/admincomponents/AdminMainLayout/Ad
 import AdminLeaveAddPage from '../../pages/adminpage/AdminLeaveAddPage/AdminLeaveAddPage';
 
 function AdminRoute(props) {
-    // AdminAuthHook();
+    AdminAuthHook();
     return (
         <AdminMainLayout>
             <Routes>

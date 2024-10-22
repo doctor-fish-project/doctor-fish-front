@@ -18,7 +18,7 @@ function AdminReservationAllBox(props) {
 
     const reservationsAll = useQuery(
         ["reservationsAllQuery"],
-        async () => await adminInstance.get("/reservation/dashboard/all")
+        async () => await adminInstance.get("/admin/reservation/dashboard/all")
     )
 
     return (

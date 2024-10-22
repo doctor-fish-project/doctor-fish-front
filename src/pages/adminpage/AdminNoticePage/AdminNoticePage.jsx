@@ -44,7 +44,7 @@ function AdminNoticePage(props) {
 
     const notices = useQuery(
         ["noticesQuery", searchParams.get("page")],
-        async () => await adminInstance.get(`/announce/list?page=${searchParams.get("page")}&limit=${limit}`),
+        async () => await adminInstance.get(`/admin/announce/list?page=${searchParams.get("page")}&limit=${limit}`),
         {
             enabled: true,
             refetchOnWindowFocus: false,

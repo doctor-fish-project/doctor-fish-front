@@ -41,7 +41,7 @@ function AdminReservationAllPage(props) {
 
     const reservationAll = useQuery(
         ["reservationAllQuery", searchParams.get("page")],
-        async () => await adminInstance.get(`/reservation/all?page=${searchParams.get("page")}&limit=${limit}`),
+        async () => await adminInstance.get(`/admin/reservation/all?page=${searchParams.get("page")}&limit=${limit}`),
         {
             enabled: !!searchParams.get("page"),
             refetchOnWindowFocus: false,
@@ -60,7 +60,7 @@ function AdminReservationAllPage(props) {
     }
 
     const checkReservation = useMutation(
-        async () => await adminInstance.put(`/reservation/accept/${reservationId}`),
+        async () => await adminInstance.put(`/admin/reservation/accept/${reservationId}`),
         {
             onSuccess: response => {
                 setReservationId(0)
@@ -73,7 +73,7 @@ function AdminReservationAllPage(props) {
     )
 
     const cancelReservation = useMutation(
-        async () => await adminInstance.put(`/reservation/cancel/${reservationId}`),
+        async () => await adminInstance.put(`/admin/reservation/cancel/${reservationId}`),
         {
             onSuccess: response => {
                 setReservationId(0)

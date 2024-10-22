@@ -65,6 +65,10 @@ export const inputBox = css`
         font-size: 18px;
         padding: 0px 20px;
     }
+
+    & p:nth-of-type(2) {
+        margin-left: 30px;
+    }
 `;
 
 export const textareaBox = css`

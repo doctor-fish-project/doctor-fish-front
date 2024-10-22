@@ -10,17 +10,17 @@ function AdminSigninPage(props) {
     const nav = useNavigate();
 
     const [userInput, setUnserInput] = useState({
-        userName: "",
+        username: "",
         password: ""
     })
 
     const [fieldErrorMessages, setFieldErrorMessages] = useState({
-        userName: <></>,
+        username: <></>,
         password: <></>,
     });
 
     const adminSignin = useMutation(
-        async () => await adminInstance.post("/admin/signin", userInput),
+        async () => await adminInstance.post("/admin/auth/signin", userInput),
         {
             onSuccess: response => {
                 localStorage.setItem("adminAccessToken", "Bearer " + response.data.accessToken);
@@ -44,7 +44,7 @@ function AdminSigninPage(props) {
                 if (response.status === 401) {
                     alert(response.data);
                     setUnserInput({
-                        userName: "",
+                        username: "",
                         password: ""
                     })
                     return
@@ -62,7 +62,7 @@ function AdminSigninPage(props) {
 
     const showFieldErrorMessage = (fieldErrors) => {
         let EmptyFieldErros = {
-            userName: <></>,
+            username: <></>,
             password: <></>,
         };
 
@@ -83,9 +83,9 @@ function AdminSigninPage(props) {
                 <div css={s.inputContainer}>
                     <div css={s.inputBox}>
                         <FaUser />
-                        <input type="text" name='userName' onChange={handleUserInputOnChange} value={userInput.userName} placeholder='아이디' />
+                        <input type="text" name='username' onChange={handleUserInputOnChange} value={userInput.userName} placeholder='아이디' />
                         {
-                            fieldErrorMessages.userName !== "" ? fieldErrorMessages.userName : <></>
+                            fieldErrorMessages.username !== "" ? fieldErrorMessages.username : <></>
                         }
                     </div>
                     <div css={s.inputBox}>

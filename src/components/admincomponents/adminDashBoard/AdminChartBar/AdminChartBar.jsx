@@ -31,7 +31,7 @@ export default function AdminChartBar(props) {
 
     const graphs = useQuery(
         ["graphsQuery"],
-        async () => await adminInstance.get(`/reservation/list/month/${year}`),
+        async () => await adminInstance.get(`/admin/reservation/list/month/${year}`),
         {
             enabled: true,
             refetchOnWindowFocus: false,

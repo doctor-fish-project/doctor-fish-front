@@ -22,11 +22,11 @@ export const layout = css`
     }
 `;
 
-
 export const header = css`
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     margin-bottom: 5px;
     border: 1px solid #dbdbdb;
     border-radius: 10px;

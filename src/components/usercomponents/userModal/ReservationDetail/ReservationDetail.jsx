@@ -6,17 +6,67 @@ import { useRecoilState } from 'recoil';
 import { reservationDetailModalAtom } from '../../../../atoms/modalAtoms';
 import { reservationAtom } from '../../../../atoms/reservations';
 import CancelButton from '../CancelButton/CancelButton';
+import { useMutation, useQueryClient } from 'react-query';
+import CountDownTimer from '../../CountDownTimer/CountDownTimer';
+import { instance } from '../../../../apis/utils/instance';
+import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
 
 function ReservationDetail({ containerRef }) {
+
+    const nav = useNavigate();
+
+    const queryClient = useQueryClient();
+    const userInfo = queryClient.getQueryData("userInfoQuery");
 
     const [reservationDetailOpen, setReservationDetailOpen] = useRecoilState(reservationDetailModalAtom);
     const [reservation, setReservation] = useRecoilState(reservationAtom);
 
-    console.log(reservation)
-
     const [ani, setAni] = useState("userModalOpen");
-    
-    
+
+    const cancelReservation = useMutation(
+        async () => await instance.put(`/reservation/cancel/${reservation?.id}`),
+        {
+            onSuccess: response => {
+                Swal.fire({
+                    icon: 'success',
+                    text: '예약이 취소되었습니다.',
+                    backdrop: false,
+                    showConfirmButton: false,
+                    timer: 1000,
+                    willClose: () => {
+                        nav("/reservationlist", { replace: true })
+                    },
+                    customClass: {
+                        popup: 'custom-timer-swal',
+                        container: 'container'
+                    }
+                })
+            }
+        }
+    )
+
+    const handleCancelReservationOnClick = () => {
+        Swal.fire({
+            icon: 'info',
+            text: '예약 취소하시겠습니까?',
+            backdrop: false,
+            showCancelButton: true,
+            confirmButtonText: '확인',
+            cancelButtonText: '취소',
+            customClass: {
+                popup: 'custom-confirm-swal',
+                container: 'container',
+                confirmButton: 'confirmButton',
+            }
+        }).then(result => {
+            if (result.isConfirmed) {
+                cancelReservation.mutateAsync().catch(() => {})
+                setReservationDetailOpen(false);
+            }
+        })
+    }
+
     const closeModal = () => {
         setAni("userModalClose")
         setTimeout(() => {
@@ -31,32 +81,27 @@ function ReservationDetail({ containerRef }) {
             <div css={s.layout}>
                 <CancelButton onClick={closeModal} />
                 <div css={s.nameContainer}> 
-                    <p>백승주</p>
+                    <p>{userInfo?.data?.name}</p>
                     <p>님 예약내역</p>
                 </div>
                 <div css={s.infoContainer}>
                     <div css={s.doctorContainer}>
                         <div css={s.doctorImgBox}>
-                            <img src="" alt="" />
+                            <img src={reservation?.doctor?.user?.img} alt="" />
                         </div>
                         <div css={s.doctorInfoBox}>
-                            <p>백승주 의사</p>
-                            <p>정형외과, 의사 부서</p>
+                            <p>{reservation?.doctor?.user?.name}</p>
+                            <p>{reservation?.doctor?.depart?.name}</p>
                         </div>
                     </div>
                     <div css={s.doctorIntroduceBox}>
-                        <p>안녕하세요. 언제나 환자를 위해 최선을 다하는 누구누구 의사입니다.</p>
+                        <p>{reservation?.doctor?.comment}</p>
                     </div>
-                    <div css={s.timeBox}>
-                        <p>2024-10-22</p>
-                        <div css={s.timeLimitBox}>
-                            <p>72h 22m 19s</p>
-                        </div>
-                    </div>
+                    <CountDownTimer reservationDate={reservation?.reservationDate}/>
                 </div>
                 <div css={s.buttonBox}>
                     <button>예약수정</button>
-                    <button>예약취소</button>
+                    <button onClick={handleCancelReservationOnClick} disabled={reservation?.status === 3}>예약취소</button>
                 </div>
             </div>
         </ModalLayout>

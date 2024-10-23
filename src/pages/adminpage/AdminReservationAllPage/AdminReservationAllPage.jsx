@@ -63,6 +63,7 @@ function AdminReservationAllPage(props) {
         async () => await adminInstance.put(`/admin/reservation/accept/${reservationId}`),
         {
             onSuccess: response => {
+                alert("예약 확인 성공")
                 setReservationId(0)
                 reservationAll.refetch()
             },
@@ -76,6 +77,7 @@ function AdminReservationAllPage(props) {
         async () => await adminInstance.put(`/admin/reservation/cancel/${reservationId}`),
         {
             onSuccess: response => {
+                alert("예약 취소 성공")
                 setReservationId(0)
                 reservationAll.refetch()
             },

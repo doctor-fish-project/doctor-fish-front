@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
 
-export const layout = css`
+export const layout = (inputState) => css`
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -25,6 +25,7 @@ export const layout = css`
         height: 200px;
         object-fit: contain;
         overflow: hidden;
+        cursor: ${inputState ? "default" : "pointer"};
     }
 
     & > button {

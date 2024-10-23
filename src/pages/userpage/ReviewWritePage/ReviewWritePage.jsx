@@ -13,16 +13,24 @@ import { storage } from '../../../firebase/firebase';
 import UserSubLayout from '../../../components/usercomponents/UserSubLayout/UserSubLayout';
 import UserSubContainer from '../../../components/usercomponents/UserSubContainer/UserSubContainer';
 
-function ReviewWritePage(props) {
+function ReviewWritePage({reservationId}) {
+
     const [isShow, setShow] = useState(true);
     const [deleteButtonState, setDeleteButtonState] = useState(false);
 
     const [imgs, setImgs] = useState([])
 
     const [review, setReview] = useState({
+        reservationId: 0,
         imgList: "",
         content: ""
     })
+
+    useEffect(() => {
+        setReview({
+            reservationId: reservationId
+        })
+    }, [reservationId])
 
     useEffect(() => {
         setReview(review => ({

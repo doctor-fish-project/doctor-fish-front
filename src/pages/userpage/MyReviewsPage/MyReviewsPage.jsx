@@ -5,17 +5,20 @@ import SubLayout from '../../../components/usercomponents/UserSubLayout/UserSubL
 import SubContainer from '../../../components/usercomponents/UserSubContainer/UserSubContainer';
 import BackButton from '../../../components/usercomponents/BackButton/BackButton';
 import ReviewBox from '../../../components/usercomponents/reviewPage/ReviewBox/ReviewBox';
-import { useQuery } from 'react-query';
+import { useQuery, useQueryClient } from 'react-query';
 import { instance } from '../../../apis/utils/instance';
 
 function MyReviewsPage(props) {
+    const queryClient = useQueryClient();
+    const authState = queryClient.getQueryState("accessTokenValidQuery")
+
     const [isShow, setShow] = useState(true);
 
     const myReviews = useQuery(
         ["myReviewsQuery"],
         async () => await instance.get("/review/me"),
         {
-            enabled: true,
+            enabled: authState?.data?.data,
             refetchOnWindowFocus: false,
             retry: 0,
         }

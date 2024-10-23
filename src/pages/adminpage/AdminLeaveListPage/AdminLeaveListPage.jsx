@@ -6,11 +6,13 @@ import AdminPageLayout from '../../../components/admincomponents/AdminPageLayout
 import AdminTableLayout from '../../../components/admincomponents/adminList/AdminTableLayout/AdminTableLayout';
 import AdminTableHeader from '../../../components/admincomponents/adminList/AdminTableHeader/AdminTableHeader';
 import { useLocation } from 'react-router-dom';
-import { useQuery } from 'react-query';
+import { useMutation, useQuery } from 'react-query';
 import { adminInstance } from '../../../apis/utils/instance';
 
 function AdminLeaveListPage(props) {
     const location = useLocation();
+
+    const [leaveId, setLeaveId] = useState(0);
 
     const leaveListAllTableHeaders = useQuery(
         ["leaveListAllTableHeadersQuery"],
@@ -32,7 +34,51 @@ function AdminLeaveListPage(props) {
         }
     )
 
-    console.log(leaveListAllTableHeaders?.data?.data?.length)
+    const checkLeave = useMutation(
+        async () => await adminInstance.put(`/admin/leave/accept/${leaveId}`),
+        {
+            onSuccess: response => {
+                alert("연차 확인 성공")
+                setLeaveId(0)
+                leaves.refetch()
+            },
+            onError: error => {
+                alert("연차 확인 실패")
+            }
+        }
+    )
+
+    const cancelLeave = useMutation(
+        async () => await adminInstance.put(`/admin/leave/cancel/${leaveId}`),
+        {
+            onSuccess: response => {
+                alert("연차 취소 성공")
+                setLeaveId(0)
+                leaves.refetch()
+            },
+            onError: error => {
+                alert("연차 취소 실패")
+            }
+        }
+    )
+
+    const handleCancelOrCheckOnClick = (id) => {
+        setLeaveId(leaveId === id ? 0 : id)
+    }
+
+    const handleCheckOnClick = (e) => {
+        e.stopPropagation();
+        if (window.confirm("확인 하시겠습니까?")) {
+            checkLeave.mutateAsync().catch(() => { })
+        }
+    }
+
+    const handleCancelOnClick = (e) => {
+        e.stopPropagation();
+        if (window.confirm("취소 하시겠습니까?")) {
+            cancelLeave.mutateAsync().catch(() => { })
+        }
+    }
 
     return (
         <AdminContainer>
@@ -49,12 +95,25 @@ function AdminLeaveListPage(props) {
                                     <td>{leave?.leaveDate.slice(0, 16).replace("T", "-")}</td>
                                     <td>{leave?.endDate.slice(0, 16).replace("T", "-")}</td>
                                     <td>{leave?.reason}</td>
-                                    <td>
-                                        {
-                                            leave.status === 1 ? "진행 중"
-                                                : leave.status === 2 ? "완료" : "취소"
-                                        }
-                                    </td>
+                                    {
+                                        leaveId === leave.id ?
+                                            <td onClick={() => handleCancelOrCheckOnClick(leave.id)}>
+                                                {
+                                                    leave.status === 2 ? <></> : <button onClick={(e) => handleCheckOnClick(e)}>연차 확인</button>
+                                                }
+                                                {
+                                                    leave.statis === 3 ? <></> : <button onClick={(e) => handleCancelOnClick(e)}>연차 취소</button>
+                                                }
+                                            </td>
+                                            :
+                                            <td onClick={() => handleCancelOrCheckOnClick(leave.id)}>
+                                                {
+                                                    leave.status === 1 ? "진행 중"
+                                                        : leave.status === 2 ? "완료"
+                                                            : "취소"
+                                                }
+                                            </td>
+                                    }
                                 </tr>
                             )
                         }

@@ -26,6 +26,7 @@ function DoctorDetailPage(props) {
                     <div css={s.header}>
                         <p>이름: {doctor?.user?.name}</p>
                         <p>부서: {doctor?.depart?.name}</p>
+                        <p>인사말: {doctor?.comment}</p>
                     </div>
                     <div css={s.body}>
                         <p>{doctor?.record}</p>

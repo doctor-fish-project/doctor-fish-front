@@ -3,12 +3,15 @@ import React, { useState } from 'react';
 import * as s from "./style";
 import YearBox from '../../../components/usercomponents/reservationListPage/YearBox/YearBox';
 import DashBoardTopBar from '../../../components/usercomponents/dashBoard/DashBoardTopBar/DashBoardTopBar';
-import { useQuery } from 'react-query';
+import { useQuery, useQueryClient } from 'react-query';
 import { instance } from '../../../apis/utils/instance';
 import { IoFilterOutline } from "react-icons/io5";
 import UserSubContainer from '../../../components/usercomponents/UserSubContainer/UserSubContainer';
 
 function ReservationListPage(props) {
+    const queryClient = useQueryClient();
+    const authState = queryClient.getQueryState("accessTokenValidQuery")
+
     const [reservations, setReservations] = useState({});
 
     const reservationList = useQuery(
@@ -17,11 +20,11 @@ function ReservationListPage(props) {
             return await instance.get("/reservation/list");
         },
         {
-            enabled: true,
+            enabled: authState?.data?.data,
             refetchOnWindowFocus: false,
             retry: 0,
             onSuccess: response => {
-                const reservationList = response.data.reservations
+                const reservationList = response?.data?.reservations
                 const tempReservationDate = {};
 
                 for (let reservation of reservationList) {

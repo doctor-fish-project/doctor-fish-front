@@ -7,17 +7,29 @@ import BackButton from '../../../components/usercomponents/BackButton/BackButton
 import ReservationRecord from '../../../components/usercomponents/reviewSelectPage/ReservationRecord/ReservationRecord';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import ReviewWritePage from '../ReviewWritePage/ReviewWritePage';
-import { useQueryClient } from 'react-query';
+import { useQuery, useQueryClient } from 'react-query';
+import { instance } from '../../../apis/utils/instance';
 
 function ReviewSelectPage(props) {
-
     const queryClient = useQueryClient();
     const authState = queryClient.getQueryState("accessTokenValidQuery")
 
     const nav = useNavigate();
     const [isShow, setIsShow] = useState(true);
+    const [reservationId, setReservationId] = useState(0);
 
-    const handleReviewWriteOnClick = () => {
+    const reservationSelect = useQuery(
+        ["reservationSelectQuery"],
+        async () => await instance.get("/reservation/end"),
+        {
+            enabled: authState?.data?.data,
+            refetchOnWindowFocus: false,
+            retry: 0
+        }
+    )
+
+    const handleReviewWriteOnClick = (reservationId) => {
+        setReservationId(reservationId)
         nav("/review/select/write")
     }
 
@@ -29,12 +41,16 @@ function ReviewSelectPage(props) {
                         <BackButton setShow={setIsShow} />
                     </div>
                     <div css={s.layout}>
-                        <ReservationRecord onClick={handleReviewWriteOnClick} />
+                        {
+                            reservationSelect?.data?.data?.reservations?.map(reservation =>
+                                <ReservationRecord key={reservation.id} reservation={reservation} onClick={() => handleReviewWriteOnClick(reservation.id)} />
+                            )
+                        }
                     </div>
                 </UserSubContainer>
             </UserSubLayout>
             <Routes>
-                <Route path='/write' element={<ReviewWritePage />} />
+                <Route path='/write' element={<ReviewWritePage reservationId={reservationId}/>} />
             </Routes>
         </>
     );

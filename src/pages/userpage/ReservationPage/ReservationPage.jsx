@@ -4,16 +4,19 @@ import * as s from "./style";
 import DoctorBox from '../../../components/usercomponents/reservationPage/DoctorBox/DoctorBox';
 import DashBoardTopBar from '../../../components/usercomponents/dashBoard/DashBoardTopBar/DashBoardTopBar';
 import { instance } from '../../../apis/utils/instance';
-import { useQuery } from 'react-query';
+import { useQuery, useQueryClient } from 'react-query';
 import UserSubContainer from '../../../components/usercomponents/UserSubContainer/UserSubContainer';
 
 function ReservationPage(props) {
+    const queryClient = useQueryClient();
+    const authState = queryClient.getQueryState("accessTokenValidQuery")
+
 
     const doctors = useQuery(
         ["doctorsQuery"],
         async () => await instance.get("/doctor/list"),
         {
-            enabled: true,
+            enabled: authState?.data?.data,
             refetchOnWindowFocus: false,
             retry: 0
         }

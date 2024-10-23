@@ -1,21 +1,24 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 /** @jsxImportSource @emotion/react */
 import * as s from './style';
 import { useNavigate } from 'react-router-dom';
-import { useQuery } from 'react-query';
-import { adminInstance, instance } from '../../../apis/utils/instance';
+import { useQuery, useQueryClient } from 'react-query';
+import { adminInstance } from '../../../apis/utils/instance';
 import { ICONS } from '../../../constants/admin/categoryicons';
 
 function AdminSideBar(props) {
     const nav = useNavigate();
 
+    const queryClient = useQueryClient();
+    const authState = queryClient.getQueryState("accessAdminTokenValidQuery")
+
     const userInfo = useQuery(
         ["userInfoQuery"],
         async () => await adminInstance.get("/user/me"),
         {
-            retry: 0,
+            enabled: authState?.data?.data,
             refetchOnWindowFocus: false,
-            enabled: true
+            retry: 0
         }
     )
 
@@ -23,7 +26,7 @@ function AdminSideBar(props) {
         ["categorysQuery"],
         async () => await adminInstance.get("/category"),
         {
-            enabled: true,
+            enabled: authState?.data?.data,
             refetchOnWindowFocus: false,
             retry: 0
         },

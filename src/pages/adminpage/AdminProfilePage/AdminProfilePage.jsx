@@ -8,7 +8,7 @@ import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import { storage } from '../../../firebase/firebase';
 import { v4 as uuid } from 'uuid'
 import { adminInstance } from '../../../apis/utils/instance';
-import { CircleLoader, RingLoader } from "react-spinners";
+import { RingLoader } from "react-spinners";
 
 function AdminProfilePage(props) {
 
@@ -32,7 +32,6 @@ function AdminProfilePage(props) {
         }
     )
 
-    console.log(modifyUser)
     const modifyUserProfileImgOnClick = () => {
         if (window.confirm("프로필 사진을 변경하시겠습니까?")) {
             const fileInput = document.createElement("input");

@@ -1,4 +1,4 @@
-import React, { useMemo, useRef } from 'react';
+import React, { useMemo, useRef, useState } from 'react';
 /** @jsxImportSource @emotion/react */
 import * as s from './style';
 import AdminModalLayout from '../AdminModalLayout/AdminModalLayout';
@@ -9,8 +9,14 @@ import ReactQuill from 'react-quill';
 
 
 function AdminNoticeWrite({ containerRef }) {
-    const [noticeWriteOpen, setNoticeWriteOpen] = useRecoilState(adminNoticeWriteModalAtom);
     const quillRef = useRef(null);
+
+    const [noticeWriteOpen, setNoticeWriteOpen] = useRecoilState(adminNoticeWriteModalAtom);
+
+    const [ noticeInput, setNoticeInput ] = useState({
+        title: "",
+        content: ""
+    })
 
     const closeModal = () => {
         setNoticeWriteOpen(false)

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 /** @jsxImportSource @emotion/react */
 import * as s from "./style";
 import { AiFillSound } from "react-icons/ai"

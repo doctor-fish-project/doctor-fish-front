@@ -6,10 +6,10 @@ function DoctorBox({ doctor, onClick }) {
 
     return (
         <div css={s.layout} onClick={() => onClick(doctor.id)}>
-            <img src={doctor.user.img} alt="" />
+            <img src={doctor?.user?.img} alt="" />
             <div css={s.nameAndDepartBox}>
-                <div>{doctor.user.name}</div>
-                <div>{doctor.depart.name}</div>
+                <div>{doctor?.user?.name}</div>
+                <div>{doctor?.depart?.name}</div>
             </div>
             <IoIosArrowForward />
         </div>

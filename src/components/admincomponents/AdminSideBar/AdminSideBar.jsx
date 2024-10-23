@@ -55,7 +55,7 @@ function AdminSideBar(props) {
                     <p>{userInfo?.data?.data?.name}</p>
                     <div>
                         <p>MEDIBOOK</p>
-                        <p>{userInfo?.data?.data?.roles[0]}</p>
+                        <p>{userInfo?.data?.data?.roles[0].name}</p>
                     </div>
                 </div>
                 <button onClick={handleSignoutOnClick}>로그아웃</button>

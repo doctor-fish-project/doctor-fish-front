@@ -18,11 +18,11 @@ function DoctorBox({ doctor }) {
     return (
         <div css={s.layout}>
             <div css={s.imgBox}>
-                <img src={doctor.user.img} alt="" />
+                <img src={doctor?.user?.img} alt="" />
             </div>
             <div css={s.nameAndDepartBox}>
-                <div>{doctor.user.name}</div>
-                <div>{doctor.depart.name}</div>
+                <div>{doctor?.user?.name}</div>
+                <div>{doctor?.depart?.name}</div>
             </div>
             <button onClick={handleReservationModalOnClick}>예약</button>
         </div>

@@ -20,6 +20,7 @@ function ReservationCalendarModal({ containerRef }) {
     const doctorInfo = useRecoilValue(doctorInfoAtom);
 
     const [ani, setAni] = useState("userModalOpen")
+    const [ref, setRef] = useState(false);
     const [reservationDate, setReservationDate] = useState(new Date());
     const [reservationTime, setReservationTime] = useState("");
     const [reservationData, setReservationData] = useState({
@@ -43,8 +44,10 @@ function ReservationCalendarModal({ containerRef }) {
     }, [reservationDate, reservationTime, doctorInfo.id])
 
     const times = useQuery(
-        ["timesListQuery"],
-        async () => await instance.get("/times"),
+        ["timesListQuery", reservationData],
+        async () => {
+            setRef(true);
+            return await instance.get("/times")},
         {
             enabled: reservationOpen,
             refetchOnWindowFocus: false,
@@ -53,19 +56,22 @@ function ReservationCalendarModal({ containerRef }) {
     )
 
     const reservedTimes = useQuery(
-        ["timesListQuery", reservationData],
-        async () => await instance.get("/times/reserved", {
+        ["timesListQuery"],
+        async () => {
+            setRef(false);
+            return await instance.get("/times/reserved", {
             params: {
                 doctorId: reservationData.doctorId,
                 reservationDate: reservationData.reserveDate
             }
-        }),
+        })},
         {
-            enabled: times?.data?.status === 200,
+            enabled: ref,
             refetchOnWindowFocus: false,
             retry: 0
         }
     )
+
     const reservation = useMutation(
         async () => await instance.post("/reservation", reservationData),
         {

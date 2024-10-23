@@ -46,7 +46,7 @@ function AuthHook(props) {
                 }
             },
             onError: error => {
-                const authPaths = ["/reservation", "/reservationlist", "/review/write"];
+                const authPaths = ["/reservation", "/reservationlist", "/review/select"];
                 for (let authPath of authPaths) {
                     if (location.pathname.startsWith(authPath)) {
                         Swal.fire({
@@ -76,6 +76,16 @@ function AuthHook(props) {
             }
         }
     );
+
+    const userInfo = useQuery(
+        ["userInfoQuery"],
+        async () => await instance.get("/user/me"),
+        {
+            enabled: accessTokenValid.isSuccess && accessTokenValid.data?.data,
+            refetchOnWindowFocus: false,
+            retry: 0
+        }
+    )
 }
 
 export default AuthHook;

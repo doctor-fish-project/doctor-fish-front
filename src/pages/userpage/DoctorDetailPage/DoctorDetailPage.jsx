@@ -15,20 +15,20 @@ function DoctorDetailPage(props) {
 
     const queryClient = useQueryClient();
     const doctors = queryClient.getQueryData("doctorsQuery")
-    const doctor = doctors?.data?.doctors.find(doctor => doctor.id === parseInt(doctorId));
+    const doctor = doctors?.data?.doctors?.find(doctor => doctor.id === parseInt(doctorId));
 
     return (
         <UserSubLayout isShow={isShow}>
             <UserSubContainer>
                 <BackButton setShow={setShow} />
                 <div css={s.layout}>
-                    <img src={doctor.user.img} alt="" />
+                    <img src={doctor?.user?.img} alt="" />
                     <div css={s.header}>
-                        <p>이름: {doctor.user.name}</p>
-                        <p>부서: {doctor.depart.name}</p>
+                        <p>이름: {doctor?.user?.name}</p>
+                        <p>부서: {doctor?.depart?.name}</p>
                     </div>
                     <div css={s.body}>
-                        <p>{doctor.record}</p>
+                        <p>{doctor?.record}</p>
                     </div>
                 </div>
             </UserSubContainer>

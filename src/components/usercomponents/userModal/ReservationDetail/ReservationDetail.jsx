@@ -6,16 +6,17 @@ import { useRecoilState } from 'recoil';
 import { reservationDetailModalAtom } from '../../../../atoms/modalAtoms';
 import { reservationAtom } from '../../../../atoms/reservations';
 import CancelButton from '../CancelButton/CancelButton';
-import { useQueryClient } from 'react-query';
 
 function ReservationDetail({ containerRef }) {
 
     const [reservationDetailOpen, setReservationDetailOpen] = useRecoilState(reservationDetailModalAtom);
     const [reservation, setReservation] = useRecoilState(reservationAtom);
+
+    console.log(reservation)
+
     const [ani, setAni] = useState("userModalOpen");
-    const queryClient = useQueryClient();
     
-    const doctors = queryClient.getQueryData("doctorsQuery")
+    
     const closeModal = () => {
         setAni("userModalClose")
         setTimeout(() => {

@@ -54,6 +54,8 @@ export const titleAndInput = css`
             margin-top: 5px;
             font-size: 14px;
         }
+
+       
     }
 
     & > input {
@@ -95,3 +97,18 @@ export const buttonBox = css`
         color: #52b6c6;
     }
 `;
+
+export const editButtonBox = css`
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    & > button {
+        box-sizing: border-box;
+        border: 1px solid #52b6c6;
+        border-radius: 10px;
+        font-size: 16px;
+        color: #52b6c6;
+    }
+`

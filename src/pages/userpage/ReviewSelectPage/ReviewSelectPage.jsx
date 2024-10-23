@@ -7,8 +7,13 @@ import BackButton from '../../../components/usercomponents/BackButton/BackButton
 import ReservationRecord from '../../../components/usercomponents/reviewSelectPage/ReservationRecord/ReservationRecord';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import ReviewWritePage from '../ReviewWritePage/ReviewWritePage';
+import { useQueryClient } from 'react-query';
 
 function ReviewSelectPage(props) {
+
+    const queryClient = useQueryClient();
+    const authState = queryClient.getQueryState("accessTokenValidQuery")
+
     const nav = useNavigate();
     const [isShow, setIsShow] = useState(true);
 

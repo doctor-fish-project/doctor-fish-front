@@ -49,7 +49,7 @@ function AdminLeaveAddPage(props) {
         if (!!userInfo) {
             setLeaveInput(leaveInput => ({
                 ...leaveInput,
-                doctorId: userInfo.data.id
+                userId: userInfo?.data?.id
             }))
         }
     }, [userInfo])
@@ -99,7 +99,7 @@ function AdminLeaveAddPage(props) {
             retry: 0
         }
     )
-    console.log(leaves)
+
     const leave = useMutation(
         async () => await adminInstance.post("/admin/leave", leaveInput),
         {

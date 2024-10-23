@@ -6,7 +6,7 @@ import AdminReview from '../adminModal/AdminReview/AdminReview';
 import AdminNotice from '../adminModal/AdminNotice/AdminNotice';
 import { useLocation } from 'react-router-dom';
 
-function AdminPageLayout({ title, count, children, onCheckClick, onCancelClick }) {
+function AdminPageLayout({ title, count, children, onClick, onCheckClick, onCancelClick, editState }) {
     const location = useLocation();
     const [reviewModalElement, setReviewModalElement] = useState(<></>);
     const [noticeModalElement, setNoticeModalElement] = useState(<></>);
@@ -19,7 +19,7 @@ function AdminPageLayout({ title, count, children, onCheckClick, onCancelClick }
             setNoticeModalElement(<AdminNotice containerRef={containerRef} />)
         }
     }, [containerRef])
-    
+
     return (
         <div css={s.layout} ref={containerRef}>
             {reviewModalElement}
@@ -29,7 +29,7 @@ function AdminPageLayout({ title, count, children, onCheckClick, onCancelClick }
                     <p>{title}</p>
                     {
                         (location.pathname === "/admin/profile" || location.pathname === "/admin/add" || location.pathname === "/admin/leave") ? <></> :
-                        <p>총 {count}건</p>
+                            <p>총 {count}건</p>
                     }
                 </div>
                 {
@@ -40,11 +40,22 @@ function AdminPageLayout({ title, count, children, onCheckClick, onCancelClick }
                     </>
                 }
                 {
-                    (location.pathname === "/admin/profile" || location.pathname === "/admin/add" || location.pathname === "/admin/leave") &&
+                    (location.pathname === "/admin/add" || location.pathname === "/admin/leave") &&
                     <div css={s.buttonBox}>
                         <button onClick={onCheckClick}>확인</button>
                         <button onClick={onCancelClick}>취소</button>
                     </div>
+                }
+                {
+                    location.pathname === "/admin/profile" ?
+                        editState ?
+                        <div css={s.buttonBox}>
+                            <button onClick={onCheckClick}>확인</button>
+                            <button onClick={onCancelClick}>취소</button>
+                        </div> :
+                        <div css={s.editButtonBox}>
+                            <button onClick={onClick}>편집</button>
+                        </div> : <></>
                 }
             </div>
             {children}

@@ -24,7 +24,7 @@ function AdminAuthHook(props) {
                 params: {
                     adminAccessToken: localStorage.getItem("adminAccessToken")
                 }
-            });
+            }); 
         },
         {
             enabled: ref,

@@ -19,6 +19,14 @@ function AdminAddPage(props) {
         record: ""
     });
 
+    const [fieldErrorMessages, setFieldErrorMessages] = useState({
+        email: <></>,
+        password: <></>,
+        checkPassword: <></>,
+        name: <></>,
+        phoneNumber: <></>
+    });
+
     const roles = useQuery(
         ["rolesQuery"],
         async () => await adminInstance.get("/admin/roles"),
@@ -56,10 +64,16 @@ function AdminAddPage(props) {
     }, [departs.isSuccess])
 
     const adminSignup = useMutation(
-        async () => await adminInstance.post("/admin/doctor/signup", adminInput),
+        async () => await adminInstance.post("/admin/auth/signup", adminInput),
         {
             onSuccess: respone => {
-                console.log("성공")
+                alert("등록 성공")
+            },
+            onError: error => {
+                const response = error.response;
+                const fieldErrors = response.data.map(fieldError => ({ field: fieldError.field, defaultMessage: fieldError.defaultMessage }))
+                showFieldErrorMessage(fieldErrors);
+                return
             }
         }
     )
@@ -71,26 +85,57 @@ function AdminAddPage(props) {
         }))
     }
 
+    const showFieldErrorMessage = (fieldErrors) => {
+        let EmptyFieldErros = {
+            email: <></>,
+            password: <></>,
+            checkPassword: <></>,
+            name: <></>,
+            phoneNumber: <></>
+        };
+
+        for (let fieldError of fieldErrors) {
+            EmptyFieldErros = {
+                ...EmptyFieldErros,
+                [fieldError.field]: <p>{fieldError.defaultMessage}</p>
+            }
+        }
+
+        setFieldErrorMessages(EmptyFieldErros);
+    }
+
     return (
         <AdminContainer>
-            <AdminPageLayout title={"관리자 추가"} onClick={() => adminSignup.mutateAsync().catch(() => { })}>
+            <AdminPageLayout title={"관리자 추가"} onCheckClick={() => adminSignup.mutateAsync().catch(() => { })}>
                 <div css={s.layout}>
                     <div css={s.signupContainer}>
                         <div css={s.inputBox}>
                             <label htmlFor="username">아이디</label>
                             <input type="text" id='username' name='username' value={adminInput.username} onChange={adminInputOnChange} />
+                            {
+                                fieldErrorMessages.username !== "" ? fieldErrorMessages.username : <></>
+                            }
                         </div>
                         <div css={s.inputBox}>
                             <label htmlFor="password">비밀번호</label>
                             <input type="password" id='password' name='password' value={adminInput.password} onChange={adminInputOnChange} />
+                            {
+                                fieldErrorMessages.password !== "" ? fieldErrorMessages.password : <></>
+                            }
                         </div>
                         <div css={s.inputBox}>
                             <label htmlFor="checkPassword">비밀번호 확인</label>
                             <input type="password" id='checkPassword' name='checkPassword' value={adminInput.checkPassword} onChange={adminInputOnChange} />
+                            {
+                                fieldErrorMessages.checkPassword !== "" ? fieldErrorMessages.checkPassword : <></>
+                            }
                         </div>
                         <div css={s.inputBox}>
                             <label htmlFor="name">성명</label>
                             <input type="text" id='name' name='name' value={adminInput.name} onChange={adminInputOnChange} />
+                            {
+                                fieldErrorMessages.username !== "" ? fieldErrorMessages.username : <></>
+                            }
                         </div>
                         <div css={s.inputBox}>
                             <label htmlFor="phoneNumber">휴대폰 번호</label>
@@ -101,7 +146,7 @@ function AdminAddPage(props) {
                             <select name="roleId" value={adminInput.roleId} onChange={adminInputOnChange} >
                                 {
                                     roles?.data?.data?.map(role =>
-                                        <option value={role.id} >{role.name}</option>
+                                        <option key={role.id} value={role.id} >{role.name}</option>
                                     )
                                 }
                             </select>

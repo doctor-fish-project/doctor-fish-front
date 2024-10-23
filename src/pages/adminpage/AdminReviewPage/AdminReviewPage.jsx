@@ -11,6 +11,7 @@ import { useRecoilState, useSetRecoilState } from 'recoil';
 import {reviewIdAtom } from '../../../atoms/adminAtoms';
 import { adminReviewModalAtom } from '../../../atoms/modalAtoms';
 import AdminPageLayout from '../../../components/admincomponents/AdminPageLayout/AdminPageLayout';
+import AdminTableHeader from '../../../components/admincomponents/adminList/AdminTableHeader/AdminTableHeader';
 
 function AdminReviewPage(props) {
     const nav = useNavigate();
@@ -83,15 +84,7 @@ function AdminReviewPage(props) {
             <AdminContainer>
                 <AdminPageLayout title={"리뷰 및 댓글관리"} count={reviews?.data?.data?.reviewCount}>
                     <AdminTableLayout>
-                        <thead css={s.headLayout(reviewTableHeaders?.data?.data?.length)}>
-                            <tr>
-                                <th>{theader[0]}</th>
-                                <th>{theader[1]}</th>
-                                <th>{theader[4]}</th>
-                                <th>{theader[2]}</th>
-                                <th>{theader[3]}</th>
-                            </tr>
-                        </thead>
+                       <AdminTableHeader tableheaders={reviewTableHeaders?.data?.data}/>
                         <tbody css={s.bodyLayout(reviewTableHeaders?.data?.data?.length)}>
                             {
                                 reviews?.data?.data?.reviews.map((review, idx) =>

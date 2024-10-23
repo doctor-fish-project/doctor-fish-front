@@ -51,9 +51,9 @@ function AdminNoticePage(props) {
             retry: 0,
             onSuccess: response => {
                 setTotalPageCount(
-                    response.data.totalCount % limit === 0
-                        ? response.data.totalCount / limit
-                        : Math.floor(response.data.totalCount / limit) + 1)
+                    response.data.announceCount % limit === 0
+                        ? response.data.announceCount / limit
+                        : Math.floor(response.data.announceCount / limit) + 1)
             }
         }
     )

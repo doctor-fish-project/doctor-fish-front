@@ -29,3 +29,8 @@ export const adminNoticeModalAtom = atom({
     key: "adminNoticeModalAtom",
     default: false
 })
+
+export const adminNoticeWriteModalAtom = atom({
+    key: "adminNoticeWriteModalAtom",
+    default: false
+})

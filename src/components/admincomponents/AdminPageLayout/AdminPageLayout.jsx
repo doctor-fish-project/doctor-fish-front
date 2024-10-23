@@ -3,13 +3,15 @@ import React, { useEffect, useRef, useState } from 'react';
 import * as s from './style';
 import { IoSearchOutline } from "react-icons/io5";
 import AdminReview from '../adminModal/AdminReview/AdminReview';
-import AdminNotice from '../adminModal/AdminNotice/AdminNotice';
 import { useLocation } from 'react-router-dom';
+import AdminNoticeWrite from '../adminModal/AdminNoticeWrite/AdminNoticeWrite';
+import AdminNotice from '../adminModal/AdminNotice/AdminNotice';
 
 function AdminPageLayout({ title, count, children, onCheckClick, onCancelClick }) {
     const location = useLocation();
     const [reviewModalElement, setReviewModalElement] = useState(<></>);
     const [noticeModalElement, setNoticeModalElement] = useState(<></>);
+    const [noticeWriteModalElement, setNoticeWriteModal] = useState(<></>);
 
     const containerRef = useRef();
 
@@ -17,11 +19,13 @@ function AdminPageLayout({ title, count, children, onCheckClick, onCancelClick }
         if (!!containerRef) {
             setReviewModalElement(<AdminReview containerRef={containerRef} />)
             setNoticeModalElement(<AdminNotice containerRef={containerRef} />)
+            setNoticeWriteModal(<AdminNoticeWrite containerRef={containerRef}/>)
         }
     }, [containerRef])
     
     return (
         <div css={s.layout} ref={containerRef}>
+            {noticeWriteModalElement}
             {reviewModalElement}
             {noticeModalElement}
             <div css={s.titleAndInput}>

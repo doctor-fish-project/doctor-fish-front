@@ -49,7 +49,7 @@ function AdminLeaveAddPage(props) {
         if (!!userInfo) {
             setLeaveInput(leaveInput => ({
                 ...leaveInput,
-                doctorId: userInfo.data.id
+                userId: userInfo?.data?.id
             }))
         }
     }, [userInfo])
@@ -92,14 +92,14 @@ function AdminLeaveAddPage(props) {
 
     const leaves = useQuery(
         ["leavesQuery"],
-        async () => await adminInstance.get(`/admin/leave/list/${leaveInput.userId}`),
+        async () => await adminInstance.get(`/admin/leave/list/${userInfo?.data?.id}`),
         {
-            enabled: true,
+            enabled: !!userInfo?.data?.id,
             refetchOnWindowFocus: false,
             retry: 0
         }
     )
-    console.log(leaves)
+
     const leave = useMutation(
         async () => await adminInstance.post("/admin/leave", leaveInput),
         {
@@ -238,7 +238,7 @@ function AdminLeaveAddPage(props) {
                     </div>
                     <AdminTableLayout>
                         <AdminTableHeader tableheaders={leaveTableHeaders?.data?.data} />
-                            <tbody css={s.body}>
+                            <tbody css={s.body(leaveTableHeaders?.data?.data?.length)}>
                                 {
                                     leaves?.data?.data?.leaves?.map((leave, idx) =>
                                         <tr key={leave.id}>

@@ -32,14 +32,14 @@ function AdminLeaveListPage(props) {
         }
     )
 
-    console.log(leaves.data)
+    console.log(leaveListAllTableHeaders?.data?.data?.length)
 
     return (
         <AdminContainer>
             <AdminPageLayout title={"연차 관리"}>
                 <AdminTableLayout>
                     <AdminTableHeader tableheaders={leaveListAllTableHeaders?.data?.data} />
-                    <tbody css={s.body}>
+                    <tbody css={s.layout(leaveListAllTableHeaders?.data?.data?.length)}>
                         {
                             leaves?.data?.data?.leaves?.map((leave, idx) =>
                                 <tr key={leave.id}>

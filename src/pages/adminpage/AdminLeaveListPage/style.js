@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
 
-export const body = css`
+export const layout = (length) => css`
     box-sizing: border-box;
     padding: 0px 40px;
     
@@ -16,7 +16,7 @@ export const body = css`
 
         & > td {
             text-align: center;
-            width: ${1480 / 5}px;
+            width: ${1430 / (length - 1)}px;
 
             & > button {
                 border-radius: 5px;

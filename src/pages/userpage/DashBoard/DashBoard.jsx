@@ -23,17 +23,8 @@ function DashBoard(props) {
     const setSigninModalState = useSetRecoilState(signinModalAtom);
 
     const queryClient = useQueryClient();
-    const authState = queryClient.getQueryState("accessTokenValidQuery");
-
-    const userInfo = useQuery(
-        ["userInfoQuery"],
-        async () => await instance.get("/user/me"),
-        {
-            enabled: authState?.data?.data,
-            refetchOnWindowFocus: false,
-            retry: 0
-        }
-    )
+    const authState = queryClient.getQueryState("accessTokenValidQuery")
+    const userInfo = queryClient.getQueryData("userInfoQuery");
 
     const todayReservations = useQuery(
         ["todayReservationsQuery"],
@@ -53,7 +44,7 @@ function DashBoard(props) {
             refetchOnWindowFocus: false,
             retry: 0
         }
-    )
+    ) 
 
     const handleSigninOnClick = () => {
         nav("/");
@@ -81,7 +72,7 @@ function DashBoard(props) {
                             authState?.data?.data
                                 ?
                                 <>
-                                    <p>{userInfo.data?.data?.name}</p>
+                                    <p>{userInfo?.data?.name}</p>
                                     <button onClick={handleMyProfileOnClick}><FaUser />내정보</button>
                                 </>
                                 :

@@ -7,10 +7,12 @@ function TodayReservationBox({ reservations }) {
     const queryClient = useQueryClient();
     const authState = queryClient.getQueryState("accessTokenValidQuery")
 
+    const parse = (value) => (value < 10 ? "0" : "") + value
+
     const now = new Date();
     const year = now.getFullYear();
-    const month = now.getMonth();
-    const date = now.getDate();
+    const month = parse(now.getMonth() + 1);
+    const date = parse(now.getDate());
 
     return (
         <div css={s.layout}>

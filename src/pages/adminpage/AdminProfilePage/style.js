@@ -10,7 +10,7 @@ export const layout = css`
     flex-grow: 1;
 `;
 
-export const imgBox = css`
+export const imgBox = (editState) => css`
     box-sizing: border-box;
     display: flex;
     justify-content: center;
@@ -20,7 +20,7 @@ export const imgBox = css`
     box-shadow: 0px 0px 2px #00000088;
     width: 200px;
     height: 200px;
-    cursor: pointer;
+    cursor: ${editState ? "pointer" : "default"};
     overflow: hidden;
 
     & > img {
@@ -98,4 +98,18 @@ export const textareaBox = css`
         outline: none;
         font-size: 14px;
     }
+`;
+
+export const loadingLayout = css`
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 99;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    background-color: #00000033;
 `;

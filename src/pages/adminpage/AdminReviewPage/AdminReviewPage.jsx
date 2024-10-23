@@ -85,7 +85,7 @@ function AdminReviewPage(props) {
             <AdminContainer>
                 <AdminPageLayout title={"리뷰 및 댓글관리"} count={reviews?.data?.data?.reviewCount}>
                     <AdminTableLayout>
-                        <AdminTableHeader tableheaders={reviewTableHeaders?.data?.data} />
+                       <AdminTableHeader tableheaders={reviewTableHeaders?.data?.data}/>
                         <tbody css={s.bodyLayout(reviewTableHeaders?.data?.data?.length)}>
                             {
                                 reviews?.data?.data?.reviews.map((review, idx) =>

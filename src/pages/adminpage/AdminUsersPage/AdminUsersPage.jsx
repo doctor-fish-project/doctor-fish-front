@@ -8,6 +8,7 @@ import { adminInstance } from '../../../apis/utils/instance';
 import { useQuery } from 'react-query';
 import AdminListPagination from '../../../components/admincomponents/AdminListPagination/AdminListPagination';
 import AdminPageLayout from '../../../components/admincomponents/AdminPageLayout/AdminPageLayout';
+import AdminTableHeader from '../../../components/admincomponents/adminList/AdminTableHeader/AdminTableHeader';
 
 function AdminUsersPage(props) {
     const nav = useNavigate();
@@ -70,15 +71,7 @@ function AdminUsersPage(props) {
         <AdminContainer>
             <AdminPageLayout title={"회원관리"} count={users?.data?.data?.userCount}>
                 <AdminTableLayout>
-                    <thead css={s.headLayout(userTableHeaders?.data?.data?.length)}>
-                        <tr>
-                            <th>{theader[0]}</th>
-                            <th>{theader[1]}</th>
-                            <th>{theader[2]}</th>
-                            <th>{theader[3]}</th>
-                            <th>{theader[4]}</th>
-                        </tr>
-                    </thead>
+                    <AdminTableHeader tableheaders={userTableHeaders?.data?.data}/>
                     <tbody css={s.bodyLayout(userTableHeaders?.data?.data?.length)}>
                         {
                             users?.data?.data?.users.map((user, idx) =>

@@ -7,6 +7,7 @@ import { useQueryClient } from 'react-query';
 import ReviewBox from '../../../components/usercomponents/reviewPage/ReviewBox/ReviewBox';
 import UserSubLayout from '../../../components/usercomponents/UserSubLayout/UserSubLayout';
 import UserSubContainer from '../../../components/usercomponents/UserSubContainer/UserSubContainer';
+import ReviewComment from '../../../components/usercomponents/reviewPage/ReviewComment/ReviewComment';
 
 function ReviewDetailPage(props) {
     const params = useParams();
@@ -31,6 +32,13 @@ function ReviewDetailPage(props) {
                 </div>
                 <div css={s.container}>
                     <ReviewBox review={review} />
+                    <div css={s.commentBox}>
+                        <p>댓글</p>
+
+                        <ReviewComment />
+                        <ReviewComment />
+
+                    </div>
                 </div>
             </UserSubContainer>
         </UserSubLayout>

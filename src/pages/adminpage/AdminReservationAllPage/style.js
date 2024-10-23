@@ -16,7 +16,7 @@ export const layout = (length) => css`
 
         & > td {
             text-align: center;
-            width: ${1480 / (length - 1)}px;
+            width: ${1430 / (length - 1)}px;
 
             & > button {
                 border-radius: 5px;

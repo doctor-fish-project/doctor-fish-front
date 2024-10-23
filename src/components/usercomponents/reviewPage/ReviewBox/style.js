@@ -20,19 +20,10 @@ export const nameBox = css`
     box-sizing: border-box;
     display: flex;
     align-items: center;
+    margin-bottom: 10px;
     width: 100%;
     font-size: 20px;
     font-weight: 600;
-
-    & > img {
-        box-sizing: border-box;
-        margin-bottom: 3px;
-        margin-right: 5px;
-        border-radius: 50%;
-        width: 40px;
-        height: 40px;
-        overflow: hidden;
-    }
 
     & p:nth-of-type(1) {
         width: 230px;
@@ -44,6 +35,26 @@ export const nameBox = css`
     & p:nth-of-type(2) {
         font-size: 18px;
         width: fit-content;
+    }
+`;
+
+export const profileBox = css`
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+    border-radius: 50%;
+    box-shadow: 0px 0px 2px #00000088;
+    width: 40px;
+    height: 40px;
+
+    cursor: pointer;
+    overflow: hidden;
+
+    & > img {
+        box-sizing: border-box;
+        height: 100%;
     }
 `;
 

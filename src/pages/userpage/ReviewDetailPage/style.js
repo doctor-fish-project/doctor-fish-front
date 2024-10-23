@@ -31,7 +31,11 @@ export const container = css`
     flex-direction: column;
     padding: 10px;
     width: 100%;
-    height: 100%;
+    flex-grow: 1;
+    overflow-y: auto;
+    ::-webkit-scrollbar {
+        display: none;
+    }
 `;
 
 export const imgContainer = css`
@@ -82,5 +86,21 @@ export const contentBox = css`
         background-color: #dbdbdb;
         resize: none;
         outline: none;
+    }
+`;
+
+export const commentBox = css`
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    padding: 0 10px ;
+
+    & > p {
+        font-weight: 600;
+        margin-bottom: 10px;
+    }
+
+    & > div:nth-last-of-type(1) > div:nth-last-of-type(1) {
+        border: none;
     }
 `;

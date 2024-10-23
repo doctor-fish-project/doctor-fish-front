@@ -95,7 +95,7 @@ export const textareaBox = css`
     }
 `;
 
-export const body = css`
+export const body = (length) => css`
     box-sizing: border-box;
     padding: 0px 40px;
     
@@ -111,7 +111,7 @@ export const body = css`
 
         & > td {
             text-align: center;
-            width: ${1480 / 5}px;
+            width: ${1430 / (length - 1)}px;
 
             & > button {
                 border-radius: 5px;

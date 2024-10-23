@@ -2,20 +2,18 @@ import React, { useMemo, useRef } from 'react';
 /** @jsxImportSource @emotion/react */
 import * as s from './style';
 import AdminModalLayout from '../AdminModalLayout/AdminModalLayout';
+import { adminNoticeWriteModalAtom } from '../../../../atoms/modalAtoms';
 import { useRecoilState } from 'recoil';
-import { adminNoticeModalAtom } from '../../../../atoms/modalAtoms';
-import { IoIosClose } from 'react-icons/io';
-import { noticeIdAtom } from '../../../../atoms/adminAtoms';
+import { IoIosClose } from "react-icons/io"
 import ReactQuill from 'react-quill';
 
-function AdminNotice({ containerRef }) {
-    const [noticeOpen, setNoticeOpen] = useRecoilState(adminNoticeModalAtom);
-    const [noticeId, setNoticeId] = useRecoilState(noticeIdAtom);
 
+function AdminNoticeWrite({ containerRef }) {
+    const [noticeWriteOpen, setNoticeWriteOpen] = useRecoilState(adminNoticeWriteModalAtom);
     const quillRef = useRef(null);
 
     const closeModal = () => {
-        setNoticeOpen(false)
+        setNoticeWriteOpen(false)
     }
 
     const toolbarOptions = useMemo(() => [
@@ -30,7 +28,7 @@ function AdminNotice({ containerRef }) {
     ], []);
 
     return (
-        <AdminModalLayout containerRef={containerRef} isOpen={noticeOpen} closeModal={closeModal}>
+        <AdminModalLayout containerRef={containerRef} isOpen={noticeWriteOpen} closeModal={closeModal}>
             <div css={s.layout}>
                 <div css={s.cancelButtonBox}>
                     <button onClick={closeModal}><IoIosClose /></button>
@@ -38,7 +36,7 @@ function AdminNotice({ containerRef }) {
                 <div css={s.quillBox}>
                     <div css={s.header}>
                         <h1>공지사항</h1>
-                        <button>수정하기</button>
+                        <button>작성하기</button>
                     </div>
                     <input css={s.titleInput} type="text" name="title" placeholder="게시글의 제목을 입력하세요." />
                     <ReactQuill
@@ -64,4 +62,4 @@ function AdminNotice({ containerRef }) {
     );
 }
 
-export default AdminNotice;
+export default AdminNoticeWrite;

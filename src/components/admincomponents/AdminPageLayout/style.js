@@ -23,11 +23,10 @@ export const layout = css`
         color: #52b6c6;
         
         :hover {
-            background-color: #52b6c520;
+            background-color: #52b6c510;
         }
-
         :active {
-            background-color: #52b6c550;
+            background-color: #52b6c530;
         }
     }
 `;

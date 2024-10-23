@@ -7,19 +7,24 @@ import AdminTableLayout from '../../../components/admincomponents/adminList/Admi
 import AdminTableHeader from '../../../components/admincomponents/adminList/AdminTableHeader/AdminTableHeader';
 import { useQuery } from 'react-query';
 import { adminInstance } from '../../../apis/utils/instance';
-import { useSetRecoilState } from 'recoil';
-import { adminNoticeModalAtom } from '../../../atoms/modalAtoms';
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import { adminNoticeModalAtom, adminNoticeWriteModalAtom } from '../../../atoms/modalAtoms';
 import AdminListPagination from '../../../components/admincomponents/AdminListPagination/AdminListPagination';
 import AdminPageLayout from '../../../components/admincomponents/AdminPageLayout/AdminPageLayout';
+import { noticeIdAtom } from '../../../atoms/adminAtoms';
 
 function AdminNoticePage(props) {
     const nav = useNavigate();
+    
     const location = useLocation();
+    
     const [searchParams, setSearchParams] = useSearchParams();
 
     const [totalPageCount, setTotalPageCount] = useState(1);
 
+    const [noticeId, setNoticeId] = useRecoilState(noticeIdAtom);
     const setNoticeOpen = useSetRecoilState(adminNoticeModalAtom);
+    const setNoticeWriteOpen = useSetRecoilState(adminNoticeWriteModalAtom);
 
     const limit = 14;
 
@@ -51,15 +56,24 @@ function AdminNoticePage(props) {
             retry: 0,
             onSuccess: response => {
                 setTotalPageCount(
-                    response.data.totalCount % limit === 0
-                        ? response.data.totalCount / limit
-                        : Math.floor(response.data.totalCount / limit) + 1)
+                    response?.data?.announceCount % limit === 0
+                        ? response?.data?.announceCount / limit
+                        : Math.floor(response?.data?.announceCount / limit) + 1)
             }
         }
     )
-
+    
     const handlePageOnChange = (e) => {
         nav(`/admin/reservation?page=${e.selected + 1}`);
+    }
+
+    const handleNoticeOpenOnClick = (noticeId) => {
+        setNoticeId(noticeId)
+        setNoticeOpen(true);
+    }
+
+    const handleNoticeModalOpenOnClick = () => {
+        setNoticeWriteOpen(true);
     }
 
     return (
@@ -70,18 +84,21 @@ function AdminNoticePage(props) {
                     <tbody css={s.layout(noticeTableHeader?.data?.data?.length)}>
                         {
                             notices?.data?.data?.announcements?.map((announcement, idx) =>
-                                <tr key={announcement.id} >
+                                <tr key={announcement.id} onClick={() => handleNoticeOpenOnClick(announcement.id)}>
                                     <td>{idx + 1}</td>
                                     <td>{announcement?.title}</td>
                                     <td>{announcement?.userId}</td>
                                     <td>{announcement?.registerDate.slice(0, 10)}</td>
-                                    <td></td>
+                                    <td>
+                                        <button>삭제</button>
+                                    </td>
                                 </tr>
                             )
                         }
                     </tbody>
                 </AdminTableLayout>
                 <AdminListPagination searchParams={searchParams} count={totalPageCount} onChange={handlePageOnChange} />
+                <button onClick={handleNoticeModalOpenOnClick}>글쓰기</button>
             </AdminPageLayout>
         </AdminContainer>
     );

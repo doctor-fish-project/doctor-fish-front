@@ -4,8 +4,6 @@ import * as s from "./style";
 import { v4 as uuid } from 'uuid'
 import { MdOutlineAddPhotoAlternate } from "react-icons/md";
 import BackButton from '../../../components/usercomponents/BackButton/BackButton';
-import SubLayout from '../../../components/usercomponents/UserSubLayout/UserSubLayout';
-import SubContainer from '../../../components/usercomponents/UserSubContainer/UserSubContainer';
 import { useMutation } from 'react-query';
 import { instance } from '../../../apis/utils/instance';
 import Swal from 'sweetalert2';

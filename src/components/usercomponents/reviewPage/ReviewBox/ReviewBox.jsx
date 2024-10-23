@@ -5,7 +5,7 @@ import { FcLike } from "react-icons/fc";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 
 function ReviewBox({ review, onClick }) {
-    const reviewImgs = JSON.parse(review.img)
+    const reviewImgs = JSON.parse(review?.img === undefined ? '[]' : review?.img)
 
     const [mouseOverState, setMouseOverState] = useState(false);
 
@@ -40,7 +40,7 @@ function ReviewBox({ review, onClick }) {
                 <div css={s.profileBox}>
                     <img src='https://firebasestorage.googleapis.com/v0/b/userprofile-9dd9e.appspot.com/o/user%2Fdefault.png?alt=media&token=caad563b-86be-48bb-a70a-a717042d870f' alt="" />
                 </div>
-                <p>{review.userName}</p>
+                <p>{review?.userName}</p>
             </div>
             {
                 reviewImgs === null ? <></> : reviewImgs.length === 0 ? <></> :
@@ -58,7 +58,7 @@ function ReviewBox({ review, onClick }) {
                 <p><FcLike />10</p>
             </div>
             <div css={s.contentBox}>
-                {review.content}
+                {review?.content}
             </div>
         </div>
     );

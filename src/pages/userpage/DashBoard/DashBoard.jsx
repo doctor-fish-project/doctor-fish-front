@@ -25,6 +25,7 @@ function DashBoard(props) {
     const queryClient = useQueryClient();
     const authState = queryClient.getQueryState("accessTokenValidQuery")
     const userInfo = queryClient.getQueryData("userInfoQuery");
+    const doctors = queryClient.getQueryData("doctorsQuery")
 
     const todayReservations = useQuery(
         ["todayReservationsQuery"],
@@ -35,16 +36,6 @@ function DashBoard(props) {
             retry: 0
         }
     )
-
-    const doctors = useQuery(
-        ["doctorsQuery"],
-        async () => await instance.get("/doctor/list"),
-        {
-            enabled: true,
-            refetchOnWindowFocus: false,
-            retry: 0
-        }
-    ) 
 
     const handleSigninOnClick = () => {
         nav("/");
@@ -88,7 +79,7 @@ function DashBoard(props) {
                     <BoxTopBar title1={"의료진"} />
                     <div css={s.doctorBox}>
                         {
-                            doctors?.data?.data?.doctors?.map(doctor =>
+                            doctors?.data?.doctors?.map(doctor =>
                                 <DoctorBox key={doctor.id} doctor={doctor} onClick={handleDoctorProfileOnClick} />
                             )
                         }

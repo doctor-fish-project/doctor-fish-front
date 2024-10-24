@@ -1,4 +1,4 @@
-import React, { useMemo, useRef } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 /** @jsxImportSource @emotion/react */
 import * as s from './style';
 import AdminModalLayout from '../AdminModalLayout/AdminModalLayout';
@@ -7,12 +7,33 @@ import { adminNoticeModalAtom } from '../../../../atoms/modalAtoms';
 import { IoIosClose } from 'react-icons/io';
 import { noticeIdAtom } from '../../../../atoms/adminAtoms';
 import ReactQuill from 'react-quill';
+import { useQuery } from 'react-query';
+import { adminInstance } from '../../../../apis/utils/instance';
 
 function AdminNotice({ containerRef }) {
     const [noticeOpen, setNoticeOpen] = useRecoilState(adminNoticeModalAtom);
     const [noticeId, setNoticeId] = useRecoilState(noticeIdAtom);
+    const [modifyNotice, setModifyNotice] = useState();
 
     const quillRef = useRef(null);
+
+    console.log(noticeId);
+
+    useEffect(() => {
+        notice.refetch();
+    }, [noticeOpen])
+
+    const notice = useQuery(
+        ["noticeQuery"],
+        async () => await adminInstance.get(`/admin/announce/${noticeId}`),
+        {
+            enabled: true,
+            refetchOnWindowFocus: false,
+            retry: 0
+        }
+    )
+
+    console.log(notice);
 
     const closeModal = () => {
         setNoticeOpen(false)

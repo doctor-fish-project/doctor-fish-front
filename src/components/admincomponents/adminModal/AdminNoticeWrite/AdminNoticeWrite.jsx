@@ -6,6 +6,8 @@ import { adminNoticeWriteModalAtom } from '../../../../atoms/modalAtoms';
 import { useRecoilState } from 'recoil';
 import { IoIosClose } from "react-icons/io"
 import ReactQuill from 'react-quill';
+import { adminInstance } from '../../../../apis/utils/instance';
+import Swal from 'sweetalert2';
 
 
 function AdminNoticeWrite({ containerRef }) {
@@ -20,6 +22,55 @@ function AdminNoticeWrite({ containerRef }) {
 
     const closeModal = () => {
         setNoticeWriteOpen(false)
+    }
+
+    const handleWriteButtonOnClick = async () => {
+        try {
+            const response = await adminInstance.post("/admin/announce", noticeInput);
+            Swal.fire({
+                title: "작성 성공",
+                icon: "success"
+              }).then((result) => {
+                    closeModal();
+                    window.location.reload();
+              });
+        } catch(e) {
+            const fieldErrors = e.response.data;
+
+            for(let fieldError of fieldErrors) {
+                if(fieldError.field === "title") {
+                    Swal.fire({
+                        title: fieldError.defaultMessage,
+                        icon: "warning"
+                      });
+                    return;
+                }
+            }
+            for(let fieldError of fieldErrors) {
+                if(fieldError.field === "content") {
+                    Swal.fire({
+                        title: fieldError.defaultMessage,
+                        icon: "warning"
+                      });
+                    return;
+                }
+            }
+        }
+    }
+
+    const handleTitleOnChange = (e) => {
+        setNoticeInput(noticeInput => ({
+            ...noticeInput,
+            title: e.target.value.trim() === "" ? "" : e.target.value 
+        }));
+        console.log(noticeInput);
+    }
+
+    const handleContentOnChange = (value) => {
+        setNoticeInput(noticeInput => ({
+            ...noticeInput,
+            content: quillRef.current.getEditor().getText().trim() === "" ? "" : value
+        }));
     }
 
     const toolbarOptions = useMemo(() => [
@@ -42,9 +93,9 @@ function AdminNoticeWrite({ containerRef }) {
                 <div css={s.quillBox}>
                     <div css={s.header}>
                         <h1>공지사항</h1>
-                        <button>작성하기</button>
+                        <button onClick={handleWriteButtonOnClick}>작성하기</button>
                     </div>
-                    <input css={s.titleInput} type="text" name="title" placeholder="게시글의 제목을 입력하세요." />
+                    <input css={s.titleInput} type="text" onChange={handleTitleOnChange} name="title" value={noticeInput.title} placeholder="게시글의 제목을 입력하세요." />
                     <ReactQuill
                         ref={quillRef}
                         className='quillStyle'
@@ -61,6 +112,7 @@ function AdminNoticeWrite({ containerRef }) {
                                 }
                             }
                         }}
+                        onChange={handleContentOnChange}
                     />
                 </div>
             </div>

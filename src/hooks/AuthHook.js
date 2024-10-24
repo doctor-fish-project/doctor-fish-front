@@ -86,6 +86,16 @@ function AuthHook(props) {
             retry: 0
         }
     )
+
+    const doctors = useQuery(
+        ["doctorsQuery"],
+        async () => await instance.get("/doctor/list"),
+        {
+            enabled: true,
+            refetchOnWindowFocus: false,
+            retry: 0
+        }
+    ) 
 }
 
 export default AuthHook;

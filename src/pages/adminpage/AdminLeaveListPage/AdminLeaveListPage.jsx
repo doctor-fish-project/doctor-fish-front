@@ -96,15 +96,22 @@ function AdminLeaveListPage(props) {
                                     <td>{leave?.endDate.slice(0, 16).replace("T", "-")}</td>
                                     <td>{leave?.reason}</td>
                                     {
-                                        leaveId === leave.id ?
-                                            <td onClick={() => handleCancelOrCheckOnClick(leave.id)}>
-                                                {
-                                                    leave.status === 2 ? <></> : <button onClick={(e) => handleCheckOnClick(e)}>연차 확인</button>
-                                                }
-                                                {
-                                                    leave.statis === 3 ? <></> : <button onClick={(e) => handleCancelOnClick(e)}>연차 취소</button>
-                                                }
-                                            </td>
+                                        leaveId === leave?.id ?
+                                        <td onClick={() => handleCancelOrCheckOnClick(leave?.id)}>
+                                        {
+                                            leave?.status === 1 && 
+                                            <>
+                                                <button onClick={(e) => handleCheckOnClick(e)}>연차 확인</button>
+                                                <button onClick={(e) => handleCancelOnClick(e)}>연차 취소</button>
+                                            </>
+                                        }
+                                        {
+                                            leave?.status === 2 && <button onClick={(e) => handleCancelOnClick(e)}>연차 취소</button> 
+                                        }
+                                        {
+                                            leave?.status === 3 && "취소"
+                                        }
+                                    </td>
                                             :
                                             <td onClick={() => handleCancelOrCheckOnClick(leave.id)}>
                                                 {

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 /** @jsxImportSource @emotion/react */
 import * as s from './style';
 import ModalLayout from '../ModalLayout/ModalLayout';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { reservationModalAtom } from '../../../../atoms/modalAtoms';
 import { useNavigate } from 'react-router-dom';
 import { useMutation, useQuery } from 'react-query';
@@ -12,14 +12,15 @@ import { doctorIdAtom } from '../../../../atoms/doctorAtoms';
 import TimeBox from '../../reservationPage/TimeBox/TimeBox';
 import Swal from 'sweetalert2';
 import CancelButton from '../CancelButton/CancelButton';
-import { modifyReservationIdAtom } from '../../../../atoms/reservations';
+import { modifyStateAtom, reservationIdAtom } from '../../../../atoms/reservations';
 
 function ReservationCalendarModal({ containerRef }) {
     const nav = useNavigate();
 
     const [reservationOpen, setReservationOpen] = useRecoilState(reservationModalAtom);
-    const doctorId = useRecoilValue(doctorIdAtom);
-    const modifyReservationId = useRecoilValue(modifyReservationIdAtom);
+    const [reservationId, setReservationId] = useRecoilState(reservationIdAtom);
+    const [doctorId, setDoctorId] = useRecoilState(doctorIdAtom)
+    const [modifyState, setModifyState] = useRecoilState(modifyStateAtom);
 
     const [ani, setAni] = useState("userModalOpen")
     const [ref, setRef] = useState(false);
@@ -51,7 +52,8 @@ function ReservationCalendarModal({ containerRef }) {
         ["timesListQuery"],
         async () => {
             setRef(true);
-            return await instance.get("/times")},
+            return await instance.get("/times")
+        },
         {
             enabled: reservationOpen,
             refetchOnWindowFocus: false,
@@ -63,11 +65,12 @@ function ReservationCalendarModal({ containerRef }) {
         ["timesListQuery", reservationData],
         async () => {
             return await instance.get("/times/reserved", {
-            params: {
-                doctorId: reservationData.doctorId,
-                reservationDate: reservationData.reserveDate
-            }
-        })},
+                params: {
+                    doctorId: reservationData.doctorId,
+                    reservationDate: reservationData.reserveDate
+                }
+            })
+        },
         {
             enabled: ref,
             refetchOnWindowFocus: false,
@@ -76,29 +79,30 @@ function ReservationCalendarModal({ containerRef }) {
     )
 
     const myReservation = useQuery(
-        ["myReservationQeury", modifyReservationId],
-        async () => await instance.get(`/reservation/${modifyReservationId}`),
+        ["myReservationQeury"],
+        async () => {
+            setModifyState(false)
+            return await instance.get(`/reservation/${reservationId}`)
+        },
         {
-            enabled: !!modifyReservationId,
+            enabled: modifyState,
             refetchOnWindowFocus: false,
             retry: 0,
             onSuccess: response => {
                 const modifyReservationDate = new Date(response?.data.reservationDate);
                 setReservationDate(modifyReservationDate)
-                setReservationTime(response?.data?.reservationDate?.slice(11,16))
-                setReservationData({
-                    reserveDate: response?.data?.reservationDate,
-                    doctorId: response?.data?.doctorId
-                })
+                setReservationTime(response?.data?.reservationDate?.slice(11, 16))
             }
         }
     )
-    console.log(reservationData)
+
     const doctor = useQuery(
-        ["doctorQuery", modifyReservationId],
-        async () => await instance.get(`/doctor/${reservationData?.doctorId}`),
+        ["doctorQuery"],
+        async () => {
+            return await instance.get(`/doctor/${doctorId}`)
+        },
         {
-            enabled: !!reservationData?.doctorId,
+            enabled: !!doctorId,
             refetchOnWindowFocus: false,
             retry: 0
         }
@@ -140,8 +144,45 @@ function ReservationCalendarModal({ containerRef }) {
         }
     )
 
+    const modifyReservation = useMutation(
+        async () => await instance.put(`/reservation/${reservationId}`, reservationData),
+        {
+            onSuccess: response => {
+                Swal.fire({
+                    icon: 'success',
+                    text: '예약 완료',
+                    backdrop: false,
+                    showConfirmButton: false,
+                    timer: 1000,
+                    willClose: () => {
+                        setReservationOpen(false)
+                        myReservation.remove();
+                        nav("/reservationlist", { replace: true })
+                    },
+                    customClass: {
+                        popup: 'custom-timer-swal',
+                        container: 'container'
+                    }
+                })
+            },
+            onError: error => {
+                Swal.fire({
+                    icon: 'error',
+                    text: '예약 중 오류 발생',
+                    backdrop: false,
+                    showConfirmButton: false,
+                    timer: 1000,
+                    customClass: {
+                        popup: 'custom-timer-swal',
+                        container: 'container'
+                    }
+                })
+            }
+        }
+    )
+
     const handleReservationOnClick = () => {
-        if(reservationTime === "") {
+        if (reservationTime === "") {
             Swal.fire({
                 icon: 'error',
                 text: '예약 시간을 선택하여 주세요',
@@ -155,7 +196,7 @@ function ReservationCalendarModal({ containerRef }) {
             })
             return;
         }
-        reservation.mutateAsync().catch(() => {})
+        reservation.mutateAsync().catch(() => { })
     }
 
     const closeModal = () => {
@@ -166,6 +207,9 @@ function ReservationCalendarModal({ containerRef }) {
         }, 500)
         setReservationDate(new Date());
         setReservationTime("");
+        setDoctorId(0);
+        setReservationId(0);
+        myReservation.remove();
     }
 
     return (
@@ -180,16 +224,19 @@ function ReservationCalendarModal({ containerRef }) {
                     {
                         times?.data?.data?.map(time =>
                             <TimeBox key={time.id} time={time} reservationTime={reservationTime} setReservationTime={setReservationTime}
-                            disabled={!!reservedTimes?.data?.data?.filter(reservedTime => reservedTime?.time === time?.time).length
-                                || (today.toLocaleString().slice(0,13) === reservationDate?.toLocaleDateString()) && (time.time < today.toTimeString().slice(0,5))
-                                || reservationDate.getDay() === 6
-                                || reservationDate.getDay() === 0}
-                             />
+                                disabled={!!reservedTimes?.data?.data?.filter(reservedTime => reservedTime?.time === time?.time).length
+                                    || (today.toLocaleString().slice(0, 13) === reservationDate?.toLocaleDateString()) && (time.time < today.toTimeString().slice(0, 5))
+                                    || reservationDate.getDay() === 6
+                                    || reservationDate.getDay() === 0}
+                            />
                         )
                     }
                 </div>
                 {
-                    !!modifyReservationId ? <button>수정하기</button> : <button onClick={handleReservationOnClick}>예약하기</button>
+                    !!myReservation?.data?.data
+                        ? <button onClick={() => modifyReservation.mutateAsync().catch(() => { })}
+                            disabled={myReservation?.data?.data?.reservationDate?.slice(11, 16) === reservationTime}>예약 변경</button>
+                        : <button onClick={handleReservationOnClick}>예약</button>
                 }
             </div>
         </ModalLayout>

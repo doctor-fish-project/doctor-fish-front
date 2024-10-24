@@ -7,15 +7,19 @@ import { useQuery, useQueryClient } from 'react-query';
 import { instance } from '../../../apis/utils/instance';
 import { IoFilterOutline } from "react-icons/io5";
 import UserSubContainer from '../../../components/usercomponents/UserSubContainer/UserSubContainer';
+import { reservationModalAtom } from '../../../atoms/modalAtoms';
+import { useRecoilState } from 'recoil';
 
 function ReservationListPage(props) {
     const queryClient = useQueryClient();
     const authState = queryClient.getQueryState("accessTokenValidQuery")
 
+    const [reservationOpen, setReservationOpen] = useRecoilState(reservationModalAtom);
+
     const [reservations, setReservations] = useState({});
 
     const reservationList = useQuery(
-        ["reservationListQuery"],
+        ["reservationListQuery", reservationOpen],
         async () => {
             return await instance.get("/reservation/list");
         },

@@ -2,15 +2,16 @@ import React, { useState } from 'react';
 /** @jsxImportSource @emotion/react */
 import * as s from './style';
 import ModalLayout from '../ModalLayout/ModalLayout';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import { reservationDetailModalAtom, reservationModalAtom } from '../../../../atoms/modalAtoms';
-import { modifyReservationIdAtom, reservationAtom } from '../../../../atoms/reservations';
+import { modifyStateAtom, reservationAtom, reservationId, reservationIdAtom } from '../../../../atoms/reservations';
 import CancelButton from '../CancelButton/CancelButton';
 import { useMutation, useQueryClient } from 'react-query';
 import CountDownTimer from '../../CountDownTimer/CountDownTimer';
 import { instance } from '../../../../apis/utils/instance';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
+import { doctorIdAtom } from '../../../../atoms/doctorAtoms';
 
 function ReservationDetail({ containerRef }) {
 
@@ -19,7 +20,9 @@ function ReservationDetail({ containerRef }) {
     const queryClient = useQueryClient();
     const userInfo = queryClient.getQueryData("userInfoQuery");
 
-    const [modifyReservationId, setModifyReservationId] = useRecoilState(modifyReservationIdAtom);
+    const [modifyState, setModifyState] = useRecoilState(modifyStateAtom);
+    const setReservationId = useSetRecoilState(reservationIdAtom);
+    const setDoctorId = useSetRecoilState(doctorIdAtom)
     const [reservationDetailOpen, setReservationDetailOpen] = useRecoilState(reservationDetailModalAtom);
     const [reservationModalOpen, setReservationModalOpen] = useRecoilState(reservationModalAtom);
     const [reservation, setReservation] = useRecoilState(reservationAtom);
@@ -63,7 +66,9 @@ function ReservationDetail({ containerRef }) {
             }
         }).then(result => {
             if (result.isConfirmed) {
-                setModifyReservationId(reservationId);
+                setReservationId(reservationId);
+                setDoctorId(reservation?.doctorId)
+                setModifyState(true);
                 setReservationDetailOpen(false);
                 setReservationModalOpen(true);
             }
@@ -121,7 +126,7 @@ function ReservationDetail({ containerRef }) {
                     <div css={s.doctorIntroduceBox}>
                         <p>{reservation?.doctor?.comment}</p>
                     </div>
-                    <CountDownTimer reservationDate={reservation?.reservationDate}/>
+                    <CountDownTimer reservation={reservation}/>
                 </div>
                 <div css={s.buttonBox}>
                     <button onClick={() => handleModifyReservationOnClick(reservation.id)} disabled={reservation.status === 3}>예약수정</button>

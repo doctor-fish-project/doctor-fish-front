@@ -5,7 +5,12 @@ export const reservationAtom = atom({
     default: {}
 })
 
-export const modifyReservationIdAtom = atom({
-    key: "modifyReservationIdAtom",
-    default : 0
+export const reservationIdAtom = atom({
+    key: "reservationIdAtom",
+    default: 0
+})
+
+export const modifyStateAtom = atom({
+    key: "modifyStateAtom",
+    default : false
 })

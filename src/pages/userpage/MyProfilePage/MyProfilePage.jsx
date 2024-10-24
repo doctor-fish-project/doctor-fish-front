@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import * as s from "./style";
 import SubContainer from '../../../components/usercomponents/UserSubContainer/UserSubContainer';
 import BackButton from '../../../components/usercomponents/BackButton/BackButton';
-import { useQueryClient } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import MyReviewsPage from '../MyReviewsPage/MyReviewsPage';
 import MyCommentsPage from '../MyCommentsPage/MyCommentsPage';
@@ -12,6 +12,7 @@ import UserSubLayout from '../../../components/usercomponents/UserSubLayout/User
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import { storage } from '../../../firebase/firebase';
 import { v4 as uuid } from 'uuid'
+import { instance } from '../../../apis/utils/instance';
 
 function MyProfilePage(props) {
     const nav = useNavigate();
@@ -152,7 +153,6 @@ function MyProfilePage(props) {
 
                                         </>
                                 }
-
                             </div>
                         </div>
                         <div css={s.userRecord}>

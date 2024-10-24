@@ -11,12 +11,11 @@ function ReservationPage(props) {
     const queryClient = useQueryClient();
     const authState = queryClient.getQueryState("accessTokenValidQuery")
 
-
-    const doctors = useQuery(
-        ["doctorsQuery"],
+    const reservationdoctors = useQuery(
+        ["reservationdoctorsQuery"],
         async () => await instance.get("/doctor/list"),
         {
-            enabled: authState?.data?.data,
+            enabled: authState?.status !== "error",
             refetchOnWindowFocus: false,
             retry: 0
         }
@@ -25,13 +24,17 @@ function ReservationPage(props) {
     return (
         <UserSubContainer>
             <DashBoardTopBar title={"예약하기"} />
-            <div css={s.layout}>
-                {
-                    doctors?.data?.data?.doctors.map(doctor =>
-                        <DoctorBox key={doctor.id} doctor={doctor} />
-                    )
-                }
-            </div>
+            {
+                !!authState?.data?.data &&
+                <div css={s.layout}>
+                    {
+                        reservationdoctors?.data?.data?.doctors.map(doctor =>
+                            <DoctorBox key={doctor.id} doctor={doctor} />
+                        )
+                    }
+                </div>
+            }
+
         </UserSubContainer>
     );
 }

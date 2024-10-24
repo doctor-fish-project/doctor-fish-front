@@ -4,7 +4,7 @@ export const layout = css`
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    flex-grow: 1;
+    margin-bottom: 10px;
     width: 100%;
 `;
 

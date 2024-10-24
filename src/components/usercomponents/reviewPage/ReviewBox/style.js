@@ -109,20 +109,43 @@ export const nextButton = css`
 export const dateAndLike = css`
     box-sizing: border-box;
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
     align-items: center;
     width: 100%;
-    height: 25px;
+    height: 50px;
+
+    & > div {
+        box-sizing: border-box;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-right: 3px;
+        width: 100%;
+        height: 50%;
+
+        & > p {
+            box-sizing: border-box;
+            width: fit-content;
+            height: 100%;
+
+            & > svg {
+                transform: translateY(1px);
+                font-size: 25px;
+                cursor: pointer;
+            }
+        }
+
+    }
     
-    & p {
+    & > p {
+        box-sizing: border-box;
+        padding: 0px 3px;
+        width: 100%;
+        height: 50%;
         font-size: 14px;
     }
 
-    & svg {
-        margin-right: 3px;
-        transform: translateY(3px);
-        font-size: 18px;
-    }
+    
 `;
 
 export const contentBox = css`

@@ -121,10 +121,17 @@ function AdminReservationTodayPage(props) {
                                         reservationId === reservation.id ?
                                             <td onClick={() => handleCancelOrCheckOnClick(reservation.id)}>
                                                 {
-                                                    reservation.status === 2 ? <></> : <button onClick={(e) => handleCheckOnClick(e)}>예약 확인</button>
+                                                    reservation.status === 1 && 
+                                                    <>
+                                                        <button onClick={(e) => handleCheckOnClick(e)}>예약 확인</button>
+                                                        <button onClick={(e) => handleCancelOnClick(e)}>예약 취소</button>
+                                                    </>
                                                 }
                                                 {
-                                                    reservation.statis === 3 ? <></> : <button onClick={(e) => handleCancelOnClick(e)}>예약 취소</button>
+                                                    reservation.status === 2 && <button onClick={(e) => handleCancelOnClick(e)}>예약 취소</button> 
+                                                }
+                                                {
+                                                    reservation.status === 3 && "예약 취소"
                                                 }
                                             </td>
                                             :

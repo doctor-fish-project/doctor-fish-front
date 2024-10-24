@@ -2,14 +2,36 @@ import React, { useState } from 'react';
 /** @jsxImportSource @emotion/react */
 import * as s from './style';
 import { FcLike } from "react-icons/fc";
+import { CiHeart } from "react-icons/ci";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
+import { useMutation, useQueryClient } from 'react-query';
+import { instance } from '../../../../apis/utils/instance';
 
 function ReviewBox({ review, onClick }) {
     const reviewImgs = JSON.parse(review?.img === undefined ? '[]' : review?.img)
 
-    const [mouseOverState, setMouseOverState] = useState(false);
+    const queryClient = useQueryClient();
 
+    const [mouseOverState, setMouseOverState] = useState(false);
     const [index, setIndex] = useState(0);
+    
+    const like = useMutation(
+        async () => await instance.post(`/review/like/${review.id}`),
+        {
+            onSuccess: response => {
+                queryClient.invalidateQueries("reviewsQuery");
+            }
+        }
+    )
+
+    const dislike = useMutation(
+        async () => await instance.delete(`/review/like/${review.id}`),
+        {
+            onSuccess: response => {
+                queryClient.invalidateQueries("reviewsQuery");
+            }
+        }
+    )
 
     const handleMouseOver = () => {
         setMouseOverState(true)
@@ -17,6 +39,16 @@ function ReviewBox({ review, onClick }) {
 
     const handleMouseOut = () => {
         setMouseOverState(false)
+    }
+
+    const handleLikeOnClick = (e) => {
+        e.stopPropagation();
+        like.mutateAsync().catch(() => {})
+    }
+
+    const handleDislikeOnClick = (e) => {
+        e.stopPropagation();
+        dislike.mutateAsync().catch(() => {})
     }
 
     const preImgOnClick = (e, index) => {
@@ -54,8 +86,11 @@ function ReviewBox({ review, onClick }) {
                     </div>
             }
             <div css={s.dateAndLike}>
-                <p>{review?.registerDate?.slice(0, 10)}</p>
-                <p><FcLike />10</p>
+                <div>
+                    <p>{ !!review.isLike ? <FcLike onClick={(e) => handleDislikeOnClick(e)}/> : <CiHeart onClick={(e) => handleLikeOnClick(e)}/>}</p>
+                    <p>{review?.registerDate?.slice(0, 10)}</p>
+                </div>
+                <p>좋아요 {review?.likeCount}</p>
             </div>
             <div css={s.contentBox}>
                 {review?.content}

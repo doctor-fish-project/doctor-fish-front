@@ -17,6 +17,10 @@ export const layout = css`
         font-weight: 600;
         background-color: #2E5984;
         color: white;
+
+        :disabled {
+            background-color: #bbbbbb;
+        }
     }
 `;
 

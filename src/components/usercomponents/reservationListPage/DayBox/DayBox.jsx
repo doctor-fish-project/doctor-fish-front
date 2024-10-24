@@ -11,7 +11,7 @@ function DayBox({ date, reservations }) {
         <div css={s.layout}>
             <p>{date}</p>
             {
-                reversedReservations.map(reservation =>
+                reversedReservations?.map(reservation =>
                     <ReservationBox key={reservation.id} reservation={reservation} />
                 )
             }

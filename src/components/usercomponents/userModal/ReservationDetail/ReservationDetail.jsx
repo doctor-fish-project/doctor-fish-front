@@ -2,15 +2,16 @@ import React, { useState } from 'react';
 /** @jsxImportSource @emotion/react */
 import * as s from './style';
 import ModalLayout from '../ModalLayout/ModalLayout';
-import { useRecoilState } from 'recoil';
-import { reservationDetailModalAtom } from '../../../../atoms/modalAtoms';
-import { reservationAtom } from '../../../../atoms/reservations';
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import { reservationDetailModalAtom, reservationModalAtom } from '../../../../atoms/modalAtoms';
+import { modifyStateAtom, reservationAtom, reservationId, reservationIdAtom } from '../../../../atoms/reservations';
 import CancelButton from '../CancelButton/CancelButton';
 import { useMutation, useQueryClient } from 'react-query';
 import CountDownTimer from '../../CountDownTimer/CountDownTimer';
 import { instance } from '../../../../apis/utils/instance';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
+import { doctorIdAtom } from '../../../../atoms/doctorAtoms';
 
 function ReservationDetail({ containerRef }) {
 
@@ -19,7 +20,11 @@ function ReservationDetail({ containerRef }) {
     const queryClient = useQueryClient();
     const userInfo = queryClient.getQueryData("userInfoQuery");
 
+    const [modifyState, setModifyState] = useRecoilState(modifyStateAtom);
+    const setReservationId = useSetRecoilState(reservationIdAtom);
+    const setDoctorId = useSetRecoilState(doctorIdAtom)
     const [reservationDetailOpen, setReservationDetailOpen] = useRecoilState(reservationDetailModalAtom);
+    const [reservationModalOpen, setReservationModalOpen] = useRecoilState(reservationModalAtom);
     const [reservation, setReservation] = useRecoilState(reservationAtom);
 
     const [ani, setAni] = useState("userModalOpen");
@@ -45,6 +50,30 @@ function ReservationDetail({ containerRef }) {
             }
         }
     )
+
+    const handleModifyReservationOnClick = (reservationId) => {
+        Swal.fire({
+            icon: 'info',
+            text: '예약 수정하시겠습니까?',
+            backdrop: false,
+            showCancelButton: true,
+            confirmButtonText: '확인',
+            cancelButtonText: '취소',
+            customClass: {
+                popup: 'custom-confirm-swal',
+                container: 'container',
+                confirmButton: 'confirmButton',
+            }
+        }).then(result => {
+            if (result.isConfirmed) {
+                setReservationId(reservationId);
+                setDoctorId(reservation?.doctorId)
+                setModifyState(true);
+                setReservationDetailOpen(false);
+                setReservationModalOpen(true);
+            }
+        })
+    }
 
     const handleCancelReservationOnClick = () => {
         Swal.fire({
@@ -97,10 +126,10 @@ function ReservationDetail({ containerRef }) {
                     <div css={s.doctorIntroduceBox}>
                         <p>{reservation?.doctor?.comment}</p>
                     </div>
-                    <CountDownTimer reservationDate={reservation?.reservationDate}/>
+                    <CountDownTimer reservation={reservation}/>
                 </div>
                 <div css={s.buttonBox}>
-                    <button>예약수정</button>
+                    <button onClick={() => handleModifyReservationOnClick(reservation.id)} disabled={reservation.status === 3}>예약수정</button>
                     <button onClick={handleCancelReservationOnClick} disabled={reservation?.status === 3}>예약취소</button>
                 </div>
             </div>

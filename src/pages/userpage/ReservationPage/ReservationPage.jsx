@@ -3,38 +3,27 @@ import React from 'react';
 import * as s from "./style";
 import DoctorBox from '../../../components/usercomponents/reservationPage/DoctorBox/DoctorBox';
 import DashBoardTopBar from '../../../components/usercomponents/dashBoard/DashBoardTopBar/DashBoardTopBar';
-import { instance } from '../../../apis/utils/instance';
-import { useQuery, useQueryClient } from 'react-query';
+import { useQueryClient } from 'react-query';
 import UserSubContainer from '../../../components/usercomponents/UserSubContainer/UserSubContainer';
 
 function ReservationPage(props) {
     const queryClient = useQueryClient();
     const authState = queryClient.getQueryState("accessTokenValidQuery")
-
-    const reservationdoctors = useQuery(
-        ["reservationdoctorsQuery"],
-        async () => await instance.get("/doctor/list"),
-        {
-            enabled: authState?.status !== "error",
-            refetchOnWindowFocus: false,
-            retry: 0
-        }
-    )
+    const doctors = queryClient.getQueryData("doctorsQuery")
 
     return (
         <UserSubContainer>
             <DashBoardTopBar title={"예약하기"} />
             {
-                !!authState?.data?.data &&
+                authState?.data?.data &&
                 <div css={s.layout}>
                     {
-                        reservationdoctors?.data?.data?.doctors.map(doctor =>
+                        doctors?.data?.doctors.map(doctor =>
                             <DoctorBox key={doctor.id} doctor={doctor} />
                         )
                     }
                 </div>
             }
-
         </UserSubContainer>
     );
 }

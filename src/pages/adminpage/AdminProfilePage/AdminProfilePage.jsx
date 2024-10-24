@@ -18,7 +18,7 @@ function AdminProfilePage(props) {
     const [modifyUser, setModifyUser] = useState(userInfo?.data);
     const [uploadState, setUploadState] = useState(false)
     const [editState, setEditState] = useState(false)
-
+    
     useEffect(() => {
         setModifyUser(userInfo?.data)
     }, [userInfo])

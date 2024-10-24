@@ -3,15 +3,15 @@ import React from 'react';
 import * as s from './style';
 import { useSetRecoilState } from 'recoil';
 import { reservationModalAtom } from '../../../../atoms/modalAtoms';
-import { doctorInfoAtom } from '../../../../atoms/doctorAtoms';
+import { doctorIdAtom } from '../../../../atoms/doctorAtoms';
 
 function DoctorBox({ doctor }) {
 
     const setReservationOpen = useSetRecoilState(reservationModalAtom);
-    const setDoctorInfo = useSetRecoilState(doctorInfoAtom)
+    const setDoctorId = useSetRecoilState(doctorIdAtom)
 
     const handleReservationModalOnClick = () => {
-        setDoctorInfo(doctor)
+        setDoctorId(doctor?.id)
         setReservationOpen(true);
     }
 

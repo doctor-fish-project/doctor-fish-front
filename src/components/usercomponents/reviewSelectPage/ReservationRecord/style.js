@@ -37,11 +37,10 @@ export const infoBox = css`
     }
 
     & button {
-        background-color: #52b6c6;
+        color: #000000;
         border-radius: 10px;
         padding: 0px 10px;
-        font-size: 12px;
-        color: white;
+        font-size: 14px;
         :active {
             color: #c5c5c5;
         }

@@ -50,7 +50,7 @@ function ReviewSelectPage(props) {
                 </UserSubContainer>
             </UserSubLayout>
             <Routes>
-                <Route path='/write' element={<ReviewWritePage reservationId={reservationId}/>} />
+                <Route path='/write' element={<ReviewWritePage reservation={reservationSelect?.data?.data?.reservations?.find(reservation => reservation.id === reservationId)}/>} />
             </Routes>
         </>
     );

@@ -26,8 +26,8 @@ function CountDownTimer({ reservationDate }) {
             }
         }, 1000);
 
-        return () => clearInterval(interval);
-    }, []);
+        // return () => clearInterval(interval);
+    }, [today]);
 
     return (
         <div css={s.timeBox}>

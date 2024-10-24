@@ -14,6 +14,13 @@ export const buttonBox = css`
     }
 `;
 
+export const recordBox = css`
+    box-sizing: border-box;
+    display: flex;
+    margin-bottom: 5px;
+    width: 90%;
+`;
+
 export const imgContainer = css`
     box-sizing: border-box;
     display: flex;

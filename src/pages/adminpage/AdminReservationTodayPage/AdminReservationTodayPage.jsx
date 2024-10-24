@@ -56,7 +56,7 @@ function AdminReservationTodayPage(props) {
     )
 
     const checkReservation = useMutation(
-        async () => await adminInstance.put(`/reservation/accept/${reservationId}`),
+        async () => await adminInstance.put(`/admin/reservation/accept/${reservationId}`),
         {
             onSuccess: response => {
                 setReservationId(0)
@@ -69,7 +69,7 @@ function AdminReservationTodayPage(props) {
     )
 
     const cancelReservation = useMutation(
-        async () => await adminInstance.put(`/reservation/cancel/${reservationId}`),
+        async () => await adminInstance.put(`/admin/reservation/cancel/${reservationId}`),
         {
             onSuccess: response => {
                 setReservationId(0)

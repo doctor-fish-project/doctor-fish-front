@@ -12,8 +12,9 @@ import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import { storage } from '../../../firebase/firebase';
 import UserSubLayout from '../../../components/usercomponents/UserSubLayout/UserSubLayout';
 import UserSubContainer from '../../../components/usercomponents/UserSubContainer/UserSubContainer';
+import ReservationRecord from '../../../components/usercomponents/reviewSelectPage/ReservationRecord/ReservationRecord';
 
-function ReviewWritePage({reservationId}) {
+function ReviewWritePage({reservation}) {
 
     const [isShow, setShow] = useState(true);
     const [deleteButtonState, setDeleteButtonState] = useState(false);
@@ -28,9 +29,9 @@ function ReviewWritePage({reservationId}) {
 
     useEffect(() => {
         setReview({
-            reservationId: reservationId
+            reservationId: reservation?.id
         })
-    }, [reservationId])
+    }, [reservation])
 
     useEffect(() => {
         setReview(review => ({
@@ -38,6 +39,8 @@ function ReviewWritePage({reservationId}) {
             imgList: JSON.stringify(imgs)
         }))
     }, [imgs])
+
+    console.log(reservation)
 
     const writeReview = useMutation(
         async () => await instance.post("/review", review),
@@ -165,6 +168,9 @@ function ReviewWritePage({reservationId}) {
                 <div css={s.buttonBox}>
                     <BackButton setShow={setShow} />
                     <button onClick={() => writeReview.mutateAsync().catch(() => { })}>작성하기</button>
+                </div>
+                <div css={s.recordBox}>
+                    <ReservationRecord reservation={reservation}/>
                 </div>
                 <div css={s.imgContainer}>
                     <div css={s.imgBox} onClick={handleAddImageOnClick}>

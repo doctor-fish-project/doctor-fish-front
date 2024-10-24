@@ -87,7 +87,7 @@ function AdminNoticePage(props) {
                                 <tr key={announcement.id} onClick={() => handleNoticeOpenOnClick(announcement.id)}>
                                     <td>{idx + 1}</td>
                                     <td>{announcement?.title}</td>
-                                    <td>{announcement?.userId}</td>
+                                    <td>{announcement?.userName}</td>
                                     <td>{announcement?.registerDate.slice(0, 10)}</td>
                                     <td>
                                         <button>삭제</button>

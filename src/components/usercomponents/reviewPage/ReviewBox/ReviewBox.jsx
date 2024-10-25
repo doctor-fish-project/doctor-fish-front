@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 /** @jsxImportSource @emotion/react */
 import * as s from './style';
-import { FcLike } from "react-icons/fc";
-import { CiHeart } from "react-icons/ci";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { useMutation, useQueryClient } from 'react-query';
 import { instance } from '../../../../apis/utils/instance';
+import FillHeart from '../../../FillHeart/FillHeart';
+import EmptyHeart from '../../../EmptyHeart/EmptyHeart';
 
 function ReviewBox({ review, onClick }) {
     const reviewImgs = JSON.parse(review?.img === undefined ? '[]' : review?.img)
@@ -20,6 +20,7 @@ function ReviewBox({ review, onClick }) {
         {
             onSuccess: response => {
                 queryClient.invalidateQueries("reviewsQuery");
+                queryClient.invalidateQueries("reviewQuery");
             }
         }
     )
@@ -29,6 +30,7 @@ function ReviewBox({ review, onClick }) {
         {
             onSuccess: response => {
                 queryClient.invalidateQueries("reviewsQuery");
+                queryClient.invalidateQueries("reviewQuery");
             }
         }
     )
@@ -70,7 +72,7 @@ function ReviewBox({ review, onClick }) {
         <div css={s.layout} onClick={onClick}>
             <div css={s.nameBox}>
                 <div css={s.profileBox}>
-                    <img src='https://firebasestorage.googleapis.com/v0/b/userprofile-9dd9e.appspot.com/o/user%2Fdefault.png?alt=media&token=caad563b-86be-48bb-a70a-a717042d870f' alt="" />
+                    <img src={review?.userImg} alt="" />
                 </div>
                 <p>{review?.userName}</p>
             </div>
@@ -87,7 +89,7 @@ function ReviewBox({ review, onClick }) {
             }
             <div css={s.dateAndLike}>
                 <div>
-                    <p>{ !!review.isLike ? <FcLike onClick={(e) => handleDislikeOnClick(e)}/> : <CiHeart onClick={(e) => handleLikeOnClick(e)}/>}</p>
+                    <p>{!!review?.isLike ? <FillHeart onClick={(e) => handleDislikeOnClick(e)}/> : <EmptyHeart onClick={(e) => handleLikeOnClick(e)}/>}</p>
                     <p>{review?.registerDate?.slice(0, 10)}</p>
                 </div>
                 <p>좋아요 {review?.likeCount}</p>

@@ -2,32 +2,42 @@ import React, { useState } from 'react';
 /** @jsxImportSource @emotion/react */
 import * as s from './style';
 import ModalLayout from '../ModalLayout/ModalLayout';
-import { useRecoilState, useSetRecoilState } from 'recoil';
-import { reservationDetailModalAtom, reservationModalAtom } from '../../../../atoms/modalAtoms';
-import { modifyStateAtom, reservationAtom, reservationId, reservationIdAtom } from '../../../../atoms/reservations';
 import CancelButton from '../CancelButton/CancelButton';
-import { useMutation, useQueryClient } from 'react-query';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
 import CountDownTimer from '../../CountDownTimer/CountDownTimer';
 import { instance } from '../../../../apis/utils/instance';
 import Swal from 'sweetalert2';
-import { useNavigate } from 'react-router-dom';
 import { doctorIdAtom } from '../../../../atoms/doctorAtoms';
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import { modifyStateAtom, reservationIdAtom } from '../../../../atoms/reservations';
+import { reservationDetailModalAtom, reservationModalAtom } from '../../../../atoms/modalAtoms';
 
 function ReservationDetail({ containerRef }) {
-
-    const nav = useNavigate();
-
     const queryClient = useQueryClient();
     const userInfo = queryClient.getQueryData("userInfoQuery");
 
-    const [modifyState, setModifyState] = useRecoilState(modifyStateAtom);
-    const setReservationId = useSetRecoilState(reservationIdAtom);
-    const setDoctorId = useSetRecoilState(doctorIdAtom)
+    const [ reservationId, setReservationId ] = useRecoilState(reservationIdAtom);
     const [reservationDetailOpen, setReservationDetailOpen] = useRecoilState(reservationDetailModalAtom);
-    const [reservationModalOpen, setReservationModalOpen] = useRecoilState(reservationModalAtom);
-    const [reservation, setReservation] = useRecoilState(reservationAtom);
+
+    const setDoctorId = useSetRecoilState(doctorIdAtom);
+    const setModifyState = useSetRecoilState(modifyStateAtom);
+    const setReservationModalOpen = useSetRecoilState(reservationModalAtom);
+
 
     const [ani, setAni] = useState("userModalOpen");
+
+    const reservation = useQuery(
+        ["reservationQuery"],
+        async () => {
+            setModifyState(false)
+            return await instance.get(`/reservation/${reservationId}`)
+        },
+        {
+            enabled: reservationDetailOpen,
+            refetchOnWindowFocus: false,
+            retry: 0
+        }
+    )
 
     const cancelReservation = useMutation(
         async () => await instance.put(`/reservation/cancel/${reservation?.id}`),
@@ -40,7 +50,8 @@ function ReservationDetail({ containerRef }) {
                     showConfirmButton: false,
                     timer: 1000,
                     willClose: () => {
-                        nav("/reservationlist", { replace: true })
+                        setReservationDetailOpen(false)
+                        setReservationId(0)
                     },
                     customClass: {
                         popup: 'custom-timer-swal',
@@ -67,7 +78,7 @@ function ReservationDetail({ containerRef }) {
         }).then(result => {
             if (result.isConfirmed) {
                 setReservationId(reservationId);
-                setDoctorId(reservation?.doctorId)
+                setDoctorId(reservation?.data?.data?.doctorId)
                 setModifyState(true);
                 setReservationDetailOpen(false);
                 setReservationModalOpen(true);
@@ -91,7 +102,6 @@ function ReservationDetail({ containerRef }) {
         }).then(result => {
             if (result.isConfirmed) {
                 cancelReservation.mutateAsync().catch(() => {})
-                setReservationDetailOpen(false);
             }
         })
     }
@@ -102,7 +112,6 @@ function ReservationDetail({ containerRef }) {
             setAni("userModalOpen");
             setReservationDetailOpen(false);
         }, 500)
-        setReservation({})
     }
 
     return (
@@ -116,21 +125,21 @@ function ReservationDetail({ containerRef }) {
                 <div css={s.infoContainer}>
                     <div css={s.doctorContainer}>
                         <div css={s.doctorImgBox}>
-                            <img src={reservation?.doctor?.user?.img} alt="" />
+                            <img src={reservation?.data?.data?.doctor?.user?.img} alt="" />
                         </div>
                         <div css={s.doctorInfoBox}>
-                            <p>{reservation?.doctor?.user?.name}</p>
-                            <p>{reservation?.doctor?.depart?.name}</p>
+                            <p>{reservation?.data?.data?.doctor?.user?.name}</p>
+                            <p>{reservation?.data?.data?.doctor?.depart?.name}</p>
                         </div>
                     </div>
                     <div css={s.doctorIntroduceBox}>
-                        <p>{reservation?.doctor?.comment}</p>
+                        <p>{reservation?.data?.data?.doctor?.comment}</p>
                     </div>
-                    <CountDownTimer reservation={reservation}/>
+                    <CountDownTimer reservation={reservation?.data?.data}/>
                 </div>
                 <div css={s.buttonBox}>
-                    <button onClick={() => handleModifyReservationOnClick(reservation.id)} disabled={reservation.status === 3}>예약수정</button>
-                    <button onClick={handleCancelReservationOnClick} disabled={reservation?.status === 3}>예약취소</button>
+                    <button onClick={() => handleModifyReservationOnClick(reservation?.data?.data?.id)} disabled={reservation?.data?.data?.status === 3}>예약수정</button>
+                    <button onClick={handleCancelReservationOnClick} disabled={reservation?.data?.data?.status === 3}>예약취소</button>
                 </div>
             </div>
         </ModalLayout>

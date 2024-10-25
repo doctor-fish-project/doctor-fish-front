@@ -116,7 +116,7 @@ function AdminReservationTodayPage(props) {
                                     <td>{reservation?.registerDate.slice(0, 10)}</td>
                                     <td>{reservation?.user?.name}</td>
                                     <td>{reservation?.user?.phoneNumber}</td>
-                                    <td>{reservation?.reservationDate.slice(0, 10)}</td>
+                                    <td>{reservation?.reservationDate.slice(0, 16).replace("T", "-")}</td>
                                     {
                                         reservationId === reservation.id ?
                                             <td onClick={() => handleCancelOrCheckOnClick(reservation.id)}>

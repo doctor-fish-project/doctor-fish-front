@@ -130,7 +130,7 @@ export const dateAndLike = css`
 
             & > svg {
                 transform: translateY(1px);
-                font-size: 25px;
+                width: 20px;
                 cursor: pointer;
             }
         }

@@ -1,7 +1,5 @@
 import { css } from "@emotion/react";
 
-
-
 export const buttonBox = css`
     box-sizing: border-box;
     display: flex;
@@ -103,4 +101,27 @@ export const commentBox = css`
     & > div:nth-last-of-type(1) > div:nth-last-of-type(1) {
         border: none;
     }
+`;
+
+export const commentInput = css`
+    box-sizing: border-box;
+    display: flex;
+    margin-bottom: 10px;
+    width: 100%;
+    height: 30px;
+
+    & > input {
+        box-sizing: border-box;
+        width: 85%;
+        padding: 5px 10px;
+        border-bottom: 1px solid #dbdbdb;
+    }
+
+    & > button {
+        box-sizing: border-box;
+        border-bottom: 1px solid #dbdbdb;
+        padding: 0px;
+        width: 15%;
+    }
+    
 `;

@@ -5,14 +5,14 @@ export const layout = (inputState) => css`
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 5px;
+    padding: 5px 10px;
     width: 100%;
     height: 100%;
 
     & > p {
-        box-sizing: border-box;
-        display: flex;
         width: 100%;
+        font-size: 20px;
+        font-weight: 600;
     }
 
     & > img {

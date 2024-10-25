@@ -8,7 +8,6 @@ export const layout = css`
     padding: 0px 200px;
     width: 100%;
     flex-grow: 1;
-    /* flex-grow: 1; */
 `
 
 export const signupContainer = css`
@@ -16,7 +15,6 @@ export const signupContainer = css`
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* border: 1px solid #dbdbdb; */
     width: 50%;
     height: 100%;
 `;
@@ -26,7 +24,6 @@ export const textContainer = css`
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* border: 1px solid #dbdbdb; */
     width: 50%;
     height: 100%;
 `;

@@ -12,6 +12,7 @@ import { adminNoticeModalAtom, adminNoticeWriteModalAtom } from '../../../atoms/
 import AdminListPagination from '../../../components/admincomponents/AdminListPagination/AdminListPagination';
 import AdminPageLayout from '../../../components/admincomponents/AdminPageLayout/AdminPageLayout';
 import { noticeIdAtom } from '../../../atoms/adminAtoms';
+import Swal from 'sweetalert2';
 
 function AdminNoticePage(props) {
     const nav = useNavigate();
@@ -76,6 +77,32 @@ function AdminNoticePage(props) {
         setNoticeWriteOpen(true);
     }
 
+    const handleButtonOnClick = async (announceId) => {
+        try {
+            Swal.fire({
+                title: "삭제하시겠습니까?",
+                icon: "question",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "확인",
+                cancelButtonText: "취소"
+              }).then(async (result) => {
+                if (result.isConfirmed) {
+                    await adminInstance.delete(`/admin/announce/${announceId}`);
+                    Swal.fire({
+                        title: "삭제 완료",
+                        icon: "success"
+                    }).then((result) => {
+                        window.location.reload();
+                  });
+                }
+              });
+        } catch(e) {
+            console.error(e);
+        }
+    }
+
     return (
         <AdminContainer>
             <AdminPageLayout title={"공지사항"} count={notices?.data?.data?.announceCount}>
@@ -84,13 +111,13 @@ function AdminNoticePage(props) {
                     <tbody css={s.layout(noticeTableHeader?.data?.data?.length)}>
                         {
                             notices?.data?.data?.announcements?.map((announcement, idx) =>
-                                <tr key={announcement.id} onClick={() => handleNoticeOpenOnClick(announcement.id)}>
-                                    <td>{idx + 1}</td>
-                                    <td>{announcement?.title}</td>
-                                    <td>{announcement?.userName}</td>
-                                    <td>{announcement?.registerDate.slice(0, 10)}</td>
+                                <tr key={announcement.id}>
+                                    <td onClick={() => handleNoticeOpenOnClick(announcement.id)}>{idx + 1}</td>
+                                    <td onClick={() => handleNoticeOpenOnClick(announcement.id)}>{announcement?.title}</td>
+                                    <td onClick={() => handleNoticeOpenOnClick(announcement.id)}>{announcement?.userName}</td>
+                                    <td onClick={() => handleNoticeOpenOnClick(announcement.id)}>{announcement?.registerDate.slice(0, 10)}</td>
                                     <td>
-                                        <button>삭제</button>
+                                        <button onClick={() => handleButtonOnClick(announcement.id)}>삭제</button>
                                     </td>
                                 </tr>
                             )

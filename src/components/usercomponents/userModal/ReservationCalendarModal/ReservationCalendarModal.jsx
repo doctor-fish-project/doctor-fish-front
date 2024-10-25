@@ -222,14 +222,21 @@ function ReservationCalendarModal({ containerRef }) {
                 <ReservationCalendar reservationDate={reservationDate} setReservationDate={setReservationDate} setReservationTime={setReservationTime} />
                 <div css={s.timeBox}>
                     {
-                        times?.data?.data?.map(time =>
-                            <TimeBox key={time.id} time={time} reservationTime={reservationTime} setReservationTime={setReservationTime}
-                                disabled={!!reservedTimes?.data?.data?.filter(reservedTime => reservedTime?.time === time?.time).length
-                                    || (today.toLocaleString().slice(0, 13) === reservationDate?.toLocaleDateString()) && (time.time < today.toTimeString().slice(0, 5))
-                                    || reservationDate.getDay() === 6
-                                    || reservationDate.getDay() === 0}
-                            />
-                        )
+                        times?.data?.data?.map(time => {
+                            if(reservationDate.getDay() !== 6 && reservationDate.getDay() !== 0 && time?.time === myReservation?.data?.data?.reservationDate?.slice(11, 16)) {
+                                return  <TimeBox key={time.id} time={time} reservationTime={reservationTime} setReservationTime={setReservationTime} disabled={false}/>
+                            }
+                            if(reservedTimes?.data?.data?.find(reservedTime => reservedTime?.time === time?.time)) {
+                                return <TimeBox key={time.id} time={time} reservationTime={reservationTime} setReservationTime={setReservationTime} disabled={true}/>
+                            }
+                            if(today.toLocaleString().slice(0, 13) === reservationDate?.toLocaleDateString() && (time.time < today.toTimeString().slice(0, 5))) {
+                                return <TimeBox key={time.id} time={time} reservationTime={reservationTime} setReservationTime={setReservationTime} disabled={true}/>
+                            }
+                            if(reservationDate.getDay() === 6 || reservationDate.getDay() === 0) {
+                                return <TimeBox key={time.id} time={time} reservationTime={reservationTime} setReservationTime={setReservationTime} disabled={true}/>
+                            }
+                            return <TimeBox key={time.id} time={time} reservationTime={reservationTime} setReservationTime={setReservationTime} disabled={false}/>
+                        })
                     }
                 </div>
                 {

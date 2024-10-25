@@ -1,68 +1,91 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 /** @jsxImportSource @emotion/react */
 import * as s from "./style";
 import YearBox from '../../../components/usercomponents/reservationListPage/YearBox/YearBox';
 import DashBoardTopBar from '../../../components/usercomponents/dashBoard/DashBoardTopBar/DashBoardTopBar';
-import { useQuery, useQueryClient } from 'react-query';
+import { useInfiniteQuery, useQueryClient } from 'react-query';
 import { instance } from '../../../apis/utils/instance';
 import { IoFilterOutline } from "react-icons/io5";
 import UserSubContainer from '../../../components/usercomponents/UserSubContainer/UserSubContainer';
-import { reservationModalAtom } from '../../../atoms/modalAtoms';
-import { useRecoilState } from 'recoil';
+import { useRecoilValue } from 'recoil';
+import { reservationDetailModalAtom, reservationModalAtom } from '../../../atoms/modalAtoms';
 
 function ReservationListPage(props) {
-    const queryClient = useQueryClient();
-    const authState = queryClient.getQueryState("accessTokenValidQuery")
+    const loadMoreRef = useRef(null);
 
-    const [reservationOpen, setReservationOpen] = useRecoilState(reservationModalAtom);
+    const queryClient = useQueryClient();
+    const authState = queryClient.getQueryState("accessTokenValidQuery");
+
+    const reservationOpen = useRecoilValue(reservationModalAtom);
+    const reservationDetailOpen = useRecoilValue(reservationDetailModalAtom);
 
     const [reservations, setReservations] = useState({});
 
-    const reservationList = useQuery(
-        ["reservationListQuery", reservationOpen],
-        async () => {
-            return await instance.get("/reservation/list");
-        },
+    const limit = 10;
+
+    const resrvations = useInfiniteQuery(
+        ["resrvationsQuery", reservationDetailOpen, reservationOpen],
+        async ({ pageParam = 1 }) => await instance.get(`/reservation/list?page=${pageParam}&limit=${limit}`),
         {
             enabled: authState?.data?.data,
             refetchOnWindowFocus: false,
-            retry: 0,
+            getNextPageParam: (lastPage, allPage) => {
+                const totalPageCount = lastPage.data.commentCount % limit === 0
+                    ? lastPage.data.commentCount / limit
+                    : Math.floor(lastPage.data.commentCount / limit) + 1;
+
+                return totalPageCount !== allPage.length ? allPage.length + 1 : null;
+            },
             onSuccess: response => {
-                const reservationList = response?.data?.reservations
                 const tempReservationDate = {};
 
-                for (let reservation of reservationList) {
-                    const dateTime = reservation.reservationDate;
-                    const year = dateTime.slice(0, 4);
-                    const month = dateTime.slice(5, 7);
-                    const date = dateTime.slice(0, 10);
+                for (let page of response?.pages) {
+                    for (let reservation of page?.data?.reservations) {
+                        const dateTime = reservation.reservationDate;
+                        const year = dateTime.slice(0, 4);
+                        const month = dateTime.slice(5, 7);
+                        const date = dateTime.slice(0, 10);
 
-                    if (!tempReservationDate[year]) {
-                        tempReservationDate[year] = {}
-                    }
-                    if (!tempReservationDate[year][month]) {
-                        tempReservationDate[year][month] = {}
-                    }
-                    if (!tempReservationDate[year][month][date]) {
-                        tempReservationDate[year][month][date] = []
-                    }
+                        if (!tempReservationDate[year]) {
+                            tempReservationDate[year] = {}
+                        }
+                        if (!tempReservationDate[year][month]) {
+                            tempReservationDate[year][month] = {}
+                        }
+                        if (!tempReservationDate[year][month][date]) {
+                            tempReservationDate[year][month][date] = []
+                        }
+                        tempReservationDate[year][month][date].push(reservation);
 
-                    tempReservationDate[year][month][date].push(reservation);
+                        setReservations(tempReservationDate)
+                    }
                 }
-                setReservations(tempReservationDate);
-            },
-            onError: error => {
-
             }
         }
-    )
+    );
+
+    useEffect(() => {
+        if (!resrvations.hasNextPage || !loadMoreRef.current || resrvations?.data?.pages[0].data?.reservations?.length < 10) {
+            return;
+        }
+
+        const observer = new IntersectionObserver(([intersectionObserver]) => {
+            if (intersectionObserver.isIntersecting) {
+                resrvations.fetchNextPage();
+            }
+        }, { threshold: 1.0 });
+
+        observer.observe(loadMoreRef.current);
+
+        return () => observer.disconnect();
+    }, [resrvations.hasNextPage]);
 
     const entriesOfReservationsData = Object.entries(reservations);
 
     return (
         <UserSubContainer>
             <DashBoardTopBar title={"예약조회"} icon={<IoFilterOutline />} />
-            <div css={s.layout}>
+            <div css={s.layout} ref={loadMoreRef}>
                 {
                     entriesOfReservationsData?.map(([year, monthOfReservationsData]) =>
                         <YearBox key={year} year={year} monthOfReservationsData={monthOfReservationsData} />)

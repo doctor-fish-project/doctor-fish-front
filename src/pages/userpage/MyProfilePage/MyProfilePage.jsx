@@ -12,7 +12,6 @@ import UserSubLayout from '../../../components/usercomponents/UserSubLayout/User
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import { storage } from '../../../firebase/firebase';
 import { v4 as uuid } from 'uuid'
-import { instance } from '../../../apis/utils/instance';
 
 function MyProfilePage(props) {
     const nav = useNavigate();

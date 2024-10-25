@@ -26,7 +26,7 @@ function AdminNoticeWrite({ containerRef }) {
 
     const handleWriteButtonOnClick = async () => {
         try {
-            const response = await adminInstance.post("/admin/announce", noticeInput);
+            await adminInstance.post("/admin/announce", noticeInput);
             Swal.fire({
                 title: "작성 성공",
                 icon: "success"

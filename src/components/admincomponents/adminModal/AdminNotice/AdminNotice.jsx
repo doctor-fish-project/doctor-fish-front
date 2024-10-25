@@ -13,27 +13,46 @@ import { adminInstance } from '../../../../apis/utils/instance';
 function AdminNotice({ containerRef }) {
     const [noticeOpen, setNoticeOpen] = useRecoilState(adminNoticeModalAtom);
     const [noticeId, setNoticeId] = useRecoilState(noticeIdAtom);
-    const [modifyNotice, setModifyNotice] = useState();
+    const [modifyNotice, setModifyNotice] = useState({
+        title: "",
+        content: ""
+    });
 
     const quillRef = useRef(null);
 
-    console.log(noticeId);
-
-    useEffect(() => {
-        notice.refetch();
-    }, [noticeOpen])
-
     const notice = useQuery(
-        ["noticeQuery"],
+        ["noticeQuery", noticeOpen],
         async () => await adminInstance.get(`/admin/announce/${noticeId}`),
-        {
+        {   
             enabled: true,
             refetchOnWindowFocus: false,
             retry: 0
         }
     )
 
-    console.log(notice);
+    // useEffect(() => {
+    //     console.log(modifyNotice);
+    // }, [modifyNotice]);
+
+    useEffect(() => {
+        if (notice.isSuccess) {
+            setModifyNotice(notice?.data?.data);
+        }
+    }, [notice]);
+
+    const handleTitleOnChange = (e) => {
+        setModifyNotice(modifyNotice => ({
+            ...modifyNotice,
+            title: e.target.value.trim() === "" ? "" : e.target.value
+        }))
+    }
+
+    const handleContentOnChange = (value) => {
+        setModifyNotice(modifyNotice => ({
+            ...modifyNotice,
+            content: quillRef.current.getEditor().getText().trim() === "" ? "" : value
+        }))
+    }
 
     const closeModal = () => {
         setNoticeOpen(false)
@@ -61,7 +80,7 @@ function AdminNotice({ containerRef }) {
                         <h1>공지사항</h1>
                         <button>수정하기</button>
                     </div>
-                    <input css={s.titleInput} type="text" name="title" placeholder="게시글의 제목을 입력하세요." />
+                    <input css={s.titleInput} type="text" onChange={handleTitleOnChange} name="title" value={modifyNotice.title} placeholder="게시글의 제목을 입력하세요." />
                     <ReactQuill
                         ref={quillRef}
                         className='quillStyle'
@@ -78,6 +97,8 @@ function AdminNotice({ containerRef }) {
                                 }
                             }
                         }}
+                        value={modifyNotice.content}
+                        onChange={handleContentOnChange}
                     />
                 </div>
             </div>

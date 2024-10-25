@@ -63,7 +63,6 @@ function AdminNoticeWrite({ containerRef }) {
             ...noticeInput,
             title: e.target.value.trim() === "" ? "" : e.target.value 
         }));
-        console.log(noticeInput);
     }
 
     const handleContentOnChange = (value) => {

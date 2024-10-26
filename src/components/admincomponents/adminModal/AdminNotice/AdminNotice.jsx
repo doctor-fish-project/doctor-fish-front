@@ -9,6 +9,7 @@ import { noticeIdAtom } from '../../../../atoms/adminAtoms';
 import ReactQuill from 'react-quill';
 import { useQuery } from 'react-query';
 import { adminInstance } from '../../../../apis/utils/instance';
+import Swal from 'sweetalert2';
 
 function AdminNotice({ containerRef }) {
     const [noticeOpen, setNoticeOpen] = useRecoilState(adminNoticeModalAtom);
@@ -17,8 +18,18 @@ function AdminNotice({ containerRef }) {
         title: "",
         content: ""
     });
+    const [setStatus, setSetStatus] = useState(true);
 
     const quillRef = useRef(null);
+
+    useEffect(() => {
+        console.log(noticeId);
+        console.log(modifyNotice);
+    }, [noticeOpen]);
+
+    useEffect(() => {
+        setSetStatus(true);
+    }, [noticeOpen]);
 
     const notice = useQuery(
         ["noticeQuery", noticeOpen],
@@ -30,13 +41,12 @@ function AdminNotice({ containerRef }) {
         }
     )
 
-    // useEffect(() => {
-    //     console.log(modifyNotice);
-    // }, [modifyNotice]);
-
     useEffect(() => {
         if (notice.isSuccess) {
-            setModifyNotice(notice?.data?.data);
+            if(setStatus) {
+                setModifyNotice(notice?.data?.data);
+                setSetStatus(false);
+            }
         }
     }, [notice]);
 
@@ -56,6 +66,31 @@ function AdminNotice({ containerRef }) {
 
     const closeModal = () => {
         setNoticeOpen(false)
+    }
+
+    const handleButtonOnClick = async () => {
+        try {
+            await adminInstance.put(`/admin/announce/${noticeId}`, modifyNotice);
+            alert("수정 완료");
+            closeModal();
+            window.location.reload();
+        } catch(e) {
+            console.log(e);
+            const fieldErrors = e.response.data;
+
+            for(let fieldError of fieldErrors) {
+                if(fieldError.field === "title") {
+                    alert(fieldError.defaultMessage);
+                    return;
+                }
+            }
+            for(let fieldError of fieldErrors) {
+                if(fieldError.field === "content") {
+                    alert(fieldError.defaultMessage);
+                    return;
+                }
+            }
+        }
     }
 
     const toolbarOptions = useMemo(() => [
@@ -78,7 +113,7 @@ function AdminNotice({ containerRef }) {
                 <div css={s.quillBox}>
                     <div css={s.header}>
                         <h1>공지사항</h1>
-                        <button>수정하기</button>
+                        <button onClick={handleButtonOnClick}>수정하기</button>
                     </div>
                     <input css={s.titleInput} type="text" onChange={handleTitleOnChange} name="title" value={modifyNotice.title} placeholder="게시글의 제목을 입력하세요." />
                     <ReactQuill

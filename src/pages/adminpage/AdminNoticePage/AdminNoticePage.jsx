@@ -69,7 +69,7 @@ function AdminNoticePage(props) {
     }
 
     const handleNoticeOpenOnClick = (noticeId) => {
-        setNoticeId(noticeId)
+        setNoticeId(noticeId);
         setNoticeOpen(true);
     }
 
@@ -79,25 +79,12 @@ function AdminNoticePage(props) {
 
     const handleButtonOnClick = async (announceId) => {
         try {
-            Swal.fire({
-                title: "삭제하시겠습니까?",
-                icon: "question",
-                showCancelButton: true,
-                confirmButtonColor: "#3085d6",
-                cancelButtonColor: "#d33",
-                confirmButtonText: "확인",
-                cancelButtonText: "취소"
-              }).then(async (result) => {
-                if (result.isConfirmed) {
-                    await adminInstance.delete(`/admin/announce/${announceId}`);
-                    Swal.fire({
-                        title: "삭제 완료",
-                        icon: "success"
-                    }).then((result) => {
-                        window.location.reload();
-                  });
-                }
-              });
+            if (window.confirm("삭제하시겠습니까?")) {
+                await adminInstance.delete(`/admin/announce/${announceId}`);
+                alert("삭제 완료");
+                window.location.reload();
+                return;
+            }
         } catch(e) {
             console.error(e);
         }

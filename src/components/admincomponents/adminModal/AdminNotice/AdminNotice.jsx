@@ -9,34 +9,88 @@ import { noticeIdAtom } from '../../../../atoms/adminAtoms';
 import ReactQuill from 'react-quill';
 import { useQuery } from 'react-query';
 import { adminInstance } from '../../../../apis/utils/instance';
+import Swal from 'sweetalert2';
 
 function AdminNotice({ containerRef }) {
     const [noticeOpen, setNoticeOpen] = useRecoilState(adminNoticeModalAtom);
     const [noticeId, setNoticeId] = useRecoilState(noticeIdAtom);
-    const [modifyNotice, setModifyNotice] = useState();
+    const [modifyNotice, setModifyNotice] = useState({
+        title: "",
+        content: ""
+    });
+    const [setStatus, setSetStatus] = useState(true);
 
     const quillRef = useRef(null);
 
-    console.log(noticeId);
+    useEffect(() => {
+        console.log(noticeId);
+        console.log(modifyNotice);
+    }, [noticeOpen]);
 
     useEffect(() => {
-        notice.refetch();
-    }, [noticeOpen])
+        setSetStatus(true);
+    }, [noticeOpen]);
 
     const notice = useQuery(
-        ["noticeQuery"],
+        ["noticeQuery", noticeOpen],
         async () => await adminInstance.get(`/admin/announce/${noticeId}`),
-        {
+        {   
             enabled: true,
             refetchOnWindowFocus: false,
             retry: 0
         }
     )
 
-    console.log(notice);
+    useEffect(() => {
+        if (notice.isSuccess) {
+            if(setStatus) {
+                setModifyNotice(notice?.data?.data);
+                setSetStatus(false);
+            }
+        }
+    }, [notice]);
+
+    const handleTitleOnChange = (e) => {
+        setModifyNotice(modifyNotice => ({
+            ...modifyNotice,
+            title: e.target.value.trim() === "" ? "" : e.target.value
+        }))
+    }
+
+    const handleContentOnChange = (value) => {
+        setModifyNotice(modifyNotice => ({
+            ...modifyNotice,
+            content: quillRef.current.getEditor().getText().trim() === "" ? "" : value
+        }))
+    }
 
     const closeModal = () => {
         setNoticeOpen(false)
+    }
+
+    const handleButtonOnClick = async () => {
+        try {
+            await adminInstance.put(`/admin/announce/${noticeId}`, modifyNotice);
+            alert("수정 완료");
+            closeModal();
+            window.location.reload();
+        } catch(e) {
+            console.log(e);
+            const fieldErrors = e.response.data;
+
+            for(let fieldError of fieldErrors) {
+                if(fieldError.field === "title") {
+                    alert(fieldError.defaultMessage);
+                    return;
+                }
+            }
+            for(let fieldError of fieldErrors) {
+                if(fieldError.field === "content") {
+                    alert(fieldError.defaultMessage);
+                    return;
+                }
+            }
+        }
     }
 
     const toolbarOptions = useMemo(() => [
@@ -59,9 +113,9 @@ function AdminNotice({ containerRef }) {
                 <div css={s.quillBox}>
                     <div css={s.header}>
                         <h1>공지사항</h1>
-                        <button>수정하기</button>
+                        <button onClick={handleButtonOnClick}>수정하기</button>
                     </div>
-                    <input css={s.titleInput} type="text" name="title" placeholder="게시글의 제목을 입력하세요." />
+                    <input css={s.titleInput} type="text" onChange={handleTitleOnChange} name="title" value={modifyNotice.title} placeholder="게시글의 제목을 입력하세요." />
                     <ReactQuill
                         ref={quillRef}
                         className='quillStyle'
@@ -78,6 +132,8 @@ function AdminNotice({ containerRef }) {
                                 }
                             }
                         }}
+                        value={modifyNotice.content}
+                        onChange={handleContentOnChange}
                     />
                 </div>
             </div>

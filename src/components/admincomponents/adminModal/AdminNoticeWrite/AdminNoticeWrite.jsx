@@ -27,31 +27,21 @@ function AdminNoticeWrite({ containerRef }) {
     const handleWriteButtonOnClick = async () => {
         try {
             await adminInstance.post("/admin/announce", noticeInput);
-            Swal.fire({
-                title: "작성 성공",
-                icon: "success"
-              }).then((result) => {
-                    closeModal();
-                    window.location.reload();
-              });
+            alert("작성 완료");
+            closeModal();
+            window.location.reload();
         } catch(e) {
             const fieldErrors = e.response.data;
 
             for(let fieldError of fieldErrors) {
                 if(fieldError.field === "title") {
-                    Swal.fire({
-                        title: fieldError.defaultMessage,
-                        icon: "warning"
-                      });
+                    alert(fieldError.defaultMessage);
                     return;
                 }
             }
             for(let fieldError of fieldErrors) {
                 if(fieldError.field === "content") {
-                    Swal.fire({
-                        title: fieldError.defaultMessage,
-                        icon: "warning"
-                      });
+                    alert(fieldError.defaultMessage);
                     return;
                 }
             }

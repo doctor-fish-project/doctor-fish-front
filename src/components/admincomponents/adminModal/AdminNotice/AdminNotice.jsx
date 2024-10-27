@@ -110,7 +110,7 @@ function AdminNotice({ containerRef }) {
                         <h1>공지사항</h1>
                         <button onClick={handleButtonOnClick}>수정하기</button>
                     </div>
-                    <input css={s.titleInput} type="text" onChange={handleTitleOnChange} name="title" value={modifyNotice.title} placeholder="게시글의 제목을 입력하세요." />
+                    <input css={s.titleInput} type="text" onChange={handleTitleOnChange} name="title" value={modifyNotice?.title} placeholder="게시글의 제목을 입력하세요." />
                     <ReactQuill
                         ref={quillRef}
                         className='quillStyle'
@@ -127,7 +127,7 @@ function AdminNotice({ containerRef }) {
                                 }
                             }
                         }}
-                        value={modifyNotice.content}
+                        value={modifyNotice?.content}
                         onChange={handleContentOnChange}
                     />
                 </div>

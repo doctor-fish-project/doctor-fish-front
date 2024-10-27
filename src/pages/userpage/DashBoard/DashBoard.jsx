@@ -61,25 +61,21 @@ function DashBoard(props) {
                     </div>
                     <div css={s.userInfoBox}>
                         {
-                            authState?.data?.data
-                                ?
+                            authState?.data?.data ?
                                 <>
                                     <div>
                                         <p>{userInfo?.data?.name}</p>
                                         <p>{userInfo?.data?.phoneNumber}</p>
                                     </div>
                                     <button onClick={handleMyProfileOnClick}><FaUser />내정보</button>
-                                </>
-                                :
+                                </> :
                                 <div css={s.defaultBox}>
                                     <button onClickCapture={handleSigninOnClick}>로그인</button>
                                 </div>
                         }
-
                     </div>
                     <BoxTopBar title1={"예약 일정"} title2={"전체 보기"} link={"/reservationlist"} icon={<IoIosArrowForward />} />
                     <TodayReservationBox reservations={todayReservations?.data?.data?.reservations} />
-
                     <BoxTopBar title1={"의료진"} />
                     <div css={s.doctorBox}>
                         {

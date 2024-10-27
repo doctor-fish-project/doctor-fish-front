@@ -9,6 +9,7 @@ import { IoIosArrowBack, IoIosArrowForward, IoIosClose } from "react-icons/io"
 import { FcLike } from 'react-icons/fc';
 import { useQuery, useQueryClient } from 'react-query';
 import { adminInstance, instance } from '../../../../apis/utils/instance';
+import ReviewComment from '../../../usercomponents/reviewPage/ReviewComment/ReviewComment';
 
 
 function AdminReview({ containerRef }) {
@@ -101,7 +102,8 @@ function AdminReview({ containerRef }) {
                             {reviewByreviewId?.data?.data?.content}
                         </div>
                     </div>
-                    <div css={s.reviewBox}>
+                    <div css={s.commentBox}>
+                        <ReviewComment comment={comments} />
                     </div>
                 </div>
                 <div css={s.buttonBox}>

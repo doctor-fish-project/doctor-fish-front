@@ -154,6 +154,18 @@ export const contentBox = css`
     width: 100%;
 `;
 
+export const commentBox = css`
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    padding: 30px;
+    overflow-y: auto;
+    ::-webkit-scrollbar {
+        display: none;
+    }
+`;
+
 export const buttonBox = css`
     box-sizing: border-box;
     display: flex;

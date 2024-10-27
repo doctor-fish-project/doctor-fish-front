@@ -44,10 +44,14 @@ function DashBoard(props) {
 
     const handleMyProfileOnClick = () => {
         nav("/dashboard/myprofile")
-    }
+    } 
 
     const handleDoctorProfileOnClick = (doctorId) => {
         nav(`/dashboard/doctor/${doctorId}`)
+    }
+
+    const handleNoticeListPageOnClick = () => {
+        nav("/noticelist")
     }
 
     return (
@@ -55,7 +59,7 @@ function DashBoard(props) {
             <SubContainer>
                 <DashBoardTopBar title={"MEDIBOOK"} icon={<FaRegBell />} />
                 <div css={s.layout}>
-                    <div css={s.noticeBox}>
+                    <div css={s.noticeBox} onClick={handleNoticeListPageOnClick}>
                         <AiFillSound />
                         <p>안녕하세요</p>
                     </div>

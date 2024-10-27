@@ -13,8 +13,8 @@ export const layout = css`
     & > img {
         box-sizing: border-box;
         margin-right: 5px;
-        width: 70px;
-        height: 70px;
+        width: 60px;
+        height: 60px;
         object-fit: contain;
         overflow: hidden;
     }
@@ -31,4 +31,12 @@ export const nameAndDepartBox = css`
     flex-grow: 1;
     flex-direction: column;
     justify-content: center;
+
+    & div:nth-of-type(1) {
+        font-size: 18px;
+    }
+
+    & div:nth-of-type(2) {
+        color: #777777;
+    }
 `;

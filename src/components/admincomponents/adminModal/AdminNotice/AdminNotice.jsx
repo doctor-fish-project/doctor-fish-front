@@ -22,16 +22,11 @@ function AdminNotice({ containerRef }) {
     const quillRef = useRef(null);
 
     useEffect(() => {
-        console.log(noticeId);
-        console.log(modifyNotice);
-    }, [noticeOpen]);
-
-    useEffect(() => {
         setSetStatus(true);
     }, [noticeOpen]);
 
     const notice = useQuery(
-        ["noticeQuery", noticeOpen],
+        ["noticeQuery", noticeId],
         async () => await adminInstance.get(`/admin/announce/${noticeId}`),
         {   
             enabled: true,
@@ -64,6 +59,7 @@ function AdminNotice({ containerRef }) {
     }
 
     const closeModal = () => {
+        setNoticeId(0);
         setNoticeOpen(false)
     }
 

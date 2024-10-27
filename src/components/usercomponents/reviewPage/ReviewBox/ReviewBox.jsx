@@ -6,11 +6,20 @@ import { useMutation, useQueryClient } from 'react-query';
 import { instance } from '../../../../apis/utils/instance';
 import FillHeart from '../../../FillHeart/FillHeart';
 import EmptyHeart from '../../../EmptyHeart/EmptyHeart';
+import Swal from 'sweetalert2';
+import { useSetRecoilState } from 'recoil';
+import { signinModalAtom } from '../../../../atoms/modalAtoms';
+import { useNavigate } from 'react-router-dom';
 
 function ReviewBox({ review, onClick }) {
+    const nav = useNavigate();
+
     const reviewImgs = JSON.parse(review?.img === undefined ? '[]' : review?.img)
 
     const queryClient = useQueryClient();
+    const authSate = queryClient.getQueryState("accessTokenValidQuery");
+
+    const setSigninModalState = useSetRecoilState(signinModalAtom);
 
     const [mouseOverState, setMouseOverState] = useState(false);
     const [index, setIndex] = useState(0);
@@ -45,7 +54,27 @@ function ReviewBox({ review, onClick }) {
 
     const handleLikeOnClick = (e) => {
         e.stopPropagation();
-        like.mutateAsync().catch(() => {})
+        authSate?.data?.data ? like.mutateAsync().catch(() => {}) :
+        Swal.fire({
+            icon: 'info',
+            title: '로그인 후 사용가능합니다.',
+            text: '로그인 하시겠습니까?',
+            backdrop: false,
+            showCancelButton: true,
+            confirmButtonText: '확인',
+            cancelButtonText: '취소',
+            allowOutsideClick: false,
+            customClass: {
+                popup: 'custom-confirm-swal',
+                container: 'container',
+                confirmButton: 'confirmButton',
+            }
+        }).then(result => {
+            if (result.isConfirmed) {
+                nav("/")
+                setSigninModalState(true);
+            }
+        })
     }
 
     const handleDislikeOnClick = (e) => {

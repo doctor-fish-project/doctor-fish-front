@@ -157,9 +157,8 @@ function MyProfilePage(props) {
         <>
             <UserSubLayout isShow={isShow}>
                 <SubContainer>
-                    <BackButton setShow={setShow} />
+                    <BackButton setShow={setShow} title={"마이페이지"} />
                     <div css={s.layout(inputState)}>
-                        <p>마이 페이지</p>
                         <img src={userInput?.img} onClick={inputState ? () => { } : modifyUserProfileImgOnClick} alt="" />
                         <div css={s.userInfo}>
                             <p>개인 정보</p>

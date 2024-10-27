@@ -58,23 +58,18 @@ function MyReviewsPage(props) {
     }
 
     return (
-        <>
-            <SubLayout isShow={isShow}>
-                <SubContainer>
-                    <BackButton setShow={setShow} />
-                    <div css={s.layout} ref={loadMoreRef}>
-                        {
-                            myReviews?.data?.pages?.map(page => page?.data?.reviews?.map(myreview =>
-                                <ReviewBox key={myreview.id} review={myreview} onClick={() => handleReviewDetailOnClick(myreview.id)} />
-                            ))
-                        }
-                    </div>
-                </SubContainer>
-            </SubLayout>
-            <Routes>
-                <Route path='/:reviewId' element={<ReviewDetailPage />} />
-            </Routes>
-        </>
+        <SubLayout isShow={isShow}>
+            <SubContainer>
+                <BackButton setShow={setShow} title={"내 리뷰"} />
+                <div css={s.layout}>
+                    {
+                        myReviews?.data?.pages?.map(page => page?.data?.reviews?.map(myreview =>
+                            <ReviewBox key={myreview.id} review={myreview} onClick={() => handleReviewDetailOnClick(myreview.id)} />
+                        ))
+                    }
+                </div>
+            </SubContainer>
+        </SubLayout>
     );
 }
 

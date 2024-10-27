@@ -56,13 +56,17 @@ function DashBoard(props) {
                 <DashBoardTopBar title={"MEDIBOOK"} icon={<FaRegBell />} />
                 <div css={s.layout}>
                     <div css={s.noticeBox}>
-                        <AiFillSound />안녕하세요
+                        <AiFillSound />
+                        <p>안녕하세요</p>
                     </div>
                     <div css={s.userInfoBox}>
                         {
                             authState?.data?.data ?
                                 <>
-                                    <p>{userInfo?.data?.name}</p>
+                                    <div>
+                                        <p>{userInfo?.data?.name}</p>
+                                        <p>{userInfo?.data?.phoneNumber}</p>
+                                    </div>
                                     <button onClick={handleMyProfileOnClick}><FaUser />내정보</button>
                                 </> :
                                 <div css={s.defaultBox}>

@@ -4,28 +4,34 @@ export const layout = css`
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     border-radius: 10px;
-    padding: 10px;
+    background-color: white;
     width: 100%;
     min-height: 186px;
-    background-color: #2E5984;
 
-    & > p {
+    & > div:nth-of-type(1) {
         box-sizing: border-box;
-        margin-bottom: 5px;
-        width: 100%;
-        height: 35px;
-        color: #ffffff;
-        font-size: 25px;
-        font-weight: 600;
+        padding: 5px 10px;
+        background-color: #457FB2;
+        border-top-right-radius: 10px;
+        border-top-left-radius: 10px;
+
+        & > p {
+            margin-bottom: 5px;
+            color: white;
+            font-size: 22px;
+            font-weight: 600;
+        }
     }
+
 `;
 
 export const container = css`
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
+    flex-grow: 1;
     border-radius: 10px;
     padding: 5px;
     width: 100%;

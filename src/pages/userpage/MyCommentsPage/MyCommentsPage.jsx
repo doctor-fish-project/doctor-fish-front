@@ -12,9 +12,8 @@ function MyCommentsPage(props) {
     return (
         <UserSubLayout isShow={isShow}>
             <UserSubContainer>
-                <BackButton setShow={setShow} />
+                <BackButton setShow={setShow} title={"내 댓글"} />
                     <div css={s.layout}>
-                        <p>내 댓글</p>
                         <div css={s.reviewContainer}>
                             <div css={s.imgAndReview}>
                                 <div>

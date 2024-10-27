@@ -19,7 +19,8 @@ export const logoBox = css`
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 15px;
+    margin-bottom: 25px;
+    color: #0b8fac;
     width: 100%;
     height: 30px;
 `;
@@ -66,21 +67,18 @@ export const submitButtonBox = css`
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    flex-grow: 1;
-    justify-content: flex-end;
-    align-items: center;
     padding-bottom: 20px;
     font-weight: 100;
     width: 90%;
+    height: 40px;
     
     & button {
         box-sizing: border-box;
         border-radius: 10px;
-        width: 100%;
-        height: 40px;
-        
-        font-size: 20px;
-        background-color: #2E5984;
+        flex-grow: 1;
+        padding: 10px 10px;
+        font-size: 14px;
+        background-color: #7bc1b7;
         color: white;
     }
 `;

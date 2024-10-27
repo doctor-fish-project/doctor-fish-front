@@ -10,9 +10,12 @@ export const layout = css`
 `;
 
 export const logoBox = css`
+    box-sizing: border-box;
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-bottom: 35px;
+    color: #0b8fac;
     width: 100%;
     height: 30px;
 `;
@@ -67,18 +70,16 @@ export const buttonBox = css`
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
-    align-items: center;
     padding-bottom: 20px;
     width: 90%;
     
     & button {
         box-sizing: border-box;
         border-radius: 10px;
-        width: 100%;
-        height: 40px;
-        font-size: 20px;
-        background-color: #2E5984;
+        padding: 10px 10px;
+        flex-grow: 1;
+        font-size: 14px;
+        background-color: #0b8fac;
         color: white;
     }
 `;

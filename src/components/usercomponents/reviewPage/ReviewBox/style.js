@@ -5,10 +5,10 @@ export const layout = css`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    border: 1px solid #dbdbdb;
     border-radius: 10px;
-    padding: 10px;
+    padding: 15px;
     width: 100%;
+    background-color: white;
     cursor: pointer;
 
     :not(:nth-last-of-type(1)) {

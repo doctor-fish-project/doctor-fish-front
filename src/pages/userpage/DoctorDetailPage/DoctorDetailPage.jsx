@@ -20,7 +20,7 @@ function DoctorDetailPage(props) {
     return (
         <UserSubLayout isShow={isShow}>
             <UserSubContainer>
-                <BackButton setShow={setShow} />
+                <BackButton setShow={setShow} title={"의료진"}/>
                 <div css={s.layout}>
                     <img src={doctor?.user?.img} alt="" />
                     <div css={s.header}>

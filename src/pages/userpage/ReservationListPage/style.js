@@ -8,6 +8,7 @@ export const layout = css`
     padding: 10px;
     width: 100%;
     height: 668px;
+    background-color: #f0f1f3;
     overflow-y: auto;
     &::-webkit-scrollbar {
         display: none;

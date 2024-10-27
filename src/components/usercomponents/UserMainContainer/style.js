@@ -6,7 +6,7 @@ export const layout = css`
     flex-direction: column;
     padding-top: 45px;
     height: 100%;
-    background-color: #efefef;
+    background-color: white;
     overflow-y: scroll;
     &::-webkit-scrollbar {
         display: none;

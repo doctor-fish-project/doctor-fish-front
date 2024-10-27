@@ -5,10 +5,11 @@ export const layout = css`
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 0px 10px;
+    padding: 0px 20px;
     width: 100%;
     height: 100%;
     overflow-y: auto;
+    background-color: #f0f1f3;
     ::-webkit-scrollbar {
         display: none;
     }
@@ -19,20 +20,32 @@ export const noticeBox = css`
     box-sizing: border-box;
     display: flex;
     align-items: center;
-    border: 1px solid #dbdbdb;
     border-radius: 10px;
-    margin-bottom: 5px;
-    padding-left: 30px;
+    margin: 20px 0;
+    padding: 0 10px 0 30px;
     width: 100%;
-    min-height: 30px;
-    font-size: 18px;
+    min-height: 40px;
+    font-size: 18px; 
     font-weight: 600;
+    background-color: white;
     cursor: pointer;
 
     & > svg {
         position: absolute;
+        top: 10px;
         left: 10px;
         font-size: 20px;
+    }
+
+    & p {
+        box-sizing: border-box;
+        display: flex;
+        align-items: center;
+        margin-left: 10px;
+        overflow: hidden;
+        white-space:nowrap;
+        text-overflow: ellipsis;
+        cursor: pointer;
     }
 `;
 
@@ -41,28 +54,43 @@ export const userInfoBox = css`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border: 1px solid #dbdbdb;
     border-radius: 10px;
-    margin-bottom: 5px;
-    padding: 20px;
+    margin-bottom: 20px;
+    padding: 10px 10px;
     width: 100%;
-    height: 70px;
-    font-size: 20px;
+    min-height: 70px;
+    font-size: 18px;
     font-weight: 600;
+    background-color: white;
+
+    & div > p:nth-last-of-type(1) {
+        font-size: 14px;
+    }
 
     & > button {
         box-sizing: border-box;
         display: flex;
-        flex-direction: column;
         justify-content: center;
         align-items: center;
         border-radius: 10px;
-        width: 100px;
-        height: 50px;
         font-size: 16px;
         color: white;
-        background-color: #2E5984;
+        background-color: #457FB2;
+        & svg {
+            margin-right: 5px;
+        }
     }
+`;
+
+export const reservationBox = css`
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    padding: 10px;
+    background-color: white;
+    width: 100%;
 `;
 
 export const defaultBox = css`
@@ -83,7 +111,7 @@ export const defaultBox = css`
         height: 50px;
         font-size: 16px;
         color: white;
-        background-color: #2E5984;
+        background-color: #7bc1b7;
     }
 
 `;
@@ -92,7 +120,8 @@ export const doctorBox = css`
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    border: 1px solid #dbdbdb;
+    margin-bottom: 20px;
+    background-color: white;
     border-radius: 10px;
     width: 100%;
 

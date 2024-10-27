@@ -7,7 +7,7 @@ export const layout = css`
     align-items: center;
     width: 100%;
     height: 100%;
-    background-color: #dddddd; 
+    background-color: #f0f1f3; 
 `;
 
 export const container = css`
@@ -17,6 +17,7 @@ export const container = css`
     border-radius: 40px;
     width: 375px;
     height: 812px;
+    box-shadow: 10px 10px 20px #00000050;
     background-color: white;
     overflow: hidden;
 `;
@@ -29,6 +30,7 @@ export const topBar = css`
     align-items: center;
     width: 100%;
     height: 45px;
+    background-color: white;
 `;
 
 export const topBarCenter = css`

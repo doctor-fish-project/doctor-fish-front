@@ -5,7 +5,7 @@ export const layout = css`
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 5px;
+    padding: 20px;
     width: 100%;
     height: 100%;
 

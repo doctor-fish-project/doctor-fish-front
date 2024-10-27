@@ -5,7 +5,7 @@ export const layout = css`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: #2E5984;
+    background: white;
     width: 100%;
     height: 100%;
 `;
@@ -14,10 +14,6 @@ export const titleContainer = css`
     display: flex;
     justify-content: center;
     width: 100%;
-    & span {
-        font-size: 30px;
-        color: white;
-    }
 `;
 
 export const imgBox = css`
@@ -27,18 +23,7 @@ export const imgBox = css`
     margin-bottom: 20px;
     & img {
         background: none;
-        width: 200px;
-        height: 200px;
-    }
-`;
-
-export const downContainer = css`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    
-    & h2 {
-        font-size: 30px;
-        color: white;
+        width: 400px;
+        height: 400px;
     }
 `;

@@ -38,7 +38,7 @@ function ReviewSelectPage(props) {
             <UserSubLayout isShow={isShow}>
                 <UserSubContainer>
                     <div css={s.buttonBox}>
-                        <BackButton setShow={setIsShow} />
+                        <BackButton setShow={setIsShow} title={"리뷰"}/>
                     </div>
                     <div css={s.layout}>
                         {

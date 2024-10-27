@@ -9,7 +9,6 @@ import { noticeIdAtom } from '../../../../atoms/adminAtoms';
 import ReactQuill from 'react-quill';
 import { useQuery } from 'react-query';
 import { adminInstance } from '../../../../apis/utils/instance';
-import Swal from 'sweetalert2';
 
 function AdminNotice({ containerRef }) {
     const [noticeOpen, setNoticeOpen] = useRecoilState(adminNoticeModalAtom);
@@ -115,7 +114,7 @@ function AdminNotice({ containerRef }) {
                         <h1>공지사항</h1>
                         <button onClick={handleButtonOnClick}>수정하기</button>
                     </div>
-                    <input css={s.titleInput} type="text" onChange={handleTitleOnChange} name="title" value={modifyNotice.title} placeholder="게시글의 제목을 입력하세요." />
+                    <input css={s.titleInput} type="text" onChange={handleTitleOnChange} name="title" value={modifyNotice?.title} placeholder="게시글의 제목을 입력하세요." />
                     <ReactQuill
                         ref={quillRef}
                         className='quillStyle'
@@ -132,7 +131,7 @@ function AdminNotice({ containerRef }) {
                                 }
                             }
                         }}
-                        value={modifyNotice.content}
+                        value={modifyNotice?.content}
                         onChange={handleContentOnChange}
                     />
                 </div>

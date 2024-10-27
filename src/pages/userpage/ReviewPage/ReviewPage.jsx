@@ -6,7 +6,7 @@ import ReviewBox from '../../../components/usercomponents/reviewPage/ReviewBox/R
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import DashBoardTopBar from '../../../components/usercomponents/dashBoard/DashBoardTopBar/DashBoardTopBar';
 import { BsPencilSquare } from 'react-icons/bs';
-import { useInfiniteQuery, useQuery } from 'react-query';
+import { useInfiniteQuery } from 'react-query';
 import { instance } from '../../../apis/utils/instance';
 import ReviewDetailPage from '../ReviewDetailPage/ReviewDetailPage';
 import ReviewSelectPage from '../ReviewSelectPage/ReviewSelectPage';
@@ -55,6 +55,7 @@ function ReviewPage(props) {
     const handleReviewSelectOnClick = () => {
         nav("/review/select");
     }
+    
     return (
         <>
             <SubContainer>

@@ -5,14 +5,13 @@ import AdminContainer from '../../../components/admincomponents/AdminContainer/A
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import AdminTableLayout from '../../../components/admincomponents/adminList/AdminTableLayout/AdminTableLayout';
 import AdminTableHeader from '../../../components/admincomponents/adminList/AdminTableHeader/AdminTableHeader';
-import { useQuery } from 'react-query';
-import { adminInstance } from '../../../apis/utils/instance';
+import { useMutation, useQuery } from 'react-query';
+import { adminInstance, instance } from '../../../apis/utils/instance';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { adminNoticeModalAtom, adminNoticeWriteModalAtom } from '../../../atoms/modalAtoms';
 import AdminListPagination from '../../../components/admincomponents/AdminListPagination/AdminListPagination';
 import AdminPageLayout from '../../../components/admincomponents/AdminPageLayout/AdminPageLayout';
 import { noticeIdAtom } from '../../../atoms/adminAtoms';
-import Swal from 'sweetalert2';
 
 function AdminNoticePage(props) {
     const nav = useNavigate();
@@ -64,6 +63,20 @@ function AdminNoticePage(props) {
         }
     )
     
+    const deleteNotice = useMutation(
+        async (announceId) => await instance.delete(`/admin/announce/${announceId}`),
+        {
+            onSuccess: response => {
+                alert("삭제 완료");
+                setNoticeId(0)
+                window.location.reload();
+            },
+            onError: error => {
+                alert("삭제 실패");
+            }
+        }
+    )
+
     const handlePageOnChange = (e) => {
         nav(`/admin/reservation?page=${e.selected + 1}`);
     }
@@ -73,20 +86,14 @@ function AdminNoticePage(props) {
         setNoticeOpen(true);
     }
 
-    const handleNoticeModalOpenOnClick = () => {
+    const handleWriteNoticeModalOpenOnClick = () => {
         setNoticeWriteOpen(true);
     }
 
-    const handleButtonOnClick = async (announceId) => {
-        try {
-            if (window.confirm("삭제하시겠습니까?")) {
-                await adminInstance.delete(`/admin/announce/${announceId}`);
-                alert("삭제 완료");
-                window.location.reload();
-                return;
-            }
-        } catch(e) {
-            console.error(e);
+    const handleDeleteOnClick = async (e, announceId) => {
+        e.stopPropagation();
+        if(window.confirm("삭제 하시겠습니까?")) {
+            deleteNotice.mutateAsync(announceId).catch(() => {})
         }
     }
 
@@ -98,13 +105,13 @@ function AdminNoticePage(props) {
                     <tbody css={s.layout(noticeTableHeader?.data?.data?.length)}>
                         {
                             notices?.data?.data?.announcements?.map((announcement, idx) =>
-                                <tr key={announcement.id}>
-                                    <td onClick={() => handleNoticeOpenOnClick(announcement.id)}>{idx + 1}</td>
-                                    <td onClick={() => handleNoticeOpenOnClick(announcement.id)}>{announcement?.title}</td>
-                                    <td onClick={() => handleNoticeOpenOnClick(announcement.id)}>{announcement?.userName}</td>
-                                    <td onClick={() => handleNoticeOpenOnClick(announcement.id)}>{announcement?.registerDate.slice(0, 10)}</td>
+                                <tr key={announcement.id} onClick={() => handleNoticeOpenOnClick(announcement.id)}>
+                                    <td>{idx + 1}</td>
+                                    <td>{announcement?.title}</td>
+                                    <td>{announcement?.userName}</td>
+                                    <td>{announcement?.registerDate.slice(0, 10)}</td>
                                     <td>
-                                        <button onClick={() => handleButtonOnClick(announcement.id)}>삭제</button>
+                                        <button onClick={(e) => handleDeleteOnClick(e, announcement.id)}>삭제</button>
                                     </td>
                                 </tr>
                             )
@@ -112,7 +119,7 @@ function AdminNoticePage(props) {
                     </tbody>
                 </AdminTableLayout>
                 <AdminListPagination searchParams={searchParams} count={totalPageCount} onChange={handlePageOnChange} />
-                <button onClick={handleNoticeModalOpenOnClick}>글쓰기</button>
+                <button onClick={handleWriteNoticeModalOpenOnClick}>글쓰기</button>
             </AdminPageLayout>
         </AdminContainer>
     );

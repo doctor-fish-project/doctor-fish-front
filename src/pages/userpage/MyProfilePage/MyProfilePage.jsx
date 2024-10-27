@@ -12,6 +12,7 @@ import UserSubLayout from '../../../components/usercomponents/UserSubLayout/User
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import { storage } from '../../../firebase/firebase';
 import { v4 as uuid } from 'uuid'
+import { instance } from '../../../apis/utils/instance';
 
 function MyProfilePage(props) {
     const nav = useNavigate();
@@ -21,11 +22,34 @@ function MyProfilePage(props) {
 
     const [isShow, setShow] = useState(true);
     const [inputState, setInputState] = useState(true);
-    const [user, setUser] = useState(userInfo?.data);
+    const [userInput, setUserInput] = useState(userInfo?.data);
 
     useEffect(() => {
-        setUser(userInfo?.data);
+        setUserInput(userInfo?.data);
     }, [userInfo])
+
+    const modifyUser = useMutation(
+        async () => await instance.put("/user", userInput),
+        {
+            onSuccess: response => {
+                Swal.fire({
+                    icon: 'success',
+                    text: '수정 완료',
+                    backdrop: false,
+                    showConfirmButton: false,
+                    timer: 1000,
+                    willClose: () => {
+                        setInputState(false);
+                        queryClient.invalidateQueries("userInfoQuery");
+                    },
+                    customClass: {
+                        popup: 'custom-timer-swal',
+                        container: 'container'
+                    }
+                })
+            }
+        }
+    )
 
     const modifyUserProfileImgOnClick = () => {
         Swal.fire({
@@ -73,8 +97,8 @@ function MyProfilePage(props) {
                         async (success) => {
                             Swal.close();
                             const url = await getDownloadURL(storageRef);
-                            setUser(user => ({
-                                ...user,
+                            setUserInput(userInput => ({
+                                ...userInput,
                                 img: url
                             }))
                         }
@@ -85,15 +109,19 @@ function MyProfilePage(props) {
     }
 
     const handleUserOnChange = (e) => {
-        setUser(user => ({
-            ...user,
+        setUserInput(userInput => ({
+            ...userInput,
             [e.target.name]: e.target.value
         }))
     }
 
     const handleChangeStateOnClick = () => {
         setInputState(!inputState);
-        setUser(userInfo?.data);
+        setUserInput(userInfo?.data);
+    }
+
+    const handleChangeUserOnClick = () => {
+        console.log("요청")
     }
 
     const handleMyReviewsOnClick = () => {
@@ -132,17 +160,17 @@ function MyProfilePage(props) {
                     <BackButton setShow={setShow} />
                     <div css={s.layout(inputState)}>
                         <p>마이 페이지</p>
-                        <img src={user?.img} onClick={inputState ? () => { } : modifyUserProfileImgOnClick} alt="" />
+                        <img src={userInput?.img} onClick={inputState ? () => { } : modifyUserProfileImgOnClick} alt="" />
                         <div css={s.userInfo}>
                             <p>개인 정보</p>
-                            <input type="text" name="email" id="" value={user?.email} disabled={true} />
-                            <input type="text" name="name" onChange={handleUserOnChange} value={user?.name} disabled={inputState} />
-                            <input type="text" name="phoneNumber" onChange={handleUserOnChange} value={user?.phoneNumber} disabled={inputState} />
+                            <input type="text" name="email" id="" defaultValue={userInput?.email} readOnly />
+                            <input type="text" name="name" onChange={handleUserOnChange} value={userInput?.name} disabled={inputState} />
+                            <input type="text" name="phoneNumber" onChange={handleUserOnChange} value={userInput?.phoneNumber} disabled={inputState} />
                             <div css={s.userInfoBox}>
                                 {
                                     !inputState ?
                                         <>
-                                            <button >확인</button>
+                                            <button onClick={() => modifyUser.mutateAsync().catch(() => {})} disabled={JSON.stringify(userInput) === JSON.stringify(userInfo?.data)}>확인</button>
                                             <button onClick={handleChangeStateOnClick}>취소</button>
                                         </>
                                         :

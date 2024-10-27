@@ -12,7 +12,10 @@ export const layout = css`
     background-color: #2E5984;
 
     & > p {
+        box-sizing: border-box;
         margin-bottom: 5px;
+        width: 100%;
+        height: 35px;
         color: #ffffff;
         font-size: 25px;
         font-weight: 600;

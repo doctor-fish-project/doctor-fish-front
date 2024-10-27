@@ -16,7 +16,9 @@ function TodayReservationBox({ reservations }) {
 
     return (
         <div css={s.layout}>
-            <p>{year}년 {month}월 {date}일</p>
+            <div>
+                <p>{year}년 {month}월 {date}일</p>
+            </div>
             <div css={s.container}>
                 {   
                     authState?.data?.data ?

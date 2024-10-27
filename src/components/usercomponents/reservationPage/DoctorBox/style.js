@@ -4,13 +4,13 @@ export const layout = css`
     box-sizing: border-box;
     display: flex;
     align-items: center;
-    border-bottom: 1px solid #dbdbdb;
+    margin-bottom: 20px;
+    border-radius: 10px;
     padding: 5px 10px 5px 5px;
+    background-color: white;
     width: 100%;
     height: 80px;
     
-   
-
     & > button {
         box-sizing: border-box;
         border-radius: 10px;
@@ -26,8 +26,8 @@ export const imgBox = css`
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 70px;
-    height: 70px;
+    width: 60px;
+    height: 60px;
     overflow: hidden;
 
     & > img {
@@ -44,4 +44,12 @@ export const nameAndDepartBox = css`
     flex-direction: column;
     flex-grow: 1;
     justify-content: center;
+
+    & div:nth-of-type(1) {
+        font-size: 18px;
+    }
+
+    & div:nth-of-type(2) {
+        color: #777777;
+    }
 `;

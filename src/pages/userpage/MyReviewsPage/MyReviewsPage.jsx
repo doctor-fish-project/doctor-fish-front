@@ -27,7 +27,7 @@ function MyReviewsPage(props) {
     return (
         <SubLayout isShow={isShow}>
             <SubContainer>
-                <BackButton setShow={setShow} />
+                <BackButton setShow={setShow} title={"내 리뷰"}/>
                 <div css={s.layout}>
                     {
                         myReviews?.data?.data?.reviews?.map(review =>

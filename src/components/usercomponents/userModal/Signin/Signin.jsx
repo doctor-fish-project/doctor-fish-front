@@ -135,7 +135,7 @@ function Signin({ containerRef }) {
     return (
         <ModalLayout containerRef={containerRef} isOpen={signinOpen} closeModal={closeModal} ani={ani}>
             <div css={s.layout}>
-                <CancelButton onClick={closeModal}/>
+                <CancelButton onClick={closeModal} />
                 <div css={s.logoBox}>
                     <h2>MEDIBOOK</h2>
                 </div>

@@ -14,7 +14,9 @@ export const layout = css`
         display: flex;
         justify-content: center;
         align-items: center;
+        padding-right: 0;
         font-size: 16px;
+        color: #777777;
 
         & > svg {
             transform: translateY(2px);

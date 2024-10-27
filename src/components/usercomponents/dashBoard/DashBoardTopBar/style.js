@@ -5,8 +5,8 @@ export const layout = css`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 5px;
-    padding: 0px 10px;
+    margin-bottom: 10px;
+    padding: 0px 20px;
     width: 100%;
     min-height: 30px;
 
@@ -17,8 +17,6 @@ export const layout = css`
         font-size: 20px;
         font-weight: 600;
     }
-
-    
 `;
 
 export const iconBox = css`

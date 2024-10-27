@@ -7,7 +7,6 @@ import { useRecoilState } from 'recoil';
 import { IoIosClose } from "react-icons/io"
 import ReactQuill from 'react-quill';
 import { adminInstance } from '../../../../apis/utils/instance';
-import Swal from 'sweetalert2';
 
 
 function AdminNoticeWrite({ containerRef }) {

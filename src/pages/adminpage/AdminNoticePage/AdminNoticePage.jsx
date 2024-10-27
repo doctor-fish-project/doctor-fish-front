@@ -12,7 +12,6 @@ import { adminNoticeModalAtom, adminNoticeWriteModalAtom } from '../../../atoms/
 import AdminListPagination from '../../../components/admincomponents/AdminListPagination/AdminListPagination';
 import AdminPageLayout from '../../../components/admincomponents/AdminPageLayout/AdminPageLayout';
 import { noticeIdAtom } from '../../../atoms/adminAtoms';
-import Swal from 'sweetalert2';
 
 function AdminNoticePage(props) {
     const nav = useNavigate();

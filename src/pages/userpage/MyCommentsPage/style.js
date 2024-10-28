@@ -64,8 +64,12 @@ export const imgBox = css`
 export const reviewBox = css`
     box-sizing: border-box;
     padding-bottom: 10px;
+    flex-grow: 1;
     width: 100%;
     cursor: default;
+
+    & span {
+    }
 
     & span:nth-of-type(1) {
         margin-right: 10px;

@@ -7,6 +7,7 @@ import { useRecoilState } from 'recoil';
 import { reviewIdAtom } from '../../../../atoms/adminAtoms';
 import { IoIosArrowBack, IoIosArrowForward, IoIosClose } from "react-icons/io"
 import { FcLike } from 'react-icons/fc';
+import ReviewComment from '../../../usercomponents/reviewPage/ReviewComment/ReviewComment';
 import { useQuery } from 'react-query';
 import { adminInstance } from '../../../../apis/utils/instance';
 
@@ -99,7 +100,8 @@ function AdminReview({ containerRef }) {
                             {reviewByreviewId?.data?.data?.content}
                         </div>
                     </div>
-                    <div css={s.reviewBox}>
+                    <div css={s.commentBox}>
+                        <ReviewComment comment={comments} />
                     </div>
                 </div>
                 <div css={s.buttonBox}>

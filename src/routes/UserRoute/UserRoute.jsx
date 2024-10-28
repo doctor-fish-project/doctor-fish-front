@@ -7,6 +7,8 @@ import ReservationListPage from "../../pages/userpage/ReservationListPage/Reserv
 import ReviewPage from "../../pages/userpage/ReviewPage/ReviewPage";
 import AuthHook from '../../hooks/AuthHook';
 import UserMainLayout from '../../components/usercomponents/UserMainLayout/UserMainLayout';
+import NoticeDetailPage from '../../pages/userpage/NoticeDetailPage/NoticeDetailPage';
+import NoticeListPage from '../../pages/userpage/NoticeListPage/NoticeListPage';
 
 function UserRoute(props) {
     AuthHook();
@@ -18,6 +20,8 @@ function UserRoute(props) {
                 <Route path="/reservation" element={<ReservationPage />}/>
                 <Route path="/reservationlist" element={<ReservationListPage />}/>
                 <Route path="/review/*" element={<ReviewPage />}/>
+                <Route path="/notice/*" element={<NoticeDetailPage />} />
+                <Route path="/noticelist" element={<NoticeListPage />} />
                 
             </Routes>  
         </UserMainLayout>

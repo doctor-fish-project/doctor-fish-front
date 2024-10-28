@@ -3,6 +3,13 @@ import { css } from "@emotion/react";
 export const layout = css`
     box-sizing: border-box;
     display: flex;
+    flex-direction: column;
+    width: 100%;
+`;
+
+export const container = css`
+    box-sizing: border-box;
+    display: flex;
     width: 100%;
 
     & > div:nth-of-type(1) {
@@ -42,6 +49,20 @@ export const commentBox = css`
     }
 
     & span:nth-of-type(2) {
+        display: inline-block;
         font-size: 14px;
+    }
+`;
+
+export const buttonBox = css`
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin-bottom: 5px;
+
+    & > button {
+        font-size: 13px;
+        color: #777777;
     }
 `;

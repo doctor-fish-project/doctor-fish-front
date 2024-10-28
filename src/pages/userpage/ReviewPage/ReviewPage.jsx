@@ -10,6 +10,7 @@ import { useInfiniteQuery } from 'react-query';
 import { instance } from '../../../apis/utils/instance';
 import ReviewDetailPage from '../ReviewDetailPage/ReviewDetailPage';
 import ReviewSelectPage from '../ReviewSelectPage/ReviewSelectPage';
+import UserSubContainer from '../../../components/usercomponents/UserSubContainer/UserSubContainer';
 
 function ReviewPage(props) {
     const nav = useNavigate();
@@ -58,7 +59,7 @@ function ReviewPage(props) {
     
     return (
         <>
-            <SubContainer>
+            <UserSubContainer>
                 <DashBoardTopBar title={"리뷰"} icon={<BsPencilSquare />} onClick={handleReviewSelectOnClick} />
                 <div css={s.layout} ref={loadMoreRef}>
                     {
@@ -67,7 +68,7 @@ function ReviewPage(props) {
                         ))
                     }
                 </div>
-            </SubContainer>
+            </UserSubContainer>
             <Routes>
                 <Route path='/select/*' element={<ReviewSelectPage />} />
                 <Route path='/:reviewId' element={<ReviewDetailPage />} />

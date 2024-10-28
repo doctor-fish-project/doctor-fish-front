@@ -9,12 +9,12 @@ import { useQuery, useQueryClient } from 'react-query';
 import { instance } from '../../../apis/utils/instance';
 import TodayReservationBox from '../../../components/usercomponents/dashBoard/TodayReservationBox/TodayReservationBox';
 import DoctorDetailPage from '../DoctorDetailPage/DoctorDetailPage';
-import DoctorBox from '../../../components/usercomponents/dashBoard/DoctorBox/DoctorBox';
 import MyProfilePage from '../MyProfilePage/MyProfilePage';
 import { useSetRecoilState } from 'recoil';
 import { signinModalAtom } from '../../../atoms/modalAtoms';
 import BoxTopBar from '../../../components/usercomponents/dashBoard/BoxTopBar/BoxTopBar';
 import DoctorListPage from '../DoctorListPage/DoctorListPage';
+import UserSubContainer from '../../../components/usercomponents/UserSubContainer/UserSubContainer';
 
 function DashBoard(props) {
     const nav = useNavigate();
@@ -54,7 +54,7 @@ function DashBoard(props) {
 
     return (
         <>
-            <SubContainer>
+            <UserSubContainer>
                 <DashBoardTopBar title={"MEDIBOOK"} icon={<FaRegBell />} />
                 <div css={s.layout}>
                     <div css={s.userInfoBox}>
@@ -98,7 +98,7 @@ function DashBoard(props) {
                         </div>
                     </div>
                 </div>
-            </SubContainer>
+            </UserSubContainer>
             <Routes>
                 <Route path='/myprofile/*' element={<MyProfilePage />} />
                 <Route path='/doctor' element={<DoctorListPage />} />

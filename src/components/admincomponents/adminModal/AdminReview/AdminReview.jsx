@@ -9,6 +9,8 @@ import { IoIosArrowBack, IoIosArrowForward, IoIosClose } from "react-icons/io"
 import { FcLike } from 'react-icons/fc';
 import ReviewComment from '../../../usercomponents/reviewPage/ReviewComment/ReviewComment';
 import ReviewBox from '../../../usercomponents/reviewPage/ReviewBox/ReviewBox';
+import { useQuery } from 'react-query';
+import { adminInstance } from '../../../../apis/utils/instance';
 
 
 function AdminReview({ containerRef }) {

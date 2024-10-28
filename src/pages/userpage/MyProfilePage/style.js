@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
 
-export const layout = (inputState) => css`
+export const layout = css`
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -21,11 +21,11 @@ export const layout = (inputState) => css`
         justify-content: center;
         align-items: center;
         margin-bottom: 5px;
-        width: 100%;
-        height: 200px;
+        width: 100px;
+        height: 100px;
         object-fit: contain;
         overflow: hidden;
-        cursor: ${inputState ? "default" : "pointer"};
+        cursor: pointer;
     }
 
     & > button {
@@ -37,30 +37,20 @@ export const userInfo = css`
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
     margin-bottom: 5px;
-    border: 1px solid #dbdbdb;
     border-radius: 10px;
     padding: 5px;
     width: 100%;
 
-    & > p {
-        box-sizing: border-box;
-        display: flex;
-        width: 100%;
+    & > p:nth-of-type(1) {
+        font-size: 20px;
     }
 
-    & > input {
-        box-sizing: border-box;
-        border-radius: 10px;
-        padding-left: 10px;
-        width: 100%;
-        height: 50px;
-        background-color: #dbdbdb;
-        font-size: 16px;
-    }
-
-    & > :not(input:nth-last-of-type(1)) {
-        margin-bottom: 5px;
+    & > p:nth-of-type(2) {
+        font-size: 18px;
+        color: #777777;
     }
 `;
 

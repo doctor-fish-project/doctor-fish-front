@@ -6,7 +6,6 @@ export const layout = css`
     flex-direction: column;
     justify-content: space-between;
     border-radius: 10px;
-    padding: 15px;
     width: 100%;
     background-color: white;
     cursor: pointer;
@@ -21,18 +20,12 @@ export const nameBox = css`
     display: flex;
     align-items: center;
     margin-bottom: 10px;
+    padding: 15px 15px 0;
     width: 100%;
     font-size: 20px;
     font-weight: 600;
 
-    & p:nth-of-type(1) {
-        width: 230px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-    }
-
-    & p:nth-of-type(2) {
+    & > p {
         font-size: 18px;
         width: fit-content;
     }
@@ -46,8 +39,8 @@ export const profileBox = css`
     margin-right: 10px;
     border-radius: 50%;
     box-shadow: 0px 0px 2px #00000088;
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
 
     cursor: pointer;
     overflow: hidden;
@@ -65,7 +58,8 @@ export const imgBox = css`
     justify-content: center;
     align-items: center;
     border: 1px solid #dbdbdb;
-    border-radius: 10px;
+    border-left: none;
+    border-right: none;
     width: 100%;
     height: 300px;
     overflow: hidden;
@@ -111,15 +105,15 @@ export const dateAndLike = css`
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 15px 15px 0;
     width: 100%;
-    height: 50px;
 
     & > div {
+        position: relative;
         box-sizing: border-box;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding-right: 3px;
         width: 100%;
         height: 50%;
 
@@ -127,10 +121,12 @@ export const dateAndLike = css`
             box-sizing: border-box;
             width: fit-content;
             height: 100%;
+            margin-bottom: 5px;
 
             & > svg {
-                transform: translateY(1px);
+                position: absolute;
                 width: 20px;
+                top: 1px;
                 cursor: pointer;
             }
         }
@@ -139,7 +135,6 @@ export const dateAndLike = css`
     
     & > p {
         box-sizing: border-box;
-        padding: 0px 3px;
         width: 100%;
         height: 50%;
         font-size: 14px;
@@ -153,6 +148,6 @@ export const contentBox = css`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-left: 10px;
+    padding: 0 15px 15px;
     width: 100%;
 `;

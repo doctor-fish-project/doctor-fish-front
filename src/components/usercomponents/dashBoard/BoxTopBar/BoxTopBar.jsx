@@ -2,18 +2,13 @@ import React from 'react';
 /** @jsxImportSource @emotion/react */
 import * as s from "./style";
 import { useNavigate } from 'react-router-dom';
+import { FaRegCalendarAlt } from "react-icons/fa";
 
-function BoxTopBar({title1, title2, link, icon}) {
-    const nav = useNavigate();
-
-    const handleReservationListOnClick = () => {
-        nav(link)
-    }
+function BoxTopBar({ title1 }) {
 
     return (
         <div css={s.layout}>
-            <p>{title1}</p>
-            <button onClick={handleReservationListOnClick}>{title2}{icon}</button>
+            <p><FaRegCalendarAlt />{title1}</p>
         </div>
     );
 }

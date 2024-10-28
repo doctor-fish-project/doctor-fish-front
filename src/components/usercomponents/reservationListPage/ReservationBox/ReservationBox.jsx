@@ -3,7 +3,7 @@ import React from 'react';
 import * as s from './style';
 import { useSetRecoilState } from 'recoil';
 import { reservationDetailModalAtom } from '../../../../atoms/modalAtoms';
-import { reservationAtom, reservationIdAtom } from '../../../../atoms/reservations';
+import { reservationIdAtom } from '../../../../atoms/reservations';
 
 function ReservationBox({ reservation }) {
 
@@ -17,8 +17,12 @@ function ReservationBox({ reservation }) {
 
     return (
         <div css={s.layout} onClick={() => handleReservationDetailOnClick(reservation.id)}>
+            <p>{reservation?.reservationDate.slice(0, 4)}년 {reservation?.reservationDate.slice(5, 7)}월 {reservation?.reservationDate.slice(8, 10)}일</p>
             <div css={s.header}>
-                <p>{reservation?.reservationDate.slice(11, 16)}</p>
+                <div>
+                    <p>시간: </p>
+                    <p>{reservation?.reservationDate.slice(11, 16)}</p>
+                </div>
                 {
                     reservation?.status === 1
                         ? <p>예약 진행 중</p>
@@ -29,10 +33,15 @@ function ReservationBox({ reservation }) {
             </div>
             <div css={s.body}>
                 <div css={s.doctorInfoBox}>
-                    <p>부서 : {reservation.doctor?.depart?.name}</p>
-                    <p>의사명 : {reservation.doctor?.user?.name}</p>
+                    <div>
+                        <p>부서: </p>
+                        <p>{reservation.doctor?.depart?.name}</p>
+                    </div>
+                    <div>
+                        <p>의사명: </p>
+                        <p>{reservation.doctor?.user?.name}</p>
+                    </div>
                 </div>
-                <p>{reservation.registerDate.slice(0, 10)}</p>
             </div>
         </div>
     );

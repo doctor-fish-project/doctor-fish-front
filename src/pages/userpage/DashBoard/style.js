@@ -5,7 +5,7 @@ export const layout = css`
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 0px 20px;
+    padding: 20px;
     width: 100%;
     height: 100%;
     overflow-y: auto;
@@ -15,71 +15,47 @@ export const layout = css`
     }
 `;
 
-export const noticeBox = css`
-    position: relative;
-    box-sizing: border-box;
-    display: flex;
-    align-items: center;
-    border-radius: 10px;
-    margin: 20px 0;
-    padding: 0 10px 0 30px;
-    width: 100%;
-    min-height: 40px;
-    font-size: 18px; 
-    font-weight: 600;
-    background-color: white;
-    cursor: pointer;
-
-    & > svg {
-        position: absolute;
-        top: 10px;
-        left: 10px;
-        font-size: 20px;
-    }
-
-    & p {
-        box-sizing: border-box;
-        display: flex;
-        align-items: center;
-        margin-left: 10px;
-        overflow: hidden;
-        white-space:nowrap;
-        text-overflow: ellipsis;
-        cursor: pointer;
-    }
-`;
-
 export const userInfoBox = css`
     box-sizing: border-box;
     display: flex;
-    justify-content: space-between;
     align-items: center;
     border-radius: 10px;
     margin-bottom: 20px;
-    padding: 10px 10px;
+    padding: 10px 20px;
     width: 100%;
     min-height: 70px;
     font-size: 18px;
     font-weight: 600;
     background-color: white;
+    cursor: pointer;
 
-    & div > p:nth-last-of-type(1) {
-        font-size: 14px;
-    }
-
-    & > button {
+    & > div:nth-of-type(1) {
         box-sizing: border-box;
         display: flex;
-        justify-content: center;
-        align-items: center;
-        border-radius: 10px;
-        font-size: 16px;
-        color: white;
-        background-color: #457FB2;
+        justify-content: space-between;
+        width: 100%;
+        cursor: pointer;
+
         & svg {
             margin-right: 5px;
+            font-size: 25px;
+            color: #4B61AA;
+        }
+    
+        & > p:nth-of-type(1) {
+            display: flex;
+            align-items: center;
+            color: #777777;
+            font-size: 14px;
+            cursor: pointer;
+        }
+    
+        & div > p:nth-last-of-type(1) {
+            font-size: 18px;
+            cursor: pointer;
         }
     }
+
 `;
 
 export const reservationBox = css`
@@ -88,7 +64,7 @@ export const reservationBox = css`
     flex-direction: column;
     margin-bottom: 20px;
     border-radius: 10px;
-    padding: 10px;
+    padding: 20px;
     background-color: white;
     width: 100%;
 `;
@@ -98,34 +74,52 @@ export const defaultBox = css`
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100%;
-    height: 100%;
 
     & button {
         box-sizing: border-box;
         display: flex;
         justify-content: center;
         align-items: center;
+        flex-grow: 1;
         border-radius: 10px;
-        width: 200px;
-        height: 50px;
+        padding: 5px 10px;
         font-size: 16px;
         color: white;
-        background-color: #7bc1b7;
+        background-color: #4B61AA;
     }
 
 `;
 
-export const doctorBox = css`
+export const pageBox = css`
     box-sizing: border-box;
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
     margin-bottom: 20px;
-    background-color: white;
-    border-radius: 10px;
     width: 100%;
 
-    & > div:not(:nth-last-of-type(1)) {
-        border-bottom: 1px solid #dbdbdb;
+    & div {
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        border-radius: 10px;
+        background-color: white;
+        padding: 10px 15px;  
+        width: 152.5px;
+        height: 120px;
+        cursor: pointer;
+
+        & p {
+            box-sizing: border-box;
+            display: flex;
+            justify-content: flex-end;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        & img {
+            width: 60px;
+            height: 60px;
+        }
     }
 `;

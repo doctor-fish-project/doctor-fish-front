@@ -72,7 +72,6 @@ function DashBoard(props) {
                                 <button onClickCapture={handleSigninOnClick}>로그인</button>
                             </div>
                         }
-
                     </div>
                     <div css={s.reservationBox}>
                         <BoxTopBar title1={"예약 일정"} />

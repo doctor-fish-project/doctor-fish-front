@@ -7,15 +7,11 @@ import { useRecoilState } from 'recoil';
 import { reviewIdAtom } from '../../../../atoms/adminAtoms';
 import { IoIosArrowBack, IoIosArrowForward, IoIosClose } from "react-icons/io"
 import { FcLike } from 'react-icons/fc';
-import { useQuery, useQueryClient } from 'react-query';
-import { adminInstance, instance } from '../../../../apis/utils/instance';
 import ReviewComment from '../../../usercomponents/reviewPage/ReviewComment/ReviewComment';
 import ReviewBox from '../../../usercomponents/reviewPage/ReviewBox/ReviewBox';
 
 
 function AdminReview({ containerRef }) {
-    const queryClient = useQueryClient();
-
     const [reviewOpen, setReviewOpen] = useRecoilState(adminReviewModalAtom);
     const [reviewId, setReviewId] = useRecoilState(reviewIdAtom);
 
@@ -82,30 +78,6 @@ function AdminReview({ containerRef }) {
                     <div css={s.reviewBox}>
                         <ReviewBox review={reviewByreviewId?.data?.data} />
                     </div>
-                    {/* <div css={s.reviewBox}>
-                        <div css={s.nameBox}>
-                            <img src={reviewByreviewId?.data?.data?.userImg} alt="" />
-                            <p>{reviewByreviewId?.data?.data?.userName}</p>
-                        </div>
-                        {
-                            reviewImgs === null ? <></> : reviewImgs.length === 0 ? <></> :
-                                <div css={s.imgBox} onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
-                                    {
-                                        !!mouseOverState &&
-                                            index !== 0 ? <button css={s.preButton} onClick={(e) => preImgOnClick(e, index)}><IoIosArrowBack /></button>
-                                            : index < reviewImgs?.length - 1 && <button css={s.nextButton} onClick={(e) => nextImgOnClick(e, index)}><IoIosArrowForward /></button>
-                                    }
-                                    <img src={reviewByreviewId.isLoading ? [] : JSON.parse(reviewByreviewId?.data?.data?.img)} alt="" />
-                                </div>
-                        }
-                        <div css={s.dateAndLike}>
-                            <p>{reviewByreviewId?.data?.data?.registerDate.slice(0, 10)}</p>
-                            <p><FcLike />10</p>
-                        </div>
-                        <div css={s.contentBox}>
-                            {reviewByreviewId?.data?.data?.content}
-                        </div>
-                    </div> */}
                     <div css={s.commentBox}>
                         <ReviewComment comment={comments} />
                     </div>

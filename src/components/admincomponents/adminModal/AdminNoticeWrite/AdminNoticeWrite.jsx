@@ -7,6 +7,7 @@ import { useRecoilState } from 'recoil';
 import { IoIosClose } from "react-icons/io"
 import ReactQuill from 'react-quill';
 import { adminInstance } from '../../../../apis/utils/instance';
+import { useMutation } from 'react-query';
 
 
 function AdminNoticeWrite({ containerRef }) {
@@ -19,32 +20,39 @@ function AdminNoticeWrite({ containerRef }) {
         content: ""
     })
 
+    const writeNotice = useMutation(
+        async () => await adminInstance.post("/admin/announce", noticeInput),
+        {
+            onSuccess: response => {
+                alert("작성 완료");
+                closeModal();
+                window.location.reload();
+            },
+            onError: error => {
+                const fieldErrors = error.response.data;
+
+                for(let fieldError of fieldErrors) {
+                    if(fieldError.field === "title") {
+                        alert(fieldError.defaultMessage);
+                        return;
+                    }
+                }
+                for(let fieldError of fieldErrors) {
+                    if(fieldError.field === "content") {
+                        alert(fieldError.defaultMessage);
+                        return;
+                    }
+                }
+            }
+        }
+    )
+
     const closeModal = () => {
         setNoticeWriteOpen(false)
     }
 
     const handleWriteButtonOnClick = async () => {
-        try {
-            await adminInstance.post("/admin/announce", noticeInput);
-            alert("작성 완료");
-            closeModal();
-            window.location.reload();
-        } catch(e) {
-            const fieldErrors = e.response.data;
-
-            for(let fieldError of fieldErrors) {
-                if(fieldError.field === "title") {
-                    alert(fieldError.defaultMessage);
-                    return;
-                }
-            }
-            for(let fieldError of fieldErrors) {
-                if(fieldError.field === "content") {
-                    alert(fieldError.defaultMessage);
-                    return;
-                }
-            }
-        }
+        writeNotice.mutateAsync().catch(() => {});
     }
 
     const handleTitleOnChange = (e) => {

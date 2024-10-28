@@ -18,9 +18,6 @@ export const layout = css`
         background-color: #2E5984;
         color: white;
 
-        :disabled {
-            background-color: #bbbbbb;
-        }
     }
 `;
 

@@ -7,7 +7,7 @@ import { adminNoticeModalAtom } from '../../../../atoms/modalAtoms';
 import { IoIosClose } from 'react-icons/io';
 import { noticeIdAtom } from '../../../../atoms/adminAtoms';
 import ReactQuill from 'react-quill';
-import { useQuery } from 'react-query';
+import { useMutation, useQuery } from 'react-query';
 import { adminInstance } from '../../../../apis/utils/instance';
 
 function AdminNotice({ containerRef }) {
@@ -21,10 +21,6 @@ function AdminNotice({ containerRef }) {
 
     const quillRef = useRef(null);
 
-    useEffect(() => {
-        setSetStatus(true);
-    }, [noticeOpen]);
-
     const notice = useQuery(
         ["noticeQuery", noticeId],
         async () => await adminInstance.get(`/admin/announce/${noticeId}`),
@@ -34,6 +30,37 @@ function AdminNotice({ containerRef }) {
             retry: 0
         }
     )
+
+    const modifyNoticeMutation = useMutation(
+        async () => await adminInstance.put(`/admin/announce/${noticeId}`, modifyNotice),
+        {
+            onSuccess: response => {
+                alert("수정 완료");
+                closeModal();
+                window.location.reload();
+            },
+            onError: error => {
+                const fieldErrors = error.response.data;
+
+                for(let fieldError of fieldErrors) {
+                    if(fieldError.field === "title") {
+                        alert(fieldError.defaultMessage);
+                        return;
+                    }
+                }
+                for(let fieldError of fieldErrors) {
+                    if(fieldError.field === "content") {
+                        alert(fieldError.defaultMessage);
+                        return;
+                    }
+                }
+            }
+        }
+    )
+
+    useEffect(() => {
+        setSetStatus(true);
+    }, [noticeOpen]);
 
     useEffect(() => {
         if (notice.isSuccess) {
@@ -64,28 +91,7 @@ function AdminNotice({ containerRef }) {
     }
 
     const handleButtonOnClick = async () => {
-        try {
-            await adminInstance.put(`/admin/announce/${noticeId}`, modifyNotice);
-            alert("수정 완료");
-            closeModal();
-            window.location.reload();
-        } catch(e) {
-            console.log(e);
-            const fieldErrors = e.response.data;
-
-            for(let fieldError of fieldErrors) {
-                if(fieldError.field === "title") {
-                    alert(fieldError.defaultMessage);
-                    return;
-                }
-            }
-            for(let fieldError of fieldErrors) {
-                if(fieldError.field === "content") {
-                    alert(fieldError.defaultMessage);
-                    return;
-                }
-            }
-        }
+        modifyNoticeMutation.mutateAsync().catch(() => {});
     }
 
     const toolbarOptions = useMemo(() => [
@@ -110,7 +116,7 @@ function AdminNotice({ containerRef }) {
                         <h1>공지사항</h1>
                         <button onClick={handleButtonOnClick}>수정하기</button>
                     </div>
-                    <input css={s.titleInput} type="text" onChange={handleTitleOnChange} name="title" value={modifyNotice.title} placeholder="게시글의 제목을 입력하세요." />
+                    <input css={s.titleInput} type="text" onChange={handleTitleOnChange} name="title" value={modifyNotice?.title} placeholder="게시글의 제목을 입력하세요." />
                     <ReactQuill
                         ref={quillRef}
                         className='quillStyle'
@@ -127,7 +133,7 @@ function AdminNotice({ containerRef }) {
                                 }
                             }
                         }}
-                        value={modifyNotice.content}
+                        value={modifyNotice?.content}
                         onChange={handleContentOnChange}
                     />
                 </div>

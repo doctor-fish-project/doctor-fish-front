@@ -21,7 +21,6 @@ function MyProfilePage(props) {
     const userInfo = queryClient.getQueryData("userInfoQuery");
 
     const [isShow, setShow] = useState(true);
-    const [inputState, setInputState] = useState(true);
     const [userInput, setUserInput] = useState(userInfo?.data);
 
     useEffect(() => {
@@ -39,7 +38,6 @@ function MyProfilePage(props) {
                     showConfirmButton: false,
                     timer: 1000,
                     willClose: () => {
-                        setInputState(false);
                         queryClient.invalidateQueries("userInfoQuery");
                     },
                     customClass: {
@@ -116,7 +114,6 @@ function MyProfilePage(props) {
     }
 
     const handleChangeStateOnClick = () => {
-        setInputState(!inputState);
         setUserInput(userInfo?.data);
     }
 
@@ -158,27 +155,24 @@ function MyProfilePage(props) {
             <UserSubLayout isShow={isShow}>
                 <SubContainer>
                     <BackButton setShow={setShow} title={"마이페이지"} />
-                    <div css={s.layout(inputState)}>
-                        <img src={userInput?.img} onClick={inputState ? () => { } : modifyUserProfileImgOnClick} alt="" />
+                    <div css={s.layout}>
+                        <img src={userInfo?.data?.img} onClick={modifyUserProfileImgOnClick} alt="" />
                         <div css={s.userInfo}>
-                            <p>개인 정보</p>
-                            <input type="text" name="email" id="" defaultValue={userInput?.email} readOnly />
-                            <input type="text" name="name" onChange={handleUserOnChange} value={userInput?.name} disabled={inputState} />
-                            <input type="text" name="phoneNumber" onChange={handleUserOnChange} value={userInput?.phoneNumber} disabled={inputState} />
+                            <p>{userInfo?.data?.name}</p>
+                            <p>{userInfo?.data?.email}</p>
+                            {/* <input type="text" name="email" id="" defaultValue={userInput?.email} readOnly />
+                            <input type="text" name="name" onChange={handleUserOnChange} value={userInput?.name} />
+                            <input type="text" name="phoneNumber" onChange={handleUserOnChange} value={userInput?.phoneNumber} /> */}
                             <div css={s.userInfoBox}>
-                                {
-                                    !inputState ?
-                                        <>
-                                            <button onClick={() => modifyUser.mutateAsync().catch(() => {})} disabled={JSON.stringify(userInput) === JSON.stringify(userInfo?.data)}>확인</button>
-                                            <button onClick={handleChangeStateOnClick}>취소</button>
-                                        </>
-                                        :
-                                        <>
-                                            <button onClick={handleChangeStateOnClick}>회원정보 변경</button>
-                                            <button>비밀번호 변경</button>
 
-                                        </>
-                                }
+                                
+                                    {/* <button onClick={() => modifyUser.mutateAsync().catch(() => { })} disabled={JSON.stringify(userInput) === JSON.stringify(userInfo?.data)}>확인</button>
+                                    <button onClick={handleChangeStateOnClick}>취소</button>
+                                
+                                    <button onClick={handleChangeStateOnClick}>회원정보 변경</button>
+                                    <button>비밀번호 변경</button> */}
+
+                                
                             </div>
                         </div>
                         <div css={s.userRecord}>

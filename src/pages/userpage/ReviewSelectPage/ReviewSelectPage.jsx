@@ -37,9 +37,7 @@ function ReviewSelectPage(props) {
         <>
             <UserSubLayout isShow={isShow}>
                 <UserSubContainer>
-                    <div css={s.buttonBox}>
-                        <BackButton setShow={setIsShow} title={"리뷰"}/>
-                    </div>
+                    <BackButton setShow={setIsShow} title={"리뷰"} />
                     <div css={s.layout}>
                         {
                             reservationSelect?.data?.data?.reservations?.map(reservation =>
@@ -50,7 +48,7 @@ function ReviewSelectPage(props) {
                 </UserSubContainer>
             </UserSubLayout>
             <Routes>
-                <Route path='/write' element={<ReviewWritePage reservation={reservationSelect?.data?.data?.reservations?.find(reservation => reservation.id === reservationId)}/>} />
+                <Route path='/write' element={<ReviewWritePage reservation={reservationSelect?.data?.data?.reservations?.find(reservation => reservation.id === reservationId)} />} />
             </Routes>
         </>
     );

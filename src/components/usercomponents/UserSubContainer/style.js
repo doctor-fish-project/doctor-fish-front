@@ -9,7 +9,7 @@ export const layout = css`
     padding: 45px 0px 60px 0px;
     width: 100%;
     height: 100%;
-    background-color: #ffffff;
+    background: white;
     overflow-y: auto;
     &::-webkit-scrollbar {
         display: none;
@@ -25,13 +25,19 @@ export const footer = css`
     width: 100%;
     height: 60px;
     box-shadow: 0px 0px 2px #dbdbdb;
+`;
 
-    & button {
-        box-sizing: border-box;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 25%;
-        height: 100%;
+export const menuButton = (isSelected) => css`
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 5px 10px;
+    font-size: 12px;
+    color: ${isSelected ? "black" : "gray"};
+    & svg {
+        font-size: 24px;
+        color: ${isSelected ? "black" : "gray"};
     }
 `;

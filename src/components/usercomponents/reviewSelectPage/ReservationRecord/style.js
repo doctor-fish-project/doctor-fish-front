@@ -11,11 +11,10 @@ export const layout = css`
 export const container = css`
     box-sizing: border-box;
     display: flex;
-    border: 1px solid #dbdbdb;
     border-radius: 10px;
     width: 100%;
     height: 60px;
-    background-color: #f5f5f5;
+    background-color: white;
 `;
 
 export const infoBox = css`
@@ -32,7 +31,7 @@ export const infoBox = css`
         }
     
         & p:nth-last-of-type(1) {
-            color: #52b6c6;
+            color: #777777;
         }
     }
 

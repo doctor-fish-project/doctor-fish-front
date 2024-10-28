@@ -192,7 +192,6 @@ function ReviewDetailPage(props) {
                             comments?.data?.pages?.map(page => page?.data?.comments?.map(comment =>
                                 <ReviewComment key={comment.id} comment={comment} />
                             ))
-
                         }
                     </div>
                     <div ref={loadMoreRef}></div>

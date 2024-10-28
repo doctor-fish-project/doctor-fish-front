@@ -8,7 +8,7 @@ import { reviewIdAtom } from '../../../../atoms/adminAtoms';
 import { IoIosClose } from "react-icons/io"
 import ReviewComment from '../../../usercomponents/reviewPage/ReviewComment/ReviewComment';
 import ReviewBox from '../../../usercomponents/reviewPage/ReviewBox/ReviewBox';
-import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from 'react-query';
+import { useQuery } from 'react-query';
 import { adminInstance } from '../../../../apis/utils/instance';
 
 
@@ -101,7 +101,6 @@ function AdminReview({ containerRef }) {
                             comments?.data?.pages?.map(page => page?.data?.comments?.map(comment =>
                                 <ReviewComment key={comment.id} comment={comment} userInfo={userInfo?.data}/>
                             ))
-
                         }
                     </div>
                 </div>

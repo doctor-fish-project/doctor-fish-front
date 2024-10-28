@@ -1,17 +1,48 @@
 import React, { useEffect, useRef, useState } from 'react';
 /** @jsxImportSource @emotion/react */
 import * as s from './style';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import ReservationCalendarModal from '../userModal/ReservationCalendarModal/ReservationCalendarModal';
 import ReservationDetail from '../userModal/ReservationDetail/ReservationDetail';
+import { IoHomeOutline, IoTimeOutline, IoClipboardOutline, IoCalendarNumberOutline } from "react-icons/io5";
 
 function UserSubContainer({ children }) {
     const nav = useNavigate();
+    const location = useLocation();
+    const pathname = location.pathname;
 
+    const menus = [
+        {
+            id: 1,
+            name: "홈",
+            path: "/dashboard",
+            icon: <IoHomeOutline />
+        },
+        {
+            id: 2,
+            name: "예약 하기",
+            path: "/reservation",
+            icon: <IoTimeOutline />
+        },
+        {
+            id: 3,
+            name: "예약 조회",
+            path: "/reservationlist",
+            icon: <IoCalendarNumberOutline />
+        },
+        {
+            id: 4,
+            name: "리뷰",
+            path: "/review",
+            icon: <IoClipboardOutline />
+        },
+    ]
     const [reservationModalElement, serReservationModalElement] = useState(<></>);
     const [reservationDetailModalElement, setReservationDetailModalElement] = useState(<></>)
 
     const containerRef = useRef();
+
+    console.log(pathname.indexOf("/", 1))
 
     useEffect(() => {
         if (!!containerRef) {
@@ -20,20 +51,9 @@ function UserSubContainer({ children }) {
         }
     }, [containerRef])
 
-    const handleDashboardOnClick = () => {
-        nav("/dashboard")
-    }
-
-    const handleReservationOnClick = () => {
-        nav("/reservation")
-    }
-
-    const handleReservationListOnClick = () => {
-        nav("/reservationlist")
-    }
-
-    const handleReviewOnClick = () => {
-        nav("/review")
+    const handleMenuOnClick = (path) => {
+        console.log(path)
+        nav(path);
     }
 
     return (
@@ -42,10 +62,10 @@ function UserSubContainer({ children }) {
             {reservationDetailModalElement}
             {children}
             <div css={s.footer}>
-                <button onClick={handleDashboardOnClick}>홈</button>
-                <button onClick={handleReservationOnClick}>예약 하기</button>
-                <button onClick={handleReservationListOnClick}>예약 조회</button>
-                <button onClick={handleReviewOnClick}>리뷰</button>
+                {
+                    menus.map(menu => <button key={menu.key} css={s.menuButton(pathname.indexOf("/", 1) !== -1 ? pathname.substring(0, pathname.indexOf("/", 1)) === menu.path : pathname === menu.path)} onClick={() => handleMenuOnClick(menu.path)}>{menu.icon}{menu.name}</button>)
+                }
+                
             </div>
         </div>
     );

@@ -4,9 +4,12 @@ export const layout = css`
     box-sizing: border-box;
     display: flex;
     align-items: center;
+    margin-bottom: 20px;
+    border-radius: 10px;
     padding-right: 5px;
     width: 100%;
     height: 80px;
+    background-color: white;
     overflow-y: auto;
     cursor: pointer;
     

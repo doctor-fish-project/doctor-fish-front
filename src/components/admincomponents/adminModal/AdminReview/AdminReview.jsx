@@ -10,6 +10,7 @@ import { FcLike } from 'react-icons/fc';
 import { useQuery, useQueryClient } from 'react-query';
 import { adminInstance, instance } from '../../../../apis/utils/instance';
 import ReviewComment from '../../../usercomponents/reviewPage/ReviewComment/ReviewComment';
+import ReviewBox from '../../../usercomponents/reviewPage/ReviewBox/ReviewBox';
 
 
 function AdminReview({ containerRef }) {
@@ -79,6 +80,9 @@ function AdminReview({ containerRef }) {
                 </div>
                 <div css={s.container}>
                     <div css={s.reviewBox}>
+                        <ReviewBox review={reviewByreviewId?.data?.data} />
+                    </div>
+                    {/* <div css={s.reviewBox}>
                         <div css={s.nameBox}>
                             <img src={reviewByreviewId?.data?.data?.userImg} alt="" />
                             <p>{reviewByreviewId?.data?.data?.userName}</p>
@@ -101,7 +105,7 @@ function AdminReview({ containerRef }) {
                         <div css={s.contentBox}>
                             {reviewByreviewId?.data?.data?.content}
                         </div>
-                    </div>
+                    </div> */}
                     <div css={s.commentBox}>
                         <ReviewComment comment={comments} />
                     </div>

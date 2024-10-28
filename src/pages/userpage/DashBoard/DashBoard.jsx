@@ -1,9 +1,7 @@
 import React from 'react';
 /** @jsxImportSource @emotion/react */
 import * as s from "./style";
-import { AiFillSound } from "react-icons/ai"
 import { FaUser, FaRegBell } from "react-icons/fa";
-import { IoIosArrowForward } from "react-icons/io";
 import SubContainer from '../../../components/usercomponents/UserSubContainer/UserSubContainer';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import DashBoardTopBar from '../../../components/usercomponents/dashBoard/DashBoardTopBar/DashBoardTopBar';
@@ -16,6 +14,7 @@ import MyProfilePage from '../MyProfilePage/MyProfilePage';
 import { useSetRecoilState } from 'recoil';
 import { signinModalAtom } from '../../../atoms/modalAtoms';
 import BoxTopBar from '../../../components/usercomponents/dashBoard/BoxTopBar/BoxTopBar';
+import DoctorListPage from '../DoctorListPage/DoctorListPage';
 
 function DashBoard(props) {
     const nav = useNavigate();
@@ -25,7 +24,6 @@ function DashBoard(props) {
     const queryClient = useQueryClient();
     const authState = queryClient.getQueryState("accessTokenValidQuery")
     const userInfo = queryClient.getQueryData("userInfoQuery");
-    const doctors = queryClient.getQueryData("doctorsQuery")
 
     const todayReservations = useQuery(
         ["todayReservationsQuery"],
@@ -46,8 +44,8 @@ function DashBoard(props) {
         nav("/dashboard/myprofile")
     } 
 
-    const handleDoctorProfileOnClick = (doctorId) => {
-        nav(`/dashboard/doctor/${doctorId}`)
+    const handleDoctorListOnClick = () => {
+        nav(`/dashboard/doctor`)
     }
 
     const handleNoticeListPageOnClick = () => {
@@ -59,43 +57,52 @@ function DashBoard(props) {
             <SubContainer>
                 <DashBoardTopBar title={"MEDIBOOK"} icon={<FaRegBell />} />
                 <div css={s.layout}>
-                    <div css={s.noticeBox} onClick={handleNoticeListPageOnClick}>
-                        <AiFillSound />
-                        <p>안녕하세요</p>
-                    </div>
                     <div css={s.userInfoBox}>
                         {
                             authState?.data?.data
-                                ?
-                                <>
-                                    <div>
-                                        <p>{userInfo?.data?.name}</p>
-                                        <p>{userInfo?.data?.phoneNumber}</p>
-                                    </div>
-                                    <button onClick={handleMyProfileOnClick}><FaUser />내정보</button>
-                                </>
-                                :
-                                <div css={s.defaultBox}>
-                                    <button onClickCapture={handleSigninOnClick}>로그인</button>
+                            ?
+                            <div onClick={handleMyProfileOnClick}>
+                                <p><FaUser />내정보</p>
+                                <div>
+                                    <p>{userInfo?.data?.name}님</p>
                                 </div>
+                            </div>
+                            :
+                            <div css={s.defaultBox}>
+                                <button onClickCapture={handleSigninOnClick}>로그인</button>
+                            </div>
                         }
 
                     </div>
-                    <BoxTopBar title1={"예약 일정"} title2={"전체 보기"} link={"/reservationlist"} icon={<IoIosArrowForward />} />
-                    <TodayReservationBox reservations={todayReservations?.data?.data?.reservations} />
-
-                    <BoxTopBar title1={"의료진"} />
-                    <div css={s.doctorBox}>
-                        {
-                            doctors?.data?.doctors?.map(doctor =>
-                                <DoctorBox key={doctor.id} doctor={doctor} onClick={handleDoctorProfileOnClick} />
-                            )
-                        }
+                    <div css={s.reservationBox}>
+                        <BoxTopBar title1={"예약 일정"} />
+                        <TodayReservationBox reservations={todayReservations?.data?.data?.reservations} link={"/reservationlist"} />
+                    </div>
+                    <div css={s.pageBox}>
+                        <div onClick={handleNoticeListPageOnClick }>
+                            <p>공지사항</p>
+                            <img src="/공지사항.png" alt="" />
+                        </div>
+                        <div onClick={handleDoctorListOnClick}>
+                            <p>의료진 소개</p>
+                            <img src="/의사.png" alt="" />
+                        </div>
+                    </div>
+                    <div css={s.pageBox}>
+                        <div>
+                            <p>병원소개</p>
+                            <img src="/금지.png" alt="" />
+                        </div>
+                        <div>
+                            <p>오시는 길</p>
+                            <img src="/금지.png" alt="" />
+                        </div>
                     </div>
                 </div>
             </SubContainer>
             <Routes>
                 <Route path='/myprofile/*' element={<MyProfilePage />} />
+                <Route path='/doctor' element={<DoctorListPage />} />
                 <Route path='/doctor/:doctorId' element={<DoctorDetailPage />} />
             </Routes>
         </>

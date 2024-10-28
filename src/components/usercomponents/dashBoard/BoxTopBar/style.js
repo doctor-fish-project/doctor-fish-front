@@ -3,24 +3,22 @@ import { css } from "@emotion/react";
 export const layout = css`
     box-sizing: border-box;
     display: flex;
-    justify-content: space-between;
+    align-items: center;
     margin-bottom: 5px;
     width: 100%;
     min-height: 30px;
-    font-size: 20px;
+    font-size: 14px;
     font-weight: 600;
-
-    & > button {
+    
+    & > p {
         display: flex;
-        justify-content: center;
         align-items: center;
-        padding-right: 0;
-        font-size: 16px;
         color: #777777;
 
-        & > svg {
-            transform: translateY(2px);
-            font-size: 20px;
+        & svg {
+            margin-right: 5px;
+            font-size: 25px;
+            color: #4B61AA;
         }
     }
 `;

@@ -7,7 +7,6 @@ export const layout = css`
     align-items: center;
     padding-left: 5px;
     width: 100%;
-    height: 35px;
 
     & > button {
         position: absolute;
@@ -22,7 +21,7 @@ export const layout = css`
         justify-content: center;
         align-items: center;
         width: 100%;
-        height: 100%;
+        height: 40px;
         font-size: 18px;
         font-weight: 600;
     }

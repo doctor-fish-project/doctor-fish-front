@@ -5,16 +5,8 @@ export const layout = css`
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 10px;
+    padding: 20px;
+    flex-grow: 1;
     width: 100%;
-    height: 668px;
     background-color: #f0f1f3;
-    overflow-y: auto;
-    &::-webkit-scrollbar {
-        display: none;
-    }
-
-    & :not(:nth-last-of-type(1)) {
-        margin-bottom: 5px;
-    }
 `;

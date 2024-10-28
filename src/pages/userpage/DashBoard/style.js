@@ -7,8 +7,7 @@ export const layout = css`
     align-items: center;
     padding: 20px;
     width: 100%;
-    height: 100%;
-    overflow-y: auto;
+    overflow-y: hidden;
     background-color: #f0f1f3;
     ::-webkit-scrollbar {
         display: none;
@@ -94,6 +93,7 @@ export const pageBox = css`
     box-sizing: border-box;
     display: flex;
     justify-content: space-between;
+    flex-grow: 1;
     margin-bottom: 20px;
     width: 100%;
 

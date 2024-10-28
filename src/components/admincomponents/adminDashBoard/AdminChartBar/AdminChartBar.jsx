@@ -31,14 +31,21 @@ export default function AdminChartBar(props) {
 
     const graphs = useQuery(
         ["graphsQuery"],
-        async () => await adminInstance.get(`/admin/reservation/list/month/${year}`),
+        async () => await adminInstance.get(`/admin/reservation/dashboard/monthcounts/${year}`),
         {
             enabled: true,
             refetchOnWindowFocus: false,
             retry: 0
         }
     )
-    
+    console.log(graphs?.data?.data?.reservations?.map(reservation => {
+        return {...reservation, counts: reservation.counts?.map(count => count.count)}
+    }))
+    // console.log(graphs?.data?.data)
+    // console.log(graphs?.data?.data?.map(graph => {
+    //     return { ...graph, graph: graph?.counts?.map(count => count.count)}
+        
+    // }))
     const options = {
         maintainAspectRatio: false,
         scales: {
@@ -61,14 +68,11 @@ export default function AdminChartBar(props) {
         },
     };
 
-    const labels = graphs?.data?.data?.months?.map(i => i.month)
-
     const data = {
-        labels,
-        datasets: graphs.isSuccess ? graphs?.data?.data?.getReservationMonths?.map((reserve, idx) => ({
-            ...reserve,
-            backgroundColor: COLORS[idx]
-        })) : []
+        labels: graphs?.data?.data?.months?.map(i => i.month),
+        datasets: graphs.isSuccess ? graphs?.data?.data?.reservations?.map(reservation => {
+            return {label: reservation.name, data: reservation.counts?.map(count => count.count)}
+        }) : []
     };
 
     return (

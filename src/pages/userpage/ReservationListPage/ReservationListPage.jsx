@@ -23,8 +23,8 @@ function ReservationListPage(props) {
 
     const limit = 10;
 
-    const resrvations = useInfiniteQuery(
-        ["resrvationsQuery", reservationDetailOpen, reservationOpen],
+    const reservationList = useInfiniteQuery(
+        ["reservationListQuery", reservationDetailOpen, reservationOpen],
         async ({ pageParam = 1 }) => await instance.get(`/reservation/list?page=${pageParam}&limit=${limit}`),
         {
             enabled: authState?.data?.data,
@@ -65,20 +65,20 @@ function ReservationListPage(props) {
     );
 
     useEffect(() => {
-        if (!resrvations.hasNextPage || !loadMoreRef.current || resrvations?.data?.pages[0].data?.reservations?.length < 10) {
+        if (!reservationList.hasNextPage || !loadMoreRef.current || reservationList?.data?.pages[0].data?.reservations?.length < 10) {
             return;
         }
 
         const observer = new IntersectionObserver(([intersectionObserver]) => {
             if (intersectionObserver.isIntersecting) {
-                resrvations.fetchNextPage();
+                reservationList.fetchNextPage();
             }
         }, { threshold: 1.0 });
 
         observer.observe(loadMoreRef.current);
 
         return () => observer.disconnect();
-    }, [resrvations.hasNextPage]);
+    }, [reservationList.hasNextPage]);
 
     const entriesOfReservationsData = Object.entries(reservations);
 

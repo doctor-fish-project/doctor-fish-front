@@ -139,6 +139,15 @@ function ReviewDetailPage(props) {
         }
     )
 
+    const deleteComment = useMutation(
+        async (commentId) => await instance.delete(`/review/comment/${commentId}`),
+        {
+            onSuccess: response => {
+                comments.refetch();
+            }
+        }
+    )
+
     const handleDeleteReviewOnClcik = () => {
         Swal.fire({
             icon: 'info',
@@ -156,6 +165,27 @@ function ReviewDetailPage(props) {
         }).then(result => {
             if (result.isConfirmed) {
                 deleteReview.mutateAsync().catch(() => {})
+            }
+        })
+    }
+
+    const handleDeleteCommentOnClcik = (commentId) => {
+        Swal.fire({
+            icon: 'info',
+            text: '삭제 하시겠습니까?',
+            backdrop: false,
+            showCancelButton: true,
+            confirmButtonText: '확인',
+            cancelButtonText: '취소',
+            allowOutsideClick: false,
+            customClass: {
+                popup: 'custom-confirm-swal',
+                container: 'container',
+                confirmButton: 'confirmButton',
+            }
+        }).then(result => {
+            if (result.isConfirmed) {
+                deleteComment.mutateAsync(commentId).catch(() => {})
             }
         })
     }
@@ -190,7 +220,7 @@ function ReviewDetailPage(props) {
                         </div>
                         {
                             comments?.data?.pages?.map(page => page?.data?.comments?.map(comment =>
-                                <ReviewComment key={comment.id} comment={comment} />
+                                <ReviewComment key={comment.id} comment={comment} userInfo={userInfo?.data} onClick={() => handleDeleteCommentOnClcik(comment?.id)} />
                             ))
                         }
                     </div>

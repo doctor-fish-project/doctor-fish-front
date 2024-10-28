@@ -38,14 +38,7 @@ export default function AdminChartBar(props) {
             retry: 0
         }
     )
-    console.log(graphs?.data?.data?.reservations?.map(reservation => {
-        return {...reservation, counts: reservation.counts?.map(count => count.count)}
-    }))
-    // console.log(graphs?.data?.data)
-    // console.log(graphs?.data?.data?.map(graph => {
-    //     return { ...graph, graph: graph?.counts?.map(count => count.count)}
-        
-    // }))
+    
     const options = {
         maintainAspectRatio: false,
         scales: {
@@ -70,8 +63,8 @@ export default function AdminChartBar(props) {
 
     const data = {
         labels: graphs?.data?.data?.months?.map(i => i.month),
-        datasets: graphs.isSuccess ? graphs?.data?.data?.reservations?.map(reservation => {
-            return {label: reservation.name, data: reservation.counts?.map(count => count.count)}
+        datasets: graphs.isSuccess ? graphs?.data?.data?.reservations?.map((reservation, idx) => {
+            return {label: reservation.name, data: reservation.counts?.map(count => count.count), backgroundColor: COLORS[idx]}
         }) : []
     };
 

@@ -42,8 +42,6 @@ function UserSubContainer({ children }) {
 
     const containerRef = useRef();
 
-    console.log(pathname.indexOf("/", 1))
-
     useEffect(() => {
         if (!!containerRef) {
             serReservationModalElement(<ReservationCalendarModal containerRef={containerRef} />)
@@ -63,7 +61,7 @@ function UserSubContainer({ children }) {
             {children}
             <div css={s.footer}>
                 {
-                    menus.map(menu => <button key={menu.key} css={s.menuButton(pathname.indexOf("/", 1) !== -1 ? pathname.substring(0, pathname.indexOf("/", 1)) === menu.path : pathname === menu.path)} onClick={() => handleMenuOnClick(menu.path)}>{menu.icon}{menu.name}</button>)
+                    menus.map(menu => <button key={menu.id} css={s.menuButton(pathname.indexOf("/", 1) !== -1 ? pathname.substring(0, pathname.indexOf("/", 1)) === menu.path : pathname === menu.path)} onClick={() => handleMenuOnClick(menu.path)}>{menu.icon}{menu.name}</button>)
                 }
                 
             </div>

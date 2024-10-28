@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import * as s from './style';
 import AdminContainer from '../../../components/admincomponents/AdminContainer/AdminContainer';
 import ReactSelect from 'react-select';
-import { TABLEHEADER } from '../../../constants/admin/test';
 import AdminPageLayout from '../../../components/admincomponents/AdminPageLayout/AdminPageLayout';
 import AdminTableLayout from '../../../components/admincomponents/adminList/AdminTableLayout/AdminTableLayout';
 import AdminTableHeader from '../../../components/admincomponents/adminList/AdminTableHeader/AdminTableHeader';

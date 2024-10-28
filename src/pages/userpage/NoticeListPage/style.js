@@ -24,6 +24,7 @@ export const noticeBox = css`
     width: 100%;
     height: 60px;
     background-color: white;
+    cursor: pointer;
 
     & div:nth-of-type(1) {
         box-sizing: border-box;

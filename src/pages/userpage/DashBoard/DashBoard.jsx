@@ -2,19 +2,18 @@ import React, { useState } from 'react';
 /** @jsxImportSource @emotion/react */
 import * as s from "./style";
 import { FaUser, FaRegBell } from "react-icons/fa";
-import SubContainer from '../../../components/usercomponents/UserSubContainer/UserSubContainer';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import DashBoardTopBar from '../../../components/usercomponents/dashBoard/DashBoardTopBar/DashBoardTopBar';
 import { useQuery, useQueryClient } from 'react-query';
 import { instance } from '../../../apis/utils/instance';
 import TodayReservationBox from '../../../components/usercomponents/dashBoard/TodayReservationBox/TodayReservationBox';
-import DoctorDetailPage from '../DoctorDetailPage/DoctorDetailPage';
 import MyProfilePage from '../MyProfilePage/MyProfilePage';
 import { useSetRecoilState } from 'recoil';
 import { signinModalAtom } from '../../../atoms/modalAtoms';
 import BoxTopBar from '../../../components/usercomponents/dashBoard/BoxTopBar/BoxTopBar';
 import DoctorListPage from '../DoctorListPage/DoctorListPage';
 import UserSubContainer from '../../../components/usercomponents/UserSubContainer/UserSubContainer';
+import NoticeListPage from '../NoticeListPage/NoticeListPage';
 
 function DashBoard(props) {
     const nav = useNavigate();
@@ -51,11 +50,11 @@ function DashBoard(props) {
     } 
 
     const handleDoctorListOnClick = () => {
-        nav(`/dashboard/doctor`)
+        nav("/dashboard/doctor")
     }
 
     const handleNoticeListPageOnClick = () => {
-        nav("/noticelist")
+        nav("/dashboard/notice")
     }
 
     return (
@@ -84,7 +83,7 @@ function DashBoard(props) {
                         <div css={s.reservationListSlider(index)}>
                             {
                                 todayReservations?.data?.data?.reservations?.map((reservation, idx) => 
-                                    <TodayReservationBox index={idx} reservation={reservation} link={"/reservationlist"} onClick={() => handleNextReservationOnClick(idx)} />
+                                    <TodayReservationBox key={reservation?.id} index={idx} reservation={reservation} link={"/reservationlist"} onClick={() => handleNextReservationOnClick(idx)} />
                                 )
                             }
                         </div>
@@ -113,8 +112,8 @@ function DashBoard(props) {
             </UserSubContainer>
             <Routes>
                 <Route path='/myprofile/*' element={<MyProfilePage />} />
-                <Route path='/doctor' element={<DoctorListPage />} />
-                <Route path='/doctor/:doctorId' element={<DoctorDetailPage />} />
+                <Route path='/doctor/*' element={<DoctorListPage />} />
+                <Route path='/notice/*' element={<NoticeListPage />} />
             </Routes>
         </>
 

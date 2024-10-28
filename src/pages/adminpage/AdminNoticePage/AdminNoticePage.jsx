@@ -64,7 +64,7 @@ function AdminNoticePage(props) {
     )
     
     const deleteNotice = useMutation(
-        async (announceId) => await instance.delete(`/admin/announce/${announceId}`),
+        async (announceId) => await adminInstance.delete(`/admin/announce/${announceId}`),
         {
             onSuccess: response => {
                 alert("삭제 완료");

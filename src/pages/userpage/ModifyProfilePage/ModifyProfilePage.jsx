@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 /** @jsxImportSource @emotion/react */
 import * as s from "./style";
 import UserSubLayout from '../../../components/usercomponents/UserSubLayout/UserSubLayout';
@@ -10,14 +10,21 @@ import Swal from 'sweetalert2';
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import { storage } from '../../../firebase/firebase';
 import { instance } from '../../../apis/utils/instance';
+import { useNavigate } from 'react-router-dom';
 
 function ModifyProfilePage(props) {
+    const nav = useNavigate();
+
     const [isShow, setShow] = useState(true);
 
     const queryClient = useQueryClient();
     const userInfo = queryClient.getQueryData("userInfoQuery");
 
-    const [userInput, setUserInput] = useState(userInfo?.data);
+    const [userInput, setUserInput] = useState({});
+
+    useEffect(() => {
+        setUserInput(userInfo?.data)
+    }, [userInfo])
 
     const modifyUser = useMutation(
         async () => await instance.put("/user", userInput),
@@ -105,8 +112,11 @@ function ModifyProfilePage(props) {
         }))
     }
 
-    const handleChangeStateOnClick = () => {
-        setUserInput(userInfo?.data);
+    const handleModifyCancelOnClick = () => {
+        setShow(false);
+        setTimeout(() => {
+            nav(-1);
+        }, 400)
     }
 
     return (
@@ -128,7 +138,7 @@ function ModifyProfilePage(props) {
                         <button onClick={() => modifyUser.mutateAsync().catch(() => { })} disabled={JSON.stringify(userInput) === JSON.stringify(userInfo?.data)}>확인</button>
                     </div>
                     <div>
-                        <button onClick={handleChangeStateOnClick}>취소</button>
+                        <button onClick={handleModifyCancelOnClick}>취소</button>
                     </div>
                 </div>
             </div>

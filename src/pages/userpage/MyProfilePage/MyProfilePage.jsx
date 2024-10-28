@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 /** @jsxImportSource @emotion/react */
 import * as s from "./style";
 import SubContainer from '../../../components/usercomponents/UserSubContainer/UserSubContainer';
@@ -9,37 +9,31 @@ import MyReviewsPage from '../MyReviewsPage/MyReviewsPage';
 import MyCommentsPage from '../MyCommentsPage/MyCommentsPage';
 import Swal from 'sweetalert2';
 import UserSubLayout from '../../../components/usercomponents/UserSubLayout/UserSubLayout';
-import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
-import { storage } from '../../../firebase/firebase';
-import { v4 as uuid } from 'uuid'
-import { instance } from '../../../apis/utils/instance';
 import ModifyProfilePage from '../ModifyProfilePage/ModifyProfilePage';
+import { instance } from '../../../apis/utils/instance';
 
 function MyProfilePage(props) {
     const nav = useNavigate();
 
+    const [isShow, setShow] = useState(true);
+
     const queryClient = useQueryClient();
     const userInfo = queryClient.getQueryData("userInfoQuery");
 
-    const [isShow, setShow] = useState(true);
-    const [userInput, setUserInput] = useState(userInfo?.data);
-
-    useEffect(() => {
-        setUserInput(userInfo?.data);
-    }, [userInfo])
-
-    const modifyUser = useMutation(
-        async () => await instance.put("/user", userInput),
+    const deleteUser = useMutation(
+        async () => await instance.delete("/user"),
         {
             onSuccess: response => {
                 Swal.fire({
                     icon: 'success',
-                    text: '수정 완료',
+                    title: '회원 탈퇴 완료',
+                    text: '서비스를 이용해주셔서 감사합니다.',
                     backdrop: false,
                     showConfirmButton: false,
                     timer: 1000,
                     willClose: () => {
-                        queryClient.invalidateQueries("userInfoQuery");
+                        localStorage.removeItem("accessToken");
+                        window.location.replace("/");
                     },
                     customClass: {
                         popup: 'custom-timer-swal',
@@ -49,21 +43,6 @@ function MyProfilePage(props) {
             }
         }
     )
-
-    const handleUserOnChange = (e) => {
-        setUserInput(userInput => ({
-            ...userInput,
-            [e.target.name]: e.target.value
-        }))
-    }
-
-    const handleChangeStateOnClick = () => {
-        setUserInput(userInfo?.data);
-    }
-
-    const handleChangeUserOnClick = () => {
-        console.log("요청")
-    }
 
     const handleModifyProfileOnClick = () => {
         nav("/dashboard/myprofile/modifyprofile")
@@ -98,6 +77,28 @@ function MyProfilePage(props) {
         })
     }
 
+    const handleSignoffOnClick = () => {
+        Swal.fire({
+            icon: 'question',
+            text: '회원탈퇴 하시겠습니까?',
+            backdrop: false,
+            showCancelButton: true,
+            confirmButtonText: '확인',
+            cancelButtonText: '취소',
+            customClass: {
+                popup: 'custom-confirm-swal',
+                container: 'container',
+                confirmButton: 'confirmButton',
+            }
+        }).then(result => {
+            if (result.isConfirmed) {
+                deleteUser.mutateAsync().catch(() => {})
+            }
+        })
+    }
+
+
+
     return (
         <>
             <UserSubLayout isShow={isShow}>
@@ -129,7 +130,7 @@ function MyProfilePage(props) {
                                 <button onClick={handleSignoutOnClick}>로그아웃</button>
                             </div>
                             <div>
-                                <button>회원탈퇴</button>
+                                <button onClick={handleSignoffOnClick}>회원탈퇴</button>
                             </div>
                         </div>
                     </div>

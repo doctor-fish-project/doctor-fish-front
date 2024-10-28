@@ -2,19 +2,18 @@ import React, { useState } from 'react';
 /** @jsxImportSource @emotion/react */
 import * as s from "./style";
 import { FaUser, FaRegBell } from "react-icons/fa";
-import SubContainer from '../../../components/usercomponents/UserSubContainer/UserSubContainer';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import DashBoardTopBar from '../../../components/usercomponents/dashBoard/DashBoardTopBar/DashBoardTopBar';
 import { useQuery, useQueryClient } from 'react-query';
 import { instance } from '../../../apis/utils/instance';
 import TodayReservationBox from '../../../components/usercomponents/dashBoard/TodayReservationBox/TodayReservationBox';
-import DoctorDetailPage from '../DoctorDetailPage/DoctorDetailPage';
 import MyProfilePage from '../MyProfilePage/MyProfilePage';
 import { useSetRecoilState } from 'recoil';
 import { signinModalAtom } from '../../../atoms/modalAtoms';
 import BoxTopBar from '../../../components/usercomponents/dashBoard/BoxTopBar/BoxTopBar';
 import DoctorListPage from '../DoctorListPage/DoctorListPage';
 import UserSubContainer from '../../../components/usercomponents/UserSubContainer/UserSubContainer';
+import NoticeListPage from '../NoticeListPage/NoticeListPage';
 
 function DashBoard(props) {
     const nav = useNavigate();
@@ -24,7 +23,7 @@ function DashBoard(props) {
     const queryClient = useQueryClient();
     const authState = queryClient.getQueryState("accessTokenValidQuery")
     const userInfo = queryClient.getQueryData("userInfoQuery");
-
+    
     const [index, setIndex] = useState(0);
 
     const todayReservations = useQuery(
@@ -48,14 +47,14 @@ function DashBoard(props) {
 
     const handleMyProfileOnClick = () => {
         nav("/dashboard/myprofile")
-    } 
+    }
 
     const handleDoctorListOnClick = () => {
-        nav(`/dashboard/doctor`)
+        nav("/dashboard/doctor")
     }
 
     const handleNoticeListPageOnClick = () => {
-        nav("/noticelist")
+        nav("/dashboard/notice")
     }
 
     return (
@@ -65,32 +64,41 @@ function DashBoard(props) {
                 <div css={s.layout}>
                     <div css={s.userInfoBox}>
                         {
-                            authState?.data?.data
-                            ?
-                            <div onClick={handleMyProfileOnClick}>
-                                <p><FaUser />내정보</p>
-                                <div>
-                                    <p>{userInfo?.data?.name}님</p>
+                            (authState?.status === "success" && authState?.data?.data) ?
+                                <div onClick={handleMyProfileOnClick}>
+                                    <p><FaUser />내정보</p>
+                                    <div>
+                                        <p>{userInfo?.data?.name}님</p>
+                                    </div>
                                 </div>
-                            </div>
-                            :
-                            <div css={s.defaultBox}>
-                                <button onClickCapture={handleSigninOnClick}>로그인</button>
-                            </div>
+                                :
+                                <div css={s.defaultBox}>
+                                    <button onClickCapture={handleSigninOnClick}>로그인</button>
+                                </div>
                         }
                     </div>
                     <div css={s.reservationBox}>
                         <BoxTopBar title1={"예약 일정"} />
-                        <div css={s.reservationListSlider(index)}>
-                            {
-                                todayReservations?.data?.data?.reservations?.map((reservation, idx) => 
-                                    <TodayReservationBox index={idx} reservation={reservation} link={"/reservationlist"} onClick={() => handleNextReservationOnClick(idx)} />
-                                )
-                            }
-                        </div>
+                        {
+                            (authState?.status === "success" && authState?.data?.data) ?
+                                !!todayReservations?.data?.data?.reservations.length ? 
+                                <div css={s.reservationListSlider(index)}>
+                                    {
+                                        todayReservations?.data?.data?.reservations?.map((reservation, idx) =>
+                                            <TodayReservationBox key={reservation?.id} index={idx} reservation={reservation} link={"/reservationlist"} onClick={() => handleNextReservationOnClick(idx)} />
+                                        )
+                                    }
+                                </div> :
+                                <div css={s.defaultBox}>
+                                    <p>예약이 없습니다.</p>
+                                </div> :
+                                <div css={s.defaultBox}>
+                                    <p>로그인 후 이용가능합니다.</p>
+                                </div>
+                        }
                     </div>
                     <div css={s.pageBox}>
-                        <div onClick={handleNoticeListPageOnClick }>
+                        <div onClick={handleNoticeListPageOnClick}>
                             <p>공지사항</p>
                             <img src="/공지사항.png" alt="" />
                         </div>
@@ -113,8 +121,8 @@ function DashBoard(props) {
             </UserSubContainer>
             <Routes>
                 <Route path='/myprofile/*' element={<MyProfilePage />} />
-                <Route path='/doctor' element={<DoctorListPage />} />
-                <Route path='/doctor/:doctorId' element={<DoctorDetailPage />} />
+                <Route path='/doctor/*' element={<DoctorListPage />} />
+                <Route path='/notice/*' element={<NoticeListPage />} />
             </Routes>
         </>
 

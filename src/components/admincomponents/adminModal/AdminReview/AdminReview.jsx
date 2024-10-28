@@ -58,6 +58,19 @@ function AdminReview({ containerRef }) {
         }
     )
 
+    const deleteComment = useMutation(
+        async (commentId) => adminInstance.delete(`/review/comment/${commentId}`),
+        {
+            onSuccess: response => {
+                alert("삭제 완료");
+                comments.refetch();
+            },
+            onError: error => {
+                alert("삭제 실패");
+            }
+        }
+    )
+
     useEffect(() => {
         if (!comments.hasNextPage || !loadMoreRef.current || comments?.data?.pages[0].data?.commentCount < 10) {
             return;
@@ -80,6 +93,12 @@ function AdminReview({ containerRef }) {
         }
     }
 
+    const handleDeleteCommentOnClick = (commentId) => {
+        if(window.confirm("삭제 하시겠습니까?")) {
+            deleteComment.mutateAsync(commentId).catch(() => {})
+        }
+    }
+
     const closeModal = () => {
         setReviewOpen(false)
         setReviewId(0)
@@ -99,7 +118,7 @@ function AdminReview({ containerRef }) {
                     <div css={s.commentBox} ref={loadMoreRef}>
                         {
                             comments?.data?.pages?.map(page => page?.data?.comments?.map(comment =>
-                                <ReviewComment key={comment.id} comment={comment} userInfo={userInfo?.data}/>
+                                <ReviewComment key={comment.id} comment={comment} userInfo={userInfo?.data} onClick={() => handleDeleteCommentOnClick(comment?.id)}/>
                             ))
                         }
                     </div>

@@ -10,8 +10,9 @@ import { Route, Routes, useNavigate } from 'react-router-dom';
 import DoctorDetailPage from '../DoctorDetailPage/DoctorDetailPage';
 
 function DoctorListPage(props) {
-    const [ isShow, setShow ] = useState(true);
+    const [isShow, setShow] = useState(true);
     const nav = useNavigate();
+
     const queryClient = useQueryClient();
     const doctors = queryClient.getQueryData("doctorsQuery");
 
@@ -20,20 +21,26 @@ function DoctorListPage(props) {
     }
 
     return (
-        <UserSubLayout isShow={isShow}>
-            <UserSubContainer>
-                <BackButton title={"의료진 소개"} setShow={setShow}/>
-                <div css={s.layout}>
-                    <div css={s.doctorBox}>
-                        {
-                            doctors?.data?.doctors?.map(doctor =>
-                                <DoctorBox key={doctor.id} doctor={doctor} onClick={handleDoctorProfileOnClick} />
-                            )
-                        }
+        <>
+            <UserSubLayout isShow={isShow}>
+                <UserSubContainer>
+                    <BackButton title={"의료진 소개"} setShow={setShow} />
+                    <div css={s.layout}>
+                        <div css={s.doctorBox}>
+                            {
+                                doctors?.data?.doctors?.map(doctor =>
+                                    <DoctorBox key={doctor.id} doctor={doctor} onClick={handleDoctorProfileOnClick} />
+                                )
+                            }
+                        </div>
                     </div>
-                </div>
-            </UserSubContainer>
-        </UserSubLayout>
+                </UserSubContainer>
+            </UserSubLayout>
+            <Routes>
+                <Route path='/:doctorId' element={<DoctorDetailPage />} />
+            </Routes>
+        </>
+
     );
 }
 

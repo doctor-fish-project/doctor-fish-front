@@ -4,26 +4,18 @@ export const layout = css`
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    margin-bottom: 20px;
     border-radius: 10px;
     background-color: white;
     width: 100%;
-    min-height: 186px;
+    min-height: 100px;
 
-    & > div:nth-of-type(1) {
-        box-sizing: border-box;
-        padding: 5px 10px;
-        background-color: #457FB2;
-        border-top-right-radius: 10px;
-        border-top-left-radius: 10px;
-
-        & > p {
-            margin-bottom: 5px;
-            color: white;
-            font-size: 22px;
-            font-weight: 600;
-        }
+    & > p {
+        margin-bottom: 10px;
+        color: #000000;
+        font-size: 20px;
+        font-weight: 900;
     }
+    
 
 `;
 
@@ -33,17 +25,11 @@ export const container = css`
     flex-direction: column;
     flex-grow: 1;
     border-radius: 10px;
-    padding: 5px;
     width: 100%;
-    min-height: 125px;
     background-color: #ffffff;
     overflow-y: auto;
     ::-webkit-scrollbar {
         display: none;
-    }
-
-    & div:not(:nth-last-of-type(1)) {
-        margin-bottom: 5px;
     }
 `;
 
@@ -64,9 +50,7 @@ export const reservationBox = css`
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     width: 100%;
-    height: 130px;
 `;
 
 export const header = css`
@@ -74,57 +58,86 @@ export const header = css`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 5px;
     width: 100%;
-    height: 30px;
-    font-size: 18px;
+    font-size: 16px;
+
+    & > div {
+        box-sizing: border-box;
+        display: flex;
+        align-items: center;
+
+        & > p:nth-of-type(1) {
+            color: #777777;
+            margin-right: 10px;
+        }
+
+        & > p:nth-of-type(2) {
+            margin-right: 10px;
+            font-weight: 700;
+            color: #4B61AA;
+        }
+    }
 
     & p {
         display: flex;
         justify-content: center;
         align-items: center;
+        color: #23c197;
     }
 
     & > p:nth-of-type(1) {
         font-weight: 600;
     }
 
-    & > p:nth-of-type(2) {
-        border-radius: 10px;
-        width: 70px;
-        height: 100%;
-        color: #ffffff;
-        background-color: #2E5984;
-    }
 `;
 
 export const body = css`
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    margin-bottom: 10px;
     width: 100%;
-    height: 80px;
-
-    & > p {
-        box-sizing: border-box;
-        display: flex;
-        justify-content: end;
-        align-items: center;
-        border-radius: 10px;
-        padding: 0px 5px;
-        width: 100%;
-        font-size: 14px;
-        color: #bbbbbb;
-        background-color: transparent;
-    }
 `;
 
-export const doctorInfoBox = () => css`
+export const doctorInfoBox = css`
     display: flex;
     flex-direction: column;
     border-radius: 10px;
-    padding: 5px 10px;
-    background-color: #eeeeee;
+
+    & > div {
+        display: flex;
+
+        & > p:nth-of-type(1) {
+            color: #777777;
+            margin-right: 10px;
+        }
+
+        & > p:nth-of-type(2) {
+            color: #777777;
+            font-weight: 700;
+        }
+    }
 `;
 
+export const buttonBox = css`
+    box-sizing: border-box;
+    display: flex;
+    flex-grow: 1;
+    border-radius: 10px;
+    
+    & button {
+        position: relative;
+        flex-grow: 1;
+        border-radius: 10px;
+        padding: 10px;
+        font-size: 16px;
+        color: #4B61AA;
+        background-color: #4B61AA25;
+
+        & svg {
+            position: absolute;
+            top: 14px;
+            font-size: 18px;
+        }
+    }
+`;

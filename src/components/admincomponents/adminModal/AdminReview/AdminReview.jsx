@@ -8,7 +8,7 @@ import { reviewIdAtom } from '../../../../atoms/adminAtoms';
 import { IoIosClose } from "react-icons/io"
 import ReviewComment from '../../../usercomponents/reviewPage/ReviewComment/ReviewComment';
 import ReviewBox from '../../../usercomponents/reviewPage/ReviewBox/ReviewBox';
-import { useQuery } from 'react-query';
+import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from 'react-query';
 import { adminInstance } from '../../../../apis/utils/instance';
 
 

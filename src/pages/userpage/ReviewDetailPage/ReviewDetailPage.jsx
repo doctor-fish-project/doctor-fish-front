@@ -139,6 +139,27 @@ function ReviewDetailPage(props) {
         }
     )
 
+    const handleDeleteReviewOnClcik = () => {
+        Swal.fire({
+            icon: 'info',
+            text: '삭제 하시겠습니까?',
+            backdrop: false,
+            showCancelButton: true,
+            confirmButtonText: '확인',
+            cancelButtonText: '취소',
+            allowOutsideClick: false,
+            customClass: {
+                popup: 'custom-confirm-swal',
+                container: 'container',
+                confirmButton: 'confirmButton',
+            }
+        }).then(result => {
+            if (result.isConfirmed) {
+                deleteReview.mutateAsync().catch(() => {})
+            }
+        })
+    }
+
     const handleCommentInputOnChange = (e) => {
         setCommentInput(commentInput => ({
             ...commentInput,
@@ -155,7 +176,7 @@ function ReviewDetailPage(props) {
                         userInfo?.data?.id === review?.data?.data?.userId &&
                         <div>
                             <button>수정</button>
-                            <button onClick={() => deleteReview.mutateAsync().catch(() => { })}>삭제</button>
+                            <button onClick={handleDeleteReviewOnClcik}>삭제</button>
                         </div>
                     }
                 </div>
@@ -171,7 +192,6 @@ function ReviewDetailPage(props) {
                             comments?.data?.pages?.map(page => page?.data?.comments?.map(comment =>
                                 <ReviewComment key={comment.id} comment={comment} />
                             ))
-
                         }
                     </div>
                     <div ref={loadMoreRef}></div>

@@ -66,6 +66,15 @@ export const reservationBox = css`
     padding: 20px;
     background-color: white;
     width: 100%;
+    overflow: hidden;
+`;
+
+export const reservationListSlider = (index) => css`
+    box-sizing: border-box;
+    display: flex;
+    width: max-content;
+    transition: all 0.5s ease;
+    transform: translateX(${-305 * index}px);
 `;
 
 export const defaultBox = css`

@@ -20,11 +20,10 @@ function AdminReviewPage(props) {
 
     const [searchParams, setSearchParams] = useSearchParams();
 
-    const setAdminReviewOpen = useSetRecoilState(adminReviewModalAtom)
-    const [reviewId, setReviewId] = useRecoilState(reviewIdAtom);
+    const [adminReviewOpen, setAdminReviewOpen] = useRecoilState(adminReviewModalAtom);
+    const setReviewId = useSetRecoilState(reviewIdAtom);
 
     const [totalPageCount, setTotalPageCount] = useState(1);
-    const [theader, setTheader] = useState({});
 
     const limit = 13;
 
@@ -43,21 +42,12 @@ function AdminReviewPage(props) {
         {
             enabled: true,
             refetchOnWindowFocus: false,
-            retry: 0,
-            onSuccess: response => {
-                response.data.map((th, index) => (
-                    setTheader(theader => ({
-                        ...theader,
-                        [index]: th.name
-                    }))
-                ))
-            }
+            retry: 0
         }
     )
 
-    console.log(reviewTableHeaders)
     const reviews = useQuery(
-        ["reviewsQuery", searchParams.get("page")],
+        ["reviewsQuery", searchParams.get("page"), adminReviewOpen],
         async () => await adminInstance.get(`/admin/review?page=${searchParams.get("page")}&limit=${limit}`),
         {
             enabled: !!searchParams.get("page"),
@@ -93,7 +83,7 @@ function AdminReviewPage(props) {
                                         <td>{idx + 1}</td>
                                         <td>{review.userName}</td>
                                         <td>{review.content}</td>
-                                        <td>{reviews?.data?.data?.reviewCount}</td>
+                                        <td>{review.commentCount}</td>
                                         <td>{review.registerDate.slice(0, 10)}</td>
                                     </tr>
                                 )

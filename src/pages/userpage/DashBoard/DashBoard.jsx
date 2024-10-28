@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 /** @jsxImportSource @emotion/react */
 import * as s from "./style";
 import { FaUser, FaRegBell } from "react-icons/fa";
@@ -25,6 +25,8 @@ function DashBoard(props) {
     const authState = queryClient.getQueryState("accessTokenValidQuery")
     const userInfo = queryClient.getQueryData("userInfoQuery");
 
+    const [index, setIndex] = useState(0);
+
     const todayReservations = useQuery(
         ["todayReservationsQuery"],
         async () => await instance.get("/reservation/today"),
@@ -34,6 +36,10 @@ function DashBoard(props) {
             retry: 0
         }
     )
+
+    const handleNextReservationOnClick = (index) => {
+        setIndex(todayReservations.data.data.reservations.length === index + 1 ? 0 : index + 1);
+    }
 
     const handleSigninOnClick = () => {
         nav("/");
@@ -75,7 +81,13 @@ function DashBoard(props) {
                     </div>
                     <div css={s.reservationBox}>
                         <BoxTopBar title1={"예약 일정"} />
-                        <TodayReservationBox reservations={todayReservations?.data?.data?.reservations} link={"/reservationlist"} />
+                        <div css={s.reservationListSlider(index)}>
+                            {
+                                todayReservations?.data?.data?.reservations?.map((reservation, idx) => 
+                                    <TodayReservationBox index={idx} reservation={reservation} link={"/reservationlist"} onClick={() => handleNextReservationOnClick(idx)} />
+                                )
+                            }
+                        </div>
                     </div>
                     <div css={s.pageBox}>
                         <div onClick={handleNoticeListPageOnClick }>

@@ -25,7 +25,7 @@ function AdminNotice({ containerRef }) {
         ["noticeQuery", noticeId],
         async () => await adminInstance.get(`/admin/announce/${noticeId}`),
         {   
-            enabled: true,
+            enabled: !!noticeId,
             refetchOnWindowFocus: false,
             retry: 0
         }

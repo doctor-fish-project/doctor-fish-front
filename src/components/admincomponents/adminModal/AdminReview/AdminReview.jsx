@@ -1,12 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 /** @jsxImportSource @emotion/react */
 import * as s from './style';
 import AdminModalLayout from '../AdminModalLayout/AdminModalLayout';
 import { adminReviewModalAtom } from '../../../../atoms/modalAtoms';
 import { useRecoilState } from 'recoil';
 import { reviewIdAtom } from '../../../../atoms/adminAtoms';
-import { IoIosArrowBack, IoIosArrowForward, IoIosClose } from "react-icons/io"
-import { FcLike } from 'react-icons/fc';
+import { IoIosClose } from "react-icons/io"
 import ReviewComment from '../../../usercomponents/reviewPage/ReviewComment/ReviewComment';
 import ReviewBox from '../../../usercomponents/reviewPage/ReviewBox/ReviewBox';
 import { useQuery } from 'react-query';
@@ -14,11 +13,15 @@ import { adminInstance } from '../../../../apis/utils/instance';
 
 
 function AdminReview({ containerRef }) {
+    const loadMoreRef = useRef(null);
+
+    const queryClient  = useQueryClient();
+    const userInfo = queryClient.getQueryData("userInfoQuery");
+
     const [reviewOpen, setReviewOpen] = useRecoilState(adminReviewModalAtom);
     const [reviewId, setReviewId] = useRecoilState(reviewIdAtom);
 
-    const [mouseOverState, setMouseOverState] = useState(false);
-    const [index, setIndex] = useState(0);
+    const limit = 10;
 
     const reviewByreviewId = useQuery(
         ["reviewByreviewIdQuery"],
@@ -29,36 +32,51 @@ function AdminReview({ containerRef }) {
             retry: 0
         }
     )
-    
-    const comments = useQuery(
+
+    const comments = useInfiniteQuery(
         ["commentsQuery"],
-        async () => await adminInstance.get(`/admin/review/${reviewId}/comments`),
+        async ({ pageParam = 1 }) => await adminInstance.get(`/admin/review/${reviewId}/comments?page=${pageParam}&limit=${limit}`),
         {
             enabled: reviewOpen,
             refetchOnWindowFocus: false,
-            retry: 0
+            getNextPageParam: (lastPage, allPage) => {
+                const totalPageCount = lastPage.data.commentCount % limit === 0
+                    ? lastPage.data.commentCount / limit
+                    : Math.floor(lastPage.data.commentCount / limit) + 1;
+
+                return totalPageCount !== allPage.length ? allPage.length + 1 : null;
+            }
+        }
+    );
+
+    const delteReview = useMutation(
+        async (reviewId) => adminInstance.delete(`/admin/review/${reviewId}`),
+        {
+            onSuccess: response => {
+                setReviewOpen(false);
+            }
         }
     )
 
-    const handleMouseOver = () => {
-        setMouseOverState(true)
-    }
-
-    const handleMouseOut = () => {
-        setMouseOverState(false)
-    }
-
-    const preImgOnClick = (e, index) => {
-        e.stopPropagation();
-        if (index > 0 && index < reviewImgs.length) {
-            setIndex(index - 1)
+    useEffect(() => {
+        if (!comments.hasNextPage || !loadMoreRef.current || comments?.data?.pages[0].data?.commentCount < 10) {
+            return;
         }
-    }
 
-    const nextImgOnClick = (e, index) => {
-        e.stopPropagation();
-        if (index === 0 || index < reviewImgs.length) {
-            setIndex(index + 1)
+        const observer = new IntersectionObserver(([intersectionObserver]) => {
+            if (intersectionObserver.isIntersecting) {
+                comments.fetchNextPage();
+            }
+        }, { threshold: 1.0 });
+
+        observer.observe(loadMoreRef.current);
+
+        return () => observer.disconnect();
+    }, [comments.hasNextPage]);
+
+    const handleDelteReviewOnClick = (reviewId) => {
+        if(window.confirm("삭제 하시겠습니까?")) {
+            delteReview.mutateAsync(reviewId).catch(() => {})
         }
     }
 
@@ -66,9 +84,7 @@ function AdminReview({ containerRef }) {
         setReviewOpen(false)
         setReviewId(0)
         reviewByreviewId.remove();
-        
     }
-    const reviewImgs = JSON.parse(reviewByreviewId?.data?.data?.img === undefined ? '[]' : reviewByreviewId?.data?.data?.img)
 
     return (
         <AdminModalLayout containerRef={containerRef} isOpen={reviewOpen} closeModal={closeModal}>
@@ -80,12 +96,16 @@ function AdminReview({ containerRef }) {
                     <div css={s.reviewBox}>
                         <ReviewBox review={reviewByreviewId?.data?.data} />
                     </div>
-                    <div css={s.commentBox}>
-                        <ReviewComment comment={comments} />
+                    <div css={s.commentBox} ref={loadMoreRef}>
+                        {
+                            comments?.data?.pages?.map(page => page?.data?.comments?.map(comment =>
+                                <ReviewComment key={comment.id} comment={comment} userInfo={userInfo?.data}/>
+                            ))
+                        }
                     </div>
                 </div>
                 <div css={s.buttonBox}>
-                    <button>게시물삭제</button>
+                    <button onClick={() => handleDelteReviewOnClick(reviewByreviewId?.data?.data?.id)}>게시물삭제</button>
                 </div>
             </div>
         </AdminModalLayout>

@@ -4,19 +4,32 @@ export const layout = css`
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
+    margin-right: 20px;
     border-radius: 10px;
     background-color: white;
-    width: 100%;
+    width: 285px;
     min-height: 100px;
+    transition: transform 0.3s ease;
+`;
+
+export const timeBox = css`
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
 
     & > p {
-        margin-bottom: 10px;
+        margin-bottom: 5px;
         color: #000000;
         font-size: 20px;
         font-weight: 900;
     }
-    
 
+    & > svg {
+        font-size: 20px;
+        cursor: pointer;
+    }
 `;
 
 export const container = css`

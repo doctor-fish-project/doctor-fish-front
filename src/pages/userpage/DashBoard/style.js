@@ -66,6 +66,7 @@ export const reservationBox = css`
     padding: 20px;
     background-color: white;
     width: 100%;
+    min-height: 227px;
     overflow: hidden;
 `;
 
@@ -82,8 +83,18 @@ export const defaultBox = css`
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 100%;
+    height: 100%;
 
-    & button {
+    & > p {
+        box-sizing: border-box;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 18px;
+    }
+
+    & > button {
         box-sizing: border-box;
         display: flex;
         justify-content: center;

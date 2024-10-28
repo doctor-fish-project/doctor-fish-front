@@ -7,8 +7,7 @@ import BackButton from '../../../components/usercomponents/BackButton/BackButton
 import ReviewBox from '../../../components/usercomponents/reviewPage/ReviewBox/ReviewBox';
 import { useInfiniteQuery, useQueryClient } from 'react-query';
 import { instance } from '../../../apis/utils/instance';
-import { Route, Routes, useNavigate } from 'react-router-dom';
-import ReviewDetailPage from '../ReviewDetailPage/ReviewDetailPage';
+import { useNavigate } from 'react-router-dom';
 
 function MyReviewsPage(props) {
     const nav = useNavigate();
@@ -56,7 +55,7 @@ function MyReviewsPage(props) {
     const handleReviewDetailOnClick = (reviewId) => {
         nav(`/review/${reviewId}`)
     }
-
+    
     return (
         <SubLayout isShow={isShow}>
             <SubContainer>

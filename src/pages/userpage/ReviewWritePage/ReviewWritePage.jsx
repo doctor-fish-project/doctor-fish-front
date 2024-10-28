@@ -169,28 +169,30 @@ function ReviewWritePage({reservation}) {
                     <BackButton setShow={setShow} />
                     <button onClick={() => writeReview.mutateAsync().catch(() => { })}>작성하기</button>
                 </div>
-                <div css={s.recordBox}>
-                    <ReservationRecord reservation={reservation}/>
-                </div>
-                <div css={s.imgContainer}>
-                    <div css={s.imgBox} onClick={handleAddImageOnClick}>
-                        {
-                            imgs.length === 0
-                                ?
-                                <div css={s.defaultBox} >
-                                    <p>이미지를 추가하세요</p>
-                                    <button onClick={handleAddImageOnClick}><MdOutlineAddPhotoAlternate /></button>
-                                </div>
-                                :
-                                imgs.map((url, index) =>
-                                    <ImgBox key={index} url={url} deleteButtonState={deleteButtonState}
-                                        setDeleteButtonState={setDeleteButtonState} imgs={imgs} setImgs={setImgs} />
-                                )
-                        }
+                <div css={s.layout}>
+                    <div css={s.recordBox}>
+                        <ReservationRecord reservation={reservation}/>
                     </div>
-                </div>
-                <div css={s.contentBox}>
-                    <textarea name="content" value={review.content} onChange={handleReviewOnChange} placeholder='리뷰 내용을 입력해 주세요...'></textarea>
+                    <div css={s.imgContainer}>
+                        <div css={s.imgBox} onClick={handleAddImageOnClick}>
+                            {
+                                imgs.length === 0
+                                    ?
+                                    <div css={s.defaultBox} >
+                                        <p>이미지를 추가하세요</p>
+                                        <button onClick={handleAddImageOnClick}><MdOutlineAddPhotoAlternate /></button>
+                                    </div>
+                                    :
+                                    imgs.map((url, index) =>
+                                        <ImgBox key={index} url={url} deleteButtonState={deleteButtonState}
+                                            setDeleteButtonState={setDeleteButtonState} imgs={imgs} setImgs={setImgs} />
+                                    )
+                            }
+                        </div>
+                    </div>
+                    <div css={s.contentBox}>
+                        <textarea name="content" value={review.content} onChange={handleReviewOnChange} placeholder='리뷰 내용을 입력해 주세요...'></textarea>
+                    </div>
                 </div>
             </UserSubContainer>
         </UserSubLayout>

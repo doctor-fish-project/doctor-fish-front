@@ -7,14 +7,12 @@ import { useRecoilState } from 'recoil';
 import { reviewIdAtom } from '../../../../atoms/adminAtoms';
 import { IoIosArrowBack, IoIosArrowForward, IoIosClose } from "react-icons/io"
 import { FcLike } from 'react-icons/fc';
-import { useQuery, useQueryClient } from 'react-query';
-import { adminInstance, instance } from '../../../../apis/utils/instance';
 import ReviewComment from '../../../usercomponents/reviewPage/ReviewComment/ReviewComment';
+import { useQuery } from 'react-query';
+import { adminInstance } from '../../../../apis/utils/instance';
 
 
 function AdminReview({ containerRef }) {
-    const queryClient = useQueryClient();
-
     const [reviewOpen, setReviewOpen] = useRecoilState(adminReviewModalAtom);
     const [reviewId, setReviewId] = useRecoilState(reviewIdAtom);
 

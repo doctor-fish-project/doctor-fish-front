@@ -71,7 +71,7 @@ function ReviewPage(props) {
             </UserSubContainer>
             <Routes>
                 <Route path='/select/*' element={<ReviewSelectPage />} />
-                <Route path='/:reviewId' element={<ReviewDetailPage />} />
+                <Route path='/:reviewId/*' element={<ReviewDetailPage />} />
             </Routes>
         </>
     );

@@ -7,7 +7,8 @@ import BackButton from '../../../components/usercomponents/BackButton/BackButton
 import ReviewBox from '../../../components/usercomponents/reviewPage/ReviewBox/ReviewBox';
 import { useInfiniteQuery, useQueryClient } from 'react-query';
 import { instance } from '../../../apis/utils/instance';
-import { useNavigate } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
+import ReviewDetailPage from '../ReviewDetailPage/ReviewDetailPage';
 
 function MyReviewsPage(props) {
     const nav = useNavigate();
@@ -53,22 +54,28 @@ function MyReviewsPage(props) {
     }, [myReviews.hasNextPage]);
 
     const handleReviewDetailOnClick = (reviewId) => {
-        nav(`/review/${reviewId}`)
+        nav(`/dashboard/myprofile/myreviews/${reviewId}`)
     }
-    
+
     return (
-        <SubLayout isShow={isShow}>
-            <SubContainer>
-                <BackButton setShow={setShow} title={"내 리뷰"} />
-                <div css={s.layout}>
-                    {
-                        myReviews?.data?.pages?.map(page => page?.data?.reviews?.map(myreview =>
-                            <ReviewBox key={myreview.id} review={myreview} onClick={() => handleReviewDetailOnClick(myreview.id)} />
-                        ))
-                    }
-                </div>
-            </SubContainer>
-        </SubLayout>
+        <>
+            <SubLayout isShow={isShow}>
+                <SubContainer>
+                    <BackButton setShow={setShow} title={"내 리뷰"} />
+                    <div css={s.layout}>
+                        {
+                            myReviews?.data?.pages?.map(page => page?.data?.reviews?.map(myreview =>
+                                <ReviewBox key={myreview.id} review={myreview} onClick={() => handleReviewDetailOnClick(myreview.id)} />
+                            ))
+                        }
+                    </div>
+                </SubContainer>
+            </SubLayout>
+            <Routes>
+                <Route path='/:reviewId' element={<ReviewDetailPage />}/>
+            </Routes>
+        </>
+
     );
 }
 

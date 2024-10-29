@@ -126,23 +126,23 @@ function ModifyProfilePage(props) {
                 <div css={s.layout}>
                     <img src={userInfo?.data?.img} onClick={modifyUserProfileImgOnClick} alt="" />
                     <div css={s.userInfo}>
-                    <p>{userInfo?.data?.name}</p>
-                    <p>{userInfo?.data?.email}</p>
-                </div>
-                <div css={s.inputBox}>
-                    <input type="text" name="name" onChange={handleUserOnChange} value={userInput?.name} />
-                    <input type="text" name="phoneNumber" onChange={handleUserOnChange} value={userInput?.phoneNumber} />
-                </div>
-                <div css={s.buttonBox}>
-                    <div>
-                        <button onClick={() => modifyUser.mutateAsync().catch(() => { })} disabled={JSON.stringify(userInput) === JSON.stringify(userInfo?.data)}>확인</button>
+                        <p>{userInfo?.data?.name}</p>
+                        <p>{userInfo?.data?.email}</p>
                     </div>
-                    <div>
-                        <button onClick={handleModifyCancelOnClick}>취소</button>
+                    <div css={s.inputBox}>
+                        <input type="text" name="name" onChange={handleUserOnChange} value={userInput?.name} />
+                        <input type="text" name="phoneNumber" onChange={handleUserOnChange} value={userInput?.phoneNumber} />
+                    </div>
+                    <div css={s.buttonBox}>
+                        <div>
+                            <button onClick={() => modifyUser.mutateAsync().catch(() => { })} disabled={JSON.stringify(userInput) === JSON.stringify(userInfo?.data)}>확인</button>
+                        </div>
+                        <div>
+                            <button onClick={handleModifyCancelOnClick}>취소</button>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </UserSubContainer>
+            </UserSubContainer>
         </UserSubLayout >
     );
 }

@@ -50,7 +50,6 @@ function UserSubContainer({ children }) {
     }, [containerRef])
 
     const handleMenuOnClick = (path) => {
-        console.log(path)
         nav(path);
     }
 

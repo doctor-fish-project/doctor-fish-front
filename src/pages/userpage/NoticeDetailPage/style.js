@@ -39,4 +39,16 @@ export const contentBox = css`
     ::-webkit-scrollbar {
         display: none;
     }
+
+    & * {
+        font-size: 16px;
+    }
+
+    .ql-container {
+        border: none !important;
+    }
+
+    .ql-editor {
+        border: none !important;
+    }
 `;

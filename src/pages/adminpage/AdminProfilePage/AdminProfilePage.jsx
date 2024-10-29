@@ -18,16 +18,18 @@ function AdminProfilePage(props) {
     const [modifyUser, setModifyUser] = useState(userInfo?.data);
     const [uploadState, setUploadState] = useState(false)
     const [editState, setEditState] = useState(false)
-    
+
     useEffect(() => {
         setModifyUser(userInfo?.data)
     }, [userInfo])
 
     const modifyAdmin = useMutation(
-        async () => await adminInstance.put(`/admin/user/${modifyUser.id}`, modifyUser),
+        async () => await adminInstance.put(`/admin/user`, modifyUser),
         {
             onSuccess: response => {
-               window.location.reload();
+                alert("수정 성공");
+                setEditState(false);
+                queryClient.invalidateQueries("userInfoQuery")
             }
         }
     )
@@ -85,14 +87,16 @@ function AdminProfilePage(props) {
     return (
         <AdminContainer>
             {
-                uploadState && 
+                uploadState &&
                 <div css={s.loadingLayout}>
-                    <RingLoader />        
+                    <RingLoader />
                 </div>
             }
-            <AdminPageLayout title={"프로필 수정"} onClick={handleEditStateOnClick} onCheckClick={() => modifyAdmin.mutateAsync().catch(() => {})} onCancelClick={handleCancelOnClick} editState={editState}>
+            <AdminPageLayout title={"프로필 수정"}
+                onClick={handleEditStateOnClick} onCheckClick={() => modifyAdmin.mutateAsync().catch(() => { })} onCancelClick={handleCancelOnClick}
+                editState={editState}>
                 <div css={s.layout}>
-                    <div css={s.imgBox(editState)} onClick={editState ? modifyUserProfileImgOnClick : () => {}}>
+                    <div css={s.imgBox(editState)} onClick={editState ? modifyUserProfileImgOnClick : () => { }}>
                         <img src={modifyUser?.img} alt="" />
                     </div>
                     <div css={s.inputContainer}>
@@ -103,15 +107,15 @@ function AdminProfilePage(props) {
                             </div>
                             <div css={s.inputBox}>
                                 <label htmlFor="">비밀번호</label>
-                                <input type="password" name='password' value={modifyUser?.password} onChange={modifyUserInfoOnChange} disabled={true}/>
+                                <input type="password" name='password' value={modifyUser?.password} onChange={modifyUserInfoOnChange} disabled={true} />
                             </div>
                             <div css={s.inputBox}>
                                 <label htmlFor="">성명</label>
-                                <input type="text" name='name' value={modifyUser?.name} onChange={modifyUserInfoOnChange} disabled={!editState}/>
+                                <input type="text" name='name' value={modifyUser?.name} onChange={modifyUserInfoOnChange} disabled={!editState} />
                             </div>
                             <div css={s.inputBox}>
                                 <label htmlFor="">휴대폰 번호</label>
-                                <input type="text" name='phoneNumber' value={modifyUser?.phoneNumber} onChange={modifyUserInfoOnChange} disabled={!editState}/>
+                                <input type="text" name='phoneNumber' value={modifyUser?.phoneNumber} onChange={modifyUserInfoOnChange} disabled={!editState} />
                             </div>
                         </div>
                         {

@@ -9,6 +9,8 @@ import AdminTableLayout from '../../../components/admincomponents/adminList/Admi
 import AdminTableHeader from '../../../components/admincomponents/adminList/AdminTableHeader/AdminTableHeader';
 import AdminListPagination from '../../../components/admincomponents/AdminListPagination/AdminListPagination';
 import AdminPageLayout from '../../../components/admincomponents/AdminPageLayout/AdminPageLayout';
+import { searchAtom, searchClickAtom } from '../../../atoms/adminAtoms';
+import { useRecoilState } from 'recoil';
 
 function AdminReservationAllPage(props) {
     const nav = useNavigate();
@@ -17,6 +19,9 @@ function AdminReservationAllPage(props) {
 
     const [reservationId, setReservationId] = useState(0)
     const [totalPageCount, setTotalPageCount] = useState(1);
+
+    const [searchText, setSearchText] = useRecoilState(searchAtom);
+    const [searchClick, setSearchClick] = useRecoilState(searchClickAtom);
 
     const limit = 13;
 
@@ -40,8 +45,8 @@ function AdminReservationAllPage(props) {
     )
 
     const reservationAll = useQuery(
-        ["reservationAllQuery", searchParams.get("page")],
-        async () => await adminInstance.get(`/admin/reservation/all?page=${searchParams.get("page")}&limit=${limit}`),
+        ["reservationAllQuery", searchParams.get("page"), searchClick],
+        async () => await adminInstance.get(`/admin/reservation/all?page=${searchParams.get("page")}&limit=${limit}`, {params: {searchText}}),
         {
             enabled: !!searchParams.get("page"),
             refetchOnWindowFocus: false,
@@ -50,7 +55,8 @@ function AdminReservationAllPage(props) {
                 setTotalPageCount(
                     response.data.totalCount % limit === 0
                         ? response.data.totalCount / limit
-                        : Math.floor(response.data.totalCount / limit) + 1)
+                        : Math.floor(response.data.totalCount / limit) + 1);
+                setSearchClick(false);
             }
         }
     )

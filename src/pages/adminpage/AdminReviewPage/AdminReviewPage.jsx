@@ -8,7 +8,7 @@ import AdminTableLayout from '../../../components/admincomponents/adminList/Admi
 import { useQuery } from 'react-query';
 import { adminInstance } from '../../../apis/utils/instance';
 import { useRecoilState, useSetRecoilState } from 'recoil';
-import {reviewIdAtom } from '../../../atoms/adminAtoms';
+import {reviewIdAtom, searchAtom, searchClickAtom } from '../../../atoms/adminAtoms';
 import { adminReviewModalAtom } from '../../../atoms/modalAtoms';
 import AdminPageLayout from '../../../components/admincomponents/AdminPageLayout/AdminPageLayout';
 import AdminTableHeader from '../../../components/admincomponents/adminList/AdminTableHeader/AdminTableHeader';
@@ -24,6 +24,9 @@ function AdminReviewPage(props) {
     const setReviewId = useSetRecoilState(reviewIdAtom);
 
     const [totalPageCount, setTotalPageCount] = useState(1);
+
+    const [searchText, setSearchText] = useRecoilState(searchAtom);
+    const [searchClick, setSearchClick] = useRecoilState(searchClickAtom);
 
     const limit = 13;
 
@@ -47,8 +50,8 @@ function AdminReviewPage(props) {
     )
 
     const reviews = useQuery(
-        ["reviewsQuery", searchParams.get("page"), adminReviewOpen],
-        async () => await adminInstance.get(`/admin/review?page=${searchParams.get("page")}&limit=${limit}`),
+        ["reviewsQuery", searchParams.get("page"), adminReviewOpen, searchClick],
+        async () => await adminInstance.get(`/admin/review?page=${searchParams.get("page")}&limit=${limit}`, {params: {searchText}}),
         {
             enabled: !!searchParams.get("page"),
             refetchOnWindowFocus: false,
@@ -57,7 +60,8 @@ function AdminReviewPage(props) {
                 setTotalPageCount(
                     response.data.reviewCount % limit === 0
                         ? response.data.reviewCount / limit
-                        : Math.floor(response.data.reviewCount / limit) + 1)
+                        : Math.floor(response.data.reviewCount / limit) + 1);
+                setSearchClick(false);
             }
         }
     )

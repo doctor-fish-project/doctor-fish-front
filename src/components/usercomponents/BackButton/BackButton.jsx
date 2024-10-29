@@ -1,12 +1,12 @@
 import React from 'react';
 /** @jsxImportSource @emotion/react */
 import * as s from "./style";
-import { useNavigate } from 'react-router-dom';
+import {  useNavigate } from 'react-router-dom';
 import { IoIosArrowBack } from "react-icons/io";
 
 function BackButton({ setShow, title }) {
-    const nav = useNavigate()
-
+    const nav = useNavigate();
+    
     const handleBackClick = () => {
         setShow(false);
         setTimeout(() => {

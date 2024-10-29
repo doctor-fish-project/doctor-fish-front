@@ -49,26 +49,28 @@ function AdminSideBar(props) {
 
     return (
         <div css={s.layout}>
-            <p>MEDIBOOK 관리자 페이지</p>
-            <div css={s.adminInfoBox}>
-                <div css={s.profileBox} onClick={handleProfileOnClick}>
-                    <img src={userInfo?.data?.data?.img}/>
-                </div>
-                <div css={s.nameBox}>
-                    <p>{userInfo?.data?.data?.name}</p>
-                    <div>
-                        <p>MEDIBOOK</p>
-                        <p>{userInfo?.data?.data?.roles[0].name}</p>
+            <div css={s.container}>
+                <p>MEDIBOOK 관리자 페이지</p>
+                <div css={s.adminInfoBox}>
+                    <div css={s.profileBox} onClick={handleProfileOnClick}>
+                        <img src={userInfo?.data?.data?.img}/>
                     </div>
+                    <div css={s.nameBox}>
+                        <p>{userInfo?.data?.data?.name}</p>
+                        <div>
+                            <p>MEDIBOOK</p>
+                            <p>{userInfo?.data?.data?.roles[0].name}</p>
+                        </div>
+                    </div>
+                    <button onClick={handleSignoutOnClick}>로그아웃</button>
                 </div>
-                <button onClick={handleSignoutOnClick}>로그아웃</button>
-            </div>
-            <div css={s.categoryBox}>
-                {
-                    categorys?.data?.data?.map(category =>
-                        <button key={category.categoryId} onClick={() => handleLinkOnClick(category.link)}>{ICONS[category.icon]}{category.name}</button>
-                    )
-                }
+                <div css={s.categoryBox}>
+                    {
+                        categorys?.data?.data?.map(category =>
+                            <button key={category.categoryId} onClick={() => handleLinkOnClick(category.link)}>{ICONS[category.icon]}{category.name}</button>
+                        )
+                    }
+                </div>
             </div>
         </div>
 

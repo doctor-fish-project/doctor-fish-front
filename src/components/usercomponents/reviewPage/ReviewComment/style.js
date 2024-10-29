@@ -36,11 +36,19 @@ export const imgBox = css`
     }
 `;
 
+export const commentContainer = css`
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #dbdbdb;
+    flex-grow: 1;
+`;
+
 export const commentBox = css`
     box-sizing: border-box;
-    border-bottom: 1px solid #dbdbdb;
+    flex-grow: 1;
     padding-bottom: 10px;
-    width: 100%;
     cursor: default;
 
     & span:nth-of-type(1) {
@@ -49,7 +57,6 @@ export const commentBox = css`
     }
 
     & span:nth-of-type(2) {
-        display: inline-block;
         font-size: 14px;
     }
 `;
@@ -57,12 +64,16 @@ export const commentBox = css`
 export const buttonBox = css`
     box-sizing: border-box;
     display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    margin-bottom: 5px;
+    justify-content: flex-end;
+    width: 100%;
 
-    & > button {
-        font-size: 13px;
-        color: #777777;
+    & > div {
+        box-sizing: border-box;
+        & > button {
+            padding: 5px 10px;
+            flex-grow: 1;
+            font-size: 13px;
+            color: #777777;
+        }
     }
 `;

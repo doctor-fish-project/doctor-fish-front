@@ -14,10 +14,8 @@ export const layout = css`
     & > button {
         box-sizing: border-box;
         border-radius: 10px;
-        width: 50px;
-        height: 40px;
-        color: #ffffff;
-        background-color: #2E5984;
+        padding: 10px;
+        color: #4B61AA;;
     }
 `;
 

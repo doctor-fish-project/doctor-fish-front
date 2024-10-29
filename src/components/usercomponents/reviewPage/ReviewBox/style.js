@@ -11,7 +11,7 @@ export const layout = css`
     cursor: pointer;
 
     :not(:nth-last-of-type(1)) {
-        margin-bottom: 10px;
+        margin-bottom: 20px;
     }
 `
 

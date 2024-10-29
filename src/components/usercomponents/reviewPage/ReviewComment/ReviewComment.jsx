@@ -3,7 +3,7 @@ import React from 'react';
 import * as s from './style';
 import { useLocation } from 'react-router-dom';
 
-function ReviewComment({ comment, userInfo, onClick }) {
+function ReviewComment({ comment, userInfo, onDeleteOnClick, onEditOnClick}) {
     const location = useLocation();
 
     return (
@@ -25,8 +25,8 @@ function ReviewComment({ comment, userInfo, onClick }) {
                                 {
                                     location.pathname !== "/dashboard/myprofile/mycomments" &&
                                     <div>
-                                        <button>수정</button>
-                                        <button onClick={onClick} >삭제</button>
+                                        <button onClick={onEditOnClick}>수정</button>
+                                        <button onClick={onDeleteOnClick} >삭제</button>
                                     </div>
                                 }
                             </div>

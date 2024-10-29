@@ -15,7 +15,7 @@ function AdminModalLayout({ children, isOpen, closeModal, containerRef, }) {
                     borderRadius: "10px",
                     padding: "0",
                     width: "70%",
-                    height: "70%",
+                    height: "80%",
                     zIndex: "50"
                 },
                 overlay: {

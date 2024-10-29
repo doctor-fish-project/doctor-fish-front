@@ -109,9 +109,10 @@ function ReviewBox({ review, onClick }) {
                 reviewImgs === null ? <></> : reviewImgs.length === 0 ? <></> :
                     <div css={s.imgBox} onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
                         {
-                            !!mouseOverState &&
-                                index !== 0 ? <button css={s.preButton} onClick={(e) => preImgOnClick(e, index)}><IoIosArrowBack /></button>
-                                : index < reviewImgs?.length - 1 && <button css={s.nextButton} onClick={(e) => nextImgOnClick(e, index)}><IoIosArrowForward /></button>
+                            !!mouseOverState && index !== 0 && <button css={s.preButton} onClick={(e) => preImgOnClick(e, index)}><IoIosArrowBack /></button>
+                        }
+                        {
+                            !!mouseOverState && index < reviewImgs?.length - 1 && <button css={s.nextButton} onClick={(e) => nextImgOnClick(e, index)}><IoIosArrowForward /></button>
                         }
                         <img src={reviewImgs[index]} alt="" />
                     </div>

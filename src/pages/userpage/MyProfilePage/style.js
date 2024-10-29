@@ -94,7 +94,7 @@ export const userRecord = css`
     }
 
     & div:nth-of-type(1) {
-        margin-bottom: 70px;
+        margin-bottom: 30px;
     }
 
     & > div:nth-of-type(1) > button:nth-of-type(1) {

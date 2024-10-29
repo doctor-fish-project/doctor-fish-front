@@ -19,7 +19,8 @@ function ReservationListPage(props) {
     const reservationOpen = useRecoilValue(reservationModalAtom);
     const reservationDetailOpen = useRecoilValue(reservationDetailModalAtom);
 
-    const [reservations, setReservations] = useState({});
+    const [toggleState, setToggleState] = useState(false);
+    const [isLatest, setIsLatest] = useState(true);
 
     const limit = 10;
 
@@ -37,7 +38,7 @@ function ReservationListPage(props) {
                 return totalPageCount !== allPage.length ? allPage.length + 1 : null;
             }
         }
-    );  
+    );
 
     useEffect(() => {
         if (!reservationList.hasNextPage || !loadMoreRef.current || reservationList?.data?.pages[0].data?.reservations?.length < 10) {
@@ -55,13 +56,26 @@ function ReservationListPage(props) {
         return () => observer.disconnect();
     }, [reservationList.hasNextPage]);
 
+    const handleChangeToggleStateOnClick = () => {
+        setToggleState(!toggleState)
+    }
+
+    const handleIsLatestOnClcik = () => {
+        setIsLatest(true)
+    }
+
+    const handleNotIsLatestOnClcik = () => {
+        setIsLatest(false)
+    }
+
 
     return (
         <UserSubContainer>
-            <DashBoardTopBar title={"예약조회"} icon={<IoFilterOutline />} />
+            <DashBoardTopBar title={"예약조회"} icon={<IoFilterOutline />} toggleState={toggleState} isLatest={isLatest}
+                onClick={() => handleChangeToggleStateOnClick()} latestOnClick={() => handleIsLatestOnClcik()} longestOnClick={() => handleNotIsLatestOnClcik()} />
             <div css={s.layout} ref={loadMoreRef}>
                 {
-                     reservationList?.data?.pages?.map(page => page?.data?.reservations?.map(reservation => 
+                    reservationList?.data?.pages?.map(page => (isLatest ? page?.data?.reservations : [...page?.data?.reservations].reverse()).map(reservation =>
                         <ReservationBox key={reservation.id} reservation={reservation} />
                     ))
                 }

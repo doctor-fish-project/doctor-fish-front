@@ -60,7 +60,7 @@ function ReviewPage(props) {
     return (
         <>
             <UserSubContainer>
-                <DashBoardTopBar title={"리뷰"} icon={<BsPencilSquare />} onClick={handleReviewSelectOnClick} />
+                <DashBoardTopBar title={"리뷰"} icon={<BsPencilSquare />} onClick={() => handleReviewSelectOnClick()} />
                 <div css={s.layout} ref={loadMoreRef}>
                     {
                         reviews?.data?.pages?.map(page => page?.data?.reviews?.map(review => 

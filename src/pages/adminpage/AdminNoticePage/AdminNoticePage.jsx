@@ -6,7 +6,7 @@ import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import AdminTableLayout from '../../../components/admincomponents/adminList/AdminTableLayout/AdminTableLayout';
 import AdminTableHeader from '../../../components/admincomponents/adminList/AdminTableHeader/AdminTableHeader';
 import { useMutation, useQuery } from 'react-query';
-import { adminInstance, instance } from '../../../apis/utils/instance';
+import { adminInstance } from '../../../apis/utils/instance';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { adminNoticeModalAtom, adminNoticeWriteModalAtom } from '../../../atoms/modalAtoms';
 import AdminListPagination from '../../../components/admincomponents/AdminListPagination/AdminListPagination';

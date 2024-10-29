@@ -16,13 +16,12 @@ function ReservationDetail({ containerRef }) {
     const queryClient = useQueryClient();
     const userInfo = queryClient.getQueryData("userInfoQuery");
 
-    const [ reservationId, setReservationId ] = useRecoilState(reservationIdAtom);
+    const [reservationId, setReservationId] = useRecoilState(reservationIdAtom);
     const [reservationDetailOpen, setReservationDetailOpen] = useRecoilState(reservationDetailModalAtom);
 
     const setDoctorId = useSetRecoilState(doctorIdAtom);
     const setModifyState = useSetRecoilState(modifyStateAtom);
     const setReservationModalOpen = useSetRecoilState(reservationModalAtom);
-
 
     const [ani, setAni] = useState("userModalOpen");
 
@@ -101,7 +100,7 @@ function ReservationDetail({ containerRef }) {
             }
         }).then(result => {
             if (result.isConfirmed) {
-                cancelReservation.mutateAsync().catch(() => {})
+                cancelReservation.mutateAsync().catch(() => { })
             }
         })
     }
@@ -118,7 +117,7 @@ function ReservationDetail({ containerRef }) {
         <ModalLayout containerRef={containerRef} isOpen={reservationDetailOpen} closeModal={closeModal} ani={ani}>
             <div css={s.layout}>
                 <CancelButton onClick={closeModal} />
-                <div css={s.nameContainer}> 
+                <div css={s.nameContainer}>
                     <p>{userInfo?.data?.name}</p>
                     <p>님 예약내역</p>
                 </div>
@@ -135,10 +134,11 @@ function ReservationDetail({ containerRef }) {
                     <div css={s.doctorIntroduceBox}>
                         <p>{reservation?.data?.data?.doctor?.comment}</p>
                     </div>
-                    <CountDownTimer reservation={reservation?.data?.data}/>
+                    <CountDownTimer reservation={reservation?.data?.data} />
                 </div>
                 <div css={s.buttonBox}>
-                    <button onClick={() => handleModifyReservationOnClick(reservation?.data?.data?.id)} disabled={reservation?.data?.data?.status === 3}>예약수정</button>
+                    <button onClick={() => handleModifyReservationOnClick(reservation?.data?.data?.id)} disabled={reservation?.data?.data?.status === 3 ? true : false
+                        || new Date(reservation?.data?.data?.reservationDate) < new Date()}>예약수정</button>
                     <button onClick={handleCancelReservationOnClick} disabled={reservation?.data?.data?.status === 3}>예약취소</button>
                 </div>
             </div>

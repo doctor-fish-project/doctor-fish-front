@@ -50,7 +50,7 @@ function UserSubContainer({ children }) {
     }, [containerRef])
 
     const handleMenuOnClick = (path) => {
-        nav(path);
+        nav(path, { replace: true });
     }
 
     return (
@@ -62,7 +62,6 @@ function UserSubContainer({ children }) {
                 {
                     menus.map(menu => <button key={menu.id} css={s.menuButton(pathname.indexOf("/", 1) !== -1 ? pathname.substring(0, pathname.indexOf("/", 1)) === menu.path : pathname === menu.path)} onClick={() => handleMenuOnClick(menu.path)}>{menu.icon}{menu.name}</button>)
                 }
-                
             </div>
         </div>
     );

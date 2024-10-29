@@ -4,9 +4,19 @@ export const layout = css`
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    border-right: none;
+    justify-content: center;
+    padding-left: 30px; 
     width: 15%;
+`;
+
+export const container = css`
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 10px;
+    width: 100%;
+    height: 893px;
     background-color: white;
 
     & > p {
@@ -97,6 +107,7 @@ export const categoryBox = css`
         box-sizing: border-box;
         display: flex;
         align-items: center;
+        margin-bottom: 10px;
         font-size: 16px;
 
         & > svg {
@@ -107,7 +118,7 @@ export const categoryBox = css`
 
     & > button:nth-last-of-type(2) {
         position: absolute;
-        bottom: 54px;
+        bottom: 64px;
         box-sizing: border-box;
     }
 

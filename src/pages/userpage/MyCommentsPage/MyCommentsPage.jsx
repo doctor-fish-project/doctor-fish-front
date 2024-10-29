@@ -5,13 +5,16 @@ import BackButton from '../../../components/usercomponents/BackButton/BackButton
 import UserSubLayout from '../../../components/usercomponents/UserSubLayout/UserSubLayout';
 import UserSubContainer from '../../../components/usercomponents/UserSubContainer/UserSubContainer';
 import ReviewComment from '../../../components/usercomponents/reviewPage/ReviewComment/ReviewComment';
-import { useInfiniteQuery, useMutation, useQueryClient } from 'react-query';
+import { useInfiniteQuery, useMutation } from 'react-query';
 import { instance } from '../../../apis/utils/instance';
 import Swal from 'sweetalert2';
+import { Route, Routes, useNavigate } from 'react-router-dom';
+import ReviewDetailPage from '../ReviewDetailPage/ReviewDetailPage';
 
 function MyCommentsPage(props) {
+    const nav = useNavigate();
+
     const loadMoreRef = useRef(null);
-    const queryClient = useQueryClient();
     const [isShow, setShow] = useState(true);
 
     const limit = 10;
@@ -30,6 +33,22 @@ function MyCommentsPage(props) {
             }
         }
     );
+
+    useEffect(() => {
+        if (!myComments.hasNextPage || !loadMoreRef.current || myComments?.data?.pages[0].data?.commentCount < 10) {
+            return;
+        }
+
+        const observer = new IntersectionObserver(([intersectionObserver]) => {
+            if (intersectionObserver.isIntersecting) {
+                myComments.fetchNextPage();
+            }
+        }, { threshold: 1.0 });
+
+        observer.observe(loadMoreRef.current);
+
+        return () => observer.disconnect();
+    }, [myComments.hasNextPage]);
 
     const deleteComment = useMutation(
         async (commentId) => await instance.delete(`/review/comment/${commentId}`),
@@ -56,66 +75,54 @@ function MyCommentsPage(props) {
             }
         }).then(result => {
             if (result.isConfirmed) {
-                deleteComment.mutateAsync(commentId).catch(() => {})
+                deleteComment.mutateAsync(commentId).catch(() => { })
             }
         })
     }
 
-    useEffect(() => {
-        if (!myComments.hasNextPage || !loadMoreRef.current || myComments?.data?.pages[0].data?.commentCount < 10) {
-            return;
-        }
-
-        const observer = new IntersectionObserver(([intersectionObserver]) => {
-            if (intersectionObserver.isIntersecting) {
-                myComments.fetchNextPage();
-            }
-        }, { threshold: 1.0 });
-
-        observer.observe(loadMoreRef.current);
-
-        return () => observer.disconnect();
-    }, [myComments.hasNextPage]);
-
-    console.log(myComments?.data?.pages)
+    const handleReviewDetailOnClick = (reviewId) => {
+        nav(`/review/${reviewId}`, { replace: true })
+    }
 
     return (
-        <UserSubLayout isShow={isShow}>
-            <UserSubContainer>
-                <BackButton setShow={setShow} title={"내 댓글"} />
-                <div css={s.layout} ref={loadMoreRef}>
-                    <div css={s.reviewContainer}>
-                        {
-                            myComments?.data?.pages.map(page => page?.data?.comments.map(comment =>
-                                <>
-                                    <div css={s.imgAndReview}>
-                                        <div key={comment.id}>
-                                            <div css={s.imgBox}>
-                                                <img src={comment.userImg} alt="" />
+        <>
+            <UserSubLayout isShow={isShow}>
+                <UserSubContainer>
+                    <BackButton setShow={setShow} title={"내 댓글"} />
+                    <div css={s.layout} ref={loadMoreRef}>
+                        <div css={s.reviewContainer}>
+                            {
+                                myComments?.data?.pages.map(page => page?.data?.comments.map(comment =>
+                                    <>
+                                        <div css={s.imgAndReview} onClick={() => handleReviewDetailOnClick(comment?.id)}>
+                                            <div key={comment.id}>
+                                                <div css={s.imgBox}>
+                                                    <img src={comment.userImg} alt="" />
+                                                </div>
+                                            </div>
+                                            <div css={s.reviewBox}>
+                                                <span>{comment?.userName}</span>
+                                                <span>{comment?.content}</span>
                                             </div>
                                         </div>
-                                        <div css={s.reviewBox}>
-                                            <span>{comment?.userName}</span>
-                                            <span>{comment?.content}</span>
-                                        </div>
-                                    </div>
-                                    {
-                                        comment?.comment?.map(com => {
-                                            const myComment = {
-                                                userName: com?.user?.name,
-                                                userImg: com?.user?.img,
-                                                content: com?.content
-                                            }
-                                            return <div css={s.commentBox}><ReviewComment comment={myComment} onClick={() => handleDeleteCommentOnClcik(com?.id)} /></div>
-                                        })
-                                    }
-                                </>
-                            ))
-                        }
+                                        {
+                                            comment?.comment?.map(com => {
+                                                const myComment = {
+                                                    userName: com?.user?.name,
+                                                    userImg: com?.user?.img,
+                                                    content: com?.content
+                                                }
+                                                return <div css={s.commentBox}><ReviewComment comment={myComment} onClick={() => handleDeleteCommentOnClcik(com?.id)} /></div>
+                                            })
+                                        }
+                                    </>
+                                ))
+                            }
+                        </div>
                     </div>
-                </div>
-            </UserSubContainer>
-        </UserSubLayout>
+                </UserSubContainer>
+            </UserSubLayout>
+        </>
     );
 }
 

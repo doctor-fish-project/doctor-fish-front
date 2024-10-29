@@ -30,8 +30,12 @@ export const imgAndReview = css`
     display: flex;
     margin-bottom: 10px;
     width: 100%;
+    cursor: pointer;
+    & * {
+        cursor: pointer;
+    }
+
     & > div:nth-of-type(1) {
-        
         padding-bottom: 10px;
     }
 `;

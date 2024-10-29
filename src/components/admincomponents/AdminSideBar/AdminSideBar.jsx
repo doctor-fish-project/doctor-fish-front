@@ -14,7 +14,7 @@ function AdminSideBar(props) {
 
     const userInfo = useQuery(
         ["userInfoQuery"],
-        async () => await adminInstance.get("/user/me"),
+        async () => await adminInstance.get("/admin/user/me"),
         {
             enabled: authState?.data?.data,
             refetchOnWindowFocus: false,

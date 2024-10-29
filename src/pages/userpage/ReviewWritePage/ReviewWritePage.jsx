@@ -4,7 +4,7 @@ import * as s from "./style";
 import { v4 as uuid } from 'uuid'
 import { MdOutlineAddPhotoAlternate } from "react-icons/md";
 import BackButton from '../../../components/usercomponents/BackButton/BackButton';
-import { useMutation } from 'react-query';
+import { useMutation, useQuery } from 'react-query';
 import { instance } from '../../../apis/utils/instance';
 import Swal from 'sweetalert2';
 import ImgBox from '../../../components/usercomponents/reviewWritePage/ImgBox/ImgBox';
@@ -13,19 +13,29 @@ import { storage } from '../../../firebase/firebase';
 import UserSubLayout from '../../../components/usercomponents/UserSubLayout/UserSubLayout';
 import UserSubContainer from '../../../components/usercomponents/UserSubContainer/UserSubContainer';
 import ReservationRecord from '../../../components/usercomponents/reviewSelectPage/ReservationRecord/ReservationRecord';
+import { useLocation, useParams } from 'react-router-dom';
 
-function ReviewWritePage({reservation}) {
+function ReviewWritePage({ reservation }) {
+    const params = useParams();
+    const reviewId = params.reviewId;
+    const location = useLocation();
 
     const [isShow, setShow] = useState(true);
     const [deleteButtonState, setDeleteButtonState] = useState(false);
 
     const [imgs, setImgs] = useState([])
-
+    const [modifyState, setModifyState] = useState(false);
     const [review, setReview] = useState({
         reservationId: 0,
         imgList: "",
         content: ""
     })
+
+    useEffect(() => {
+        if (location.pathname === `/review/${reviewId}/modify`) {
+            setModifyState(true);
+        }
+    }, [location.pathname])
 
     useEffect(() => {
         setReview({
@@ -40,7 +50,26 @@ function ReviewWritePage({reservation}) {
         }))
     }, [imgs])
 
-    console.log(reservation)
+    const modifyReview = useQuery(
+        ["modifyReviewQuery"],
+        async () => {
+            setModifyState(false)
+            return await instance.get(`/review/${reviewId}`)
+        },
+        {
+            enabled: modifyState,
+            refetchOnWindowFocus: false,
+            retry: 0,
+            onSuccess: response => {
+                console.log(response?.data)
+                setReview({
+                    reservationId: response?.data?.id,
+                    content: response?.data?.content
+                })
+                setImgs(JSON.parse(response?.data?.img))
+            }
+        }
+    )
 
     const writeReview = useMutation(
         async () => await instance.post("/review", review),
@@ -52,7 +81,7 @@ function ReviewWritePage({reservation}) {
                     backdrop: false,
                     timer: 1000,
                     willClose: () => {
-                        window.location.replace("/dashboard/review")
+                        window.location.replace("/review")
                     },
                     showConfirmButton: false,
                     customClass: {
@@ -60,7 +89,6 @@ function ReviewWritePage({reservation}) {
                         container: 'container'
                     }
                 })
-                
             },
             onError: error => {
                 const errorMessage = error?.response?.data[0].defaultMessage
@@ -79,6 +107,28 @@ function ReviewWritePage({reservation}) {
                     ...review,
                     content: ""
                 }))
+            }
+        }
+    )
+
+    const modifyReivew = useMutation(
+        async () => await instance.put(`/review/${reviewId}`, review),
+        {
+            onSuccess: response => {
+                Swal.fire({
+                    icon: 'success',
+                    text: "수정 성공",
+                    backdrop: false,
+                    timer: 1000,
+                    willClose: () => {
+                        window.location.replace("/review")
+                    },
+                    showConfirmButton: false,
+                    customClass: {
+                        popup: 'custom-timer-swal',
+                        container: 'container'
+                    }
+                })
             }
         }
     )
@@ -151,7 +201,6 @@ function ReviewWritePage({reservation}) {
                     })
                 }
             }
-
         })
     }
 
@@ -167,12 +216,18 @@ function ReviewWritePage({reservation}) {
             <UserSubContainer>
                 <div css={s.buttonBox}>
                     <BackButton setShow={setShow} />
-                    <button onClick={() => writeReview.mutateAsync().catch(() => { })}>작성하기</button>
+                    {
+                        location.pathname !== `/review/${reviewId}/modify` ? <button onClick={() => writeReview.mutateAsync().catch(() => { })}>작성하기</button> :
+                            <button onClick={() => modifyReivew.mutateAsync().catch(() => { })}>수정하기</button>
+                    }
                 </div>
                 <div css={s.layout}>
-                    <div css={s.recordBox}>
-                        <ReservationRecord reservation={reservation}/>
-                    </div>
+                    {
+                        location.pathname !== `/review/${reviewId}/modify` &&
+                        <div css={s.recordBox}>
+                            <ReservationRecord reservation={reservation} />
+                        </div>
+                    }
                     <div css={s.imgContainer}>
                         <div css={s.imgBox} onClick={handleAddImageOnClick}>
                             {

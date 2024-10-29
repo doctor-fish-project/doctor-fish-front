@@ -91,9 +91,9 @@ function AdminLeaveAddPage(props) {
 
     const leaves = useQuery(
         ["leavesQuery"],
-        async () => await adminInstance.get(`/admin/leave/list/${userInfo?.data?.id}`),
+        async () => await adminInstance.get("/admin/leave/list"),
         {
-            enabled: !!userInfo?.data?.id,
+            enabled: !!userInfo?.data,
             refetchOnWindowFocus: false,
             retry: 0
         }
@@ -104,7 +104,7 @@ function AdminLeaveAddPage(props) {
         {
             onSuccess: response => {
                 alert("연차 신청 완료");
-                window.location.reload();
+                leaves.refetch();
             }
         }
     )

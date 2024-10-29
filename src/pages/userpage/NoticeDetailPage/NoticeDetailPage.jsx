@@ -7,6 +7,8 @@ import BackButton from '../../../components/usercomponents/BackButton/BackButton
 import { useParams } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import { instance } from '../../../apis/utils/instance';
+import ReactQuill, { Quill } from "react-quill";
+import 'react-quill/dist/quill.snow.css';
 
 function NoticeDetailPage(props) {
     const params = useParams();
@@ -35,7 +37,20 @@ function NoticeDetailPage(props) {
                     <div css={s.dateBox}>
                         {notice?.data?.data?.registerDate?.slice(0,10)}
                     </div>
-                    <div css={s.contentBox} dangerouslySetInnerHTML={{__html: notice?.data?.data?.content}}></div>
+                    <div css={s.contentBox}>
+                    <ReactQuill
+                        style={{
+                            boxSizing: "border-box",
+                            border: "none",
+                            width: "100%",
+                            fontSize: "18px"
+                        }}
+                        value={notice?.data?.data?.content}
+                        modules={{
+                            toolbar: false  // 툴바 비활성화
+                        }}
+                    />
+                    </div>
                 </div>
             </UserSubContainer>
         </UserSubLayout>

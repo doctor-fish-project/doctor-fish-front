@@ -8,5 +8,10 @@ export const layout = css`
     padding: 20px;
     flex-grow: 1;
     width: 100%;
+    height: 760px;
+    overflow: auto;
+    ::-webkit-scrollbar {
+        display: none;
+    }
     background-color: #f0f1f3;
 `;

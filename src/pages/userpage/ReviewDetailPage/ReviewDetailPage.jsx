@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 /** @jsxImportSource @emotion/react */
 import * as s from './style';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Route, Routes, useNavigate, useParams } from 'react-router-dom';
 import BackButton from '../../../components/usercomponents/BackButton/BackButton';
 import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from 'react-query';
 import ReviewBox from '../../../components/usercomponents/reviewPage/ReviewBox/ReviewBox';
@@ -10,6 +10,7 @@ import UserSubContainer from '../../../components/usercomponents/UserSubContaine
 import ReviewComment from '../../../components/usercomponents/reviewPage/ReviewComment/ReviewComment';
 import { instance } from '../../../apis/utils/instance';
 import Swal from 'sweetalert2';
+import ReviewWritePage from '../ReviewWritePage/ReviewWritePage';
 
 function ReviewDetailPage(props) {
     const nav = useNavigate();
@@ -37,7 +38,7 @@ function ReviewDetailPage(props) {
             refetchOnWindowFocus: false,
             retry: 0
         }
-    )    
+    )
 
     const comments = useInfiniteQuery(
         ["commentsQuery"],
@@ -60,7 +61,7 @@ function ReviewDetailPage(props) {
             reviewId: reviewId
         }))
     }, [reviewId])
-   
+
     useEffect(() => {
         if (!comments.hasNextPage || !loadMoreRef.current || comments?.data?.pages[0].data?.commentCount < 10) {
             return;
@@ -164,7 +165,7 @@ function ReviewDetailPage(props) {
             }
         }).then(result => {
             if (result.isConfirmed) {
-                deleteReview.mutateAsync().catch(() => {})
+                deleteReview.mutateAsync().catch(() => { })
             }
         })
     }
@@ -185,9 +186,13 @@ function ReviewDetailPage(props) {
             }
         }).then(result => {
             if (result.isConfirmed) {
-                deleteComment.mutateAsync(commentId).catch(() => {})
+                deleteComment.mutateAsync(commentId).catch(() => { })
             }
         })
+    }
+
+    const handleModifyReviewOnClick = (reviewId) => {
+        nav(`/review/${reviewId}/modify`)
     }
 
     const handleCommentInputOnChange = (e) => {
@@ -198,36 +203,42 @@ function ReviewDetailPage(props) {
     }
 
     return (
-        <UserSubLayout isShow={isShow}>
-            <UserSubContainer>
-                <div css={s.buttonBox}>
-                    <BackButton setShow={setShow} />
-                    {
-                        userInfo?.data?.id === review?.data?.data?.userId &&
-                        <div>
-                            <button>수정</button>
-                            <button onClick={handleDeleteReviewOnClcik}>삭제</button>
-                        </div>
-                    }
-                </div>
-                <div css={s.container}>
-                    <ReviewBox review={review?.data?.data} />
-                    <div css={s.commentBox}>
-                        <p>댓글</p>
-                        <div css={s.commentInput}>
-                            <input type="text" name='content' value={commentInput.content} placeholder='댓글' onChange={handleCommentInputOnChange} />
-                            <button onClick={() => writeComment.mutateAsync().catch(() => { })}>작성</button>
-                        </div>
+        <>
+            <UserSubLayout isShow={isShow}>
+                <UserSubContainer>
+                    <div css={s.buttonBox}>
+                        <BackButton setShow={setShow} />
                         {
-                            comments?.data?.pages?.map(page => page?.data?.comments?.map(comment =>
-                                <ReviewComment key={comment.id} comment={comment} userInfo={userInfo?.data} onClick={() => handleDeleteCommentOnClcik(comment?.id)} />
-                            ))
+                            userInfo?.data?.id === review?.data?.data?.userId &&
+                            <div>
+                                <button onClick={() => handleModifyReviewOnClick(reviewId)}>수정</button>
+                                <button onClick={handleDeleteReviewOnClcik}>삭제</button>
+                            </div>
                         }
                     </div>
-                    <div ref={loadMoreRef}></div>
-                </div>
-            </UserSubContainer>
-        </UserSubLayout>
+                    <div css={s.container}>
+                        <ReviewBox review={review?.data?.data} />
+                        <div css={s.commentBox}>
+                            <p>댓글</p>
+                            <div css={s.commentInput}>
+                                <input type="text" name='content' value={commentInput.content} placeholder='댓글' onChange={handleCommentInputOnChange} />
+                                <button onClick={() => writeComment.mutateAsync().catch(() => { })}>작성</button>
+                            </div>
+                            {
+                                comments?.data?.pages?.map(page => page?.data?.comments?.map(comment =>
+                                    <ReviewComment key={comment.id} comment={comment} userInfo={userInfo?.data} onClick={() => handleDeleteCommentOnClcik(comment?.id)} />
+                                ))
+                            }
+                        </div>
+                        <div ref={loadMoreRef}></div>
+                    </div>
+                </UserSubContainer>
+            </UserSubLayout>
+            <Routes>
+                <Route path='/modify' element={<ReviewWritePage />}/>
+            </Routes>
+        </>
+
     );
 }
 

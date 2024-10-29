@@ -138,8 +138,8 @@ function MyProfilePage(props) {
             </UserSubLayout>
             <Routes>
                 <Route path='/modifyprofile' element={<ModifyProfilePage />} />
-                <Route path='/myreviews' element={<MyReviewsPage />} />
-                <Route path='/mycomments' element={<MyCommentsPage />} />
+                <Route path='/myreviews/*' element={<MyReviewsPage />} />
+                <Route path='/mycomments/*' element={<MyCommentsPage />} />
             </Routes>
         </>
     );

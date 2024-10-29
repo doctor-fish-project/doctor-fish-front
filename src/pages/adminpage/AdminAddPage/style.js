@@ -34,18 +34,30 @@ export const inputBox = css`
     flex-direction: column;
     margin-bottom: 10px;
     width: 500px;
+    height: 85px;
 
-    & label {
+    & > label {
         margin-bottom: 5px;
     }
 
-    & input {
+    & > input {
         box-sizing: border-box;
         padding: 0px 10px;
         border-radius: 10px;
         height: 40px;
         background-color: #f2f3f8;
         font-size: 14px;
+    }
+
+    & > p {
+        display: flex;
+        justify-content: end;
+        align-items: center;
+        width: 100%;
+        color: red;
+        font-size: 13px;
+        
+
     }
 `;
 

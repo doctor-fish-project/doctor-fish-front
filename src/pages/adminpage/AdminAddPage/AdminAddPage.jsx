@@ -47,7 +47,7 @@ function AdminAddPage(props) {
 
     const departs = useQuery(
         ["departsQuery"],
-        async () => await adminInstance.get("/admin/departs"),
+        async () => await adminInstance.get("/admin/depart/list"),
         {
             enabled: adminInput.roleId === '3' ? true : false,
             refetchOnWindowFocus: false,
@@ -68,9 +68,28 @@ function AdminAddPage(props) {
         {
             onSuccess: respone => {
                 alert("등록 성공")
+                setAdminInput({
+                    roleId: 0,
+                    departId: 0,
+                    username: "",
+                    password: "",
+                    checkPassword: "",
+                    name: "",
+                    phoneNumber: "",
+                    comment: "",
+                    record: ""
+                })
+                setFieldErrorMessages({
+                    email: <></>,
+                    password: <></>,
+                    checkPassword: <></>,
+                    name: <></>,
+                    phoneNumber: <></>
+                })
             },
             onError: error => {
                 const response = error.response;
+                console.log(response)
                 const fieldErrors = response.data.map(fieldError => ({ field: fieldError.field, defaultMessage: fieldError.defaultMessage }))
                 showFieldErrorMessage(fieldErrors);
                 return
@@ -140,6 +159,9 @@ function AdminAddPage(props) {
                         <div css={s.inputBox}>
                             <label htmlFor="phoneNumber">휴대폰 번호</label>
                             <input type="text" id='phoneNumber' name='phoneNumber' value={adminInput.phoneNumber} onChange={adminInputOnChange} />
+                            {
+                                fieldErrorMessages.phoneNumber !== "" ? fieldErrorMessages.phoneNumber : <></>
+                            }
                         </div>
                         <div css={s.selectBox}>
                             <p>무슨 권한을 줄 것 인가요?</p>

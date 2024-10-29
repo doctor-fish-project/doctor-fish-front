@@ -7,7 +7,7 @@ import { useLocation } from 'react-router-dom';
 import AdminNoticeWrite from '../adminModal/AdminNoticeWrite/AdminNoticeWrite';
 import AdminNotice from '../adminModal/AdminNotice/AdminNotice';
 
-function AdminPageLayout({ title, count, children, onClick, onCheckClick, onCancelClick, editState }) {
+function AdminPageLayout({ title, count, children, onClick, onCheckClick, onCancelClick, editState, editDisabled}) {
     const location = useLocation();
     const [reviewModalElement, setReviewModalElement] = useState(<></>);
     const [noticeModalElement, setNoticeModalElement] = useState(<></>);
@@ -46,7 +46,7 @@ function AdminPageLayout({ title, count, children, onClick, onCheckClick, onCanc
                 {
                     (location.pathname === "/admin/add" || location.pathname === "/admin/leave") &&
                     <div css={s.buttonBox}>
-                        <button onClick={onCheckClick}>확인</button>
+                        <button onClick={onCheckClick} disabled={editDisabled}>확인</button>
                         <button onClick={onCancelClick}>취소</button>
                     </div>
                 }

@@ -52,27 +52,27 @@ export const userButtonBox = css`
     width: 100%;
 `;
 
-export const userModify = css`
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 100px;
-    width: 100%;
+// export const userModify = css`
+//     box-sizing: border-box;
+//     display: flex;
+//     flex-direction: column;
+//     margin-bottom: 100px;
+//     width: 100%;
 
-    & > div {
-        box-sizing: border-box;
-        display: flex;
-        height: 50px;
+//     & > div {
+//         box-sizing: border-box;
+//         display: flex;
+//         height: 50px;
 
-        & > button {
-            box-sizing: border-box;
-            flex-grow: 1;
-            border: 1px solid #dbdbdb;
-            border-radius: 10px;
-            padding: 10px 10px;
-        }
-    }
-`;
+//         & > button {
+//             box-sizing: border-box;
+//             flex-grow: 1;
+//             border: 1px solid #dbdbdb;
+//             border-radius: 10px;
+//             padding: 10px 10px;
+//         }
+//     }
+// `;
 
 export const userRecord = css`
     box-sizing: border-box;
@@ -93,12 +93,21 @@ export const userRecord = css`
         }
     }
 
+    & div:nth-of-type(1) {
+        margin-bottom: 70px;
+    }
+
     & > div:nth-of-type(1) > button:nth-of-type(1) {
+        border-radius: 10px;
+    }
+
+    & > div:nth-of-type(2) > button:nth-of-type(1) {
         border-bottom: none;
         border-top-right-radius: 10px;
         border-top-left-radius: 10px;
     }
-    & > div:nth-of-type(2) > button:nth-of-type(1) {
+
+    & > div:nth-of-type(3) > button:nth-of-type(1) {
         border-bottom-right-radius: 10px;
         border-bottom-left-radius: 10px;
     }

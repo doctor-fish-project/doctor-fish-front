@@ -9,4 +9,8 @@ export const layout = css`
     flex-grow: 1;
     width: 100%;
     background-color: #f0f1f3;
+    overflow-y: auto;
+    ::-webkit-scrollbar {
+        display: none;
+    }
 `;

@@ -5,12 +5,13 @@ import BackButton from '../../../components/usercomponents/BackButton/BackButton
 import UserSubLayout from '../../../components/usercomponents/UserSubLayout/UserSubLayout';
 import UserSubContainer from '../../../components/usercomponents/UserSubContainer/UserSubContainer';
 import ReviewComment from '../../../components/usercomponents/reviewPage/ReviewComment/ReviewComment';
-import { useInfiniteQuery } from 'react-query';
+import { useInfiniteQuery, useMutation, useQueryClient } from 'react-query';
 import { instance } from '../../../apis/utils/instance';
+import Swal from 'sweetalert2';
 
 function MyCommentsPage(props) {
     const loadMoreRef = useRef(null);
-
+    const queryClient = useQueryClient();
     const [isShow, setShow] = useState(true);
 
     const limit = 10;
@@ -30,7 +31,36 @@ function MyCommentsPage(props) {
         }
     );
 
-    console.log(myComments)
+    const deleteComment = useMutation(
+        async (commentId) => await instance.delete(`/review/comment/${commentId}`),
+        {
+            onSuccess: response => {
+                myComments.refetch();
+            }
+        }
+    )
+
+    const handleDeleteCommentOnClcik = (commentId) => {
+        Swal.fire({
+            icon: 'info',
+            text: '삭제 하시겠습니까?',
+            backdrop: false,
+            showCancelButton: true,
+            confirmButtonText: '확인',
+            cancelButtonText: '취소',
+            allowOutsideClick: false,
+            customClass: {
+                popup: 'custom-confirm-swal',
+                container: 'container',
+                confirmButton: 'confirmButton',
+            }
+        }).then(result => {
+            if (result.isConfirmed) {
+                deleteComment.mutateAsync(commentId).catch(() => {})
+            }
+        })
+    }
+
     useEffect(() => {
         if (!myComments.hasNextPage || !loadMoreRef.current || myComments?.data?.pages[0].data?.commentCount < 10) {
             return;
@@ -47,28 +77,43 @@ function MyCommentsPage(props) {
         return () => observer.disconnect();
     }, [myComments.hasNextPage]);
 
+    console.log(myComments?.data?.pages)
+
     return (
         <UserSubLayout isShow={isShow}>
             <UserSubContainer>
                 <BackButton setShow={setShow} title={"내 댓글"} />
-                    <div css={s.layout} ref={loadMoreRef}>
-                        <div css={s.reviewContainer}>
-                            <div css={s.imgAndReview}>
-                                <div>
-                                    <div css={s.imgBox}>
-                                        <img src="" alt="" />
+                <div css={s.layout} ref={loadMoreRef}>
+                    <div css={s.reviewContainer}>
+                        {
+                            myComments?.data?.pages.map(page => page?.data?.comments.map(comment =>
+                                <>
+                                    <div css={s.imgAndReview}>
+                                        <div key={comment.id}>
+                                            <div css={s.imgBox}>
+                                                <img src={comment.userImg} alt="" />
+                                            </div>
+                                        </div>
+                                        <div css={s.reviewBox}>
+                                            <span>{comment?.userName}</span>
+                                            <span>{comment?.content}</span>
+                                        </div>
                                     </div>
-                                </div>
-                                <div css={s.reviewBox}>
-                                    <span>소닉</span>
-                                    <span>안녕하세요</span>
-                                </div>
-                            </div>
-                            <div>
-                                <ReviewComment />
-                            </div>
-                        </div>
+                                    {
+                                        comment?.comment?.map(com => {
+                                            const myComment = {
+                                                userName: com?.user?.name,
+                                                userImg: com?.user?.img,
+                                                content: com?.content
+                                            }
+                                            return <div css={s.commentBox}><ReviewComment comment={myComment} onClick={() => handleDeleteCommentOnClcik(com?.id)} /></div>
+                                        })
+                                    }
+                                </>
+                            ))
+                        }
                     </div>
+                </div>
             </UserSubContainer>
         </UserSubLayout>
     );

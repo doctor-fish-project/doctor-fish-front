@@ -7,6 +7,10 @@ export const layout = css`
     padding: 20px;
     width: 100%;
     height: 100%;
+    overflow-y: auto;
+    ::-webkit-scrollbar {
+        display: none;
+    }
 
     & > p {
         margin-bottom: 20px;
@@ -19,16 +23,6 @@ export const reviewContainer = css`
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-
-    & > div:nth-last-of-type(1) {
-        box-sizing: border-box;
-        width: 90%;
-        margin-left: auto;
-
-        & div {
-            border: none;
-        }
-    }
 `;
 
 export const imgAndReview = css`
@@ -68,9 +62,6 @@ export const reviewBox = css`
     width: 100%;
     cursor: default;
 
-    & span {
-    }
-
     & span:nth-of-type(1) {
         margin-right: 10px;
         font-weight: 600;
@@ -80,4 +71,10 @@ export const reviewBox = css`
     & span:nth-of-type(2) {
         font-size: 16px;
     }
+`;
+
+export const commentBox = css`
+    box-sizing: border-box;
+    width: 90%;
+    margin-left: auto;
 `;

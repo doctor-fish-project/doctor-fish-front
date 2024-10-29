@@ -44,7 +44,7 @@ export const togleBox = (isLatest, togleState) => css`
     width: 65px;
     height: 50px;
     opacity: ${togleState ? '1' : '0'};
-    transform: ${togleState ? 'translateY(0)' : 'translateY(-10px)'};
+    transform: ${togleState ? 'translateY(5px)' : 'translateY(-10px)'};
     transition: all 0.5s ease;
 
     & > p {
@@ -52,6 +52,7 @@ export const togleBox = (isLatest, togleState) => css`
     }
 
     & > p:nth-of-type(1) {
+        margin-bottom: 1px;
         font-weight: ${isLatest ? "600" : "0"};
     }
 

@@ -9,7 +9,7 @@ import { instance } from '../../../apis/utils/instance';
 import TodayReservationBox from '../../../components/usercomponents/dashBoard/TodayReservationBox/TodayReservationBox';
 import MyProfilePage from '../MyProfilePage/MyProfilePage';
 import { useSetRecoilState } from 'recoil';
-import { signinModalAtom } from '../../../atoms/modalAtoms';
+import { bellAlramModalAtom, signinModalAtom } from '../../../atoms/modalAtoms';
 import BoxTopBar from '../../../components/usercomponents/dashBoard/BoxTopBar/BoxTopBar';
 import DoctorListPage from '../DoctorListPage/DoctorListPage';
 import UserSubContainer from '../../../components/usercomponents/UserSubContainer/UserSubContainer';
@@ -19,6 +19,7 @@ function DashBoard(props) {
     const nav = useNavigate();
 
     const setSigninModalState = useSetRecoilState(signinModalAtom);
+    const setBellAlramOpen = useSetRecoilState(bellAlramModalAtom);
 
     const queryClient = useQueryClient();
     const authState = queryClient.getQueryState("accessTokenValidQuery")
@@ -57,10 +58,14 @@ function DashBoard(props) {
         nav("/dashboard/notice")
     }
 
+    const handleBellAlramOnClick = () => {
+        setBellAlramOpen(true);
+    }
+
     return (
         <>
             <UserSubContainer>
-                <DashBoardTopBar title={"MEDIBOOK"} icon={<FaRegBell />} />
+                <DashBoardTopBar title={"MEDIBOOK"} icon={<FaRegBell />} onClick={() => handleBellAlramOnClick()}/>
                 <div css={s.layout}>
                     <div css={s.userInfoBox}>
                         {

@@ -5,6 +5,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import ReservationCalendarModal from '../userModal/ReservationCalendarModal/ReservationCalendarModal';
 import ReservationDetail from '../userModal/ReservationDetail/ReservationDetail';
 import { IoHomeOutline, IoTimeOutline, IoClipboardOutline, IoCalendarNumberOutline } from "react-icons/io5";
+import BellAlram from '../userModal/BellAlram/BellAlram';
 
 function UserSubContainer({ children }) {
     const nav = useNavigate();
@@ -39,6 +40,7 @@ function UserSubContainer({ children }) {
     ]
     const [reservationModalElement, serReservationModalElement] = useState(<></>);
     const [reservationDetailModalElement, setReservationDetailModalElement] = useState(<></>)
+    const [bellAlramModalElement, setBellAlramModalElement] = useState(<></>)
 
     const containerRef = useRef();
 
@@ -46,6 +48,7 @@ function UserSubContainer({ children }) {
         if (!!containerRef) {
             serReservationModalElement(<ReservationCalendarModal containerRef={containerRef} />)
             setReservationDetailModalElement(<ReservationDetail containerRef={containerRef} />)
+            setBellAlramModalElement(<BellAlram containerRef={containerRef}/>)
         }
     }, [containerRef])
 
@@ -57,6 +60,7 @@ function UserSubContainer({ children }) {
         <div css={s.layout} ref={containerRef}>
             {reservationModalElement}
             {reservationDetailModalElement}
+            {bellAlramModalElement}
             {children}
             <div css={s.footer}>
                 {

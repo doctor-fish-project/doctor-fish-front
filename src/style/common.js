@@ -172,4 +172,22 @@ export const reset = css`
             inset: auto 0px -650px;
         }
     }
+
+    @keyframes userBellAlramOpen {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+
+    @keyframes userBellAlramClose {
+        from {
+            opacity: 1;
+        }
+        to {
+            opacity: 0;
+        }
+    }
 `;

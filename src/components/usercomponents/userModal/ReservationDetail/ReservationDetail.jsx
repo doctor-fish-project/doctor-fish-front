@@ -114,7 +114,7 @@ function ReservationDetail({ containerRef }) {
     }
 
     return (
-        <ModalLayout containerRef={containerRef} isOpen={reservationDetailOpen} closeModal={closeModal} ani={ani}>
+        <ModalLayout containerRef={containerRef} isOpen={reservationDetailOpen} closeModal={closeModal} ani={ani} inset={"auto 0px 0px"} width={"100%"} height={"80%"} borderTop={"1px solid #dbdbdb"}>
             <div css={s.layout}>
                 <CancelButton onClick={closeModal} />
                 <div css={s.nameContainer}>

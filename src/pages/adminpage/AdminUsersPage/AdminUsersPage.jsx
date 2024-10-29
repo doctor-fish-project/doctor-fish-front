@@ -9,6 +9,8 @@ import { useQuery } from 'react-query';
 import AdminListPagination from '../../../components/admincomponents/AdminListPagination/AdminListPagination';
 import AdminPageLayout from '../../../components/admincomponents/AdminPageLayout/AdminPageLayout';
 import AdminTableHeader from '../../../components/admincomponents/adminList/AdminTableHeader/AdminTableHeader';
+import { useRecoilState } from 'recoil';
+import { searchAtom, searchClickAtom } from '../../../atoms/adminAtoms';
 
 function AdminUsersPage(props) {
     const nav = useNavigate();
@@ -17,6 +19,9 @@ function AdminUsersPage(props) {
 
     const [totalPageCount, setTotalPageCount] = useState(1);
     const [theader, setTheader] = useState({});
+
+    const [searchText, setSearchText] = useRecoilState(searchAtom);
+    const [searchClick, setSearchClick] = useRecoilState(searchClickAtom);
 
     const limit = 13;
 
@@ -48,8 +53,8 @@ function AdminUsersPage(props) {
     )
 
     const users = useQuery(
-        ["usersQuery", searchParams.get("page")],
-        async () => await adminInstance.get(`admin/user/list?page=${searchParams.get("page")}&limit=${limit}`),
+        ["usersQuery", searchParams.get("page"), searchClick],
+        async () => await adminInstance.get(`admin/user/list?page=${searchParams.get("page")}&limit=${limit}`, {params: {searchText}}),
         {
             enabled: !!searchParams.get("page"),
             refetchOnWindowFocus: false,
@@ -58,7 +63,8 @@ function AdminUsersPage(props) {
                 setTotalPageCount(
                     response?.data?.userCount % limit === 0
                         ? response.data.userCount / limit
-                        : Math.floor(response.data.userCount / limit) + 1)
+                        : Math.floor(response.data.userCount / limit) + 1);
+                setSearchClick(false);
             }
         }
     )

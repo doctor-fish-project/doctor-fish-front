@@ -81,7 +81,7 @@ function MyCommentsPage(props) {
     }
 
     const handleReviewDetailOnClick = (reviewId) => {
-        nav(`/review/${reviewId}`, { replace: true })
+        nav(`/dashboard/myprofile/mycomments/${reviewId}`, { replace: true })
     }
 
     return (
@@ -92,12 +92,12 @@ function MyCommentsPage(props) {
                     <div css={s.layout} ref={loadMoreRef}>
                         <div css={s.reviewContainer}>
                             {
-                                myComments?.data?.pages.map(page => page?.data?.comments.map(comment =>
+                                myComments?.data?.pages?.map(page => page?.data?.comments?.map(comment =>
                                     <>
-                                        <div css={s.imgAndReview} onClick={() => handleReviewDetailOnClick(comment?.id)}>
-                                            <div key={comment.id}>
+                                        <div key={comment.id} css={s.imgAndReview} onClick={() => handleReviewDetailOnClick(comment?.id)}>
+                                            <div>
                                                 <div css={s.imgBox}>
-                                                    <img src={comment.userImg} alt="" />
+                                                    <img src={comment?.userImg} alt="" />
                                                 </div>
                                             </div>
                                             <div css={s.reviewBox}>
@@ -112,7 +112,7 @@ function MyCommentsPage(props) {
                                                     userImg: com?.user?.img,
                                                     content: com?.content
                                                 }
-                                                return <div css={s.commentBox}><ReviewComment comment={myComment} onClick={() => handleDeleteCommentOnClcik(com?.id)} /></div>
+                                                return <div key={com?.id} css={s.commentBox}><ReviewComment comment={myComment} onClick={() => handleDeleteCommentOnClcik(com?.id)} /></div>
                                             })
                                         }
                                     </>
@@ -122,6 +122,9 @@ function MyCommentsPage(props) {
                     </div>
                 </UserSubContainer>
             </UserSubLayout>
+            <Routes>
+                <Route path='/:reviewId' element={<ReviewDetailPage />}/>
+            </Routes>
         </>
     );
 }

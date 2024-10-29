@@ -125,7 +125,6 @@ function DashBoard(props) {
                 <Route path='/notice/*' element={<NoticeListPage />} />
             </Routes>
         </>
-
     );
 }
 

@@ -226,7 +226,7 @@ function ReviewDetailPage(props) {
             [e.target.name]: e.target.value
         }))
     }
-    console.log(commentInput)
+
     return (
         <>
             <UserSubLayout isShow={isShow}>

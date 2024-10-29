@@ -20,6 +20,7 @@ export const layout = css`
 `;
 
 export const iconBox = css`
+    position: relative;
     box-sizing: border-box;
     display: flex;
     justify-content: center;
@@ -30,5 +31,31 @@ export const iconBox = css`
     & > svg {
         font-size: 25px;
         cursor: pointer;
+    }
+`;
+
+export const togleBox = (isLatest, togleState) => css`
+    position: absolute;
+    top: 25px;
+    right: 1px;
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    width: 65px;
+    height: 50px;
+    opacity: ${togleState ? '1' : '0'};
+    transform: ${togleState ? 'translateY(0)' : 'translateY(-10px)'};
+    transition: all 0.5s ease;
+
+    & > p {
+        cursor: pointer;        
+    }
+
+    & > p:nth-of-type(1) {
+        font-weight: ${isLatest ? "600" : "0"};
+    }
+
+    & > p:nth-of-type(2) {
+        font-weight: ${!isLatest ? "600" : "0"};
     }
 `;

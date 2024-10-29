@@ -1,15 +1,11 @@
 import React, { useState } from 'react';
 /** @jsxImportSource @emotion/react */
 import * as s from './style';
-import { useQueryClient } from 'react-query';
 import { IoIosArrowForward } from 'react-icons/io';
 import { useNavigate } from 'react-router-dom';
 
-function TodayReservationBox({ index, reservation, link, onClick }) {
+function TodayReservationBox({ reservation, link, onClick }) {
     const nav = useNavigate();
-
-    const queryClient = useQueryClient();
-    const authState = queryClient.getQueryState("accessTokenValidQuery")
 
     const parse = (value) => (value < 10 ? "0" : "") + value
 

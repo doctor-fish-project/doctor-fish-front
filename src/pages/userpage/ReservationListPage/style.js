@@ -14,4 +14,8 @@ export const layout = css`
         display: none;
     }
     background-color: #f0f1f3;
+    overflow-y: auto;
+    ::-webkit-scrollbar {
+        display: none;
+    }
 `;

@@ -59,7 +59,7 @@ function AdminReview({ containerRef }) {
     )
 
     const deleteComment = useMutation(
-        async (commentId) => adminInstance.delete(`/review/comment/${commentId}`),
+        async (commentId) => adminInstance.delete(`/admin/review/comment/${commentId}`),
         {
             onSuccess: response => {
                 alert("삭제 완료");
@@ -118,7 +118,7 @@ function AdminReview({ containerRef }) {
                     <div css={s.commentBox} ref={loadMoreRef}>
                         {
                             comments?.data?.pages?.map(page => page?.data?.comments?.map(comment =>
-                                <ReviewComment key={comment.id} comment={comment} userInfo={userInfo?.data} onClick={() => handleDeleteCommentOnClick(comment?.id)}/>
+                                <ReviewComment key={comment.id} comment={comment} userInfo={userInfo?.data} onDeleteOnClick={() => handleDeleteCommentOnClick(comment?.id)}/>
                             ))
                         }
                     </div>

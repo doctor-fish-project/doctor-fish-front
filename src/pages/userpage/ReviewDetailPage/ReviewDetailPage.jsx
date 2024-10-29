@@ -20,7 +20,9 @@ function ReviewDetailPage(props) {
     const reviewId = params.reviewId;
 
     const [isShow, setShow] = useState(true);
+    const [modiState, setModiState] = useState(false);
     const [commentInput, setCommentInput] = useState({
+        commentId: 0,
         reviewId: 0,
         content: ""
     })
@@ -140,6 +142,20 @@ function ReviewDetailPage(props) {
         }
     )
 
+    const modifyComment = useMutation(
+        async () => await instance.put('/review/comment', commentInput),
+        {
+            onSuccess: response => {
+                comments.refetch()
+                setCommentInput({
+                    commentId: 0,
+                    reviewId: 0,
+                    content: ""
+                })
+            }
+        }
+    )
+
     const deleteComment = useMutation(
         async (commentId) => await instance.delete(`/review/comment/${commentId}`),
         {
@@ -195,13 +211,22 @@ function ReviewDetailPage(props) {
         nav(`/review/${reviewId}/modify`)
     }
 
+    const handleModifyCommentOnClick = (commentId, content) => {
+        setModiState(!modiState);
+        setCommentInput(commentInput => ({
+            ...commentInput,
+            commentId: commentId,
+            content: content
+        }))
+    }
+
     const handleCommentInputOnChange = (e) => {
         setCommentInput(commentInput => ({
             ...commentInput,
             [e.target.name]: e.target.value
         }))
     }
-
+    console.log(commentInput)
     return (
         <>
             <UserSubLayout isShow={isShow}>
@@ -222,11 +247,16 @@ function ReviewDetailPage(props) {
                             <p>댓글</p>
                             <div css={s.commentInput}>
                                 <input type="text" name='content' value={commentInput.content} placeholder='댓글' onChange={handleCommentInputOnChange} />
-                                <button onClick={() => writeComment.mutateAsync().catch(() => { })}>작성</button>
+                                {
+                                    modiState ? <button onClick={() => modifyComment.mutateAsync().catch(() => { })}>수정</button> :
+                                        <button onClick={() => writeComment.mutateAsync().catch(() => { })}>작성</button>
+                                }
                             </div>
                             {
                                 comments?.data?.pages?.map(page => page?.data?.comments?.map(comment =>
-                                    <ReviewComment key={comment.id} comment={comment} userInfo={userInfo?.data} onClick={() => handleDeleteCommentOnClcik(comment?.id)} />
+                                    <ReviewComment key={comment.id} comment={comment} userInfo={userInfo?.data} modiState={modiState}
+                                        onEditOnClick={() => handleModifyCommentOnClick(comment.id, comment.content)}
+                                        onDeleteOnClick={() => handleDeleteCommentOnClcik(comment?.id)} />
                                 ))
                             }
                         </div>
@@ -235,7 +265,7 @@ function ReviewDetailPage(props) {
                 </UserSubContainer>
             </UserSubLayout>
             <Routes>
-                <Route path='/modify' element={<ReviewWritePage />}/>
+                <Route path='/modify' element={<ReviewWritePage />} />
             </Routes>
         </>
 

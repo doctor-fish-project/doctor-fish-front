@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 /** @jsxImportSource @emotion/react */
 import * as s from './style';
 
-function ReviewComment({ comment, userInfo, onClick }) {
- 
+function ReviewComment({ comment, userInfo, onDeleteOnClick, onEditOnClick}) {
+
     return (
         <div css={s.layout}>
             <div css={s.container}>
@@ -18,11 +18,11 @@ function ReviewComment({ comment, userInfo, onClick }) {
                 </div>
             </div>
             {
-                (userInfo?.id === comment?.userId || userInfo?.roles?.some(role => [2, 3, 4].includes(role.id))) && (
+                (userInfo?.id === comment?.userId || userInfo?.roles?.some(role => [2, 3, 4].includes(role.id))) &&
                     <div css={s.buttonBox}>
-                        <button onClick={onClick} >삭제</button>
+                        <button onClick={onEditOnClick}>수정</button>
+                        <button onClick={onDeleteOnClick}>삭제</button>
                     </div>
-                )
             }
         </div>
     );

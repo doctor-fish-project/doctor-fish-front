@@ -10,26 +10,43 @@ import UserSubContainer from '../../../components/usercomponents/UserSubContaine
 function DoctorDetailPage(props) {
     const params = useParams();
     const doctorId = params.doctorId;
-    
+
     const [isShow, setShow] = useState(true);
 
     const queryClient = useQueryClient();
     const doctors = queryClient.getQueryData("doctorsQuery")
     const doctor = doctors?.data?.doctors?.find(doctor => doctor.id === parseInt(doctorId));
 
+    console.log(doctors);
     return (
         <UserSubLayout isShow={isShow}>
             <UserSubContainer>
-                <BackButton setShow={setShow} title={"의료진"}/>
+                <BackButton setShow={setShow} title={"의료진"} />
                 <div css={s.layout}>
                     <img src={doctor?.user?.img} alt="" />
                     <div css={s.header}>
                         <p>이름: {doctor?.user?.name}</p>
                         <p>부서: {doctor?.depart?.name}</p>
-                        <p>인사말: {doctor?.comment}</p>
+                        <pre>{doctor?.comment}</pre>
+                        {/* {
+                            doctor?.comment.split("\n").map((line, index) => (
+                                <pre key={index}>
+                                    {line}
+                                    <br />
+                                </pre>
+                            ))
+                        } */}
                     </div>
                     <div css={s.body}>
-                        <p>{doctor?.record}</p>
+                        <pre>{doctor?.record}</pre>
+                        {/* {
+                            doctor?.record.split("\n").map((line, index) => (
+                                <React.Fragment key={index}>
+                                    {line}
+                                    <br />
+                                </React.Fragment>
+                            ))
+                        } */}
                     </div>
                 </div>
             </UserSubContainer>

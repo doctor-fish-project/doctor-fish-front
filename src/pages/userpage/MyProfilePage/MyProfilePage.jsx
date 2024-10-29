@@ -11,6 +11,7 @@ import Swal from 'sweetalert2';
 import UserSubLayout from '../../../components/usercomponents/UserSubLayout/UserSubLayout';
 import ModifyProfilePage from '../ModifyProfilePage/ModifyProfilePage';
 import { instance } from '../../../apis/utils/instance';
+import ReviewDetailPage from '../ReviewDetailPage/ReviewDetailPage';
 
 function MyProfilePage(props) {
     const nav = useNavigate();
@@ -111,12 +112,10 @@ function MyProfilePage(props) {
                             <p>{userInfo?.data?.email}</p>
                         </div>
                         <div css={s.userButtonBox}>
-                            <div css={s.userModify}>
+                            <div css={s.userRecord}>
                                 <div>
                                     <button onClick={handleModifyProfileOnClick}>내 정보 수정</button>
                                 </div>
-                            </div>
-                            <div css={s.userRecord}>
                                 <div>
                                     <button onClick={handleMyReviewsOnClick}>내 작성 리뷰</button>
                                 </div>

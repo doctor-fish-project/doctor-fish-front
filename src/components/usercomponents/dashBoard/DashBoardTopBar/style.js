@@ -14,7 +14,7 @@ export const layout = css`
         box-sizing: border-box;
         width: fit-content;
         height: 100%;
-        font-size: 20px;
+        font-size: 18px;
         font-weight: 600;
     }
 `;

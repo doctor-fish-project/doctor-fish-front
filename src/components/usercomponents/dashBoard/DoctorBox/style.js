@@ -6,7 +6,7 @@ export const layout = css`
     align-items: center;
     margin-bottom: 20px;
     border-radius: 10px;
-    padding-right: 5px;
+    padding: 5px;
     width: 100%;
     height: 80px;
     background-color: white;
@@ -15,7 +15,6 @@ export const layout = css`
     
     & > img {
         box-sizing: border-box;
-        margin-right: 5px;
         width: 60px;
         height: 60px;
         object-fit: contain;

@@ -24,7 +24,7 @@ function DoctorBox({ doctor }) {
                 <div>{doctor?.user?.name}</div>
                 <div>{doctor?.depart?.name}</div>
             </div>
-            <button onClick={handleReservationModalOnClick}>예약</button>
+            <button onClick={handleReservationModalOnClick}>예약하기</button>
         </div>
 
     );

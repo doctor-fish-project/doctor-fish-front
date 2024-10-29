@@ -11,7 +11,7 @@ import { useRecoilState, useSetRecoilState } from 'recoil';
 import { adminNoticeModalAtom, adminNoticeWriteModalAtom } from '../../../atoms/modalAtoms';
 import AdminListPagination from '../../../components/admincomponents/AdminListPagination/AdminListPagination';
 import AdminPageLayout from '../../../components/admincomponents/AdminPageLayout/AdminPageLayout';
-import { noticeIdAtom } from '../../../atoms/adminAtoms';
+import { noticeIdAtom, searchAtom, searchClickAtom } from '../../../atoms/adminAtoms';
 
 function AdminNoticePage(props) {
     const nav = useNavigate();
@@ -25,6 +25,8 @@ function AdminNoticePage(props) {
     const [noticeId, setNoticeId] = useRecoilState(noticeIdAtom);
     const setNoticeOpen = useSetRecoilState(adminNoticeModalAtom);
     const setNoticeWriteOpen = useSetRecoilState(adminNoticeWriteModalAtom);
+    const [searchText, setSearchText] = useRecoilState(searchAtom);
+    const [searchClick, setSearchClick] = useRecoilState(searchClickAtom);
 
     const limit = 14;
 
@@ -48,8 +50,8 @@ function AdminNoticePage(props) {
     )
 
     const notices = useQuery(
-        ["noticesQuery", searchParams.get("page")],
-        async () => await adminInstance.get(`/admin/announce/list?page=${searchParams.get("page")}&limit=${limit}`),
+        ["noticesQuery", searchParams.get("page"), searchClick],
+        async () => await adminInstance.get(`/admin/announce/list?page=${searchParams.get("page")}&limit=${limit}`, {params: {searchText}}),
         {
             enabled: true,
             refetchOnWindowFocus: false,
@@ -58,7 +60,8 @@ function AdminNoticePage(props) {
                 setTotalPageCount(
                     response.data.announceCount % limit === 0
                         ? response.data.announceCount / limit
-                        : Math.floor(response.data.announceCount / limit) + 1)
+                        : Math.floor(response.data.announceCount / limit) + 1);
+                setSearchClick(false);
             }
         }
     )

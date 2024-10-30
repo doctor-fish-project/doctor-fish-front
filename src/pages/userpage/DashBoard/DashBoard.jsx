@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 /** @jsxImportSource @emotion/react */
 import * as s from "./style";
 import { FaUser, FaRegBell } from "react-icons/fa";
@@ -8,55 +8,35 @@ import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { instance } from '../../../apis/utils/instance';
 import TodayReservationBox from '../../../components/usercomponents/dashBoard/TodayReservationBox/TodayReservationBox';
 import MyProfilePage from '../MyProfilePage/MyProfilePage';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import { bellAlramModalAtom, signinModalAtom } from '../../../atoms/modalAtoms';
 import BoxTopBar from '../../../components/usercomponents/dashBoard/BoxTopBar/BoxTopBar';
 import DoctorListPage from '../DoctorListPage/DoctorListPage';
 import UserSubContainer from '../../../components/usercomponents/UserSubContainer/UserSubContainer';
 import NoticeListPage from '../NoticeListPage/NoticeListPage';
-import { alarmMessageAtom, alarmStateAtom, announcementAlarmsAtom, reservationAlarmsAtom } from '../../../atoms/dashboardAtoms';
+import { alarmsAtom, alarmStateAtom } from '../../../atoms/dashboardAtoms';
 
 function DashBoard(props) {
     const nav = useNavigate();
 
-    const [reservationAlarms, setReservationAlarms] = useRecoilState(reservationAlarmsAtom);
-    const [announcementAlarms, setAnnouncementAlarms] = useRecoilState(announcementAlarmsAtom);
-
     const setBellAlarmOpen = useSetRecoilState(bellAlramModalAtom);
-    const setAlarmState = useSetRecoilState(alarmStateAtom);
     const setSigninModalOpen = useSetRecoilState(signinModalAtom);
+
+    const setAlarmState = useSetRecoilState(alarmStateAtom);
+    const setalarms = useSetRecoilState(alarmsAtom)
 
     const queryClient = useQueryClient();
     const authState = queryClient.getQueryState("accessTokenValidQuery")
     const userInfo = queryClient.getQueryData("userInfoQuery");
 
-    const [ announcementIds, setAnnouncementIds] = useState([]);
+    const [alarmsId, setAlarmsId] = useState([]);
     const [index, setIndex] = useState(0);
 
-    const reservationAlarm = useQuery(
-        ["reservationAlarmQuery"],
-        async () => {
-            return instance.get("/alarm/reservation");
-        },
-        {
-            enabled: authState?.data?.data,
-            refetchOnWindowFocus: false,
-            retry: 0,
-            onSuccess: response => {
-                if (response?.data?.length > 0) {
-                    setReservationAlarms(response?.data)
-                    setAlarmState(true);
-                    return
-                }
-                setAlarmState(false)
-            }
-        }
-    )
 
-    const announcementAlarm = useQuery(
-        ["announcementAlarmQuery"],
+    const alarms = useQuery(
+        ["alarmsQuery"],
         async () => {
-            return instance.get("/alarm/announcement");
+            return instance.get("/alarms");
         },
         {
             enabled: authState?.data?.data,
@@ -64,11 +44,12 @@ function DashBoard(props) {
             retry: 0,
             onSuccess: response => {
                 if (response?.data?.length > 0) {
-                    setAnnouncementAlarms(response?.data)
-                    setAnnouncementIds(response?.data?.map(resp => resp.announceId))
+                    setalarms(response?.data)
+                    setAlarmsId(response?.data?.map(resp => resp.id))
                     setAlarmState(true);
                     return
                 }
+                setalarms(response?.data)
                 setAlarmState(false)
             }
         }
@@ -84,17 +65,8 @@ function DashBoard(props) {
         }
     )
 
-    const modifyReservationAlarmStatus = useMutation(
-        async () => await instance.put("/alarm"),
-        {
-            onSuccess: response => {
-                setAlarmState(false)
-            }
-        }
-    )
-
-    const modifyAnnouncementAlarmStatus = useMutation(
-        async () => await instance.post("/alarm", announcementIds),
+    const checkAlarms = useMutation(
+        async () => await instance.post("/alarms", alarmsId),
         {
             onSuccess: response => {
                 setAlarmState(false)
@@ -125,11 +97,8 @@ function DashBoard(props) {
 
     const handleBellAlramOnClick = () => {
         setBellAlarmOpen(true);
-        setAlarmState(false);
-        modifyReservationAlarmStatus.mutateAsync().catch(() => { })
-        modifyAnnouncementAlarmStatus.mutateAsync().catch(() => { })
-        reservationAlarm.refetch();
-        announcementAlarm.refetch();
+        checkAlarms.mutateAsync().catch(() => {})
+        alarms.refetch();
     }
 
     return (

@@ -5,12 +5,7 @@ export const alarmStateAtom = atom({
     default: false
 })
 
-export const reservationAlarmsAtom = atom({
-    key: "reservationAlarmsAtom",
-    default: []
-})
-
-export const announcementAlarmsAtom = atom({
-    key: "announcementAlarmsAtom",
+export const alarmsAtom = atom({
+    key: "alarmsAtom",
     default: []
 })

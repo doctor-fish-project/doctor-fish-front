@@ -2,15 +2,14 @@ import React, { useState } from 'react';
 /** @jsxImportSource @emotion/react */
 import * as s from './style';
 import ModalLayout from '../ModalLayout/ModalLayout';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { bellAlramModalAtom } from '../../../../atoms/modalAtoms';
-import { announcementAlarmsAtom, reservationAlarmsAtom } from '../../../../atoms/dashboardAtoms';
+import { alarmsAtom } from '../../../../atoms/dashboardAtoms';
 
 function BellAlram({ containerRef }) {
 
     const [bellAlarm, setBellAlarmOpen] = useRecoilState(bellAlramModalAtom);
-    const [reservationAlarms, setReservationAlarms] = useRecoilState(reservationAlarmsAtom);
-    const [announcementAlarms, setAnnouncementAlarms] = useRecoilState(announcementAlarmsAtom);
+    const alarms = useRecoilValue(alarmsAtom);
 
     const [ani, setAni] = useState("userBellAlramOpen");
 
@@ -28,22 +27,16 @@ function BellAlram({ containerRef }) {
             <div css={s.layout}>
                 <div css={s.container}>
                     {
-                        (reservationAlarms?.length === 0 && announcementAlarms?.length === 0) ? <p>알림이 없습니다.</p> :
+                        alarms?.length === 0 ? <p>알림이 없습니다.</p> :
                             <>
                                 {
-                                    reservationAlarms?.map(reservationAlarm =>
-                                        <div key={reservationAlarm?.alarmId}>
-                                            <pre>{reservationAlarm?.message?.replace(".", ".\n")}</pre>
+                                    alarms?.map(alarm =>
+                                        <div key={alarm?.id}>
+                                            <pre>{alarm?.message?.replace(".", ".\n")}</pre>
                                         </div>
                                     )
                                 }
-                                {
-                                    announcementAlarms?.map(announcementAlarm =>
-                                        <div key={announcementAlarm?.alarmId}>
-                                            <pre>{announcementAlarm?.message}</pre>
-                                        </div>
-                                    )
-                                }
+                              
                             </>
                     }
                 </div>

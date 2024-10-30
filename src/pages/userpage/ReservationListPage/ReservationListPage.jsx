@@ -62,10 +62,12 @@ function ReservationListPage(props) {
 
     const handleIsLatestOnClcik = () => {
         setIsLatest(true)
+        setToggleState(!toggleState)
     }
 
     const handleNotIsLatestOnClcik = () => {
         setIsLatest(false)
+        setToggleState(!toggleState)
     }
 
 

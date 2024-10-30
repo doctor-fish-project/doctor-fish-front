@@ -4,7 +4,7 @@ import * as s from './style';
 import { IoIosArrowForward } from 'react-icons/io';
 import { useNavigate } from 'react-router-dom';
 
-function TodayReservationBox({ reservation, link, onClick }) {
+function TodayReservationBox({ reservation, length, link, onClick }) {
     const nav = useNavigate();
 
     const parse = (value) => (value < 10 ? "0" : "") + value
@@ -22,7 +22,9 @@ function TodayReservationBox({ reservation, link, onClick }) {
         <div css={s.layout}>
             <div css={s.timeBox}>
                 <p>{year}년 {month}월 {date}일</p>
-                <IoIosArrowForward onClick={onClick} />
+                {
+                    length > 1 && <IoIosArrowForward onClick={onClick} />
+                }
             </div>
             <div css={s.container}>
                 {

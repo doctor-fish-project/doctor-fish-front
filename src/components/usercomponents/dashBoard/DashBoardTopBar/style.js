@@ -1,6 +1,7 @@
 import { css } from "@emotion/react";
 
 export const layout = css`
+    position: relative;
     box-sizing: border-box;
     display: flex;
     justify-content: space-between;
@@ -19,8 +20,34 @@ export const layout = css`
     }
 `;
 
+export const dashboardIconBox = (alarmState) => css`
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: fit-content;
+    height: 100%;
+
+    & > svg {
+        font-size: 25px;
+        cursor: pointer;
+        animation: ${alarmState && "blink 0.5s steps(2, start) infinite"};
+    }
+
+    @keyframes blink {
+      0% {
+        color: black; /* 기본 색상 */
+      }
+      50% {
+        color: red; /* 깜빡일 때 색상 */
+      }
+      100% {
+        color: black
+      }
+    }
+`;
+
 export const iconBox = css`
-    position: relative;
     box-sizing: border-box;
     display: flex;
     justify-content: center;
@@ -36,23 +63,28 @@ export const iconBox = css`
 
 export const togleBox = (isLatest, togleState) => css`
     position: absolute;
-    top: 25px;
-    right: 1px;
+    top: 35px;
+    left: 0px;
     display: flex;
     flex-direction: column;
-    align-items: end;
-    width: 65px;
-    height: 50px;
+    align-items: center;
+    border-radius: 0px 0px 10px 10px;
+    width: 100%;
+    background-color: #ffffff;
     opacity: ${togleState ? '1' : '0'};
     transform: ${togleState ? 'translateY(5px)' : 'translateY(-10px)'};
     transition: all 0.5s ease;
 
     & > p {
+        box-sizing: border-box;
+        padding: 7px 0px;
+        width: 100%;
+        text-align: center;
         cursor: pointer;        
     }
 
     & > p:nth-of-type(1) {
-        margin-bottom: 1px;
+        border-bottom: 1px solid #dbdbdb;
         font-weight: ${isLatest ? "600" : "0"};
     }
 

@@ -18,7 +18,7 @@ export const noticeBox = css`
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     border-radius: 10px;
     padding: 10px;
     width: 100%;

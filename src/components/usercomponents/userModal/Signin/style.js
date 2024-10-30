@@ -47,7 +47,6 @@ export const inputBox = css`
         font-size: 18px;
         background-color: #efefef;
         outline: none;
-        font-weight: 600;
         
         ::placeholder {
             font-size: 15px;
@@ -94,6 +93,7 @@ export const findBox = css`
     & button {
         margin-left: 10px;
         border-bottom: 1px solid gray;
+        padding: 0;
         font-size: 15px;
         color: gray;
     }

@@ -158,7 +158,7 @@ function Signin({ containerRef }) {
                 </div>
                 <div css={s.findBox}>
                     <p>패스워드를 잊어버리셨나요?</p>
-                    <button>패스워드 찾기</button>
+                    <button>재설정</button>
                 </div>
                 <div css={s.findBox}>
                     <p>계정이 없으신가요?</p>

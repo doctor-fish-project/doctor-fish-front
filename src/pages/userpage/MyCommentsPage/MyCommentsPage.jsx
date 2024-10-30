@@ -81,7 +81,7 @@ function MyCommentsPage(props) {
     }
 
     const handleReviewDetailOnClick = (reviewId) => {
-        nav(`/dashboard/myprofile/mycomments/${reviewId}`, { replace: true })
+        nav(`/dashboard/myprofile/mycomments/${reviewId}`)
     }
 
     return (

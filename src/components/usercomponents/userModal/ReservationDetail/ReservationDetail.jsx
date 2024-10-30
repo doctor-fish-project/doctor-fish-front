@@ -139,7 +139,8 @@ function ReservationDetail({ containerRef }) {
                 <div css={s.buttonBox}>
                     <button onClick={() => handleModifyReservationOnClick(reservation?.data?.data?.id)} disabled={reservation?.data?.data?.status === 3 ? true : false
                         || new Date(reservation?.data?.data?.reservationDate) < new Date()}>예약수정</button>
-                    <button onClick={handleCancelReservationOnClick} disabled={reservation?.data?.data?.status === 3}>예약취소</button>
+                    <button onClick={handleCancelReservationOnClick} disabled={reservation?.data?.data?.status === 3
+                        || new Date(reservation?.data?.data?.reservationDate) < new Date()}>예약취소</button>
                 </div>
             </div>
         </ModalLayout>

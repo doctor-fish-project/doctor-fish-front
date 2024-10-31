@@ -13,8 +13,6 @@ function ReviewComment({ comment, userInfo, onDeleteOnClick, onEditOnClick }) {
         setToggleState(!toggleState)
     }
 
-    console.log(comment?.content)
-
     return (
         <div css={s.layout}>
             <div css={s.container}>
@@ -25,8 +23,8 @@ function ReviewComment({ comment, userInfo, onDeleteOnClick, onEditOnClick }) {
                 </div>
                 <div css={s.commentContainer}>
                     <div css={s.commentBox}>
-                        <span>{comment?.userName}</span>
-                        {comment?.content}
+                        <p>{comment?.userName}</p>
+                        <p>{comment?.content}</p>
                         {
                             location.pathname !== "/dashboard/myprofile/mycomments" 
                             ?
@@ -46,7 +44,7 @@ function ReviewComment({ comment, userInfo, onDeleteOnClick, onEditOnClick }) {
                             <></>
                         }
                     </div>
-                </div>
+                </div>  
             </div>
         </div >
     );

@@ -73,10 +73,14 @@ function AdminLeaveAddPage(props) {
     )
 
     const times = useQuery(
-        ["timesListQuery"],
-        async () => await adminInstance.get("/times"),
+        ["timesListQuery", leaveDate.date],
+        async () => await adminInstance.get(`/times`, {
+            params: {
+                leaveDate: leaveDate.date
+            }   
+        }),
         {
-            enabled: true,
+            enabled: leaveDate.date !== "",
             refetchOnWindowFocus: false,
             retry: 0,
             onSuccess: response => {

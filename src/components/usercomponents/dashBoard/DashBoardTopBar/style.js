@@ -36,10 +36,10 @@ export const dashboardIconBox = (alarmState) => css`
 
     @keyframes blink {
       0% {
-        color: black; /* 기본 색상 */
+        color: black;
       }
       50% {
-        color: red; /* 깜빡일 때 색상 */
+        color: #7BC1B7;
       }
       100% {
         color: black

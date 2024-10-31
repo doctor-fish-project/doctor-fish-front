@@ -98,7 +98,7 @@ export const commentBox = css`
         margin-bottom: 10px;
     }
 
-    & > div:nth-last-of-type(1) > div:nth-last-of-type(1) {
+    & > div:nth-last-of-type(1) > div:nth-of-type(1) > div:nth-last-of-type(1) {
         border: none;
     }
 `;

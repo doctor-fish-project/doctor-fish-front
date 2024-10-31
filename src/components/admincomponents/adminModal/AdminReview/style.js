@@ -42,7 +42,7 @@ export const reviewBox = css`
     flex-direction: column;
     border: 1px solid #dbdbdb;
     padding: 30px;
-    width: 50%;
+    flex-grow: 1;
     height: 100%;
 `;
 
@@ -158,11 +158,16 @@ export const commentBox = css`
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    width: 50%;
     padding: 30px;
     overflow-y: auto;
     ::-webkit-scrollbar {
         display: none;
+    }
+
+    & > div {
+        box-sizing: border-box;
+        display: flex;
+        width: 100%;
     }
 `;
 

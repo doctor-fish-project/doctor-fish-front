@@ -70,6 +70,7 @@ export const singupBox = css`
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     flex-grow: 1;
     & button {
         font-size: 14px;

@@ -15,6 +15,7 @@ import DoctorListPage from '../DoctorListPage/DoctorListPage';
 import UserSubContainer from '../../../components/usercomponents/UserSubContainer/UserSubContainer';
 import NoticeListPage from '../NoticeListPage/NoticeListPage';
 import { alarmsAtom, alarmStateAtom } from '../../../atoms/dashboardAtoms';
+import Swal from 'sweetalert2';
 
 function DashBoard(props) {
     const nav = useNavigate();
@@ -32,7 +33,7 @@ function DashBoard(props) {
     const [alarmsId, setAlarmsId] = useState([]);
     const [index, setIndex] = useState(0);
 
-
+    console.log(authState)
     const alarms = useQuery(
         ["alarmsQuery"],
         async () => {
@@ -97,8 +98,25 @@ function DashBoard(props) {
 
     const handleBellAlramOnClick = () => {
         setBellAlarmOpen(true);
-        checkAlarms.mutateAsync().catch(() => {})
+        checkAlarms.mutateAsync().catch(() => { })
         alarms.refetch();
+    }
+
+    const handleReadyForService = () => {
+        Swal.fire({
+            icon: 'info',
+            title: '서비스 준비 중',
+            backdrop: false,
+            showCancelButton: true,
+            confirmButtonText: '확인',
+            cancelButtonText: '취소',
+            allowOutsideClick: false,
+            customClass: {
+                popup: 'custom-confirm-swal',
+                container: 'container',
+                confirmButton: 'confirmButton',
+            }
+        })
     }
 
     return (
@@ -108,38 +126,51 @@ function DashBoard(props) {
                 <div css={s.layout}>
                     <div css={s.userInfoBox}>
                         {
-                            (authState?.status === "success" && authState?.data?.data) ?
+                            authState?.status === "success" ?
                                 <div onClick={handleMyProfileOnClick}>
                                     <p><FaUser />내정보</p>
                                     <div>
                                         <p>{userInfo?.data?.name}님</p>
                                     </div>
                                 </div>
-                                :
-                                <div css={s.defaultBox}>
-                                    <button onClickCapture={handleSigninOnClick}>로그인</button>
-                                </div>
+
+                                : authState?.status === "loading" ? <></>
+                                    : authState?.status === "idle" ? <></> :
+                                        <div css={s.defaultBox}>
+                                            <button onClickCapture={handleSigninOnClick}>로그인</button>
+                                        </div>
                         }
                     </div>
                     <div css={s.reservationBox}>
                         <BoxTopBar title1={"예약 일정"} />
                         {
-                            (authState?.status === "success" && authState?.data?.data) ?
-                                !!todayReservations?.data?.data?.reservations.length ?
-                                    <div css={s.reservationListSlider(index)}>
-                                        {
-                                            todayReservations?.data?.data?.reservations?.map((reservation, idx) =>
-                                                <TodayReservationBox key={reservation?.id} reservation={reservation} length={todayReservations?.data?.data?.reservations?.length}
-                                                    link={"/reservationlist"} onClick={() => handleNextReservationOnClick(idx)} />
-                                            )
-                                        }
-                                    </div> :
-                                    <div css={s.defaultBox}>
-                                        <p>예약이 없습니다.</p>
-                                    </div> :
-                                <div css={s.defaultBox}>
-                                    <p>로그인 후 이용가능합니다.</p>
-                                </div>
+                            (authState?.status === "success" && todayReservations?.data?.data?.reservations.length > 0) &&
+                            <div css={s.reservationListSlider(index)}>
+                                {
+                                    todayReservations?.data?.data?.reservations?.map((reservation, idx) =>
+                                        <TodayReservationBox key={reservation?.id} reservation={reservation} length={todayReservations?.data?.data?.reservations?.length}
+                                            link={"/reservationlist"} onClick={() => handleNextReservationOnClick(idx)} />
+                                    )
+                                }
+                            </div>
+                        }
+                        {
+                            (authState?.status === "success" && todayReservations?.data?.data?.reservations.length === 0) &&
+                            <div css={s.defaultBox}>
+                                <p>예약이 없습니다.</p>
+                            </div>
+                        }
+                        {
+                            authState?.status === "loading" && <></>
+                        }
+                        {
+                            authState?.status === "idle" && <></>
+                        }
+                        {
+                            authState?.status === "error" &&
+                            <div css={s.defaultBox}>
+                                <p>로그인 후 이용가능합니다.</p>
+                            </div>
                         }
                     </div>
                     <div css={s.pageBox}>
@@ -153,11 +184,11 @@ function DashBoard(props) {
                         </div>
                     </div>
                     <div css={s.pageBox}>
-                        <div>
+                        <div onClick={handleReadyForService}>
                             <p>병원소개</p>
                             <img src="/금지.png" alt="" />
                         </div>
-                        <div>
+                        <div onClick={handleReadyForService}>
                             <p>오시는 길</p>
                             <img src="/금지.png" alt="" />
                         </div>

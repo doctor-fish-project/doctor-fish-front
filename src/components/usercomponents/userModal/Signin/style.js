@@ -7,6 +7,10 @@ export const layout = css`
     align-items: center;
     width: 100%;
     height: 100%;
+
+    & > div:nth-of-type(4) {
+        margin-bottom: 10px;
+    }
 `;
 
 export const logoBox = css`
@@ -18,15 +22,6 @@ export const logoBox = css`
     color: #0b8fac;
     width: 100%;
     height: 30px;
-`;
-
-export const inputContainer = css`
-    display: flex;
-    flex-direction: column;
-    margin-top: 40px;
-    padding-bottom: 20px;
-    width: 90%;
-    height: 90%;
 `;
 
 export const inputBox = css`
@@ -90,11 +85,15 @@ export const findBox = css`
     margin-bottom: 3px;
     width: 100%;
 
-    & button {
-        margin-left: 10px;
+    & > p {
+        font-size: 14px;
+    }
+
+    & > button {
+        margin-left: 5px;
         border-bottom: 1px solid gray;
         padding: 0;
-        font-size: 15px;
+        font-size: 12px;
         color: gray;
     }
 `;

@@ -15,6 +15,8 @@ export const container = css`
     & > div:nth-of-type(1) {
         padding-bottom: 10px;
     }
+
+
 `;
 
 export const imgBox = css`
@@ -66,7 +68,7 @@ export const commentBox = css`
 
 export const buttonContainer = css`
     position: absolute;
-    top: 1px;
+    top: 3px;
     right: 10px;
     box-sizing: border-box;
     display: flex;
@@ -80,7 +82,7 @@ export const buttonBox = (toggleState) => css`
     align-items: center;
     justify-content: center;
     width: 90px;
-    top: -2px;
+    top: -5px;
     right: 15px;
     opacity: ${toggleState ? '1' : '0'};
     transform: ${toggleState ? 'translateX(-10px)' : 'translateX(-2px)'};

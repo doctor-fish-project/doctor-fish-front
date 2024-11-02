@@ -50,6 +50,26 @@ function AdminAuthHook(props) {
             }
         }
     );
+
+    const userInfo = useQuery(
+        ["userInfoQuery"],
+        async () => await adminInstance.get("/admin/user/me"),
+        {
+            enabled: accessAdminTokenValid.isSuccess && accessAdminTokenValid?.data?.data,
+            refetchOnWindowFocus: false,
+            retry: 0
+        }
+    )
+
+    const categorys = useQuery(
+        ["categorysQuery"],
+        async () => await adminInstance.get("/admin/category"),
+        {
+            enabled: accessAdminTokenValid.isSuccess && accessAdminTokenValid?.data?.data,
+            refetchOnWindowFocus: false,
+            retry: 0
+        },
+    )
 }
 
 export default AdminAuthHook;

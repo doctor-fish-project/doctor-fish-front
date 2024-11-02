@@ -15,8 +15,6 @@ export const container = css`
     & > div:nth-of-type(1) {
         padding-bottom: 10px;
     }
-
-
 `;
 
 export const imgBox = css`

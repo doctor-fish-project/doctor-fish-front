@@ -2,35 +2,15 @@ import React from 'react';
 /** @jsxImportSource @emotion/react */
 import * as s from './style';
 import { useNavigate } from 'react-router-dom';
-import { useQuery, useQueryClient } from 'react-query';
-import { adminInstance } from '../../../apis/utils/instance';
+import { useQueryClient } from 'react-query';
 import { ICONS } from '../../../constants/admin/categoryicons';
 
 function AdminSideBar(props) {
     const nav = useNavigate();
 
     const queryClient = useQueryClient();
-    const authState = queryClient.getQueryState("accessAdminTokenValidQuery")
-
-    const userInfo = useQuery(
-        ["userInfoQuery"],
-        async () => await adminInstance.get("/admin/user/me"),
-        {
-            enabled: authState?.data?.data,
-            refetchOnWindowFocus: false,
-            retry: 0
-        }
-    )
-
-    const categorys = useQuery(
-        ["categorysQuery"],
-        async () => await adminInstance.get("/category"),
-        {
-            enabled: authState?.data?.data,
-            refetchOnWindowFocus: false,
-            retry: 0
-        },
-    )
+    const userInfo = queryClient.getQueryData("userInfoQuery");
+    const categorys = queryClient.getQueryData("categorysQuery")
 
     const handleLinkOnClick = (link) => {
         nav(link);
@@ -53,20 +33,20 @@ function AdminSideBar(props) {
                 <p>MEDIBOOK 관리자 페이지</p>
                 <div css={s.adminInfoBox}>
                     <div css={s.profileBox} onClick={handleProfileOnClick}>
-                        <img src={userInfo?.data?.data?.img}/>
+                        <img src={userInfo?.data?.img}/>
                     </div>
                     <div css={s.nameBox}>
-                        <p>{userInfo?.data?.data?.name}</p>
+                        <p>{userInfo?.data?.name}</p>
                         <div>
                             <p>MEDIBOOK</p>
-                            <p>{userInfo?.data?.data?.roles[0].name}</p>
+                            <p>{userInfo?.data?.roles[0].name}</p>
                         </div>
                     </div>
                     <button onClick={handleSignoutOnClick}>로그아웃</button>
                 </div>
                 <div css={s.categoryBox}>
                     {
-                        categorys?.data?.data?.map(category =>
+                        categorys?.data?.map(category =>
                             <button key={category.categoryId} onClick={() => handleLinkOnClick(category.link)}>{ICONS[category.icon]}{category.name}</button>
                         )
                     }

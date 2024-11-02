@@ -4,7 +4,7 @@ import ReactPaginate from 'react-paginate';
 import * as s from './style';
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 
-function AdminListPagination({ count, onChange, searchParams }) {
+function AdminPagination({ count, onChange, searchParams }) {
 
     return (
         <>
@@ -29,4 +29,4 @@ function AdminListPagination({ count, onChange, searchParams }) {
     );
 }
 
-export default AdminListPagination;
+export default AdminPagination;

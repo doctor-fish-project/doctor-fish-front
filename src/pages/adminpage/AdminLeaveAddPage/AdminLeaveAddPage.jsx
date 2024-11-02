@@ -4,21 +4,27 @@ import * as s from './style';
 import AdminContainer from '../../../components/admincomponents/AdminContainer/AdminContainer';
 import ReactSelect from 'react-select';
 import AdminPageLayout from '../../../components/admincomponents/AdminPageLayout/AdminPageLayout';
-import AdminTableLayout from '../../../components/admincomponents/adminList/AdminTableLayout/AdminTableLayout';
-import AdminTableHeader from '../../../components/admincomponents/adminList/AdminTableHeader/AdminTableHeader';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { adminInstance } from '../../../apis/utils/instance';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { FaAngleRight } from 'react-icons/fa6';
+import AdminPagination from '../../../components/admincomponents/AdminPagination/AdminPagination';
+import AdminTableLayout from '../../../components/admincomponents/adminTable/AdminTableLayout/AdminTableLayout';
+import AdminTableHeader from '../../../components/admincomponents/adminTable/AdminTableHeader/AdminTableHeader';
 
 function AdminLeaveAddPage(props) {
+    const nav = useNavigate();
+
     const location = useLocation();
+
+    const [searchParams, setSearchParams] = useSearchParams();
 
     const queryClient = useQueryClient();
     const userInfo = queryClient.getQueryData("userInfoQuery");
 
     const [timeOptions, setTimeOptions] = useState([]);
     const [leaveTimeIdx, setLeaveTimeIdx] = useState(0);
+    const [totalPageCount, setTotalPageCount] = useState(1);
     const [leaveDate, setLeaveDate] = useState({
         date: "",
         leaveTime: "",
@@ -31,6 +37,17 @@ function AdminLeaveAddPage(props) {
         leaveDate: "",
         endDate: ""
     })
+
+    const limit = 14;
+
+    useEffect(() => {
+        if (!searchParams?.get("page")) {
+            setSearchParams(searchParams => ({
+                ...searchParams,
+                page: 1
+            }))
+        }
+    }, [searchParams])
 
     useEffect(() => {
         const parse = (value) => (value < 10 ? "0" : "") + value
@@ -64,7 +81,7 @@ function AdminLeaveAddPage(props) {
 
     const leaveTableHeaders = useQuery(
         ["leaveTableHeadersQuery"],
-        async () => await adminInstance.get(`/tableheader?pathName=${location.pathname}`),
+        async () => await adminInstance.get(`/admin/tableheader?pathName=${location.pathname}`),
         {
             enabled: true,
             refetchOnWindowFocus: false,
@@ -94,12 +111,19 @@ function AdminLeaveAddPage(props) {
     )
 
     const leaves = useQuery(
-        ["leavesQuery"],
-        async () => await adminInstance.get("/admin/leave/list"),
+        ["leavesQuery", searchParams.get("page")],
+        async () => await adminInstance.get(`/admin/leave/list?page=${searchParams.get("page")}&limit=${limit}`),
         {
-            enabled: !!userInfo?.data,
+            enabled: true,
             refetchOnWindowFocus: false,
-            retry: 0
+            retry: 0,
+            onSuccess: response => {
+                setTotalPageCount(
+                    response?.data?.leaveCount % limit === 0
+                        ? response?.data?.leaveCount / limit
+                        : Math.floor(response?.data?.leaveCount / limit) + 1);
+                
+            }
         }
     )
 
@@ -144,6 +168,10 @@ function AdminLeaveAddPage(props) {
             ...leaveDate,
             endTime: option.label
         }))
+    }
+
+    const handlePageOnChange = (e) => {
+        nav(`/admin/leave?page=${e.selected + 1}`);
     }
 
     return (
@@ -261,6 +289,7 @@ function AdminLeaveAddPage(props) {
                                 }
                             </tbody>
                     </AdminTableLayout>
+                    <AdminPagination searchParams={searchParams} count={totalPageCount} onChange={handlePageOnChange} />
                 </div>
             </AdminPageLayout>
         </AdminContainer>

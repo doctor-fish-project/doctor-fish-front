@@ -10,7 +10,7 @@ export const layout = css`
     
 `;
 
-export const container = css`
+export const container = (length) => css`
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -43,7 +43,7 @@ export const container = css`
         border-radius: 10px;
         padding: 0px 10px;
         width: 100%;
-        min-height: 60px;
+        min-height: ${length === 1 ? "139px" :"60px"};
         text-align: center;
         background-color: #f1f0f3;
 

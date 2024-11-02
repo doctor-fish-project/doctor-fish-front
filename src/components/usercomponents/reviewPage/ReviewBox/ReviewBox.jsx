@@ -3,16 +3,18 @@ import React, { useState } from 'react';
 import * as s from './style';
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { useMutation, useQueryClient } from 'react-query';
-import { instance } from '../../../../apis/utils/instance';
+import { adminInstance, instance } from '../../../../apis/utils/instance';
 import FillHeart from '../../../FillHeart/FillHeart';
 import EmptyHeart from '../../../EmptyHeart/EmptyHeart';
 import Swal from 'sweetalert2';
 import { useSetRecoilState } from 'recoil';
 import { signinModalAtom } from '../../../../atoms/modalAtoms';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 function ReviewBox({ review, onClick }) {
     const nav = useNavigate();
+
+    const location = useLocation();
 
     const reviewImgs = JSON.parse(review?.img === undefined ? '[]' : review?.img)
 
@@ -23,8 +25,8 @@ function ReviewBox({ review, onClick }) {
 
     const [mouseOverState, setMouseOverState] = useState(false);
     const [index, setIndex] = useState(0);
-    
-    const like = useMutation(
+
+    const userLike = useMutation(
         async () => await instance.post(`/review/like/${review.id}`),
         {
             onSuccess: response => {
@@ -34,12 +36,30 @@ function ReviewBox({ review, onClick }) {
         }
     )
 
-    const dislike = useMutation(
+    const userDislike = useMutation(
         async () => await instance.delete(`/review/like/${review.id}`),
         {
             onSuccess: response => {
                 queryClient.invalidateQueries("reviewsQuery");
                 queryClient.invalidateQueries("reviewQuery");
+            }
+        }
+    )
+
+    const adminLike = useMutation(
+        async () => await adminInstance.post(`/admin/review/like/${review.id}`),
+        {
+            onSuccess: response => {
+                queryClient.invalidateQueries("reviewByreviewIdQuery");
+            }
+        }
+    )
+
+    const adminDislike = useMutation(
+        async () => await adminInstance.delete(`/admin/review/like/${review.id}`),
+        {
+            onSuccess: response => {
+                queryClient.invalidateQueries("reviewByreviewIdQuery");
             }
         }
     )
@@ -54,32 +74,32 @@ function ReviewBox({ review, onClick }) {
 
     const handleLikeOnClick = (e) => {
         e.stopPropagation();
-        authSate?.data?.data ? like.mutateAsync().catch(() => {}) :
-        Swal.fire({
-            icon: 'info',
-            title: '로그인 후 사용가능합니다.',
-            text: '로그인 하시겠습니까?',
-            backdrop: false,
-            showCancelButton: true,
-            confirmButtonText: '확인',
-            cancelButtonText: '취소',
-            allowOutsideClick: false,
-            customClass: {
-                popup: 'custom-confirm-swal',
-                container: 'container',
-                confirmButton: 'confirmButton',
-            }
-        }).then(result => {
-            if (result.isConfirmed) {
-                nav("/")
-                setSigninModalState(true);
-            }
-        })
+        authSate?.data?.data ? userLike.mutateAsync().catch(() => { }) :
+            Swal.fire({
+                icon: 'info',
+                title: '로그인 후 사용가능합니다.',
+                text: '로그인 하시겠습니까?',
+                backdrop: false,
+                showCancelButton: true,
+                confirmButtonText: '확인',
+                cancelButtonText: '취소',
+                allowOutsideClick: false,
+                customClass: {
+                    popup: 'custom-confirm-swal',
+                    container: 'container',
+                    confirmButton: 'confirmButton',
+                }
+            }).then(result => {
+                if (result.isConfirmed) {
+                    nav("/")
+                    setSigninModalState(true);
+                }
+            })
     }
 
     const handleDislikeOnClick = (e) => {
         e.stopPropagation();
-        dislike.mutateAsync().catch(() => {})
+        userDislike.mutateAsync().catch(() => { })
     }
 
     const preImgOnClick = (e, index) => {
@@ -119,7 +139,8 @@ function ReviewBox({ review, onClick }) {
             }
             <div css={s.dateAndLike}>
                 <div>
-                    <p>{!!review?.isLike ? <FillHeart onClick={(e) => handleDislikeOnClick(e)}/> : <EmptyHeart onClick={(e) => handleLikeOnClick(e)}/>}</p>
+                    <p>{!!review?.isLike ? <FillHeart onClick={location.pathname.startsWith("/admin") ? () => adminDislike.mutateAsync().catch(() => {}) : handleDislikeOnClick} />
+                        : <EmptyHeart onClick={location.pathname.startsWith("/admin") ? () => adminLike.mutateAsync().catch(() => {}) :handleLikeOnClick} />}</p>
                     <p>{review?.registerDate?.slice(0, 10)}</p>
                 </div>
                 <p>좋아요 {review?.likeCount}</p>

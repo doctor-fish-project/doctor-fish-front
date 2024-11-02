@@ -7,7 +7,7 @@ export const layout = css`
     align-items: center;
     width: 100%;
     height: 100%;
-    background-color: #2E5984;
+    background-color: #f1f0f3;
 `;
 
 export const container = css`
@@ -20,7 +20,7 @@ export const container = css`
     width: 300px;
     height: 300px;
     box-shadow: 3px 3px 2px #00000038;
-    background-color: #eeeeee;
+    background-color: white;
 
     & h2 {
         font-weight: 400;
@@ -51,6 +51,11 @@ export const inputBox = css`
         width: 100%;
         height: 30px;
         background-color: #eeeeee;
+
+        :focus {
+            background-color: white;
+        }
+
         ::placeholder {
             color: gray;
             font-size: 13px;

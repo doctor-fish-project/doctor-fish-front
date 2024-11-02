@@ -5,12 +5,12 @@ import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { adminInstance } from '../../../apis/utils/instance';
 import { useMutation, useQuery } from 'react-query';
 import AdminContainer from '../../../components/admincomponents/AdminContainer/AdminContainer';
-import AdminTableLayout from '../../../components/admincomponents/adminList/AdminTableLayout/AdminTableLayout';
-import AdminTableHeader from '../../../components/admincomponents/adminList/AdminTableHeader/AdminTableHeader';
-import AdminListPagination from '../../../components/admincomponents/AdminListPagination/AdminListPagination';
 import AdminPageLayout from '../../../components/admincomponents/AdminPageLayout/AdminPageLayout';
 import { searchAtom, searchClickAtom } from '../../../atoms/adminAtoms';
 import { useRecoilState } from 'recoil';
+import AdminPagination from '../../../components/admincomponents/AdminPagination/AdminPagination';
+import AdminTableLayout from '../../../components/admincomponents/adminTable/AdminTableLayout/AdminTableLayout';
+import AdminTableHeader from '../../../components/admincomponents/adminTable/AdminTableHeader/AdminTableHeader';
 
 function AdminReservationAllPage(props) {
     const nav = useNavigate();
@@ -36,7 +36,7 @@ function AdminReservationAllPage(props) {
 
     const reservationAllTableHeaders = useQuery(
         ["reservationAllTableHeaderQuery"],
-        async () => await adminInstance.get(`/tableheader?pathName=${location.pathname}`),
+        async () => await adminInstance.get(`/admin/tableheader?pathName=${location.pathname}`),
         {
             enabled: true,
             refetchOnWindowFocus: false,
@@ -156,7 +156,7 @@ function AdminReservationAllPage(props) {
                         }
                     </tbody>
                 </AdminTableLayout>
-                <AdminListPagination searchParams={searchParams} count={totalPageCount} onChange={handlePageOnChange} />
+                <AdminPagination searchParams={searchParams} count={totalPageCount} onChange={handlePageOnChange} />
             </AdminPageLayout>
         </AdminContainer>
 

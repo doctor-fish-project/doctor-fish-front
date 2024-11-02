@@ -25,7 +25,7 @@ function BellAlram({ containerRef }) {
         <ModalLayout containerRef={containerRef} isOpen={bellAlarm} closeModal={closeModal} ani={ani}
             width={"80%"} height={"20%"} inset={"90px 68px 0px"} borderTop={"none"} borderBottom={"1px solid #dbdbdb"} borderLeft={"1px solid #dbdbdb"}>
             <div css={s.layout}>
-                <div css={s.container}>
+                <div css={s.container(alarms?.length)}>
                     {
                         alarms?.length === 0 ? <p>알림이 없습니다.</p> :
                             <>

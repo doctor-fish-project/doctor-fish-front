@@ -3,14 +3,14 @@ import React, { useEffect, useState } from 'react';
 import * as s from './style';
 import AdminContainer from '../../../components/admincomponents/AdminContainer/AdminContainer';
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
-import AdminTableLayout from '../../../components/admincomponents/adminList/AdminTableLayout/AdminTableLayout';
 import { adminInstance } from '../../../apis/utils/instance';
 import { useQuery } from 'react-query';
-import AdminListPagination from '../../../components/admincomponents/AdminListPagination/AdminListPagination';
-import AdminPageLayout from '../../../components/admincomponents/AdminPageLayout/AdminPageLayout';
-import AdminTableHeader from '../../../components/admincomponents/adminList/AdminTableHeader/AdminTableHeader';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { searchAtom, searchClickAtom } from '../../../atoms/adminAtoms';
+import AdminPagination from '../../../components/admincomponents/AdminPagination/AdminPagination';
+import AdminPageLayout from '../../../components/admincomponents/AdminPageLayout/AdminPageLayout';
+import AdminTableLayout from '../../../components/admincomponents/adminTable/AdminTableLayout/AdminTableLayout';
+import AdminTableHeader from '../../../components/admincomponents/adminTable/AdminTableHeader/AdminTableHeader';
 
 function AdminUsersPage(props) {
     const nav = useNavigate();
@@ -18,9 +18,8 @@ function AdminUsersPage(props) {
     const [searchParams, setSearchParams] = useSearchParams();
 
     const [totalPageCount, setTotalPageCount] = useState(1);
-    const [theader, setTheader] = useState({});
 
-    const [searchText, setSearchText] = useRecoilState(searchAtom);
+    const searchText= useRecoilValue(searchAtom);
     const [searchClick, setSearchClick] = useRecoilState(searchClickAtom);
 
     const limit = 13;
@@ -40,15 +39,7 @@ function AdminUsersPage(props) {
         {
             enabled: true,
             refetchOnWindowFocus: false,
-            retry: 0,
-            onSuccess: response => {
-                response.data.map((th, index) => (
-                    setTheader(theader => ({
-                        ...theader,
-                        [index]: th.name
-                    }))
-                ))
-            }
+            retry: 0
         }
     )
 
@@ -92,7 +83,7 @@ function AdminUsersPage(props) {
                         }
                     </tbody>
                 </AdminTableLayout>
-                <AdminListPagination searchParams={searchParams} count={totalPageCount} onChange={handlePageOnChange} />
+                <AdminPagination searchParams={searchParams} count={totalPageCount} onChange={handlePageOnChange} />
             </AdminPageLayout>
         </AdminContainer>
     );

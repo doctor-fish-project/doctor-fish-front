@@ -154,11 +154,11 @@ export const contentBox = css`
     width: 100%;
 `;
 
-export const commentBox = css`
+export const commentBox = (length) => css`
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    padding: 30px;
+    padding: ${(length > 0) ? "30px" : "0" };
     overflow-y: auto;
     ::-webkit-scrollbar {
         display: none;

@@ -2,16 +2,16 @@ import React, { useEffect, useState } from 'react';
 /** @jsxImportSource @emotion/react */
 import * as s from "./style";
 import AdminContainer from '../../../components/admincomponents/AdminContainer/AdminContainer';
-import AdminListPagination from '../../../components/admincomponents/AdminListPagination/AdminListPagination';
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
-import AdminTableLayout from '../../../components/admincomponents/adminList/AdminTableLayout/AdminTableLayout';
 import { useQuery } from 'react-query';
 import { adminInstance } from '../../../apis/utils/instance';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import {reviewIdAtom, searchAtom, searchClickAtom } from '../../../atoms/adminAtoms';
 import { adminReviewModalAtom } from '../../../atoms/modalAtoms';
 import AdminPageLayout from '../../../components/admincomponents/AdminPageLayout/AdminPageLayout';
-import AdminTableHeader from '../../../components/admincomponents/adminList/AdminTableHeader/AdminTableHeader';
+import AdminPagination from '../../../components/admincomponents/AdminPagination/AdminPagination';
+import AdminTableLayout from '../../../components/admincomponents/adminTable/AdminTableLayout/AdminTableLayout';
+import AdminTableHeader from '../../../components/admincomponents/adminTable/AdminTableHeader/AdminTableHeader';
 
 function AdminReviewPage(props) {
     const nav = useNavigate();
@@ -41,7 +41,7 @@ function AdminReviewPage(props) {
 
     const reviewTableHeaders = useQuery(
         ["reviewTalbeHeadersQuery"],
-        async () => await adminInstance.get(`/tableheader?pathName=${location.pathname}`),
+        async () => await adminInstance.get(`/admin/tableheader?pathName=${location.pathname}`),
         {
             enabled: true,
             refetchOnWindowFocus: false,
@@ -94,7 +94,7 @@ function AdminReviewPage(props) {
                             }
                         </tbody>
                     </AdminTableLayout>
-                    <AdminListPagination searchParams={searchParams} count={totalPageCount} onChange={handlePageOnChange} />
+                    <AdminPagination searchParams={searchParams} count={totalPageCount} onChange={handlePageOnChange} />
                 </AdminPageLayout>
             </AdminContainer>
     );

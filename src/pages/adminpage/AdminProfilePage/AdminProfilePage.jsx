@@ -15,7 +15,7 @@ function AdminProfilePage(props) {
     const queryClient = useQueryClient();
     const userInfo = queryClient.getQueryData("userInfoQuery")
 
-    const [modifyUser, setModifyUser] = useState(userInfo?.data);
+    const [modifyUser, setModifyUser] = useState();
     const [uploadState, setUploadState] = useState(false)
     const [editState, setEditState] = useState(false)
 

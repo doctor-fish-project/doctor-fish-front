@@ -3,15 +3,15 @@ import React, { useEffect, useState } from 'react';
 import * as s from './style';
 import AdminContainer from '../../../components/admincomponents/AdminContainer/AdminContainer';
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
-import AdminTableLayout from '../../../components/admincomponents/adminList/AdminTableLayout/AdminTableLayout';
-import AdminTableHeader from '../../../components/admincomponents/adminList/AdminTableHeader/AdminTableHeader';
 import { useMutation, useQuery } from 'react-query';
 import { adminInstance } from '../../../apis/utils/instance';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { adminNoticeModalAtom, adminNoticeWriteModalAtom } from '../../../atoms/modalAtoms';
-import AdminListPagination from '../../../components/admincomponents/AdminListPagination/AdminListPagination';
 import AdminPageLayout from '../../../components/admincomponents/AdminPageLayout/AdminPageLayout';
 import { noticeIdAtom, searchAtom, searchClickAtom } from '../../../atoms/adminAtoms';
+import AdminPagination from '../../../components/admincomponents/AdminPagination/AdminPagination';
+import AdminTableLayout from '../../../components/admincomponents/adminTable/AdminTableLayout/AdminTableLayout';
+import AdminTableHeader from '../../../components/admincomponents/adminTable/AdminTableHeader/AdminTableHeader';
 
 function AdminNoticePage(props) {
     const nav = useNavigate();
@@ -41,7 +41,7 @@ function AdminNoticePage(props) {
 
     const noticeTableHeader = useQuery(
         ["noticeTalbeHeaderQuery"],
-        async () => await adminInstance.get(`/tableheader?pathName=${location.pathname}`),
+        async () => await adminInstance.get(`/admin/tableheader?pathName=${location.pathname}`),
         {
             enabled: true,
             refetchOnWindowFocus: false,
@@ -121,7 +121,7 @@ function AdminNoticePage(props) {
                         }
                     </tbody>
                 </AdminTableLayout>
-                <AdminListPagination searchParams={searchParams} count={totalPageCount} onChange={handlePageOnChange} />
+                <AdminPagination searchParams={searchParams} count={totalPageCount} onChange={handlePageOnChange} />
                 <button onClick={handleWriteNoticeModalOpenOnClick}>글쓰기</button>
             </AdminPageLayout>
         </AdminContainer>

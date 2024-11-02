@@ -1,22 +1,38 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 /** @jsxImportSource @emotion/react */
 import * as s from './style';
 import AdminContainer from '../../../components/admincomponents/AdminContainer/AdminContainer';
 import AdminPageLayout from '../../../components/admincomponents/AdminPageLayout/AdminPageLayout';
-import AdminTableLayout from '../../../components/admincomponents/adminList/AdminTableLayout/AdminTableLayout';
-import AdminTableHeader from '../../../components/admincomponents/adminList/AdminTableHeader/AdminTableHeader';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { useMutation, useQuery } from 'react-query';
 import { adminInstance } from '../../../apis/utils/instance';
+import AdminPagination from '../../../components/admincomponents/AdminPagination/AdminPagination';
+import AdminTableLayout from '../../../components/admincomponents/adminTable/AdminTableLayout/AdminTableLayout';
+import AdminTableHeader from '../../../components/admincomponents/adminTable/AdminTableHeader/AdminTableHeader';
 
 function AdminLeaveListPage(props) {
+    const nav = useNavigate();
     const location = useLocation();
 
+    const [searchParams, setSearchParams] = useSearchParams();
+
     const [leaveId, setLeaveId] = useState(0);
+    const [totalPageCount, setTotalPageCount] = useState(1);
+
+    const limit = 14;
+
+    useEffect(() => {
+        if (!searchParams?.get("page")) {
+            setSearchParams(searchParams => ({
+                ...searchParams,
+                page: 1
+            }))
+        }
+    }, [searchParams])
 
     const leaveListAllTableHeaders = useQuery(
         ["leaveListAllTableHeadersQuery"],
-        async () => await adminInstance.get(`/tableheader?pathName=${location.pathname}`),
+        async () => await adminInstance.get(`/admin/tableheader?pathName=${location.pathname}`),
         {
             enabled: true,
             refetchOnWindowFocus: false,
@@ -25,12 +41,19 @@ function AdminLeaveListPage(props) {
     )
 
     const leaves = useQuery(
-        ["leavesQuery"],
-        async () => await adminInstance.get(`/admin/leave/list/info`),
+        ["leavesQuery", searchParams.get("page")],
+        async () => await adminInstance.get(`/admin/leave/list/info?page=${searchParams.get("page")}&limit=${limit}`),
         {
             enabled: true,
             refetchOnWindowFocus: false,
-            retry: 0
+            retry: 0,
+            onSuccess: response => {
+                setTotalPageCount(
+                    response?.data?.leaveCount % limit === 0
+                        ? response?.data?.leaveCount / limit
+                        : Math.floor(response?.data?.leaveCount / limit) + 1);
+                
+            }
         }
     )
 
@@ -80,6 +103,10 @@ function AdminLeaveListPage(props) {
         }
     }
 
+    const handlePageOnChange = (e) => {
+        nav(`/admin/leavelist?page=${e.selected + 1}`);
+    }
+
     return (
         <AdminContainer>
             <AdminPageLayout title={"연차 관리"}>
@@ -126,6 +153,7 @@ function AdminLeaveListPage(props) {
                         }
                     </tbody>
                 </AdminTableLayout>
+                <AdminPagination searchParams={searchParams} count={totalPageCount} onChange={handlePageOnChange} />
             </AdminPageLayout>
         </AdminContainer>
     );

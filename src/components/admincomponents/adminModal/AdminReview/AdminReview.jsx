@@ -11,11 +11,10 @@ import ReviewBox from '../../../usercomponents/reviewPage/ReviewBox/ReviewBox';
 import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from 'react-query';
 import { adminInstance } from '../../../../apis/utils/instance';
 
-
 function AdminReview({ containerRef }) {
     const loadMoreRef = useRef(null);
 
-    const queryClient  = useQueryClient();
+    const queryClient = useQueryClient();
     const userInfo = queryClient.getQueryData("userInfoQuery");
 
     const [reviewOpen, setReviewOpen] = useRecoilState(adminReviewModalAtom);
@@ -49,6 +48,22 @@ function AdminReview({ containerRef }) {
         }
     );
 
+    useEffect(() => {
+        if (!comments.hasNextPage || !loadMoreRef.current || comments?.data?.pages[0].data?.commentCount < 10) {
+            return;
+        }
+
+        const observer = new IntersectionObserver(([intersectionObserver]) => {
+            if (intersectionObserver.isIntersecting) {
+                comments.fetchNextPage();
+            }
+        }, { threshold: 1.0 });
+
+        observer.observe(loadMoreRef.current);
+
+        return () => observer.disconnect();
+    }, [comments.hasNextPage]);
+
     const delteReview = useMutation(
         async (reviewId) => adminInstance.delete(`/admin/review/${reviewId}`),
         {
@@ -71,31 +86,15 @@ function AdminReview({ containerRef }) {
         }
     )
 
-    useEffect(() => {
-        if (!comments.hasNextPage || !loadMoreRef.current || comments?.data?.pages[0].data?.commentCount < 10) {
-            return;
-        }
-
-        const observer = new IntersectionObserver(([intersectionObserver]) => {
-            if (intersectionObserver.isIntersecting) {
-                comments.fetchNextPage();
-            }
-        }, { threshold: 1.0 });
-
-        observer.observe(loadMoreRef.current);
-
-        return () => observer.disconnect();
-    }, [comments.hasNextPage]);
-
     const handleDelteReviewOnClick = (reviewId) => {
-        if(window.confirm("삭제 하시겠습니까?")) {
-            delteReview.mutateAsync(reviewId).catch(() => {})
+        if (window.confirm("삭제 하시겠습니까?")) {
+            delteReview.mutateAsync(reviewId).catch(() => { })
         }
     }
 
     const handleDeleteCommentOnClick = (commentId) => {
-        if(window.confirm("삭제 하시겠습니까?")) {
-            deleteComment.mutateAsync(commentId).catch(() => {})
+        if (window.confirm("삭제 하시겠습니까?")) {
+            deleteComment.mutateAsync(commentId).catch(() => { })
         }
     }
 
@@ -115,13 +114,16 @@ function AdminReview({ containerRef }) {
                     <div css={s.reviewBox}>
                         <ReviewBox review={reviewByreviewId?.data?.data} />
                     </div>
-                    <div css={s.commentBox} ref={loadMoreRef}>
+                    <div css={s.commentBox(comments?.data?.data?.length)} >
                         {
                             comments?.data?.pages?.map(page => page?.data?.comments?.map(comment =>
-                                <ReviewComment key={comment.id} comment={comment} userInfo={userInfo?.data} onDeleteOnClick={() => handleDeleteCommentOnClick(comment?.id)}/>
+                                <ReviewComment key={comment.id} comment={comment}
+                                    userInfo={userInfo?.data}
+                                    onDeleteOnClick={() => handleDeleteCommentOnClick(comment?.id)} />
                             ))
                         }
                     </div>
+                    <div ref={loadMoreRef}></div>
                 </div>
                 <div css={s.buttonBox}>
                     <button onClick={() => handleDelteReviewOnClick(reviewByreviewId?.data?.data?.id)}>게시물삭제</button>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -25,20 +25,21 @@ ChartJS.register(
     Legend
 );
 
-export default function AdminChartBar(props) {
+export default function AdminMonthAndDoctorReservationChartBar({ year }) {
 
-    const year = "2024"
-
-    const graphs = useQuery(
-        ["graphsQuery"],
-        async () => await adminInstance.get(`/admin/reservation/dashboard/monthcounts/${year}`),
+    const monthAndDoctorReservations = useQuery(
+        ["monthAndDoctorReservationsQuery", year],
+        async () => {
+            console.log(year);
+            return await adminInstance.get(`/admin/reservation/dashboard/monthcounts?year=${year.label}`)
+        },
         {
-            enabled: true,
+            enabled: !!year,
             refetchOnWindowFocus: false,
             retry: 0
         }
     )
-    
+
     const options = {
         maintainAspectRatio: false,
         scales: {
@@ -62,9 +63,9 @@ export default function AdminChartBar(props) {
     };
 
     const data = {
-        labels: graphs?.data?.data?.months?.map(i => i.month),
-        datasets: graphs.isSuccess ? graphs?.data?.data?.reservations?.map((reservation, idx) => {
-            return {label: reservation.name, data: reservation.counts?.map(count => count.count), backgroundColor: COLORS[idx]}
+        labels: monthAndDoctorReservations?.data?.data?.months?.map(i => i.month),
+        datasets: (monthAndDoctorReservations.isSuccess && monthAndDoctorReservations?.data?.data) ? monthAndDoctorReservations?.data?.data?.reservations?.map((reservation, idx) => {
+            return { label: reservation.name, data: reservation.counts?.map(count => count.count), backgroundColor: COLORS[idx] }
         }) : []
     };
 
@@ -80,7 +81,11 @@ export default function AdminChartBar(props) {
                 width: "90%",
                 height: "90%"
             }}>
-                <Bar options={options} data={data} />
+                {monthAndDoctorReservations.isSuccess && monthAndDoctorReservations.data ? (
+                    <Bar options={options} data={data} />
+                ) : (
+                    <></>
+                )}
             </div>
         </div>
     );

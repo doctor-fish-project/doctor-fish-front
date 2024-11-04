@@ -70,6 +70,7 @@ function NoticeListPage(props) {
                             ))
                         }
                     </div>
+                    <div ref={loadMoreRef}></div>
                 </UserSubContainer>
             </UserSubLayout>
             <Routes>

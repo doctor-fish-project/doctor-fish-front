@@ -75,13 +75,14 @@ function ReservationListPage(props) {
         <UserSubContainer>
             <DashBoardTopBar title={"예약조회"} icon={<IoFilterOutline />} toggleState={toggleState} isLatest={isLatest}
                 onClick={() => handleChangeToggleStateOnClick()} latestOnClick={() => handleIsLatestOnClcik()} longestOnClick={() => handleNotIsLatestOnClcik()} />
-            <div css={s.layout} ref={loadMoreRef}>
+            <div css={s.layout}>
                 {
                     reservationList?.data?.pages?.map(page => (isLatest ? page?.data?.reservations : [...page?.data?.reservations].reverse()).map(reservation =>
                         <ReservationBox key={reservation.id} reservation={reservation} />
                     ))
                 }
             </div>
+            <div ref={loadMoreRef}></div>
         </UserSubContainer>
 
     );

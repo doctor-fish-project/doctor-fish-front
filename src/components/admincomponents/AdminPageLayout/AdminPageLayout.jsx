@@ -8,7 +8,6 @@ import AdminNoticeWrite from '../adminModal/AdminNoticeWrite/AdminNoticeWrite';
 import AdminNotice from '../adminModal/AdminNotice/AdminNotice';
 import { searchAtom, searchClickAtom } from '../../../atoms/adminAtoms';
 import { useRecoilState } from 'recoil';
-import { QueryClient } from 'react-query';
 
 function AdminPageLayout({ title, count, children, onClick, onCheckClick, onCancelClick, editState, editDisabled}) {
     const location = useLocation();
@@ -20,8 +19,6 @@ function AdminPageLayout({ title, count, children, onClick, onCheckClick, onCanc
     const [searchClick, setSearchClick] = useRecoilState(searchClickAtom);
 
     const containerRef = useRef();
-
-    const queryClient = new QueryClient();
 
     useEffect(() => {
         if (!!containerRef) {
@@ -48,7 +45,7 @@ function AdminPageLayout({ title, count, children, onClick, onCheckClick, onCanc
                 <div>
                     <p>{title}</p>
                     {
-                        (location.pathname === "/admin/profile" || location.pathname === "/admin/add" || location.pathname === "/admin/leave") ? <></> :
+                        (location.pathname === "/admin/profile" || location.pathname === "/admin/add" || location.pathname === "/admin/leave" || location.pathname === "/admin/setting") ? <></> :
                             <p>총 {count}건</p>
                     }
                 </div>

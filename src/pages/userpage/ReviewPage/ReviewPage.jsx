@@ -60,13 +60,14 @@ function ReviewPage(props) {
         <>
             <UserSubContainer>
                 <DashBoardTopBar title={"리뷰"} icon={<BsPencilSquare />} onClick={() => handleReviewSelectOnClick()} />
-                <div css={s.layout} ref={loadMoreRef}>
+                <div css={s.layout}>
                     {
                         reviews?.data?.pages?.map(page => page?.data?.reviews?.map(review => 
                             <ReviewBox key={review.id} review={review} onClick={() => handleReviewDetailOnClick(review.id)} />
                         ))
                     }
                 </div>
+                <div  ref={loadMoreRef}></div>
             </UserSubContainer>
             <Routes>
                 <Route path='/select/*' element={<ReviewSelectPage />} />

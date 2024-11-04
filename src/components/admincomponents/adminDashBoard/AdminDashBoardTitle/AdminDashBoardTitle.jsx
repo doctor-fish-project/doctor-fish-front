@@ -23,7 +23,7 @@ function AdminDashBoardTitle({ title, options, year, setYear }) {
                             margin: "0",
                             padding: "0px 11px",
                             border: "none",
-                            width: "220px",
+                            width: "120px",
                             outline: "none",
                             boxShadow: "none",
                             textAlign: "center",

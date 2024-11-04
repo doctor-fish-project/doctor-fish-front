@@ -8,6 +8,7 @@ import AdminReservationAllBox from '../../../components/admincomponents/adminDas
 import { useQueryClient } from 'react-query';
 import AdminWeekReservationGraphsBox from '../../../components/admincomponents/adminDashBoard/adminDashBoardBox/AdminWeekReservationGraphsBox/AdminWeekReservationGraphsBox';
 import AdminMonthAndDoctorReservationGraphsBox from '../../../components/admincomponents/adminDashBoard/adminDashBoardBox/AdminMonthAndDoctorReservationGraphsBox/AdminMonthAndDoctorReservationGraphsBox';
+import AdminMonthReservationGraphsBox from '../../../components/admincomponents/adminDashBoard/adminDashBoardBox/AdminMonthReservationGraphsBox/AdminMonthReservationGraphsBox';
 
 function AdminDashBoard(props) {
     const queryClient = useQueryClient();
@@ -26,6 +27,7 @@ function AdminDashBoard(props) {
                     </> :
                     <>
                         <AdminWeekReservationGraphsBox />
+                        <AdminMonthReservationGraphsBox />
                     </>
                 }
             </div>

@@ -25,18 +25,18 @@ ChartJS.register(
     Legend
 );
 
-export default function AdminWeekReservationChartBar({ year }) {
+export default function AdminWeekReservationChartBar(props) {
 
     const weekReservations = useQuery(
-        ["weekReservationsQuery", year],
-        async () => await adminInstance.get(`/admin/reservation/dashboard/week/count?year=${year.label}`),
+        ["weekReservationsQuery"],
+        async () => await adminInstance.get('/admin/reservation/dashboard/week/count'),
         {
-            enabled: !!year,
+            enabled: true,
             refetchOnWindowFocus: false,
             retry: 0
         }
     )
-    console.log(weekReservations)
+
     const options = {
         maintainAspectRatio: false,
         scales: {
@@ -48,12 +48,14 @@ export default function AdminWeekReservationChartBar({ year }) {
                 ticks: {
                     autoSkip: true,
                     stepSize: 4,
-                }
+                },
+                Text: "요일"
             },
         },
         responsive: true,
         plugins: {
             legend: {
+                display: false,
                 position: 'top',
             },
         },
@@ -61,9 +63,13 @@ export default function AdminWeekReservationChartBar({ year }) {
 
     const data = {
         labels: weekReservations?.data?.data?.weeks?.map(i => i.day),
-        datasets: (weekReservations.isSuccess && weekReservations?.data?.data) ? weekReservations?.data?.data?.reservations?.map((reservation, idx) => {
-            return { data: reservation.counts?.map(count => count.count), backgroundColor: COLORS[idx] }
-        }) : []
+        datasets: (weekReservations.isSuccess && weekReservations?.data?.data) ?
+        [{ 
+    
+            data: weekReservations?.data?.data?.reservations?.map(reservation => reservation.count),
+            backgroundColor: weekReservations?.data?.data?.reservations?.map((reservation, idx) => COLORS[idx])
+        }]
+        : []
     };
 
     return (
@@ -78,7 +84,7 @@ export default function AdminWeekReservationChartBar({ year }) {
                 width: "90%",
                 height: "90%"
             }}>
-                {weekReservations.isSuccess && weekReservations.data ? (
+                {weekReservations?.isSuccess && weekReservations?.data?.data ? (
                     <Bar options={options} data={data} />
                 ) : (
                     <></>

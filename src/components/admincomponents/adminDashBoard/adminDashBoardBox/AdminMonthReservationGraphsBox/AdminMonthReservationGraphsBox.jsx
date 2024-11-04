@@ -3,9 +3,9 @@ import AdminDashBoardLayout from '../../AdminDashBoardLayout/AdminDashBoardLayou
 import AdminDashBoardTitle from '../../AdminDashBoardTitle/AdminDashBoardTitle';
 import { useQuery } from 'react-query';
 import { adminInstance } from '../../../../../apis/utils/instance';
-import AdminMonthAndDoctorReservationChartBar from '../../AdminMonthAndDoctorReservationChartBar/AdminMonthAndDoctorReservationChartBar';
+import AdminMonthReservationChartBar from '../../AdminMonthReservationChartBar/AdminMonthReservationChartBar';
 
-function AdminMonthAndDoctorReservationGraphsBox(props) {
+function AdminMonthReservationGraphsBox(props) {
 
     const [options, setOptions] = useState([]);
 
@@ -34,12 +34,12 @@ function AdminMonthAndDoctorReservationGraphsBox(props) {
             {
                 monthandDoctorReservationByYears.isLoading ? <></> :
                     <>
-                        <AdminDashBoardTitle title={"의사 별 예약 통계"} options={options} year={year} setYear={setYear}/>
-                        <AdminMonthAndDoctorReservationChartBar year={year} />
+                        <AdminDashBoardTitle title={"예약 월별 통계"} options={options} year={year} setYear={setYear}/>
+                        <AdminMonthReservationChartBar year={year} />
                     </>
             }
         </AdminDashBoardLayout>
     );
 }
 
-export default AdminMonthAndDoctorReservationGraphsBox;
+export default AdminMonthReservationGraphsBox;

@@ -3,10 +3,11 @@ import React from 'react';
 import * as s from './style';
 import AdminContainer from '../../../components/admincomponents/AdminContainer/AdminContainer';
 import AdminNoticeBox from '../../../components/admincomponents/adminDashBoard/adminDashBoardBox/AdminNoticeBox/AdminNoticeBox';
-import AdminReservationGraphsBox from '../../../components/admincomponents/adminDashBoard/adminDashBoardBox/AdminReservationGraphsBox/AdminReservationGraphsBox';
 import AdminReservationTodayBox from '../../../components/admincomponents/adminDashBoard/adminDashBoardBox/AdminReservationTodayBox/AdminReservationTodayBox';
 import AdminReservationAllBox from '../../../components/admincomponents/adminDashBoard/adminDashBoardBox/AdminReservationAllBox/AdminReservationAllBox';
 import { useQueryClient } from 'react-query';
+import AdminWeekReservationGraphsBox from '../../../components/admincomponents/adminDashBoard/adminDashBoardBox/AdminWeekReservationGraphsBox/AdminWeekReservationGraphsBox';
+import AdminMonthAndDoctorReservationGraphsBox from '../../../components/admincomponents/adminDashBoard/adminDashBoardBox/AdminMonthAndDoctorReservationGraphsBox/AdminMonthAndDoctorReservationGraphsBox';
 
 function AdminDashBoard(props) {
     const queryClient = useQueryClient();
@@ -15,13 +16,16 @@ function AdminDashBoard(props) {
     return (
         <AdminContainer>
             <div css={s.layout}>
-                <AdminReservationGraphsBox />
+                <AdminMonthAndDoctorReservationGraphsBox />
                 <AdminNoticeBox />
                 {
-                    userInfo?.data?.roles[0]?.id !== 4 &&
+                    userInfo?.data?.roles[0]?.id !== 4 ?
                     <>
                         <AdminReservationTodayBox />
                         <AdminReservationAllBox />
+                    </> :
+                    <>
+                        <AdminWeekReservationGraphsBox />
                     </>
                 }
             </div>

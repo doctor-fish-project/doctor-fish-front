@@ -69,6 +69,7 @@ function MyReviewsPage(props) {
                             ))
                         }
                     </div>
+                    <div ref={loadMoreRef}></div>
                 </SubContainer>
             </SubLayout>
             <Routes>

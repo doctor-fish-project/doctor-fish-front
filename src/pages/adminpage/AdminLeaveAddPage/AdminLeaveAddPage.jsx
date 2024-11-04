@@ -57,7 +57,7 @@ function AdminLeaveAddPage(props) {
         const month = parse(today.getMonth() + 1);
         const day = parse(today.getDate());
         setLeaveDate({
-            date: `${year}-${month}-${day}`,
+            date: `${year}-${month}-${day}`
         })
     }, [])
 
@@ -107,6 +107,7 @@ function AdminLeaveAddPage(props) {
                 }))
                 setTimeOptions(timeOptions)
             }
+
         }
     )
 
@@ -132,6 +133,10 @@ function AdminLeaveAddPage(props) {
         {
             onSuccess: response => {
                 alert("연차 신청 완료");
+                leaves.refetch();
+            },
+            onError: error => {
+                alert("연차 등록 실패");
                 leaves.refetch();
             }
         }
@@ -223,6 +228,7 @@ function AdminLeaveAddPage(props) {
                                         indicatorSeparator: () => null
                                     }}
                                     options={timeOptions}
+                                    value={timeOptions.filter(option => option.label === leaveDate.leaveTime)[0]}
                                 />
                                 {
                                     !!leaveDate.leaveTime &&
@@ -257,6 +263,7 @@ function AdminLeaveAddPage(props) {
                                                 indicatorSeparator: () => null,
                                             }}
                                             options={timeOptions.slice(leaveTimeIdx)}
+                                            value={leaveDate.value}
                                         />
                                     </>
                                 }

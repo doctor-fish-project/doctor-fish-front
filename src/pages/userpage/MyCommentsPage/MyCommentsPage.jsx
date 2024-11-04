@@ -89,7 +89,7 @@ function MyCommentsPage(props) {
             <UserSubLayout isShow={isShow}>
                 <UserSubContainer>
                     <BackButton setShow={setShow} title={"내 댓글"} />
-                    <div css={s.layout} ref={loadMoreRef}>
+                    <div css={s.layout}>
                         <div css={s.reviewContainer}>
                             {
                                 myComments?.data?.pages?.map(page => page?.data?.comments?.map(comment =>
@@ -120,6 +120,7 @@ function MyCommentsPage(props) {
                             }
                         </div>
                     </div>
+                    <div ref={loadMoreRef}></div>
                 </UserSubContainer>
             </UserSubLayout>
             <Routes>

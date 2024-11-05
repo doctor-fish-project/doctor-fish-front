@@ -53,7 +53,7 @@ function AdminNoticePage(props) {
         ["noticesQuery", searchParams.get("page"), searchClick],
         async () => await adminInstance.get(`/admin/announce/list?page=${searchParams.get("page")}&limit=${limit}`, {params: {searchText}}),
         {
-            enabled: true,
+            enabled: !!searchParams.get("page"),
             refetchOnWindowFocus: false,
             retry: 0,
             onSuccess: response => {

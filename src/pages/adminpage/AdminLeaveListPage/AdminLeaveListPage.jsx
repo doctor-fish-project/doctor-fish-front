@@ -44,7 +44,7 @@ function AdminLeaveListPage(props) {
         ["leavesQuery", searchParams.get("page")],
         async () => await adminInstance.get(`/admin/leave/list/info?page=${searchParams.get("page")}&limit=${limit}`),
         {
-            enabled: true,
+            enabled: !!searchParams.get("page"),
             refetchOnWindowFocus: false,
             retry: 0,
             onSuccess: response => {

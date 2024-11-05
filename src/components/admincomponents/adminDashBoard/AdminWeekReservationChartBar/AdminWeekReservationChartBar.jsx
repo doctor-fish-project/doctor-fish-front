@@ -55,7 +55,6 @@ export default function AdminWeekReservationChartBar(props) {
         responsive: true,
         plugins: {
             legend: {
-                display: false,
                 position: 'top',
             },
         },
@@ -64,14 +63,10 @@ export default function AdminWeekReservationChartBar(props) {
     const data = {
         labels: weekReservations?.data?.data?.weeks?.map(i => i.day),
         datasets: (weekReservations.isSuccess && weekReservations?.data?.data) ?
-        [{ 
-    
-            data: weekReservations?.data?.data?.reservations?.map(reservation => reservation.count),
-            backgroundColor: weekReservations?.data?.data?.reservations?.map((reservation, idx) => COLORS[idx])
-        }]
-        : []
+            weekReservations?.data?.data?.reservations?.map((reservation, idx) => {
+                return { label: reservation.name, data: reservation?.count?.split(""), backgroundColor: COLORS[idx] }
+            }) : []
     };
-
     return (
         <div style={{
             display: "flex",

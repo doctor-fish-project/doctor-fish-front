@@ -24,6 +24,7 @@ function AdminLeaveAddPage(props) {
 
     const [timeOptions, setTimeOptions] = useState([]);
     const [leaveTimeIdx, setLeaveTimeIdx] = useState(0);
+    const [leaveId, setLeaveId] = useState(0);
     const [totalPageCount, setTotalPageCount] = useState(1);
     const [leaveDate, setLeaveDate] = useState({
         date: "",
@@ -94,7 +95,7 @@ function AdminLeaveAddPage(props) {
         async () => await adminInstance.get(`/times`, {
             params: {
                 leaveDate: leaveDate.date
-            }   
+            }
         }),
         {
             enabled: leaveDate.date !== "",
@@ -115,7 +116,7 @@ function AdminLeaveAddPage(props) {
         ["leavesQuery", searchParams.get("page")],
         async () => await adminInstance.get(`/admin/leave/list?page=${searchParams.get("page")}&limit=${limit}`),
         {
-            enabled: true,
+            enabled: !!searchParams.get("page"),
             refetchOnWindowFocus: false,
             retry: 0,
             onSuccess: response => {
@@ -123,7 +124,7 @@ function AdminLeaveAddPage(props) {
                     response?.data?.leaveCount % limit === 0
                         ? response?.data?.leaveCount / limit
                         : Math.floor(response?.data?.leaveCount / limit) + 1);
-                
+
             }
         }
     )
@@ -142,8 +143,66 @@ function AdminLeaveAddPage(props) {
         }
     )
 
+    const checkLeave = useMutation(
+        async () => await adminInstance.put(`/admin/leave/accept/${leaveId}`),
+        {
+            onSuccess: response => {
+                alert("연차 확인 성공")
+                setLeaveId(0)
+                leaves.refetch()
+            },
+            onError: error => {
+                alert("연차 확인 실패")
+            }
+        }
+    )
+
+    const cancelLeave = useMutation(
+        async () => await adminInstance.put(`/admin/leave/cancel/${leaveId}`),
+        {
+            onSuccess: response => {
+                alert("연차 취소 성공")
+                setLeaveId(0)
+                leaves.refetch()
+            },
+            onError: error => {
+                alert("연차 취소 실패")
+            }
+        }
+    )
+
+    const handleLeaveOnClick = () => {
+        if(leaveDate.endTime === "" || leaveDate.leaveTime === "") {
+            alert("시간을 입력해주세요")
+            return;
+        }
+        if(leaveInput.reason === "") {
+            alert("사유를 입력해주세요")
+            return;
+        }
+        leave.mutateAsync().catch(() => {})
+    }
+
     const handleResetLeaveOnClick = () => {
         window.location.reload();
+    }
+
+    const handleCancelOrCheckOnClick = (id) => {
+        setLeaveId(leaveId === id ? 0 : id)
+    }
+
+    const handleCheckOnClick = (e) => {
+        e.stopPropagation();
+        if (window.confirm("확인 하시겠습니까?")) {
+            checkLeave.mutateAsync().catch(() => { })
+        }
+    }
+
+    const handleCancelOnClick = (e) => {
+        e.stopPropagation();
+        if (window.confirm("취소 하시겠습니까?")) {
+            cancelLeave.mutateAsync().catch(() => { })
+        }
     }
 
     const handleLeaveInputOnChange = (e) => {
@@ -182,7 +241,7 @@ function AdminLeaveAddPage(props) {
     return (
         <AdminContainer>
             <AdminPageLayout title={"연차 신청"}
-                onCheckClick={() => leave.mutateAsync().catch(() => { })}
+                onCheckClick={handleLeaveOnClick}
                 onCancelClick={handleResetLeaveOnClick}>
                 <div css={s.layout}>
                     <div css={s.topContainer}>
@@ -276,25 +335,48 @@ function AdminLeaveAddPage(props) {
                     </div>
                     <AdminTableLayout>
                         <AdminTableHeader tableheaders={leaveTableHeaders?.data?.data} />
-                            <tbody css={s.body(leaveTableHeaders?.data?.data?.length)}>
-                                {
-                                    leaves?.data?.data?.leaves?.map((leave, idx) =>
-                                        <tr key={leave.id}>
-                                            <td>{idx + 1}</td>
-                                            <td>{leave?.registerDate.slice(0,16).replace("T", "-")}</td>
-                                            <td>{leave?.leaveDate.slice(0,16).replace("T", "-")}</td>
-                                            <td>{leave?.endDate.slice(0,16).replace("T", "-")}</td>
-                                            <td>{leave?.reason}</td>
-                                            <td>
-                                                {
-                                                    leave.status === 1 ? "진행 중"
-                                                    : leave.status === 2 ? "완료" : "취소"
-                                                }
-                                            </td>
-                                        </tr>
-                                    )
-                                }
-                            </tbody>
+                        <tbody css={s.body(leaveTableHeaders?.data?.data?.length)}>
+                            {
+                                leaves?.data?.data?.leaves?.map((leave, idx) =>
+                                    <tr key={leave.id}>
+                                        <td>{idx + 1}</td>
+                                        <td>{leave?.registerDate.slice(0, 16).replace("T", "-")}</td>
+                                        <td>{leave?.leaveDate.slice(0, 16).replace("T", "-")}</td>
+                                        <td>{leave?.endDate.slice(0, 16).replace("T", "-")}</td>
+                                        <td>{leave?.reason}</td>
+                                        {
+                                            leaveId === leave?.id ?
+                                                <td onClick={() => handleCancelOrCheckOnClick(leave?.id)}>
+                                                    {
+                                                        leave?.status === 1 &&
+                                                        <>
+                                                            {
+                                                                userInfo?.data?.roles[0]?.id === 4 &&
+                                                                <button onClick={(e) => handleCheckOnClick(e)}>연차 확인</button>
+                                                            }
+                                                            <button onClick={(e) => handleCancelOnClick(e)}>연차 취소</button>
+                                                        </>
+                                                    }
+                                                    {
+                                                        leave?.status === 2 && <button onClick={(e) => handleCancelOnClick(e)}>연차 취소</button>
+                                                    }
+                                                    {
+                                                        leave?.status === 3 && "취소"
+                                                    }
+                                                </td>
+                                                :
+                                                <td onClick={() => handleCancelOrCheckOnClick(leave.id)}>
+                                                    {
+                                                        leave.status === 1 ? "진행 중"
+                                                            : leave.status === 2 ? "완료"
+                                                                : "취소"
+                                                    }
+                                                </td>
+                                        }
+                                    </tr>
+                                )
+                            }
+                        </tbody>
                     </AdminTableLayout>
                     <AdminPagination searchParams={searchParams} count={totalPageCount} onChange={handlePageOnChange} />
                 </div>

@@ -70,7 +70,7 @@ export default function AdminMonthReservationChartBar({ year }) {
             }]
             : []
     };
-
+    
     return (
         <div style={{
             display: "flex",

@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactSelect from 'react-select';
 
-function AdminSelectBox({ onChange, timeOptions, leaveDate }) {
+function AdminSelectBox({ onChange, timeOptions, leaveDate, width }) {
 
     return (
         <ReactSelect
@@ -13,7 +13,7 @@ function AdminSelectBox({ onChange, timeOptions, leaveDate }) {
                     margin: "0",
                     border: "none",
                     padding: "0px 11px",
-                    width: "220px",
+                    width: `${width}`,
                     outline: "none",
                     boxShadow: "none",
                     textAlign: "center",

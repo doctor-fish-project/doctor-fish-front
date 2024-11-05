@@ -201,12 +201,22 @@ function AdminLeaveAddPage(props) {
                             </div>
                             <div css={s.inputBox}>
                                 <p>연차 시간: </p>
-                                <AdminSelectBox onChange={handleLeaveDateOnChange} timeOptions={timeOptions} leaveDate={timeOptions.filter(option => option.label === leaveDate.leaveTime)[0]}/>
+                                <AdminSelectBox 
+                                    onChange={handleLeaveDateOnChange} 
+                                    timeOptions={timeOptions} 
+                                    leaveDate={timeOptions.filter(option => option.label === leaveDate.leaveTime)[0]}
+                                    width={"220px"}
+                                />
                                 {
                                     !!leaveDate.leaveTime &&
                                     <>
                                         <FaAngleRight />
-                                        <AdminSelectBox onChange={handleEndDateOnChange} timeOptions={timeOptions.slice(leaveTimeIdx)} leaveDate={leaveDate.value} />
+                                        <AdminSelectBox 
+                                            onChange={handleEndDateOnChange} 
+                                            timeOptions={timeOptions.slice(leaveTimeIdx)} 
+                                            leaveDate={leaveDate.value} 
+                                            width={"220px"}
+                                        />
                                     </>
                                 }
                             </div>

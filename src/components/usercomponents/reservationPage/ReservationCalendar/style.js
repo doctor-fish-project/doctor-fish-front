@@ -11,7 +11,7 @@ export const layout = css`
     height: 250px;
 
     .react-calendar__tile--select {
-        background-color: #2E5984;
+        background-color: #4B61AA;
         color: #ffffff;
     }
 
@@ -90,7 +90,7 @@ export const layout = css`
     }
 
     .react-calendar__tile--now {
-        background-color: #2E5984;
+        background-color: #4B61AA;
         color: #ffffff;
     }
 
@@ -100,12 +100,12 @@ export const layout = css`
     }
 
     .react-calendar__tile--now.react-calendar__tile--active {
-        background-color: #2E5984;
+        background-color: #4B61AA;
         color: #ffffff;
     }
 
     .react-calendar__tile:focus {
         color: #ffffff;
-        background-color: #2E5984;        
+        background-color: #4B61AA;      
     }
 `;

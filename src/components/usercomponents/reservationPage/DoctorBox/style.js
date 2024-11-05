@@ -15,7 +15,7 @@ export const layout = css`
         box-sizing: border-box;
         border-radius: 10px;
         padding: 10px;
-        color: #4B61AA;;
+        color: #4B61AA;
     }
 `;
 

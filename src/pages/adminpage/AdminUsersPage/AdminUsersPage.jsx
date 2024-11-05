@@ -35,7 +35,7 @@ function AdminUsersPage(props) {
 
     const userTableHeaders = useQuery(
         ["usersTableHeadersQuery"],
-        async () => await adminInstance.get(`/tableheader?pathName=${location.pathname}`),
+        async () => await adminInstance.get(`/admin/tableheader?pathName=${location.pathname}`),
         {
             enabled: true,
             refetchOnWindowFocus: false,

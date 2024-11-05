@@ -11,6 +11,7 @@ import { FaAngleRight } from 'react-icons/fa6';
 import AdminPagination from '../../../components/admincomponents/AdminPagination/AdminPagination';
 import AdminTableLayout from '../../../components/admincomponents/adminTable/AdminTableLayout/AdminTableLayout';
 import AdminTableHeader from '../../../components/admincomponents/adminTable/AdminTableHeader/AdminTableHeader';
+import AdminSelectBox from '../../../components/admincomponents/AdminSelectBox/AdminSelectBox';
 
 function AdminLeaveAddPage(props) {
     const nav = useNavigate();
@@ -135,6 +136,7 @@ function AdminLeaveAddPage(props) {
             onSuccess: response => {
                 alert("연차 신청 완료");
                 leaves.refetch();
+                window.location.reload();
             },
             onError: error => {
                 alert("연차 등록 실패");
@@ -258,71 +260,21 @@ function AdminLeaveAddPage(props) {
                             </div>
                             <div css={s.inputBox}>
                                 <p>연차 시간: </p>
-                                <ReactSelect
-                                    placeholder="시간을 선택하세요"
-                                    onChange={handleLeaveDateOnChange}
-                                    styles={{
-                                        control: (style) => ({
-                                            ...style,
-                                            margin: "0",
-                                            border: "none",
-                                            padding: "0px 11px",
-                                            width: "220px",
-                                            outline: "none",
-                                            boxShadow: "none",
-                                            textAlign: "center",
-                                            ":active": {
-                                                border: "none",
-                                            },
-                                            ":focus": {
-                                                border: "none",
-                                                boxShadow: "none"
-                                            }
-                                        }),
-                                        input: (style) => ({
-                                            ...style,
-                                            boxShadow: "none", // input에 box-shadow 제거
-                                            caretColor: "transparent", // 커서 깜빡임 제거
-                                        }),
-                                        indicatorSeparator: () => null
-                                    }}
-                                    options={timeOptions}
-                                    value={timeOptions.filter(option => option.label === leaveDate.leaveTime)[0]}
+                                <AdminSelectBox 
+                                    onChange={handleLeaveDateOnChange} 
+                                    timeOptions={timeOptions} 
+                                    leaveDate={timeOptions.filter(option => option.label === leaveDate.leaveTime)[0]}
+                                    width={"220px"}
                                 />
                                 {
                                     !!leaveDate.leaveTime &&
                                     <>
                                         <FaAngleRight />
-                                        <ReactSelect
-                                            placeholder="시간을 선택하세요"
-                                            onChange={handleEndDateOnChange}
-                                            styles={{
-                                                control: (style) => ({
-                                                    ...style,
-                                                    margin: "0",
-                                                    padding: "0px 11px",
-                                                    border: "none",
-                                                    width: "220px",
-                                                    outline: "none",
-                                                    boxShadow: "none",
-                                                    textAlign: "center",
-                                                    ":active": {
-                                                        border: "none",
-                                                    },
-                                                    ":focus": {
-                                                        border: "none",
-                                                        boxShadow: "none"
-                                                    }
-                                                }),
-                                                input: (style) => ({
-                                                    ...style,
-                                                    boxShadow: "none", // input에 box-shadow 제거
-                                                    caretColor: "transparent", // 커서 깜빡임 제거
-                                                }),
-                                                indicatorSeparator: () => null,
-                                            }}
-                                            options={timeOptions.slice(leaveTimeIdx)}
-                                            value={leaveDate.value}
+                                        <AdminSelectBox 
+                                            onChange={handleEndDateOnChange} 
+                                            timeOptions={timeOptions.slice(leaveTimeIdx)} 
+                                            leaveDate={leaveDate.value} 
+                                            width={"220px"}
                                         />
                                     </>
                                 }

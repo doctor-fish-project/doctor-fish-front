@@ -15,7 +15,7 @@ export const layout = css`
         padding: 10px 0;
         font-size: 20px;
         font-weight: 600;
-        background-color: #2E5984;
+        background-color: #4B61AA;
         color: white;
 
     }

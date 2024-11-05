@@ -158,6 +158,7 @@ export const commentBox = (length) => css`
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
+    margin-left: 15px;
     padding: ${(length > 0) ? "30px" : "0" };
     overflow-y: auto;
     ::-webkit-scrollbar {

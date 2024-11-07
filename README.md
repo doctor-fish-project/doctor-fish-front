@@ -1,70 +1,277 @@
-# Getting Started with Create React App
+# 🔖 목차
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+> ## [👥 팀원 소개](#-팀원-소개-1)
+>
+> ## [✨ 프로젝트 소개](#-프로젝트-소개-notion)
+>
+> ## [🤝 협업 방식](#-협업-방식-1)
+>
+> ## [📚 프로젝트 진행 상황 관리](#-프로젝트-진행-상황-관리-1)
+>
+> ## [🔍 브랜치 전략](#-브랜치-전략-1)
+>
+> ## [✔ 컨벤션](#-컨벤션-1)
 
-## Available Scripts
+<br/>
+<br/>
 
-In the project directory, you can run:
+## ✨ Doctor-Fish 프로젝트 소개 [Notion](https://www.notion.so/Doctor-fish-Project-9f3d1aeb38044644b760dce23112bd2a?pvs=4)
 
-### `npm start`
+## 🌟 제목
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+-  병원 어플 MEDIBOOK 개발
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 🚀 목적
 
-### `npm test`
+-  배운 내용 복습, 협업에 대한 이해
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 📆 제작 기간
 
-### `npm run build`
+-  2024.09.30 ~ 2024.11.13
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+-  관리자 로그인
+-  관리자 메뉴
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+    >  전체 예약 & 당일 예약
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+    >  리뷰 및 댓글 관리
 
-### `npm run eject`
+    >  회원 관리
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+    >  관리자 추가(회원가입)
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+    >  연차 신청 & 연차 관리
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+    >  의사 정보 수정 (소개글 및 약력)
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+    >  공지사항
 
-## Learn More
+    >  설정(준비중)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+-  사용자 로그인 & 회원가입
+-  사용자 메뉴
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+    >  예약 신청 & 예약 조회
 
-### Code Splitting
+    >  공지사항 및 예약 알림
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+    >  리뷰 작성 & 리뷰 좋아요 & 댓글 작성 
 
-### Analyzing the Bundle Size
+    >  의사 정보 
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+    >  사용자 정보 수정
 
-### Making a Progressive Web App
+    >  내 작성 리뷰 & 댓글 조회  -> 삭제 및 수정 가능
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+<br/>
+<br/>
 
-### Advanced Configuration
+## 👥 팀원 소개
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+<div align="center">
+<img src="https://github.com/user-attachments/assets/a01db6f4-38cb-4f72-b7f6-92fb14d0fc60" />
+<table >
+    <thead>
+        <tr>
+            <th align="center"><span>백승주(팀장)</span></th>
+            <th align="center"><span>성창해</span></th>
+            <th align="center"><span>김해민</span></th>
+            <th align="center"><span>김지현</span></th>
+        </tr>
+    </thead>
+    <tbody>
+        <td align="center">
+            <a href="">
+            </a>
+        </td>
+        <td align="center">
+            <a href="">
+            </a>
+        </td>
+        <td align="center">
+            <a href="">
+            </a>
+        </td>
+        <td align="center">
+            <a href="">
+            </a>
+        </td>
+    </tbody>
+</table>
+</div>
 
-### Deployment
+<br/>
+<br/>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## 💼 역할 분담
 
-### `npm run build` fails to minify
+>  <h3>팀장: 백승주</h3>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+    -  사용자 페이지 CSS
+    -  관리자 페이지 CSS
+    -  ppt 제작
+    -  최종 발표
+
+>  <h3>팀원: 성창해</h3>
+
+>  <h3>팀원: 김해민</h3>
+
+>  <h3>팀원: 김지현</h3>
+
+>     공동 작업
+    -  API명세서 작성
+    -  DB 테이블 구조 구성
+
+<br/>
+<br/>
+
+## 🤝 협업 방식
+
+1. 해당하는 업무에 대해 GitHub Issue를 생성합니다.
+2. GitHub Actions에 의해 자동으로 생성된 브랜치로 전환하여 해당하는 업무를 진행합니다.
+3. 작업을 완료하면 각자의 생성한 브랜치에서 코드를 push합니다.
+4. PR(Pull Request) 을 오픈합니다.
+
+-   PR(pull request)을 오픈하면, 팀장이 코드를 확인하고 승인합니다.
+
+-   코드 리뷰 & 승인은 팀장이 일임했지만, 팀원들의 코드 스타일은 다같이 공유하며 서로 잘 이해할 수 있도록 다 같이 정리하는 시간을 가지도록 하였습니다.
+
+*   컨펌 담당
+    -   백승주 : <code>성창해</code>
+    -   김해민 : <code>성창해</code>
+    -   김지현 : <code>성창해</code>
+
+5. PR이 merge되어 close 되면 해당 이슈는 자동으로 Done상태로 변경됩니다.
+
+<br/>
+<br/>
+
+## 📚 프로젝트 진행 상황 관리
+
+-   <a href="https://github.com/doctor-fish-project/doctor-fish-front/issues?q=is%3Aissue+is%3Aclosed">📋 GitHub Issues(Front) & </a>
+    <a href="https://github.com/doctor-fish-project/doctor-fish-back/issues?q=is%3Aissue+is%3Aclosed"> GitHub Issues(Back) </a>
+    -   간편한 이슈 생성을 위해 이슈 템플릿을 만들어 사용했습니다. + 팀원이 현재 어떤 작업을 진행하고 있는지를 바로 알 수 있어 의사소통 비용을 줄일 수 있었습니다.
+-   <a href="https://github.com/orgs/doctor-fish-project/projects/1">📁 GitHub Projects</a>
+    -   칸반 보드로 프로젝트 진행 상황을 한 눈에 확인할 수 있어 일정을 관리하기 수월했습니다.
+
+<br/>
+<br/>
+
+## 🔍 브랜치 전략
+
+<h3>💡 GitHub Flow 전략</h3>
+
+-   개발과 동시에 지속적으로 배포를 진행할 것이 아니라, 기능을 모두 개발하고 최종적으로 배포를 할 예정이었기 때문에 Git flow에 비해 흐름이 단순해짐에 따라 그 규칙도 단순한 GitHub Flow 전략이 적합하다고 생각했습니다.
+
+-   프로젝트 기간 동안 팀원들이 같은 시간에 작업하기 때문에 잦은 충돌이 발생할 것을 우려하여 충돌의 크기를 줄이고자 GitHub Flow 전략을 채택하여 작은 단위로 이슈를 쪼개 이슈 별로 브랜치를 분기하고 main 브랜치에 지속적으로 merge 하는 방식으로 진행했습니다.
+
+-   기본적으로 master branch에 대한 규칙만 정확하게 정립되어 있다면 나머지 가지들에 대해서는 특별한 관여를 하지 않으며 pull request기능을 사용하도록 권장하였습니다.
+
+<br/>
+<br/>
+
+## ✔ 컨벤션
+
+팀원 간의 원활한 소통과 협업을 위해 커밋 컨벤션과, 코드 컨벤션을 만들어 이를 따랐습니다. 리드미에는 간략히 작성하고, 자세한 컨벤션은 각각의 타이틀에 링크된 깃허브 위키에 적어두었습니다.
+
+<h3>
+<a href="">📍 커밋 컨벤션</a>
+</h3>
+
+<div>
+<pre background-color="#dbdbdb">
+<p>
+1. 커밋 유형 지정
+    - 커밋 유형은 영어 대문자로 작성하기
+    - 커밋 유형
+    - Feat : 새로운 기능 추가
+    - Fix : 버그 수정
+    - Docs : 문서 수정
+    - Style : 코드 formatting, 세미콜론 누락, 코드 자체의 변경이 없는 경우
+    - Refactor : 코드 리팩토링
+    - Test : 테스트 코드, 리팩토링 테스트 코드 추가
+    - Chore : 패키지 매니저 수정, 그 외 기타 수정 ex) .gitignore
+    - Design : CSS 등 사용자 UI 디자인 변경
+    - Comment : 필요한 주석 추가 및 변경
+    - Rename : 파일 또는 폴더 명을 수정하거나 옮기는 작업만인 경우
+    - Remove : 파일을 삭제하는 작업만 수행한 경우
+    - !BREAKING CHANGE : 커다란 API 변경의 경우
+    - !HOTFIX : 급하게 치명적인 버그를 고쳐야 하는 경우
+
+🧾 2. 제목과 본문을 빈행으로 분리 - 커밋 유형 이후 제목과 본문은 한글로 작성하여 내용이 잘 전달될 수 있도록 할 것 - 본문에는 변경한 내용과 이유 설명 (어떻게보다는 무엇 & 왜를 설명)
+
+#️⃣ 3. 제목 첫 글자는 대문자로, 끝에는 . 금지
+
+↩️ 4. 제목은 영문 기준 50자 이내로 할 것
+
+⏺️ 5. 자신의 코드가 직관적으로 바로 파악할 수 있다고 생각하지 말자
+
+👆 6. 여러가지 항목이 있다면 글머리 기호를 통해 가독성 높이기
+
+</p>
+</pre>
+</div>
+
+<h3>
+<a href="">📍 코드 컨벤션</a>
+</h3>
+<div>
+<pre>
+<p>
+🛼 문자열을 처리할 때는 쌍따옴표를 사용하도록 합니다.
+
+🐫 문장이 종료될 때는 세미콜론을 붙여줍니다.
+
+💄 함수명, 변수명은 카멜케이스로 작성합니다.
+
+🐫 가독성을 위해 한 줄에 하나의 문장만 작성합니다.
+
+❓ 주석은 설명하려는 구문에 맞춰 들여쓰기 합니다.
+
+🔠 연산자 사이에는 공백을 추가하여 가독성을 높입니다.
+
+🔢 콤마 다음에 값이 올 경우 공백을 추가하여 가독성을 높입니다.
+
+💬 생성자 함수명의 맨 앞글자는 대문자로 합니다.
+
+🔚 var는 절대 사용하지 않는다. (const를 let 보다 위에 선언한다)
+
+👆 const와 let은 사용 시점에 선언 및 할당을 한다. (함수는 변수 선언문 다음에 오도록한다.)
+
+✏️ 외부 모듈과 내부 모듈을 구분하여 사용한다.
+
+🧮 배열과 객체는 반드시 리터럴로 선언한다. (new 사용 X)
+
+📠 배열 복사 시 반복문을 사용하지 않는다.
+
+😎 배열의 시작 괄호 안에 요소가 줄 바꿈으로 시작되었다면 끝 괄호 이전에도 일관된 줄 바꿈 해야한다. (일관되게 모두 줄 바꿈을 해주어야 한다.)
+
+🧶 객체의 프로퍼티가 1개인 경우에만 한 줄 정의를 허용하며, 2개 이상일 경우에는 개행을 강제한다. (객체 리터럴 정의 시 콜론 앞은 공백을 허용하지 않음 콜론 뒤는 항상 공백을 강제)
+
+🧂 메서드 문법 사용 시 메서드 사이에 개행을 추가한다.
+
+🌭 화살표 함수의 파라미터가 하나이면 괄호를 생략한다.
+
+🍳 변수 등을 조합해서 문자열을 생성하는 경우 템플릿 문자열을 이용한다.
+
+🧇 변수 등을 조합해서 문자열을 생성하는 경우 템플릿 문자열을 이용한다.
+
+🥞 wildcard import는 사용하지 않는다. (import문으로부터 직접 export하지 않는다.)
+
+🥖 한 줄짜리 블록일 경우라도 {}를 생략하지 않으며 명확히 줄 바꿈 하여 사용한다.
+
+🥯 switch-case 사용 시 첫 번째 case문을 제외하고 case문 사용 이전에 개행한다.
+
+🥐 삼중 등호 연산자인 ===, !==만 사용한다.
+
+🚐 반복문 사용은 일반화된 순회 메서드 사용을 권장한다.
+
+🚑 람다함수 안에서 밖에 있는 변수를 사용하지 말라
+
+🚚 코드 블럭 주석 처리를 위해서는 한 줄 주석을 사용한다. 여러 줄 주석을 작성할 때는 \*의 들여쓰기를 맞춘다. 주석의 첫 줄과 마지막 줄은 비워둠
+
+💫 시작 괄호 바로 다음과 끝 괄호 바로 이전에 공백이 있으면 안 된다.
+
+</p>
+</pre>
+</div>

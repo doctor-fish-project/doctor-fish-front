@@ -22,6 +22,7 @@ export const dateBox = css`
     box-sizing: border-box;
     display: flex;
     justify-content: flex-end;
+    margin-bottom: 10px;
     border-top: 1px solid #dbdbdb;
     border-bottom: 1px solid #dbdbdb;
     padding-right: 20px;
@@ -50,5 +51,6 @@ export const contentBox = css`
 
     .ql-editor {
         border: none !important;
+        padding: 0;
     }
 `;

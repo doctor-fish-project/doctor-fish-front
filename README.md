@@ -186,9 +186,45 @@
 
 <br/>
 
-***ORM: Mybatis***
+### ⛓️ pom.xml(Back-end)
 
-<br/>
+| 라이브러리                          | 용도                                  |
+| ----------------------------------- | ------------------------------------- |
+| lombok                              | 어노테이션(@)으로 코드 자동 생성      |
+| spring-boot-starter-security        | spring security 적용                  |
+| spring-boot-starter-mail            | 이메일 인증                          |
+| spring-boot-starter-validation      | 입력 값 검증                          |
+| spring-boot-starter-web             | Spring Web 프로젝트에 필수 라이브러리 |
+| spring-boot-starter-test            | 프로젝트 작동을 테스트하는 역할       |
+| mybatis-spring-boot-starter         | 백엔드에서 MyBatis 문법 적용          |
+| spring-boot-devtools                | 빠른 재시작                           |
+| mysql-connector-java                | DB인 MySQL과 연결                     |
+| jjwt-api / jjwt-impl / jjwt-jackson | JWT(JSON Web Token) 활용              |
+| spring-boot-starter-oauth2-client   | Oauth2 인증                           |
+| spring-boot-starter-aop             | spring aop 적용                       |
+
+### ⛓️ node_modules(Front-end)
+
+| 모듈 이름                                                                   | 용도                                       |
+| --------------------------------------------------------------------------- | ------------------------------------------ |
+| emotion/react, emotion/styled                                               | 리액트 내 css 적용                         |
+| testing-library/jest-dom, testing-library/react, testing-library/user-event | 리액트 dom 테스트                          |
+| axios                                                                       | 서버로 요청을 보내 통신                    |
+| firebase                                                                    | 저장된 이미지를 업로드                     |
+| react-dom, react-router-dom                                                 | 주소 요청 발생 시 각 페이지로 이동         |
+| react-calendar                                                              | 달력을 커스텀하여 사용                     |
+| react-icons                                                                 | 리액트 아이콘을 불러와 사용                |
+| react-query                                                                 | 서버 데이터 동기화(fetching, caching) 지원 |
+| react-quill                                                                 | 글 작성 요소로 커스텀하여 사용             |
+| react-js-pagination                                                         | 여러개의 컨텐츠를 여러개의 페이지로 이동    |
+| react-select                                                                | select 요소를 쉽게 사용                    |
+| react-modal                                                                 | 페이지를 modal창으로 사용                   |
+| react, react-scripts                                                        | 리액트 라이브러리 적용                     |
+| chart.js                                                                    | 가져온 데이터를 차트로 시각화하는 역할     |
+| recoil                                                                      | 전역 상태 관리                             |
+| styled-reset                                                                | 초기 CSS 스타일 재설정                     |
+| sweetalert2                                                                 | 알림창 구현                                |
+| uuid                                                                        | 고유 아이디 값을 생성하는 함수 제공        |
 
 ## 🤝 협업 방식
 

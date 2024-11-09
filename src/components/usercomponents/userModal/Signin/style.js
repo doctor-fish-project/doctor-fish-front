@@ -97,3 +97,62 @@ export const findBox = css`
         color: gray;
     }
 `;
+
+export const pBox = css`
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 45px 0 13px;
+    color: #808080;
+    width: 100%;
+
+    & div {
+        box-sizing: border-box;
+        display: flex;
+        border-bottom: 1px solid #808080;
+        width: 95px;
+        height: 0%;
+    }
+`;
+
+export const oAuthBox = css`
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+
+    & > a {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0;
+        color: black;
+
+        &:nth-of-type(1) {
+            width: 50px;
+            height: 50px;
+            & > svg {
+                font-size: 50px;
+            }
+        }
+            
+        &:nth-of-type(2) {
+            width: 50px;
+            height: 50px;
+            color: #3C1E1E;
+            background-color: #FAE100;
+            border-radius: 5px;
+            & > svg {
+                font-size: 42px;
+            }
+        }
+        &:nth-of-type(3) {
+            width: 50px;
+            height: 50px;
+            color: white;
+            background-color: #03C75A;
+            border-radius: 5px;
+        }
+    }
+`

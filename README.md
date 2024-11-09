@@ -400,4 +400,9 @@
 
 ## **✨ 화면 구현 및 코드 리뷰**
 
+<div align="center" dir="auto">
+    <img src="https://github.com/user-attachments/assets/6280c803-1fc4-4dd7-8767-e1e1d6a36333" align="center" width="100%"/>
+    <b>로그인 화면</b>
+</div>
+
 <br/>

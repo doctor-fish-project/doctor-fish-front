@@ -7,6 +7,9 @@ import { signinModalAtom, signupModalAtom } from '../../../../atoms/modalAtoms';
 import { useNavigate } from 'react-router-dom';
 import { useMutation } from 'react-query';
 import { instance } from '../../../../apis/utils/instance';
+import { FcGoogle } from "react-icons/fc";
+import { SiNaver } from "react-icons/si";
+import { RiKakaoTalkFill } from "react-icons/ri";
 import Swal from 'sweetalert2';
 import CancelButton from '../CancelButton/CancelButton';
 
@@ -163,6 +166,16 @@ function Signin({ containerRef }) {
                 <div css={s.findBox}>
                     <p>계정이 없으신가요?</p>
                     <button onClick={handleSignupOnClick}>회원가입</button>
+                </div>
+                <div css={s.pBox}>
+                    <div></div>
+                    <p>소셜 미디어로 로그인</p>
+                    <div></div>
+                </div>
+                <div css={s.oAuthBox}>
+                    <a href=""><FcGoogle /></a>
+                    <a href=""><RiKakaoTalkFill /></a>
+                    <a href=""><SiNaver /></a>
                 </div>
             </div>
         </ModalLayout>

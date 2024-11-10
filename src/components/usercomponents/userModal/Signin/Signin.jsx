@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import * as s from './style';
 import ModalLayout from '../ModalLayout/ModalLayout';
 import { useRecoilState, useSetRecoilState } from 'recoil';
-import { signinModalAtom, signupModalAtom } from '../../../../atoms/modalAtoms';
+import { findUserModalAtom, signinModalAtom, signupModalAtom } from '../../../../atoms/modalAtoms';
 import { useNavigate } from 'react-router-dom';
 import { useMutation } from 'react-query';
 import { instance } from '../../../../apis/utils/instance';
@@ -17,6 +17,7 @@ function Signin({ containerRef }) {
     const nav = useNavigate();
 
     const [signinOpen, setSigninOpen] = useRecoilState(signinModalAtom);
+    const setFindUserOpen = useSetRecoilState(findUserModalAtom)
     const setSignupOpen = useSetRecoilState(signupModalAtom);
 
     const [ani, setAni] = useState("userModalOpen")
@@ -88,6 +89,13 @@ function Signin({ containerRef }) {
             }
         }
     })
+
+    const handleFindUserOnClick = () => {
+        closeModal();
+        setTimeout(() => {
+            setFindUserOpen(true)
+        }, 400)
+    }
 
     const handleSignupOnClick = () => {
         closeModal();
@@ -161,7 +169,7 @@ function Signin({ containerRef }) {
                 </div>
                 <div css={s.findBox}>
                     <p>패스워드를 잊어버리셨나요?</p>
-                    <button>재설정</button>
+                    <button onClick={handleFindUserOnClick}>재설정</button>
                 </div>
                 <div css={s.findBox}>
                     <p>계정이 없으신가요?</p>

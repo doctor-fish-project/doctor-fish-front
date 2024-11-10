@@ -10,6 +10,16 @@ export const signinModalAtom = atom({
     default: false
 })
 
+export const findUserModalAtom = atom({
+    key: "findUserModalAtom",
+    default: false
+})
+
+export const resetPasswordModalAtom = atom({
+    key: "resetPasswordModalAtom",
+    default: false
+})
+
 export const reservationModalAtom = atom({
     key: "reservationModalAtom",
     default:false

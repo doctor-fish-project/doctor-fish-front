@@ -427,3 +427,45 @@
     <img src="https://github.com/user-attachments/assets/655f781f-4e17-4c59-b7f8-2f6f65929e4b" align="center" width="100%"/>
     <b>의사 정보</b>
 </div>
+
+### 관리자 코드 리뷰
+
+<div align="center" dir="auto">
+    <img src="https://github.com/user-attachments/assets/b1fea71e-463d-4bb1-9471-5de23085fdaf" align="center" width="100%"/>
+    <b>관리자 로그인</b>
+</div>
+
+<br/>
+
+<div align="center" dir="auto">
+    <img src="https://github.com/user-attachments/assets/f9c5f656-6e28-4dce-ab44-dbf136624be7" align="center" width="100%"/>
+    <b>관리자 추가</b>
+</div>
+
+<br/>
+
+<div align="center" dir="auto">
+    <img src="https://github.com/user-attachments/assets/cde2b610-0c21-4cb0-8ad8-d758e0948145" align="center" width="100%"/>
+    <b>관리자 정보수정</b>
+</div>
+
+<br/>
+
+<div align="center" dir="auto">
+    <img src="https://github.com/user-attachments/assets/1c6db3ab-7a3a-45f7-9bcf-6149d471526f" align="center" width="100%"/>
+    <b>관리자 예약관리</b>
+</div>
+
+<br/>
+
+<div align="center" dir="auto">
+    <img src="https://github.com/user-attachments/assets/27f805c4-f34d-4dfd-995d-a4e0548da4ce" align="center" width="100%"/>
+    <b>연차신청</b>
+</div>
+
+<br/>
+
+<div align="center" dir="auto">
+    <img src="https://github.com/user-attachments/assets/0ed5c6af-c800-4294-8f22-36ef3191fd4c" align="center" width="100%"/>
+    <b>공시사항</b>
+</div>

@@ -424,8 +424,43 @@
 <br/>
 
 <div align="center" dir="auto">
+    <img src="https://github.com/user-attachments/assets/b3a609b1-d8de-46a7-babc-a3db796ffb38" align="center" width="100%"/>
+    <b>예약수정</b>
+</div>
+
+<br/>
+
+<div align="center" dir="auto">
+    <img src="https://github.com/user-attachments/assets/c89e577a-1a0b-4168-bb52-ea5825e976c1" align="center" width="100%"/>
+    <b>리뷰 & 댓글작성 & 좋아요</b>
+</div>
+
+<br/>
+
+<div align="center" dir="auto">
+    <img src="https://github.com/user-attachments/assets/160804f8-eed2-469d-91f2-143a6bc897aa" align="center" width="100%"/>
+    <b>리뷰수정 및 삭제&댓글수정</b>
+</div>
+
+<br/>
+
+<div align="center" dir="auto">
+    <img src="https://github.com/user-attachments/assets/22dd5f46-64f8-4429-95b6-a5c220b388f5" align="center" width="100%"/>
+    <b>내작성리뷰&댓글</b>
+</div>
+
+<br/>
+
+<div align="center" dir="auto">
     <img src="https://github.com/user-attachments/assets/655f781f-4e17-4c59-b7f8-2f6f65929e4b" align="center" width="100%"/>
     <b>의사 정보</b>
+</div>
+
+<br/>
+
+<div align="center" dir="auto">
+    <img src="https://github.com/user-attachments/assets/c6048932-125d-4beb-892d-e3625f87b0d3" align="center" width="100%"/>
+    <b>공지사항 확인</b>
 </div>
 
 ### 관리자 코드 리뷰
@@ -454,6 +489,13 @@
 <div align="center" dir="auto">
     <img src="https://github.com/user-attachments/assets/1c6db3ab-7a3a-45f7-9bcf-6149d471526f" align="center" width="100%"/>
     <b>관리자 예약관리</b>
+</div>
+
+<br/>
+
+<div align="center" dir="auto">
+    <img src="https://github.com/user-attachments/assets/00d0169c-2e06-4101-aed2-65693e9573fb" align="center" width="100%"/>
+    <b>관리자 리뷰관리</b>
 </div>
 
 <br/>

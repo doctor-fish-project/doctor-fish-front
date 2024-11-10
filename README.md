@@ -467,5 +467,5 @@
 
 <div align="center" dir="auto">
     <img src="https://github.com/user-attachments/assets/0ed5c6af-c800-4294-8f22-36ef3191fd4c" align="center" width="100%"/>
-    <b>공시사항</b>
+    <b>공지사항</b>
 </div>

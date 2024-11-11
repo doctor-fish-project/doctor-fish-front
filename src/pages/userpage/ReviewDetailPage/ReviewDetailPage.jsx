@@ -127,9 +127,10 @@ function ReviewDetailPage(props) {
                 comments.refetch();
             },
             onError: error => {
+                console.log(error)
                 Swal.fire({
                     icon: 'error',
-                    text: error?.response?.data[0]?.defaultMessage,
+                    text: "로그인 후 이용 가능합니다.",
                     backdrop: false,
                     showConfirmButton: false,
                     timer: 1000,

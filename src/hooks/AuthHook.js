@@ -20,6 +20,7 @@ function AuthHook(props) {
         if (!ref) {
             setRef(true);
         }
+
     }, [location.pathname]);
 
     const accessTokenValid = useQuery(
@@ -53,22 +54,25 @@ function AuthHook(props) {
                             icon: 'info',
                             title: '사용자 전용 페이지',
                             text: '로그인 하시겠습니까?',
-                            backdrop: false,
+                            backdrop: true,
                             showCancelButton: true,
                             confirmButtonText: '확인',
                             cancelButtonText: '취소',
-                            allowOutsideClick: false,
+                            allowOutsideClick: true,
                             customClass: {
                                 popup: 'custom-confirm-swal',
                                 container: 'container',
                                 confirmButton: 'confirmButton',
                             }
                         }).then(result => {
+                            console.log(result)
                             if (result.isConfirmed) {
                                 nav("/")
                                 setSigninModalState(true);
-                            } else if (result.isDismissed) {
+                                return
+                            } else if(result.isDismissed) {
                                 nav("/dashboard")
+                                return
                             }
                         })
                         break;

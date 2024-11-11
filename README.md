@@ -213,6 +213,18 @@
 ### 📐 ERD 설계도
 ![ERD](https://github.com/user-attachments/assets/f8814789-2e6a-476c-8379-6f163ec62673)
 
+<br/>
+<br/>
+
+## 📋 메뉴 구조도
+
+### 🧑‍🤝‍🧑 사용자 메뉴 구조도
+
+![사용자 메뉴 구조도](https://github.com/user-attachments/assets/0cf0a537-e9b4-412a-aef1-4f65aaca2c48)
+
+### 👷‍♂️ 관리자 메뉴 구조도
+
+![관리자 메뉴 구조도](https://github.com/user-attachments/assets/f4c6783a-587a-4953-af9c-80aa5da54487)
 
 ## 🤝 협업 방식
 

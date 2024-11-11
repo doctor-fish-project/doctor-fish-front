@@ -211,7 +211,7 @@
 ![관리자API명세서](https://github.com/user-attachments/assets/95dfb748-d030-4609-ade0-bddc4bdecbed)
 
 ### 📐 ERD 설계도
-![ERD](https://github.com/user-attachments/assets/0786033a-a37f-43fd-8a73-47b041db8ffa)
+![ERD](https://github.com/user-attachments/assets/f8814789-2e6a-476c-8379-6f163ec62673)
 
 
 ## 🤝 협업 방식

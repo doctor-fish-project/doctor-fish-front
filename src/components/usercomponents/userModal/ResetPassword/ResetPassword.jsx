@@ -17,7 +17,7 @@ function ResetPassword({ containerRef }) {
 
     const [ani, setAni] = useState("userModalOpen")
     const [userInput, setUserInput] = useState({
-        email: "",
+        userId: "",
         password: "",
         checkPassword: ""
     })
@@ -35,7 +35,7 @@ function ResetPassword({ containerRef }) {
     }, [userEmail])
 
     const resetPassword = useMutation(
-        async () => await instance.put("/auth/user/password", userInput),
+        async () => await instance.put("/auth/password", userInput),
         {
             onSuccess: response => {
                 Swal.fire({
@@ -49,7 +49,7 @@ function ResetPassword({ containerRef }) {
                         setResetPasswordOpen(false)
                         setSigninOpen(true)
                         setUserInput({
-                            email: "",
+                            userId: "",
                             password: "",
                             checkPassword: ""
                         })

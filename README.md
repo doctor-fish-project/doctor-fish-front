@@ -1,4 +1,6 @@
+<div align="center">
 <img src="https://github.com/user-attachments/assets/a01db6f4-38cb-4f72-b7f6-92fb14d0fc60" />
+</div>
 
 # 🔖 목차
 

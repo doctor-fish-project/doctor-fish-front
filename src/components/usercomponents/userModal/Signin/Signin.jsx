@@ -3,10 +3,13 @@ import React, { useState } from 'react';
 import * as s from './style';
 import ModalLayout from '../ModalLayout/ModalLayout';
 import { useRecoilState, useSetRecoilState } from 'recoil';
-import { signinModalAtom, signupModalAtom } from '../../../../atoms/modalAtoms';
+import { findUserModalAtom, signinModalAtom, signupModalAtom } from '../../../../atoms/modalAtoms';
 import { useNavigate } from 'react-router-dom';
 import { useMutation } from 'react-query';
 import { instance } from '../../../../apis/utils/instance';
+import { FcGoogle } from "react-icons/fc";
+import { SiNaver } from "react-icons/si";
+import { RiKakaoTalkFill } from "react-icons/ri";
 import Swal from 'sweetalert2';
 import CancelButton from '../CancelButton/CancelButton';
 
@@ -14,6 +17,7 @@ function Signin({ containerRef }) {
     const nav = useNavigate();
 
     const [signinOpen, setSigninOpen] = useRecoilState(signinModalAtom);
+    const setFindUserOpen = useSetRecoilState(findUserModalAtom)
     const setSignupOpen = useSetRecoilState(signupModalAtom);
 
     const [ani, setAni] = useState("userModalOpen")
@@ -85,6 +89,13 @@ function Signin({ containerRef }) {
             }
         }
     })
+
+    const handleFindUserOnClick = () => {
+        closeModal();
+        setTimeout(() => {
+            setFindUserOpen(true)
+        }, 400)
+    }
 
     const handleSignupOnClick = () => {
         closeModal();
@@ -158,11 +169,21 @@ function Signin({ containerRef }) {
                 </div>
                 <div css={s.findBox}>
                     <p>패스워드를 잊어버리셨나요?</p>
-                    <button>재설정</button>
+                    <button onClick={handleFindUserOnClick}>재설정</button>
                 </div>
                 <div css={s.findBox}>
                     <p>계정이 없으신가요?</p>
                     <button onClick={handleSignupOnClick}>회원가입</button>
+                </div>
+                <div css={s.pBox}>
+                    <div></div>
+                    <p>소셜 미디어로 로그인</p>
+                    <div></div>
+                </div>
+                <div css={s.oAuthBox}>
+                    <a href=""><FcGoogle /></a>
+                    <a href=""><RiKakaoTalkFill /></a>
+                    <a href=""><SiNaver /></a>
                 </div>
             </div>
         </ModalLayout>

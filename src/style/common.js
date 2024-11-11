@@ -88,8 +88,8 @@ export const reset = css`
             height: fit-content;
 
             :where(.swal2-icon).swal2-info {
-                border-color: #2E5984;
-                color: #2E5984;
+                border-color: #4B61AA;
+                color: #4B61AA;
             }
         }
 
@@ -156,7 +156,7 @@ export const reset = css`
 
     .confirmButton {
         color: #ffffff;
-        background-color: #2E5984;
+        background-color: #4B61AA;
     }
 
     @keyframes userModalOpen {

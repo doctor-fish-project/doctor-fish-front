@@ -104,11 +104,11 @@ export const buttonBox = css`
         border-radius: 5px;
         width: 100%;
         height: 100%;
-        background-color: #2E5984;
+        background-color: #4B61AA;
         color: white;
 
         :hover {
-            background-color: #234566;
+            background-color: #234466a9;
         }
 
         :active {

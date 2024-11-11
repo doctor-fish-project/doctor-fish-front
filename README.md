@@ -1,3 +1,5 @@
+<img src="https://github.com/user-attachments/assets/a01db6f4-38cb-4f72-b7f6-92fb14d0fc60" />
+
 # 🔖 목차
 
 > ## [✨ Doctor-Fish 프로젝트 소개](#-프로젝트-소개-notion)
@@ -15,6 +17,8 @@
 > ## [🔍 브랜치 전략](#-브랜치-전략-1)
 >
 > ## [✔ 컨벤션](#-컨벤션-1)
+>
+> ## [✨ 화면 구현 및 코드 리뷰](#-화면-구현-및-코드-리뷰-1)
 
 <br/>
 <br/>
@@ -70,44 +74,7 @@
 <br/>
 <br/>
 
-## 👥 팀원 소개
-
-<div align="center">
-<img src="https://github.com/user-attachments/assets/a01db6f4-38cb-4f72-b7f6-92fb14d0fc60" />
-<table >
-    <thead>
-        <tr>
-            <th align="center"><span>백승주(팀장)</span></th>
-            <th align="center"><span>성창해</span></th>
-            <th align="center"><span>김해민</span></th>
-            <th align="center"><span>김지현</span></th>
-        </tr>
-    </thead>
-    <tbody>
-        <td align="center">
-            <a href="">
-            </a>
-        </td>
-        <td align="center">
-            <a href="">
-            </a>
-        </td>
-        <td align="center">
-            <a href="">
-            </a>
-        </td>
-        <td align="center">
-            <a href="">
-            </a>
-        </td>
-    </tbody>
-</table>
-</div>
-
-<br/>
-<br/>
-
-## 💼 역할 분담
+## 👥 팀원 소개 및 역할 분담
 
 >  **팀장: 백승주**
 -  사용자 페이지 CSS
@@ -400,7 +367,7 @@
 
 ## **✨ 화면 구현 및 코드 리뷰**
 
-### 사용자 코드 리뷰
+### :smile: 사용자 코드 리뷰
 
 <div align="center" dir="auto">
     <img src="https://github.com/user-attachments/assets/55ab7c1a-b2ae-4c2b-8477-0efa81d11633" align="center" width="100%"/>
@@ -463,7 +430,7 @@
     <b>공지사항 확인</b>
 </div>
 
-### 관리자 코드 리뷰
+### :lock: 관리자 코드 리뷰
 
 <div align="center" dir="auto">
     <img src="https://github.com/user-attachments/assets/b1fea71e-463d-4bb1-9471-5de23085fdaf" align="center" width="100%"/>

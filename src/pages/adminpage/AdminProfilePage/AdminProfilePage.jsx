@@ -75,6 +75,7 @@ function AdminProfilePage(props) {
 
     const handleCancelOnClick = () => {
         setEditState(false)
+        window.location.reload();
     }
 
     const modifyUserInfoOnChange = (e) => {

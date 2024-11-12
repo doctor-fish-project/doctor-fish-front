@@ -37,7 +37,7 @@ function AdminNoticePage(props) {
                 page: 1
             }))
         }
-    }, [searchParams])``
+    }, [searchParams])
 
     const noticeTableHeader = useQuery(
         ["noticeTalbeHeaderQuery"],

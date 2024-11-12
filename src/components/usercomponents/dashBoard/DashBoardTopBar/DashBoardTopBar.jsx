@@ -13,12 +13,12 @@ function DashBoardTopBar({ title, icon, onClick, toggleState, isLatest, latestOn
     const queryClient = useQueryClient();
     const authState = queryClient.getQueryState("accessTokenValidQuery")
     const alarmState  = useRecoilValue(alarmStateAtom);
-    console.log(authState)
+
     return (
         <div css={s.layout}>
             <p>{title}</p>
             {
-                location.pathname === "/dashboard" ?
+                (location.pathname === "/dashboard" && !!authState?.data?.data) ? 
                     <div css={s.dashboardIconBox(alarmState)} onClick={onClick}>
                         {icon}
                     </div> :

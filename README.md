@@ -1,3 +1,7 @@
+<div align="center">
+<img src="https://github.com/user-attachments/assets/a01db6f4-38cb-4f72-b7f6-92fb14d0fc60" />
+</div>
+
 # 🔖 목차
 
 > ## [✨ Doctor-Fish 프로젝트 소개](#-프로젝트-소개-notion)
@@ -15,6 +19,8 @@
 > ## [🔍 브랜치 전략](#-브랜치-전략-1)
 >
 > ## [✔ 컨벤션](#-컨벤션-1)
+>
+> ## [✨ 화면 구현 및 코드 리뷰](#-화면-구현-및-코드-리뷰-1)
 
 <br/>
 <br/>
@@ -70,44 +76,7 @@
 <br/>
 <br/>
 
-## 👥 팀원 소개
-
-<div align="center">
-<img src="https://github.com/user-attachments/assets/a01db6f4-38cb-4f72-b7f6-92fb14d0fc60" />
-<table >
-    <thead>
-        <tr>
-            <th align="center"><span>백승주(팀장)</span></th>
-            <th align="center"><span>성창해</span></th>
-            <th align="center"><span>김해민</span></th>
-            <th align="center"><span>김지현</span></th>
-        </tr>
-    </thead>
-    <tbody>
-        <td align="center">
-            <a href="">
-            </a>
-        </td>
-        <td align="center">
-            <a href="">
-            </a>
-        </td>
-        <td align="center">
-            <a href="">
-            </a>
-        </td>
-        <td align="center">
-            <a href="">
-            </a>
-        </td>
-    </tbody>
-</table>
-</div>
-
-<br/>
-<br/>
-
-## 💼 역할 분담
+## 👥 팀원 소개 및 역할 분담
 
 >  **팀장: 백승주**
 -  사용자 페이지 CSS
@@ -127,7 +96,6 @@
 
 >  **팀원: 김지현**
 - 공지사항 CRUD 기능 구현
-- 백엔드 예약,조회 기능 수정
 - 백엔드 의사 삭제 기능 구현
 - 백엔드 예약 정보 수정 기능 구현
 - 백엔드 공지사항 조회 수정 기능 구현
@@ -158,7 +126,12 @@
 <img src="https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white"> 
 <img src="https://img.shields.io/badge/SpringBoot-6DB33F?style=for-the-badge&logo=SpringBoot&logoColor=white">
 <img src="https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white">
-<img src="https://img.shields.io/badge/firebase-a08021?style=for-the-badge&logo=firebase&logoColor=ffcd34">
+</p>
+
+### DataBase
+<p>
+    <img src="https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=MySQL&logoColor=white"/>
+    <img src="https://img.shields.io/badge/firebase-a08021?style=for-the-badge&logo=firebase&logoColor=ffcd34">
 </p>
 
 ### SCM & Deployment
@@ -242,8 +215,20 @@
 ![관리자API명세서](https://github.com/user-attachments/assets/95dfb748-d030-4609-ade0-bddc4bdecbed)
 
 ### 📐 ERD 설계도
-![ERD](https://github.com/user-attachments/assets/0786033a-a37f-43fd-8a73-47b041db8ffa)
+![ERD](https://github.com/user-attachments/assets/f8814789-2e6a-476c-8379-6f163ec62673)
 
+<br/>
+<br/>
+
+## 📋 메뉴 구조도
+
+### 🧑‍🤝‍🧑 사용자 메뉴 구조도
+
+![사용자 메뉴 구조도](https://github.com/user-attachments/assets/0cf0a537-e9b4-412a-aef1-4f65aaca2c48)
+
+### 👷‍♂️ 관리자 메뉴 구조도
+
+![관리자 메뉴 구조도](https://github.com/user-attachments/assets/f4c6783a-587a-4953-af9c-80aa5da54487)
 
 ## 🤝 협업 방식
 
@@ -400,7 +385,7 @@
 
 ## **✨ 화면 구현 및 코드 리뷰**
 
-### 사용자 코드 리뷰
+### :smile: 사용자 코드 리뷰
 
 <div align="center" dir="auto">
     <img src="https://github.com/user-attachments/assets/55ab7c1a-b2ae-4c2b-8477-0efa81d11633" align="center" width="100%"/>
@@ -463,7 +448,7 @@
     <b>공지사항 확인</b>
 </div>
 
-### 관리자 코드 리뷰
+### :lock: 관리자 코드 리뷰
 
 <div align="center" dir="auto">
     <img src="https://github.com/user-attachments/assets/b1fea71e-463d-4bb1-9471-5de23085fdaf" align="center" width="100%"/>
@@ -511,3 +496,22 @@
     <img src="https://github.com/user-attachments/assets/0ed5c6af-c800-4294-8f22-36ef3191fd4c" align="center" width="100%"/>
     <b>공지사항</b>
 </div>
+
+## 💡 느낀점
+### 백승주
+
+---
+
+### 성창해
+- 웹 프로젝트를 진행하며 프론트엔드와 백엔드 간의 연결과 상호작용에 대해 깊이 고민하게 되었습니다. 프론트엔드에서 데이터를 효율적으로 처리하고 표현하기 위해 쿼리 최적화 방법을 모색했고, 백엔드 요청을 간소화할 방안도 탐색했습니다. 예를 들어, 예약 기능에서 예약된 시간에 대해 필터링이 필요했을 때, 처음에는 여러 번의 요청을 보내 데이터를 받아와야 하나 생각했지만, 최적화된 쿼리로 한 번에 데이터를 가져오는 것이 훨씬 효율적이라는 점을 깨닫고 쿼리에 대해 깊이 공부하여 결국 해당 기능을 성공적으로 구현했습니다.
+다만, 이러한 부가 기능을 조금 더 빨리 인지했다면 프론트엔드와 백엔드에서 코드 최적화를 통해 상태 관리나 요청을 더 효율적으로 구현할 수 있었을 것이라는 아쉬움이 있습니다. 결국 해당 기능을 구현했지만, 앞으로는 기능 설계와 구현 초기에 이런 부분을 더욱 면밀히 고려할 중요한 교훈으로 삼게 될 것입니다.
+또한, 기술적인 고민뿐만 아니라 팀원들 간의 소통의 중요성도 다시 한번 느꼈습니다. 요청 방식과 DTO의 변수, 받아올 데이터의 형태에 대해 충분히 공유하고 진행했음에도 불구하고, 각자의 코드 스타일이 달라 예상치 못한 오류가 발생하기도 했습니다. 이를 통해 단순한 정보 공유만으로는 부족할 수 있으며, 세부적인 코드 스타일이나 작성 방식까지 조율하는 것이 원활한 협업과 프로젝트 성공에 필수적임을 깨달았습니다.
+---
+
+### 김해민
+- 이번 프로젝트를 진행할 때 조금 더 자신 있었던 백엔드 위주로 했으나 진행 과정에서 실수도 많이 하고 잘 모르는 부분도 있어서 제가 많이 부족하다는 것을 알게 되었습니다. 그래서 백이든 프론트든 모르는 부분이 나올 때는 찾아보고 수업 때 작성한 코드를 참고하였고 특히 수업 때 제대로 이해하지 못했던 security 부분도 혼자서 다시 보면서 실제로 적용해 보니 이해가 되었습니다. 이런 식으로 계속 진행하다 보니 프로젝트를 완성할 수 있었고 프로젝트를 하기 전과 후 실력이 발전했다는 것을 느꼈습니다. 그리고 프로젝트를 진행하면서 코드를 작성할 때마다 프로젝트와 이슈, 브랜치를 만들어서 진행해야 한다는 것이 처음에는 한 번씩 잊어버리기도 했지만 나중에는 점점 익숙해지게 되었고 코드를 올렸을 때 충돌이 났을 때 해결하는 법도 알게 되었습니다. 이렇게 이번 프로젝트를 하면서 팀 프로젝트를 할 때 발생할 수 있는 상황들을 겪고 해결해 볼 수 있어서 좋았습니다.
+---
+
+### 김지현
+- 이번 프로젝트를 진행하면서 그동안 배웠던 백엔드 개념, mvc 패턴 같은 개념들을 머릿속으로 한 번 더 정리 할 수 있었고 수업을 듣는 동안 유독 어려웠던 service 부분을 프로젝트 진행을 통해서 제 것으로 만들 수 있었습니다. 그리고 팀원들과 소통하면서 프로젝트를 본격적으로 진행해 본 것은 처음이었는데 혼자서 하는 것보다 4명에서 함께 하는 것이 저한테는 생각보다 순조롭게 진행되어서 그런지 팀원들과의 특별한 마찰이나 갈등은 없었지만 어쨌든 팀워크가 중요했기에 저에게 주어진 역할에 대한 중압감과 책임감을 가지고 최대한 팀에 도움이 되기 위해서 오히려 더 열심히 공부 할 수 있는 계기가 되었습니다.
+---

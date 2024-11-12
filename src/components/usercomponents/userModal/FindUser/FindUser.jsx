@@ -18,9 +18,12 @@ function FindUser({ containerRef }) {
     const [ani, setAni] = useState("userModalOpen")
     const [checkStatus, setCheckStatus] = useState(false);
     const [userInput, setUserInput] = useState({
+        userId: 0,
         email: "",
         name: ""
     })
+
+    console.log(userInput.email)
 
     const findUser = useMutation(
         async () => await instance.post("/auth/check", userInput),
@@ -36,6 +39,10 @@ function FindUser({ containerRef }) {
                         popup: 'custom-timer-swal',
                         container: 'container'
                     }
+                })
+                setUserInput({
+                    ...userInput,
+                    userId: response?.data
                 })
                 setCheckStatus(true);
             },
@@ -71,12 +78,7 @@ function FindUser({ containerRef }) {
 
     const resetPasswordStatus = useQuery(
         ["ResetPasswordStatusQuery"],
-        async () => await instance.get("/auth/password/status", {
-            params: {
-                'email': userInput.email,
-                'name': userInput.name
-            }
-        }),
+        async () => await instance.get(`/auth/change/password/${userInput.userId}`),
         {
             enabled: checkStatus,
             refetchOnWindowFocus: false,

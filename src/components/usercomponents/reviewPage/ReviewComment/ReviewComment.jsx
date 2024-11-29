@@ -28,9 +28,9 @@ function ReviewComment({ comment, userInfo, onDeleteOnClick, onEditOnClick }) {
                         {
                             location.pathname !== "/dashboard/myprofile/mycomments" 
                             ?
-                            (userInfo?.id === comment?.userId || userInfo?.id === comment?.user?.id || userInfo?.roles?.some(role => [2, 3, 4].includes(role.id))) &&
+                            (!!userInfo && (userInfo?.id === comment?.userId || userInfo?.id === comment?.user?.id || userInfo?.roles?.some(role => [2, 3, 4].includes(role.id)))) ?
                             <div css={s.buttonContainer}>
-                                    <SlOptions onClick={handleChangeToggleStateOnClick} />
+                                <SlOptions onClick={handleChangeToggleStateOnClick} />
                                 {
                                     <div css={s.buttonBox(toggleState)}>
                                         <div>
@@ -39,7 +39,7 @@ function ReviewComment({ comment, userInfo, onDeleteOnClick, onEditOnClick }) {
                                         </div>
                                     </div>
                                 }
-                            </div>
+                            </div> : <></>
                             :
                             <></>
                         }

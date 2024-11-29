@@ -33,7 +33,6 @@ function DashBoard(props) {
     const [alarmsId, setAlarmsId] = useState([]);
     const [index, setIndex] = useState(0);
 
-    console.log(authState)
     const alarms = useQuery(
         ["alarmsQuery"],
         async () => {
@@ -106,7 +105,7 @@ function DashBoard(props) {
         Swal.fire({
             icon: 'info',
             title: '서비스 준비 중',
-            backdrop: false,
+            backdrop: true,
             showCancelButton: true,
             confirmButtonText: '확인',
             cancelButtonText: '취소',

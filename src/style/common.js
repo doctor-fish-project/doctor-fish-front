@@ -12,6 +12,10 @@ export const reset = css`
         width: 100%;
         height: 100%;
     }
+
+    body.swal2-height-auto {
+        height: 100% !important;
+    }
     
     h1, h2, h3, ul, p {
         margin: 0;
@@ -54,7 +58,7 @@ export const reset = css`
         display: flex;
         justify-content: center;
         align-items: center;
-        margin: 0px auto;
+        margin: auto;
         border: none;
         border-radius: 40px;
         padding: 0px;

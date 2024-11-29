@@ -20,7 +20,7 @@ function AdminDashBoard(props) {
                 <AdminMonthAndDoctorReservationGraphsBox />
                 <AdminNoticeBox />
                 {
-                    userInfo?.data?.roles[0]?.id !== 4 ?
+                    (userInfo?.status === 200 && userInfo?.data?.roles[0]?.id !== 4) ?
                     <>
                         <AdminReservationTodayBox />
                         <AdminReservationAllBox />

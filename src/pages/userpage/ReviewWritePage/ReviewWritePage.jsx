@@ -137,7 +137,7 @@ function ReviewWritePage({ reservation }) {
         Swal.fire({
             icon: 'question',
             text: '사진을 추가하시겠습니까?',
-            backdrop: false,
+            backdrop: true,
             showCancelButton: true,
             confirmButtonText: '확인',
             cancelButtonText: '취소',
@@ -160,7 +160,7 @@ function ReviewWritePage({ reservation }) {
                         Swal.fire({
                             icon: 'warning',
                             text: '사진은 4장까지 업로드 가능합니다.',
-                            backdrop: false,
+                            backdrop: true,
                             timer: 1000,
                             showConfirmButton: false,
                             customClass: {

@@ -15,7 +15,7 @@ function AdminNoticeWrite({ containerRef }) {
 
     const [noticeWriteOpen, setNoticeWriteOpen] = useRecoilState(adminNoticeWriteModalAtom);
 
-    const [ noticeInput, setNoticeInput ] = useState({
+    const [noticeInput, setNoticeInput] = useState({
         title: "",
         content: ""
     })
@@ -31,14 +31,14 @@ function AdminNoticeWrite({ containerRef }) {
             onError: error => {
                 const fieldErrors = error.response.data;
 
-                for(let fieldError of fieldErrors) {
-                    if(fieldError.field === "title") {
+                for (let fieldError of fieldErrors) {
+                    if (fieldError.field === "title") {
                         alert(fieldError.defaultMessage);
                         return;
                     }
                 }
-                for(let fieldError of fieldErrors) {
-                    if(fieldError.field === "content") {
+                for (let fieldError of fieldErrors) {
+                    if (fieldError.field === "content") {
                         alert(fieldError.defaultMessage);
                         return;
                     }
@@ -49,16 +49,20 @@ function AdminNoticeWrite({ containerRef }) {
 
     const closeModal = () => {
         setNoticeWriteOpen(false)
+        setNoticeInput({
+            title: "",
+            content: ""
+        })
     }
 
     const handleWriteButtonOnClick = async () => {
-        writeNotice.mutateAsync().catch(() => {});
+        writeNotice.mutateAsync().catch(() => { });
     }
 
     const handleTitleOnChange = (e) => {
         setNoticeInput(noticeInput => ({
             ...noticeInput,
-            title: e.target.value.trim() === "" ? "" : e.target.value 
+            title: e.target.value.trim() === "" ? "" : e.target.value
         }));
     }
 

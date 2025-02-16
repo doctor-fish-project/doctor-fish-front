@@ -59,7 +59,7 @@
     >  공지사항
 
     >  설정(준비중)
-
+<br/>
 -  사용자 로그인 & 회원가입
 -  사용자 메뉴
 
@@ -80,21 +80,29 @@
 
 ## 👥 팀원 소개 및 역할 분담
 
->  **팀장: 백승주**
+>  **팀장: 성창해**
+- 프론트 사용자 페이지 api 기능 추가
+- 프론트 관리자 페이지 api 기능 추가
+- 백엔드 연차 기능 구현
+- 백엔드 예약 기능 구현
+- 백엔드 알람 기능 구현
+  
+<br/>
+
+>  **팀원: 백승주**
 -  사용자 페이지 CSS
 -  관리자 페이지 CSS
 -  ppt 제작
--  최종 발표
-
->  **팀원: 성창해**
-- 사용자 페이지 api 기능 추가
-- 관리자 페이지 api 기능 추가
+  
+<br/>
 
 >  **팀원: 김해민**
 - 백엔드 로그인, 회원가입 기능 구현
 - 백엔드 전반적인 CRUD 기능 구현
 - 검색 기능
 - ERD 작성
+  
+<br/>
 
 >  **팀원: 김지현**
 - 공지사항 CRUD 기능 구현
@@ -102,6 +110,8 @@
 - 백엔드 예약 정보 수정 기능 구현
 - 백엔드 공지사항 조회 수정 기능 구현
 - 백엔드 관리자 리뷰 단건 조회, 관리자 본인 정보 조회, 유저 리뷰 단건 조회 기능 구현
+
+<br/>
 
 >  **공동작업**
 -  API명세서 작성
@@ -127,16 +137,12 @@
 <p>
 <img src="https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white"> 
 <img src="https://img.shields.io/badge/SpringBoot-6DB33F?style=for-the-badge&logo=SpringBoot&logoColor=white">
+<img src="https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white">
 </p>
 
 ### DataBase
 <p>
     <img src="https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=MySQL&logoColor=white"/>
-</p>
-
-### Cloud Service
-<p>
-    <img src="https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white">
     <img src="https://img.shields.io/badge/firebase-a08021?style=for-the-badge&logo=firebase&logoColor=ffcd34">
 </p>
 
